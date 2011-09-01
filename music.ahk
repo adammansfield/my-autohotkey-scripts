@@ -48,7 +48,7 @@ edit_meta_data() {
 
 #IfWinActive MediaMonkey			
 	<!m:: edit_meta_data()					
-	<!f:: Send, {Click 1552, 34}{Home}+{End}{BS}	; quick search
+	/:: Send, {Click 1237, 34}{End}+{Home}{BS}	; quick search
 
 #IfWinActive Enter Custom Metadata
 	;BPM
