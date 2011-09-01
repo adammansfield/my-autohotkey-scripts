@@ -11,6 +11,10 @@ CapsLock::
 		SetCapsLockState, on
 	Return
 
+; Windows remap
+LWin:: Return
+^LWin:: Send, {LWin}
+
 ; Mac-Like Clipboard Commands
 $#;:: Send ^z			 
 $#q:: Send ^x			
@@ -65,3 +69,57 @@ $#k:: Send ^v
 	CapsLock:: Send !v{Down 9}{Right}{Down 4}{Enter}!v{Down 10}{Right}{Down 2}{Enter}
 
 #IfWinActive
+
+; ============================================================================
+; Force correct use of shift with dvorak keyboard
+; ============================================================================
+<+`::
+<+1::
+<+2::
+<+3::
+<+4::
+<+5::
+<+6::
+<+'::
+<+,::
+<+.::
+<+p::
+<+y::
+<+a::
+<+o::
+<+e::
+<+u::
+<+i::
+<+;::
+<+q::
+<+j::
+<+k::
+<+x::
+
+>+7::
+>+8::
+>+9::
+>+0::
+>+[::
+>+]::
+>+f::
+>+g::
+>+c::
+>+r::
+>+l::
+>+/::
+>+=::
+>+\::
+>+d::
+>+h::
+>+t::
+>+n::
+>+s::
+>+-::
+>+b::
+>+m::
+>+w::
+>+v::
+>+z::
+
+return
