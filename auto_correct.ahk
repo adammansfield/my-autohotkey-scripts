@@ -1,3 +1,8 @@
+;-----------------------------------------------------------------------------
+; Initial release by Jim Biancolo (http://www.biancolo.com)
+; Slight modifications made by Adam Mansfield (http://adammansfield.org)
+;-----------------------------------------------------------------------------
+
 #If !WinActive("Eclipse") && !WinActive("Editor") && !WinActive("Microsoft Visual")
 
 { ; Fix for -ign instead of -ing
