@@ -24,12 +24,10 @@ $#k:: Send ^v
 ^#Left:: Media_Prev
 
 ; Autohotkey Editing
-#!a:: ahk_editor()
 ^!r:: 
 	Send, ^s
 	Reload
 	Return
-^!;:: ahk_test()
 
 ; Cygwin
 !Space:: WinActivate bash
@@ -42,11 +40,19 @@ $#k:: Send ^v
 	CapsLock:: Send, {ESC}
 
 #IfWinActive Mozilla Firefox
-	~RButton:: Firefox_OpenNewTab()
+	~RButton:: 
+		If (A_PriorHotKey = A_ThisHotKey and A_TimeSincePriorHotkey < 500) {
+			Sleep, 200
+			SendInput, t
+		}
 	CapsLock:: Send, {ESC}
 
 #IfWinActive ahk_class Chrome_WidgetWin_0
-	~RButton:: Firefox_OpenNewTab() 
+	~RButton:: 
+		If (A_PriorHotKey = A_ThisHotKey and A_TimeSincePriorHotkey < 500) {
+			Sleep, 200
+			SendInput, t
+		}
 	CapsLock:: Send, {ESC}
 
 #IfWinActive ahk_class SciTEWindow	
