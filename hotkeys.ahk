@@ -23,14 +23,11 @@ $#k:: Send ^v
 ^#Right:: Media_Next
 ^#Left:: Media_Prev
 
-; Autohotkey Editing
-^!r:: 
-	Send, ^s
-	Reload
-	Return
+; Autohotkey 
+^!r:: Reload
 
 ; Cygwin
-!Space:: WinActivate bash
+>!Space:: WinActivate bash
 
 
 ; ============================================================================
