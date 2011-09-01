@@ -11,15 +11,11 @@ CapsLock::
 		SetCapsLockState, on
 	Return
 
-; Windows remap
-LWin:: Return
-^LWin:: Send, {LWin}
-
-; Mac-Like Clipboard Commands
-$#;:: Send ^z			 
-$#q:: Send ^x			
-$#j:: Send ^c		
-$#k:: Send ^v			
+; Custom undo, cut, copy, paste
+$^+;:: Send ^z			 
+$^+q:: Send ^x			
+$^+j:: Send ^c		
+$^+k:: Send ^v			
 
 ; Music
 #Up:: Send {Volume_Up}
