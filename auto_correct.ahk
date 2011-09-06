@@ -3,7 +3,7 @@
 ; Slight modifications made by Adam Mansfield (http://adammansfield.org)
 ;-----------------------------------------------------------------------------
 
-#If !WinActive("Eclipse") && !WinActive("Editor") && !WinActive("Microsoft Visual")
+#If !WinActive("Eclipse") && !WinActive("Bash") && !WinActive("Editor") && !WinActive("Microsoft Visual")
 
 { ; Fix for -ign instead of -ing
 	#Hotstring B0  
