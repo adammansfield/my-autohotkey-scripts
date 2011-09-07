@@ -5,7 +5,7 @@
 CapsLock::
 	Return
 +CapsLock:: 
-	If (GetKeyState("Capslock", "T") = "D")
+	If (GetKeyState("Capslock", "T"))
 		SetCapsLockState, off
 	Else 
 		SetCapsLockState, on
