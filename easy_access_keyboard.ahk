@@ -10,9 +10,10 @@ mode := 0
 >!e:: Send {Down}   ; j
 >!o:: Send {Left}   ; h
 >!u:: Send {Right}  ; l
+>!':: Send {Home}   ; $
 >!0:: Send {Home}   ; 0
->!a:: Send {End}    ; a
 >!+4:: Send {End}   ; $
+>!a:: Send {End}    ; a
 >!h:: Send ^{Left}  ; b
 >!n:: Send ^{Right} ; e
 
@@ -26,8 +27,10 @@ mode := 0
 >!e:: Send +{Down}  ; j
 >!o:: Send +{Left}  ; h
 >!u:: Send +{Right} ; l
->!+4:: Send +{Home} ; $
->!0:: Send +{End}   ; 0
+>!':: Send +{Home}  ; $
+>!0:: Send +{Home}  ; 0
+>!+4:: Send +{End}  ; $
+>!a:: Send +{End}   ; a
 
 Escape:: 
   visual_mode := false
@@ -55,7 +58,7 @@ Escape::
     mode := normal_mode
   return
 >!c::
-  Send ^c  
+  Send ^c{Left}
   if (mode == visual_mode)
     mode := normal_mode
   return
