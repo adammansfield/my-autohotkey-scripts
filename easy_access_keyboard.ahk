@@ -1,27 +1,74 @@
-; The comments correspond to the similar vim action 
+normal_mode := 0
+visual_mode := 1
+mode := 0
 
-; Movement
->!.:: SendInput {Up}		; k
->!e:: SendInput {Down}		; j
->!o:: SendInput {Left}		; h
->!u:: SendInput {Right}		; l
->!':: SendInput {Home}		; 0
->!a:: SendInput {End}		; $
->!h:: SendInput ^{Left}		; b
->!n:: SendInput ^{Right}	; e
 
-; Highlighting
->!+.:: SendInput +{Up}		
->!+e:: SendInput +{Down}
->!+o:: SendInput +{Left}
->!+u:: SendInput +{Right}
->!+':: SendInput +{Home}
->!+a:: SendInput +{End}
+#If mode == normal_mode
 
-; Cut and Paste
->!c:: SendInput ^c			; y 
->!t:: SendInput ^v 			; p
+; movement
+>!.:: Send {Up}     ; k
+>!e:: Send {Down}   ; j
+>!o:: Send {Left}   ; h
+>!u:: Send {Right}  ; l
+>!0:: Send {Home}   ; 0
+>!a:: Send {End}    ; a
+>!+4:: Send {End}   ; $
+>!h:: Send ^{Left}  ; b
+>!n:: Send ^{Right} ; e
 
-; Editing
->!,:: SendInput {BS}		; x
->!p:: SendInput {Delete}	
+; alignment
+>!Space:: Send {Space}
+>!Enter:: Send {Enter}
+
+
+#If mode == visual_mode
+>!.:: Send +{Up}    ; k
+>!e:: Send +{Down}  ; j
+>!o:: Send +{Left}  ; h
+>!u:: Send +{Right} ; l
+>!+4:: Send +{Home} ; $
+>!0:: Send +{End}   ; 0
+
+Escape:: 
+  visual_mode := false
+  normal_mode := true
+  Send {Left}
+  return
+
+#If
+
+
+; editing
+>!,::
+  Send {BS}
+  if (mode == visual_mode)
+    mode := normal_mode
+  return
+>!p:: 
+  Send {Delete}	
+  if (mode == visual_mode)
+    mode := normal_mode
+  return
+>!d:: 
+  Send ^x
+  if (mode == visual_mode)
+    mode := normal_mode
+  return
+>!c::
+  Send ^c  
+  if (mode == visual_mode)
+    mode := normal_mode
+  return
+>!t::
+  Send ^v  
+  if (mode == visual_mode)
+    mode := normal_mode
+  return
+
+; visual
+>!v:: 
+  if (mode == visual_mode)
+    Send {Left}
+  mode := (mode == normal_mode) ? visual_mode : normal_mode
+  return
+  
