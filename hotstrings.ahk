@@ -1,16 +1,25 @@
 ; ============================================================================
 ; Global
 ; ============================================================================
-::bl::{AltDown}{Numpad7}{AltUp} 
+; internet slang
 ::btw::by the way
 ::brb::be right back
-::deg::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}	
 
+; brackets
+:*?c:cbr::{{}{}}{Left}
+:*?c:rbr::(){Left}
+:*?c:sbr::[]{Left}
+
+; symbols
+::bl::{AltDown}{Numpad7}{AltUp} 
+
+; semi-colon ending
+:*?c:deg`;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}	
 
 ; ============================================================================
 ; Context-Specific
 ; ============================================================================
-#IfWinActive Pidgin
+#If WinActive("Pidgin")
 	::comp::computer
 	::tn::tonight
 	::tom::tomorrow
@@ -22,4 +31,4 @@
 	::fri::Friday
 	::satu::Saturday
 	::sund::Sunday
-#IfWinActive
+#If
