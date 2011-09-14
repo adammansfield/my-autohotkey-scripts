@@ -19,7 +19,7 @@
 ; ============================================================================
 ; Context-Specific
 ; ============================================================================
-#If WinActive("Pidgin")
+#If WinActive("ahk_class gdkWindowToplevel")
 	::comp::computer
 	::tn::tonight
 	::tom::tomorrow
