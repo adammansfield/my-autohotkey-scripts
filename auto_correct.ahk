@@ -2272,8 +2272,6 @@
 	::hypocrit::hypocrite
 	::hypocrits::hypocrites
 	:c:i::I
-	::id::I'd
-	::i;d::I'd
 	::i"m::I'm
 	::iconclastic::iconoclastic
 	::idae::idea
