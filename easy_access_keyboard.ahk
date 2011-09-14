@@ -14,8 +14,8 @@ mode := 0
 >!0:: Send {Home}   ; 0
 >!+4:: Send {End}   ; $
 >!a:: Send {End}    ; a
->!h:: Send ^{Left}  ; b
->!n:: Send ^{Right} ; e
+>!b:: Send ^{Left}  ; b
+>!w:: Send ^{Right} ; e
 
 ; alignment
 >!Space:: Send {Space}
