@@ -23,14 +23,16 @@ mode := 0
 
 
 #If mode == visual_mode
->!.:: Send +{Up}    ; k
->!e:: Send +{Down}  ; j
->!o:: Send +{Left}  ; h
->!u:: Send +{Right} ; l
->!':: Send +{Home}  ; $
->!0:: Send +{Home}  ; 0
->!+4:: Send +{End}  ; $
->!a:: Send +{End}   ; a
+>!.:: Send +{Up}     ; k
+>!e:: Send +{Down}   ; j
+>!o:: Send +{Left}   ; h
+>!u:: Send +{Right}  ; l
+>!':: Send +{Home}   ; $
+>!0:: Send +{Home}   ; 0
+>!+4:: Send +{End}   ; $
+>!a:: Send +{End}    ; a
+>!b:: Send +^{Left}  ; b
+>!w:: Send +^{Right} ; e
 
 Escape:: 
   visual_mode := false
