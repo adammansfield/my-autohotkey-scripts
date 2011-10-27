@@ -21,7 +21,6 @@ mode := 0
 >!Space:: Send {Space}
 >!Enter:: Send {Enter}
 
-
 #If mode == visual_mode
 >!.:: Send +{Up}     ; k
 >!e:: Send +{Down}   ; j
@@ -44,6 +43,8 @@ Escape::
 
 
 ; editing
+>!Tab:: Send {Tab}
+>!+Tab:: Send +{Tab}
 >!,::
   Send {BS}
   if (mode == visual_mode)
