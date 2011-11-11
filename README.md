@@ -2,7 +2,7 @@ My AutoHotkey Scripts
 =====================
 
 This is my personal collection of AutoHotkey scripts. I have written most of
-the code except [AutoCorrect.ahk](http://www.autohotkey.com/download/AutoCorrect.ahk), by [Jim Biancolo](http://www.biancolo.com), which is modified by me.
+the code except [AutoCorrect.ahk](http://www.autohotkey.com/download/AutoCorrect.ahk) (by [Jim Biancolo](http://www.biancolo.com)), which is modified by me.
 
 Scripts
 -------
