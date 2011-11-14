@@ -64,7 +64,8 @@ send_and_set_mode_to_normal(command) {
 
 ; Control-Z-X-C-V
 ;----------------
-$^!;:: send ^z			  
-$^!q:: send ^x			
-$^!j:: send ^c		
-$^!k:: send ^v	
+$^+;:: send ^z			  
+$^+q:: send ^x			
+$^+j:: send ^c		
+$^+k:: send ^v	
+
