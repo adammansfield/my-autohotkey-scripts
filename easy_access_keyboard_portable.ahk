@@ -66,8 +66,9 @@ send_and_set_mode_to_normal(command) {
 	mode := MODE_NORMAL
 }
 
-; Control-Z-X-C-V
-;----------------
+; Remap special keys
+;-------------------
+Capslock:: Escape
 ^!;:: send ^z			  
 ^!q:: send ^x			
 ^!j:: send ^c		
