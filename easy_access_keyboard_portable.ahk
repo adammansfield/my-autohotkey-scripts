@@ -69,10 +69,10 @@ send_and_set_mode_to_normal(command) {
 ; Remap special keys
 ;-------------------
 Capslock:: Escape
-^!;:: send ^z			  
-^!q:: send ^x			
-^!j:: send ^c		
-^!k:: send ^v		
+$^+z:: send ^z			  
+$^+x:: send ^x			
+$^+c:: send ^c		
+$^+v:: send ^v	
 
 ; Key conversion
 ; --------------
