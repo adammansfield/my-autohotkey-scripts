@@ -81,7 +81,6 @@
 	:*:critiz::criticiz
 	:*:desicant::desiccant
 	:*:desicat::desiccat
-	:*:develope::develop
 	:*:dissapoint::disappoint
 	:*:divsion::division
 	:*:dcument::document
