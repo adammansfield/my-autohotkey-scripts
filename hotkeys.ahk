@@ -1,6 +1,5 @@
-; ============================================================================
 ; Global
-; ============================================================================
+; ======
 ; Capslock remap
 CapsLock::
 	return
@@ -20,9 +19,29 @@ CapsLock::
 ; Autohotkey 
 ^!r:: reload
 
-; Cygwin
-^Space:: WinActivate bash
+FileWrite(String = "", Filename="") {
+    FileAppend, %String%, %Filename%
+    }
 
+
+; Cygwin
+F12:: 
+    if (WinActive("bash"))
+    {
+		WinMinimize
+        WinActivate %previous_window%
+    }
+    else
+    {
+        WinGetActiveTitle previous_window
+	    if (!WinExist("bash"))
+        {
+		    Run, %_cygwin_location%\rxvt.exe -sr --geometry 79x50 -e ./bash --login, %_cygwin_location%
+        }
+        WinWait, bash,, 5
+		WinActivate bash
+    }
+	return
 
 ; ============================================================================
 ; Contextual

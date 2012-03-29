@@ -66,12 +66,13 @@ send_and_set_mode_to_normal(command) {
 	mode := MODE_NORMAL
 }
 
-; Control-Z-X-C-V
-;----------------
-^!;:: send ^z			  
-^!q:: send ^x			
-^!j:: send ^c		
-^!k:: send ^v		
+; Remap special keys
+;-------------------
+Capslock:: Escape
+$^+z:: send ^z			  
+$^+x:: send ^x			
+$^+c:: send ^c		
+$^+v:: send ^v	
 
 ; Key conversion
 ; --------------
