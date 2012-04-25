@@ -10,4 +10,3 @@ SetTitleMatchMode 2  ; partial match of wintitle
 #Include hotkeys.ahk
 #Include hotstrings.ahk
 #Include music.ahk
-#Include habit_tracker.ahk
