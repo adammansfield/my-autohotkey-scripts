@@ -19,4 +19,3 @@ _mode := 0
 #Include hotkeys.ahk
 #Include hotstrings.ahk
 #Include music.ahk
-#Include habit_tracker.ahk

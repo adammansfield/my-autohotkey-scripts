@@ -36,7 +36,7 @@ F12::
         WinGetActiveTitle previous_window
 	    if (!WinExist("bash"))
         {
-		    Run, %_cygwin_location%\rxvt.exe -sr --geometry 79x50 -e ./bash --login, %_cygwin_location%
+		    Run, %_cygwin_location%\rxvt.exe -sr --geometry 79x50 -e "./bash" --login, %_cygwin_location%
         }
         WinWait, bash,, 5
 		WinActivate bash
