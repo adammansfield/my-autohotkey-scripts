@@ -26,7 +26,7 @@ FileWrite(String = "", Filename="") {
 
 ; Cygwin
 F12:: 
-    if (WinActive("bash"))
+    if (WinActive(_cygwin_windowname))
     {
 		WinMinimize
         WinActivate %previous_window%
@@ -34,12 +34,12 @@ F12::
     else
     {
         WinGetActiveTitle previous_window
-	    if (!WinExist("bash"))
+	    if (!WinExist(_cygwin_windowname))
         {
 		    Run, %_cygwin_location%\rxvt.exe -sr --geometry 79x50 -e "./bash" --login, %_cygwin_location%
         }
-        WinWait, bash,, 5
-		WinActivate bash
+        WinWait, %_cygwin_windowname%,, 5
+		WinActivate %_cygwin_windowname%
     }
 	return
 
