@@ -21,7 +21,7 @@ mode := 0
 ; Includes
 ; --------
 #Include auto_correct.ahk
-#Include easy_access_keyboard_portable.ahk
+#Include easy_access_keyboard.ahk
 #Include hotkeys.ahk
 #Include hotstrings.ahk
 #Include music.ahk
