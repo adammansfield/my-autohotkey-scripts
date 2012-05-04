@@ -1,8 +1,7 @@
 ; Global
-; ======
+; ------
 ; Capslock remap
-CapsLock::
-	return
+CapsLock:: Send, {ESC}
 +CapsLock:: 
 	if (GetKeyState("Capslock", "T"))
 		SetCapsLockState off
@@ -19,11 +18,6 @@ CapsLock::
 ; Autohotkey 
 ^!r:: reload
 
-FileWrite(String = "", Filename="") {
-    FileAppend, %String%, %Filename%
-    }
-
-
 ; Cygwin
 F12:: 
     if (WinActive(_cygwin_windowname))
@@ -34,19 +28,19 @@ F12::
     else
     {
         WinGetActiveTitle previous_window
-	    if (!WinExist(_cygwin_windowname))
+	    if (!WinExist(cygwin_windowname))
         {
-		    Run, %_cygwin_location%\rxvt.exe -sr --geometry 79x50 -e "./bash" --login, %_cygwin_location%
+		    Run, %cygwin_location%\rxvt.exe -sr --geometry 79x50 -e "./bash" --login, %cygwin_location%
         }
-        WinWait, %_cygwin_windowname%,, 5
-		WinActivate %_cygwin_windowname%
+        WinWait, %cygwin_windowname%,, 5
+		WinActivate %cygwin_windowname%
     }
 	return
 
-; ============================================================================
 ; Contextual
-; ============================================================================
-#If WinActive("bash") or WinActive("ahk_class Chrome_WidgetWin_0") 
-	CapsLock:: Send, {ESC}
-
+; ----------
+/* Remains as comment for easy future extension
+#If WinActive("window_name") 
+    CapsLock:: Send, {ESC}
 #If
+*/
