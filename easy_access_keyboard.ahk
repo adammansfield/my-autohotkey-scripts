@@ -6,7 +6,7 @@ mode := 0
 
 ; Visual Mode Toggle
 ;-------------------
->!v:: 
+>!.:: 
   if (mode == MODE_VISUAL) {
     send {Left}	; to unhighlight
 	mode := MODE_NORMAL
@@ -17,26 +17,26 @@ mode := 0
 
 ; Navigation
 ;-----------
->!.:: mode_dependent_send("{Up}")     ; e
->!e:: mode_dependent_send("{Down}")   ; d
->!o:: mode_dependent_send("{Left}")   ; s
->!u:: mode_dependent_send("{Right}")  ; f
+>!e:: mode_dependent_send("{Up}")
+>!d:: mode_dependent_send("{Down}")
+>!s:: mode_dependent_send("{Left}")
+>!f:: mode_dependent_send("{Right}")
 
->!b:: mode_dependent_send("^{Left}")  ; n
->!m:: mode_dependent_send("^{Right}") ; m
+>!n:: mode_dependent_send("^{Left}") 
+>!,:: mode_dependent_send("^{Right}") 
 
->!':: mode_dependent_send("{Home}")   ; q
->!0:: mode_dependent_send("{Home}")   ; 0
->!+4:: mode_dependent_send("{End}")   ; $
->!a:: mode_dependent_send("{End}")    ; a
+>!q:: mode_dependent_send("{Home}")   
+>!0:: mode_dependent_send("{Home}")   
+>!+4:: mode_dependent_send("{End}")   
+>!a:: mode_dependent_send("{End}")    
 
 ; Cut, Paste, Deleting
 ;---------------------
->!,:: send_and_set_mode_to_normal("{BS}")     ; w
->!p:: send_and_set_mode_to_normal("{Delete}") ; r
->!d:: send_and_set_mode_to_normal("^x")       ; h
->!c:: send_and_set_mode_to_normal("^c{Left}") ; i
->!t:: send_and_set_mode_to_normal("^v")       ; k
+>!w:: send_and_set_mode_to_normal("{BS}")
+>!r:: send_and_set_mode_to_normal("{Delete}")
+>!h:: send_and_set_mode_to_normal("^x")
+>!i:: send_and_set_mode_to_normal("^c{Left}")
+>!k:: send_and_set_mode_to_normal("^v")
 
 ; Alignment
 ;----------
@@ -62,6 +62,7 @@ send_and_set_mode_to_normal(command) {
 	mode := MODE_NORMAL
 }
 
+<<<<<<< 4d9d3fc55b84677a137c21e41baa3c742f4685fe
 ; Control-Z-X-C-V
 ;----------------
 $^+;:: send ^z			  
@@ -69,3 +70,49 @@ $^+q:: send ^x
 $^+j:: send ^c		
 $^+k:: send ^v	
 
+=======
+; Remap special keys
+;-------------------
+Capslock:: Escape
+$^+z:: send ^z			  
+$^+x:: send ^x			
+$^+c:: send ^c		
+$^+v:: send ^v	
+
+; Key conversion
+; --------------
+-::[
+=::]
+q::'
+w::,
+e::.
+r::p
+t::y
+y::f
+u::g
+i::c
+o::r
+p::l
+[::/
+]::=
+;a::a
+s::o
+d::e
+f::u
+g::i
+h::d
+j::h
+k::t
+l::n
+`;::s
+'::-
+z::;
+x::q
+c::j
+v::k
+b::x
+n::b
+;m::m
+,::w
+.::v
+/::z
