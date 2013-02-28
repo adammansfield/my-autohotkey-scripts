@@ -19,9 +19,9 @@ CapsLock:: Send, {ESC}
 ; Autohotkey 
 ^!r:: reload
 
-; Cygwin
+; Cygwin Show/Hide
 F12:: 
-    if (WinActive(_cygwin_windowname))
+    if (WinActive(cygwin_windowname))
     {
 		WinMinimize
         WinActivate %previous_window%
@@ -36,6 +36,11 @@ F12::
         WinWait, %cygwin_windowname%,, 5
 		WinActivate %cygwin_windowname%
     }
+	return
+
+; Cygwin New Instance
++F12:: 
+    Run, %cygwin_location%\rxvt.exe -sr --geometry 79x50 -e "./bash" --login, %cygwin_location%
 	return
 
 ; Contextual
