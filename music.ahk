@@ -12,10 +12,6 @@ edit_meta_data() {
 	Sleep, 200
 	
 	Send, {Tab 5}
-	If (Genre)
-		Send, %Genre%
-	
-	Send, {Tab}
 	If (Rating) {
 		If (Rating = 50) 		
 			Send, 1
@@ -33,15 +29,19 @@ edit_meta_data() {
 			Send, 4
 	}
 
-	Send, {Tab 8}	
+	Send, {Tab 2}
+	If (Genre)
+		Send, %Genre%
+
+	Send, {Tab 6}	
 	If (Mood) 
 		Send, %Mood%
 		
 	If (Rating)
-		Send, {Tab 5}{Right}{Tab 2}%Rating%
+		Send, {Tab 8}{Right}{Tab 2}%Rating%
 	
 	Sleep, 500
-	ControlClick, TButtonPlus2
+	ControlClick, TButtonPlus9
 	
 }
 
