@@ -1,8 +1,8 @@
 ; Directives
 ; ----------
-#NoEnv  							
-#SingleInstance force				
-#InstallKeybdHook				
+#NoEnv
+#SingleInstance force
+#InstallKeybdHook
 #MaxHotkeysPerInterval 200
 SendMode Input
 SetTitleMatchMode RegEx
@@ -17,6 +17,9 @@ cygwin_windowname := "i)" . A_UserName . "@" . A_ComputerName
 MODE_NORMAL := 0
 MODE_VISUAL := 1
 mode := 0
+
+; Mousewheel Volume Control
+was_wheel_vol_changed := 0
 
 ; Includes
 ; --------
