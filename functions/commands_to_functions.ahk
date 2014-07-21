@@ -271,6 +271,12 @@ Reload()
 	return
 }
 
+Run(target, working_dir="", mode="")
+{
+	Run, %target%, %working_dir%, %mode%, retval
+	return retval
+}
+
 RunWait(target, working_dir="", mode="")
 {
 	RunWait, %target%, %working_dir%, %mode%, retval
