@@ -28,6 +28,7 @@ edit_meta_data() {
 #IfWinActive MediaMonkey
 	<!m:: edit_meta_data()
 	/:: Send, {Click 1755, 65}{End}+{Home}{BS}	; quick search
+	MButton:: Send, {LButton}{F2}
 
 #IfWinActive Enter Custom Metadata
 
