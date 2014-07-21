@@ -1,30 +1,11 @@
-; Directives
-; ----------
-#NoEnv
-#SingleInstance force
-#InstallKeybdHook
-#MaxHotkeysPerInterval 200
-SendMode Input
-SetTitleMatchMode RegEx
+#include directives.ahk
+#include globals.ahk
+#include functions/commands_to_functions.ahk
+#include functions/speak.ahk
+#include hotkeys/hotkeys.ahk
+#include hotkeys/music.ahk
+#include hotkeys/remote.ahk
+#include hotkeys/vi_commands_everywhere.ahk
+#include hotstrings/auto_correct.ahk
+#include hotstrings/hotstrings.ahk
 
-; Global Variables
-; ----------------
-; Cygwin
-EnvGet, cygwin_location, CYGWIN_BIN
-cygwin_windowname := "i)" . A_UserName . "@" . A_ComputerName
-
-; Modes
-MODE_NORMAL := 0
-MODE_VISUAL := 1
-mode := 0
-
-; Mousewheel Volume Control
-was_wheel_vol_changed := 0
-
-; Includes
-; --------
-#Include auto_correct.ahk
-#Include easy_access_keyboard.ahk
-#Include hotkeys.ahk
-#Include hotstrings.ahk
-#Include music.ahk
