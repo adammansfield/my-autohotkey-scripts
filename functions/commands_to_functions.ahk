@@ -6,27 +6,34 @@
 Click(x, y)
 {
 	Click, %x%, %y%
+	return
 }
 
-ControlGet(cmd, value = "", control = "", win_title = "", win_text = "", exclude_title = "", exclude_text = "")
+ControlClick(control_or_pos, win_title="", win_text="", which_button="", click_count="", options="", exclude_title="", exclude_text="")
+{
+  ControlClick, %control_or_pos%, %win_title%, %win_text%, %which_time%, %click_count%, %options%, %exclude_title%, %exclude_text%
+  return
+}
+
+ControlGet(cmd, value="", control="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
 	ControlGet, retval, %cmd%, %value%, %control%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
 }
 
-ControlGetFocus(win_title = "", win_text = "", exclude_title = "", exclude_text = "")
+ControlGetFocus(win_title="", win_text="", exclude_title="", exclude_text="")
 {
 	ControlGetFocus, retval, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
 }
 
-ControlGetText(control = "", win_title = "", win_text = "", exclude_title = "", exclude_text = "")
+ControlGetText(control="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
 	ControlGetText, retval, %control%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
 }
 
-DriveGet(cmd, value = "")
+DriveGet(cmd, value="")
 {
 	DriveGet, retval, %cmd%, %value%
 	return retval
@@ -44,45 +51,49 @@ EnvGet(env_var_name)
 	return retval
 }
 
-FileAppend(string = "", filename="")
+FileAppend(string="", filename="")
 {
 	FileAppend, %string%, %filename%
+	return
 }
 
 FileCopy(source, destination, overwrite="")
 {
 	FileCopy, %source%, %destination%, %overwrite%
+	return
 }
 
 FileDelete(filename)
 {
 	FileDelete, %filename%
+	return
 }
 
-FileGetAttrib(filename = "")
+FileGetAttrib(filename="")
 {
 	FileGetAttrib, retval, %filename%
 	return retval
 }
 
-FileGetShortcut(link_file, ByRef out_target = "", ByRef out_dir = "", ByRef out_args = "", ByRef out_description = "", ByRef out_icon = "", ByRef out_icon_num = "", ByRef out_run_state = "")
+FileGetShortcut(link_file, ByRef out_target="", ByRef out_dir="", ByRef out_args="", ByRef out_description="", ByRef out_icon="", ByRef out_icon_num="", ByRef out_run_state="")
 {
 	FileGetShortcut, %link_file%, out_target, out_dir, out_args, out_description, out_icon, out_icon_num, out_run_state
+	return
 }
 
-FileGetSize(filename = "", units = "")
+FileGetSize(filename="", units="")
 {
 	FileGetSize, retval, %filename%, %units%
 	return retval
 }
 
-FileGetTime(filename = "", which_time = "")
+FileGetTime(filename="", which_time="")
 {
 	FileGetTime, retval, %filename%, %which_time%
 	return retval
 }
 
-FileGetVersion(filename = "")
+FileGetVersion(filename="")
 {
 	FileGetVersion, retval, %filename%
 	return retval
@@ -100,25 +111,25 @@ FileReadLine(filename, line_num)
 	return retval
 }
 
-FileSelectFile(options = "", root_dir = "", prompt = "", filter = "")
+FileSelectFile(options="", root_dir="", prompt="", filter="")
 {
 	FileSelectFile, retval, %options%, %root_dir%, %prompt%, %filter%
 	return retval
 }
 
-FileSelectFolder(starting_folder = "", options = "", prompt = "")
+FileSelectFolder(starting_folder="", options="", prompt="")
 {
 	FileSelectFolder, retval, %starting_folder%, %options%, %prompt%
 	return retval
 }
 
-GetKeyState(which_key , mode = "")
+GetKeyState(which_key , mode="")
 {
 	GetKeyState, retval, %which_key%, %mode%
 	return retval
 }
 
-GuiControlGet(sub_command = "", control_id = "", param_4 = "")
+GuiControlGet(sub_command="", control_id="", param_4="")
 {
 	GuiControlGet, retval, %sub_command%, %control_id%, %param_4%
 	return retval
@@ -174,9 +185,10 @@ IfType(ByRef var, type)
 ImageSearch(ByRef out_x, ByRef out_y, x_1, y_1, x_2, y_2, image_file)
 {
 	ImageSearch, out_x, out_y, %x_1%, %y_1%, %x_2%, %y_2%, %image_file%
+	return
 }
 
-IniRead(filename, section, key, default = "")
+IniRead(filename, section, key, default="")
 {
 	IniRead, retval, %filename%, %section%, %key%, %default%
 	return retval
@@ -185,47 +197,63 @@ IniRead(filename, section, key, default = "")
 IniWrite(value, filename, section, key)
 {
 	IniWrite, %value%, %filename%, %section%, %key%
+	return
 }
 
-Input(options = "", end_keys = "", match_list = "")
+Input(options="", end_keys="", match_list="")
 {
 	Input, retval, %options%, %end_keys%, %match_list%
 	return retval
 }
 
-InputBox(Title = "", prompt = "", hide = "", width = "", height = "", x = "", y = "", font = "", timeout = "", default = "")
+InputBox(Title="", prompt="", hide="", width="", height="", x="", y="", font="", timeout="", default="")
 {
 	InputBox, retval, %Title%, %prompt%, %hide%, %width%, %height%, %x%, %y%, , %timeout%, %default%
 	return retval
 }
 
-MouseGetPos(ByRef out_x = "", ByRef out_y = "", ByRef out_war_win = "", ByRef out_war_control = "", mode = "")
+MouseGetPos(ByRef out_x="", ByRef out_y="", ByRef out_war_win="", ByRef out_war_control="", mode="")
 {
 	MouseGetPos, out_x, out_y, out_war_win, out_war_control, %mode%
+	return
 }
 
 MouseMove(x, y, speed="", r="")
 {
 	MouseMove, %x%, %y%, %speed%, %r%
+	return
+}
+
+MsgBox(text, options="", title="", timeout="")
+{
+  if (options || title || timeout) {
+    MsgBox, %options%, %title%, %text%, %timeout%
+  }
+  else {
+    MsgBox, %text%
+  }
+  return
 }
 
 OutputDebug(string)
 {
 	OutputDebug , %string%
+	return
 }
 
-PixelGetColor(x, y, rgb = "")
+PixelGetColor(x, y, rgb="")
 {
 	PixelGetColor, retval, %x%, %y%, %rgb%
 	return retval
 }
 
-PixelSearch(ByRef out_x, ByRef out_y, x_1, y_1, x_2, y_2, color_id, variation = "", mode = "")
+PixelSearch(ByRef out_x, ByRef out_y, x_1, y_1, x_2, y_2, color_id, variation="", mode="")
 {
 	PixelSearch, out_x, out_y, %x_1%, %y_1%, %x_2%, %y_2%, %color_id%, %variation%, %mode%
+	return
 }
 
-RegRead(root_key, sub_key, value_name = "")
+RegRead(root_key, sub_key, value_name="")
 {
 	RegRead, retval, %root_key%, %sub_key%, %value_name%
 	return retval
@@ -234,14 +262,16 @@ RegRead(root_key, sub_key, value_name = "")
 RegWrite(ValueType, root_key, sub_key, value_name="", value="")
 {
 	RegWrite, %ValueType%, %root_key%, %sub_key%, %value_name%, %value%
+	return
 }
 
 Reload()
 {
 	Reload
+	return
 }
 
-RunWait(target, working_dir = "", mode = "")
+RunWait(target, working_dir="", mode="")
 {
 	RunWait, %target%, %working_dir%, %mode%, retval
 	return retval
@@ -250,35 +280,40 @@ RunWait(target, working_dir = "", mode = "")
 Send(keys)
 {
 	Send, %keys%
+	return
 }
 
 SendInput(keys)
 {
 	SendInput, %keys%
+	return
 }
 
 SendPlay(keys)
 {
 	SendPlay, %keys%
+	return
 }
 
 SetFormat(type, format)
 {
 	SetFormat, %type%, %format%
+	return
 }
 
 Sleep(delay)
 {
 	Sleep, %delay%
+	return
 }
 
-SoundGet(component_type = "", control_type = "", device_number = "")
+SoundGet(component_type="", control_type="", device_number="")
 {
 	SoundGet, retval, %component_type%, %control_type%, %device_number%
 	return retval
 }
 
-SoundGetWaveVolume(device_number = "")
+SoundGetWaveVolume(device_number="")
 {
 	SoundGetWaveVolume, retval, %device_number%
 	return retval
@@ -287,80 +322,88 @@ SoundGetWaveVolume(device_number = "")
 SoundSet(NewSetting, component_type="", control_type="", device_number="")
 {
 	SoundSet, %NewSetting%, %component_type%, %control_type%, %device_number%
+	return
 }
 
-StatusBarGetText(part = "", win_title = "", win_text = "", exclude_title = "", exclude_text = "")
+StatusBarGetText(part="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
 	StatusBarGetText, retval, %part%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
 }
 
-SplitPath(ByRef input_var, ByRef out_filename = "", ByRef out_dir = "", ByRef out_extension = "", ByRef out_name_no_ext = "", ByRef out_drive = "")
+SplitPath(ByRef path, ByRef out_filename="", ByRef out_dir="", ByRef out_extension="", ByRef out_name_no_ext="", ByRef out_drive="")
 {
-	SplitPath, input_var, out_filename, out_dir, out_extension, out_name_no_ext, out_drive
+	SplitPath, path, out_filename, out_dir, out_extension, out_name_no_ext, out_drive
+	return
 }
 
-StringGetPos(ByRef input_var, search_text, mode = "", offset = "")
+StringGetPos(ByRef string, search_text, mode="", offset="")
 {
-	StringGetPos, retval, input_var, %search_text%, %mode%, %offset%
+	StringGetPos, retval, string, %search_text%, %mode%, %offset%
 	return retval
 }
 
-StringLeft(ByRef input_var, count)
+StringLeft(ByRef string, count)
 {
-	StringLeft, retval, input_var, %count%
+	StringLeft, retval, string, %count%
 	return retval
 }
 
-StringLen(ByRef input_var)
+StringLen(ByRef string)
 {
-	StringLen, retval, input_var
+	StringLen, retval, string
 	return retval
 }
 
-StringLower(ByRef input_var, t = "")
+StringLower(ByRef string, t="")
 {
-	StringLower, retval, input_var, %t%
+	StringLower, retval, string, %t%
 	return retval
 }
 
-StringMid(ByRef input_var, start_char, count, l = "")
+StringMid(ByRef string, start_char, count, l="")
 {
-	StringMid, retval, input_var, %start_char%, %count%, %l%
+	StringMid, retval, string, %start_char%, %count%, %l%
 	return retval
 }
 
-StringReplace(ByRef input_var, search_text, replace_text = "", all = "")
+StringSplit(ByRef string, delimiters="", omit_chars="")
 {
-	StringReplace, retval, input_var, %search_text%, %replace_text%, %all%
+  retval := StrSplit(string, delimiters, omit_chars)
+  return retval
+}
+
+StringReplace(ByRef string, search_text, replace_text="", all="")
+{
+	StringReplace, retval, string, %search_text%, %replace_text%, %all%
 	return retval
 }
 
-StringRight(ByRef input_var, count)
+StringRight(ByRef string, count)
 {
-	StringRight, retval, input_var, %count%
+	StringRight, retval, string, %count%
 	return retval
 }
 
-StringTrimLeft(ByRef input_var, count)
+StringTrimLeft(ByRef string, count)
 {
-	StringTrimLeft, retval, input_var, %count%
+	StringTrimLeft, retval, string, %count%
 	return retval
 }
 
-StringTrimRight(ByRef input_var, count)
+StringTrimRight(ByRef string, count)
 {
-	StringTrimRight, retval, input_var, %count%
+	StringTrimRight, retval, string, %count%
 	return retval
 }
 
-StringUpper(ByRef input_var, t = "")
+StringUpper(ByRef string, t="")
 {
-	StringUpper, retval, input_var, %t%
+	StringUpper, retval, string, %t%
 	return retval
 }
 
-SysGet(sub_command, Param3 = "")
+SysGet(sub_command, Param3="")
 {
 	SysGet, retval, %sub_command%, %Param3%
 	return retval
@@ -369,15 +412,16 @@ SysGet(sub_command, Param3 = "")
 ToolTip(Text="", x="", y="", WhichToolTip="")
 {
 	ToolTip, %Text%, %x%, %y%, %WhichToolTip%
+	return
 }
 
-Transform(cmd, Value1, Value2 = "")
+Transform(cmd, Value1, Value2="")
 {
 	Transform, retval, %cmd%, %Value1%, %Value2%
 	return retval
 }
 
-WinGet(cmd = "", win_title = "", win_text = "", exclude_title = "", exclude_text = "")
+WinGet(cmd="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
 	WinGet, retval, %cmd%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
@@ -389,36 +433,39 @@ WinGetActiveTitle()
 	return retval
 }
 
-WinGetClass(win_title = "", win_text = "", exclude_title = "", exclude_text = "")
+WinGetClass(win_title="", win_text="", exclude_title="", exclude_text="")
 {
 	WinGetClass, retval, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
 }
 
-WinGetText(win_title = "", win_text = "", exclude_title = "", exclude_text = "")
+WinGetText(win_title="", win_text="", exclude_title="", exclude_text="")
 {
 	WinGetText, retval, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
 }
 
-WinGetTitle(win_title = "", win_text = "", exclude_title = "", exclude_text = "")
+WinGetTitle(win_title="", win_text="", exclude_title="", exclude_text="")
 {
 	WinGetTitle, retval, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
 }
 
-WinWait(WintTitle, WintText="", Seconds="", exclude_title="", exclude_text="")
+WinWait(win_title, win_text="", Seconds="", exclude_title="", exclude_text="")
 {
-	WinWait, %WintTitle%, %WintText%, %Seconds%, %exclude_title%, %exclude_text%
+	WinWait, %win_title%, %win_text%, %Seconds%, %exclude_title%, %exclude_text%
+	return
 }
 
-WinWaitActive(win_title="", WinText="", Seconds="", exclude_title="", exclude_text="")
+WinWaitActive(win_title="", win_text="", seconds="", exclude_title="", exclude_text="")
 {
-	WinWaitActive, %win_title%, %WinText%, %Seconds%, %exclude_title%, %exclude_text%
+	WinWaitActive, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
+	return
 }
 
-URLDownloadToFile(URL, filename)
+URLDownloadToFile(url, filename)
 {
-	URLDownloadToFile, %URL%, %filename%
+	URLDownloadToFile, %url%, %filename%
+	return
 }
 
