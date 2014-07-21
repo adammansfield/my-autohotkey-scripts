@@ -1,13 +1,16 @@
-;-----------------------------------------------------------------------------
-; Initial release by Jim Biancolo (http://www.biancolo.com)
-; Slight modifications made by Adam Mansfield (http://adammansfield.org)
-;-----------------------------------------------------------------------------
+#If !WinActive("adam") &&
+    !WinActive("mansfa2")&&
+    !WinActive("Microsoft Visual") &&
+    !WinActive("Editor") &&
+    !WinActive("Toodledo") &&
+    !WinActive("GnuCash")
 
-#If !WinActive("adam") && !WinActive("Microsoft Visual") && !WinActive("Editor") && !WinActive("Toodledo")
-
-{ ; Fix for -ign instead of -ing
-	#Hotstring B0  
-	; makes these hotstrings do nothing so that they override the ign->ing rule below.
+/**
+  @brief Fix for -ign instead of -ing.
+  */
+{
+	; Makes these hotstrings do nothing so that they override the ign->ing rule below.
+	#Hotstring B0
 	::align::
 	::antiforeign::
 	::arraign::
@@ -45,6 +48,7 @@
 	::sovereign::
 	::unbenign::
 	::verisign::
+<<<<<<< cab59f8e8f4835e926833939d26d1571a1ea90d2
 	Return  
 	
 	#Hotstring B 
@@ -52,6 +56,18 @@
 }
 
 { ; Word Beginnings
+=======
+    return
+
+	#Hotstring B
+	:?:ign::ing
+}
+
+/**
+  @brief Word beginnings.
+  */
+{
+>>>>>>> Removed old ignores for the #if in auto_correct.
 	:*:abondon::abandon
 	:*:abreviat::abbreviat
 	:*:accomadat::accommodat
@@ -134,12 +150,21 @@
 	:*:supercede::supersede
 	:*:superceed::supersede
 	:*:weild::wield
+<<<<<<< cab59f8e8f4835e926833939d26d1571a1ea90d2
 
 
 
 
 }
 { ; Word Endings
+=======
+}
+
+/**
+  @brief Word endings.
+  */
+{
+>>>>>>> Removed old ignores for the #if in auto_correct.
 	:?:bilites::bilities
 	:?:bilties::bilities
 	:?:blities::bilities
@@ -156,19 +181,39 @@
 	:?:t eh:: the
 	:?:t hem:: them
 }
+<<<<<<< cab59f8e8f4835e926833939d26d1571a1ea90d2
 { ; Word Middles
+=======
+
+/**
+  @brief Word middles.
+  */
+{
+>>>>>>> Removed old ignores for the #if in auto_correct.
 	:?*:compatab::compatib  ; Covers incompat* and compat*
 	:?*:catagor::categor  ; Covers subcatagories and catagories.
 }
 
+<<<<<<< cab59f8e8f4835e926833939d26d1571a1ea90d2
 { ; Capitalize dates
 	:c:monday::Monday
+=======
+/**
+  @brief Capitalize dates.
+  */
+{
+  :c:monday::Monday
+>>>>>>> Removed old ignores for the #if in auto_correct.
 	:c:tuesday::Tuesday
 	:c:wednesday::Wednesday
 	:c:thursday::Thursday
 	:c:friday::Friday
 	:c:saturday::Saturday
+<<<<<<< cab59f8e8f4835e926833939d26d1571a1ea90d2
 	:c:sunday::Sunday 
+=======
+	:c:sunday::Sunday
+>>>>>>> Removed old ignores for the #if in auto_correct.
 
 	:c:january::January
 	:c:february::February
@@ -183,7 +228,15 @@
 	:c:november::November
 	:c:december::December
 }
+<<<<<<< cab59f8e8f4835e926833939d26d1571a1ea90d2
 { ; Capitalize after period, ?, !
+=======
+
+/**
+  @brief Capitalize after period(.), question mark(?), or exclamation point(!).
+  */
+{
+>>>>>>> Removed old ignores for the #if in auto_correct.
 	:*?c:. a::. A
 	:*?c:. b::. B
 	:*?c:. c::. C
@@ -210,7 +263,11 @@
 	:*?c:. x::. X
 	:*?c:. y::. Y
 	:*?c:. z::. Z
+<<<<<<< cab59f8e8f4835e926833939d26d1571a1ea90d2
 	
+=======
+
+>>>>>>> Removed old ignores for the #if in auto_correct.
 	:*?c:? a::? A
 	:*?c:? b::? B
 	:*?c:? c::? C
@@ -237,7 +294,11 @@
 	:*?c:? x::? X
 	:*?c:? y::? Y
 	:*?c:? z::? Z
+<<<<<<< cab59f8e8f4835e926833939d26d1571a1ea90d2
 	
+=======
+
+>>>>>>> Removed old ignores for the #if in auto_correct.
 	:*?c:! a::{Raw}! A
 	:*?c:! b::{Raw}! B
 	:*?c:! c::{Raw}! C
@@ -264,9 +325,18 @@
 	:*?c:! x::{Raw}! X
 	:*?c:! y::{Raw}! Y
 	:*?c:! z::{Raw}! Z
+<<<<<<< cab59f8e8f4835e926833939d26d1571a1ea90d2
 }	
 
 { ; Words
+=======
+}
+
+/**
+  @brief Words.
+  */
+{
+>>>>>>> Removed old ignores for the #if in auto_correct.
 	::htp:::http:
 	::http:\\::http://
 	::httpL::http:
@@ -2307,7 +2377,10 @@
 	::immidiately::immediately
 	::imense::immense
 	::inmigrant::immigrant
+<<<<<<< cab59f8e8f4835e926833939d26d1571a1ea90d2
 	::inmigrants::immigrants
+=======
+>>>>>>> Removed old ignores for the #if in auto_correct.
 	::imanent::imminent
 	::immunosupressant::immunosuppressant
 	::inpeach::impeach
