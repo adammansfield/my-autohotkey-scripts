@@ -83,10 +83,6 @@ EditMetaData()
   mood := meta_data[1]
   genre := meta_data[2]
 
-  Msgbox(mood)
-  Msgbox(genre)
-  return
-
 	Send("+{Enter}")
 	WinWaitActive("Properties")
 	Sleep(200)
