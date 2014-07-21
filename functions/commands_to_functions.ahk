@@ -1,6 +1,6 @@
 /**
- * @brief Convert every command to a function. Function names are the same as its command.
- **/
+  @brief Convert every command to a function. Function names are the same as its command.
+  */
 
 
 Click(x, y)
@@ -126,17 +126,20 @@ GuiControlGet(sub_command = "", control_id = "", param_4 = "")
 
 IfBetween(ByRef var, lower_bound, upper_bound)
 {
-	if var between %lower_bound% and %upper_bound% {
+	if var between %lower_bound% and %upper_bound%
+	{
 		return true
 	}
-	else {
+	else
+	{
 	  return false
 	}
 }
 
 IfContains(ByRef var, match_list)
 {
-	if var contains %match_list% {
+	if var contains %match_list%
+	{
 		return true
 	}
 	else {
@@ -146,20 +149,24 @@ IfContains(ByRef var, match_list)
 
 IfIn(ByRef var, match_list)
 {
-	if var in %match_list% }
+	if var in %match_list%
+	{
 		return true
 	}
-	else {
-	  return false
-	}
+	else
+	{
+    return false
+  }
 }
 
 IfType(ByRef var, type)
 {
-	if var is %type% {
+	if var is %type%
+	{
 		return true
 	}
-	else {
+	else
+	{
 	  return false
 	}
 }
