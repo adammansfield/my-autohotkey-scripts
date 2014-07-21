@@ -1,13 +1,16 @@
-;-----------------------------------------------------------------------------
-; Initial release by Jim Biancolo (http://www.biancolo.com)
-; Slight modifications made by Adam Mansfield (http://adammansfield.org)
-;-----------------------------------------------------------------------------
+#If !WinActive("adam") &&
+    !WinActive("mansfa2")&&
+    !WinActive("Microsoft Visual") &&
+    !WinActive("Editor") &&
+    !WinActive("Toodledo") &&
+    !WinActive("GnuCash")
 
-#If !WinActive("adam") && !WinActive("Microsoft Visual") && !WinActive("Editor") && !WinActive("Toodledo")
-
-{ ; Fix for -ign instead of -ing
-	#Hotstring B0  
-	; makes these hotstrings do nothing so that they override the ign->ing rule below.
+/**
+  @brief Fix for -ign instead of -ing.
+  */
+{
+	; Makes these hotstrings do nothing so that they override the ign->ing rule below.
+	#Hotstring B0
 	::align::
 	::antiforeign::
 	::arraign::
@@ -45,13 +48,16 @@
 	::sovereign::
 	::unbenign::
 	::verisign::
-	Return  
-	
-	#Hotstring B 
+    return
+
+	#Hotstring B
 	:?:ign::ing
 }
 
-{ ; Word Beginnings
+/**
+  @brief Word beginnings.
+  */
+{
 	:*:abondon::abandon
 	:*:abreviat::abbreviat
 	:*:accomadat::accommodat
@@ -134,12 +140,12 @@
 	:*:supercede::supersede
 	:*:superceed::supersede
 	:*:weild::wield
-
-
-
-
 }
-{ ; Word Endings
+
+/**
+  @brief Word endings.
+  */
+{
 	:?:bilites::bilities
 	:?:bilties::bilities
 	:?:blities::bilities
@@ -156,19 +162,26 @@
 	:?:t eh:: the
 	:?:t hem:: them
 }
-{ ; Word Middles
+
+/**
+  @brief Word middles.
+  */
+{
 	:?*:compatab::compatib  ; Covers incompat* and compat*
 	:?*:catagor::categor  ; Covers subcatagories and catagories.
 }
 
-{ ; Capitalize dates
-	:c:monday::Monday
+/**
+  @brief Capitalize dates.
+  */
+{
+  :c:monday::Monday
 	:c:tuesday::Tuesday
 	:c:wednesday::Wednesday
 	:c:thursday::Thursday
 	:c:friday::Friday
 	:c:saturday::Saturday
-	:c:sunday::Sunday 
+	:c:sunday::Sunday
 
 	:c:january::January
 	:c:february::February
@@ -183,7 +196,11 @@
 	:c:november::November
 	:c:december::December
 }
-{ ; Capitalize after period, ?, !
+
+/**
+  @brief Capitalize after period(.), question mark(?), or exclamation point(!).
+  */
+{
 	:*?c:. a::. A
 	:*?c:. b::. B
 	:*?c:. c::. C
@@ -210,7 +227,7 @@
 	:*?c:. x::. X
 	:*?c:. y::. Y
 	:*?c:. z::. Z
-	
+
 	:*?c:? a::? A
 	:*?c:? b::? B
 	:*?c:? c::? C
@@ -237,7 +254,7 @@
 	:*?c:? x::? X
 	:*?c:? y::? Y
 	:*?c:? z::? Z
-	
+
 	:*?c:! a::{Raw}! A
 	:*?c:! b::{Raw}! B
 	:*?c:! c::{Raw}! C
@@ -264,9 +281,12 @@
 	:*?c:! x::{Raw}! X
 	:*?c:! y::{Raw}! Y
 	:*?c:! z::{Raw}! Z
-}	
+}
 
-{ ; Words
+/**
+  @brief Words.
+  */
+{
 	::htp:::http:
 	::http:\\::http://
 	::httpL::http:
@@ -2307,7 +2327,6 @@
 	::immidiately::immediately
 	::imense::immense
 	::inmigrant::immigrant
-	::inmigrants::immigrants
 	::imanent::imminent
 	::immunosupressant::immunosuppressant
 	::inpeach::impeach
