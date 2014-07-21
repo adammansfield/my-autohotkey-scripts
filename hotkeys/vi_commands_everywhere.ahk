@@ -128,12 +128,12 @@
   */
 >!v::
 {
-  if (kModeVisual == mode) {
+  if (kModeVisual == vim_mode) {
     Send("{Left}")   ; to unhighlight
-    mode := kModeNormal
+    vim_mode := kModeNormal
   }
   else {
-    mode := kModeVisual
+    vim_mode := kModeVisual
   }
   return
 }
@@ -243,11 +243,11 @@
   */
 ModeDependentSend(command)
 {
-  global mode, kModeVisual, kModeNormal
-  if (kModeNormal == mode) {
+  global vim_mode, kModeVisual, kModeNormal
+  if (kModeNormal == vim_mode) {
     Send(command)
   }
-  else if (kModeVisual == mode) {
+  else if (kModeVisual == vim_mode) {
     Send("+" . command)
   }
 }
@@ -257,9 +257,9 @@ ModeDependentSend(command)
   */
 SendAndSetModeToNormal(command)
 {
-  global mode, kModeNormal
+  global vim_mode, kModeNormal
   Send(command)
-  mode := kModeNormal
+  vim_mode := kModeNormal
 }
 
 /**
