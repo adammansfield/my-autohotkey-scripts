@@ -15,9 +15,9 @@ ControlClick(control_or_pos, win_title="", win_text="", which_button="", click_c
   return
 }
 
-ControlGet(cmd, value="", control="", win_title="", win_text="", exclude_title="", exclude_text="")
+ControlGet(cmd, value="", control_param="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
-	ControlGet, retval, %cmd%, %value%, %control%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+	ControlGet, retval, %cmd%, %value%, %control_param%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
 }
 
@@ -27,9 +27,9 @@ ControlGetFocus(win_title="", win_text="", exclude_title="", exclude_text="")
 	return retval
 }
 
-ControlGetText(control="", win_title="", win_text="", exclude_title="", exclude_text="")
+ControlGetText(control_param="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
-	ControlGetText, retval, %control%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+	ControlGetText, retval, %control_param%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
 }
 
@@ -253,6 +253,12 @@ PixelSearch(ByRef out_x, ByRef out_y, x_1, y_1, x_2, y_2, color_id, variation=""
 	return
 }
 
+PostMessage(ByRef msg, w_param="", l_param="", control_param="", win_title="", win_text="", exclude_title="", exclude_text="")
+{
+  PostMessage, %msg%, %w_param%, %l_param%, %control_param%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  return
+}
+
 RegRead(root_key, sub_key, value_name="")
 {
 	RegRead, retval, %root_key%, %sub_key%, %value_name%
@@ -287,6 +293,12 @@ Send(keys)
 {
 	Send, %keys%
 	return
+}
+
+SendMessage(ByRef msg, w_param="", l_param="", control_param="", win_title="", win_text="", exclude_title="", exclude_text="")
+{
+  SendMessage, %msg%, %w_param%, %l_param%, %control_param%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  return
 }
 
 SendInput(keys)
@@ -421,6 +433,24 @@ SysGet(sub_command, Param3="")
 	return retval
 }
 
+ThreadInterrupt(duration="", line_count="")
+{
+  Thread, Interrupt, %duration%, %line_count%
+  return
+}
+
+ThreadNoTimers(false_param="")
+{
+  Thread, NoTimers, %false_param%
+  return
+}
+
+ThreadPriority(new_priority="")
+{
+  Thread, Priority, %new_priority%
+  return
+}
+
 ToolTip(Text="", x="", y="", WhichToolTip="")
 {
 	ToolTip, %Text%, %x%, %y%, %WhichToolTip%
@@ -472,6 +502,12 @@ WinGetTitle(win_title="", win_text="", exclude_title="", exclude_text="")
 WinMinimize(win_title="", win_text="", exclude_title="", exclude_text="")
 {
   WinMinimize, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  return
+}
+
+WinMove(win_title="", win_text="", x="", y="", width="", height="", exclude_title="", exclude_text="")
+{
+  WinMove, %win_title%, %win_text%, %x%, %y%, %width%, %height%, %exclude_title%, %exclude_text%
   return
 }
 
