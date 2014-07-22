@@ -301,6 +301,12 @@ SendPlay(keys)
 	return
 }
 
+SetCapsLockState(state)
+{
+  SetCapsLockState, %state%
+  return
+}
+
 SetFormat(type, format)
 {
 	SetFormat, %type%, %format%
@@ -427,6 +433,12 @@ Transform(cmd, Value1, Value2="")
 	return retval
 }
 
+WinActivate(win_title="", win_text="", exclude_title="", exclude_text="")
+{
+  WinActivate, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  return
+}
+
 WinGet(cmd="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
 	WinGet, retval, %cmd%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
@@ -455,6 +467,12 @@ WinGetTitle(win_title="", win_text="", exclude_title="", exclude_text="")
 {
 	WinGetTitle, retval, %win_title%, %win_text%, %exclude_title%, %exclude_text%
 	return retval
+}
+
+WinMinimize(win_title="", win_text="", exclude_title="", exclude_text="")
+{
+  WinMinimize, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  return
 }
 
 WinWait(win_title, win_text="", Seconds="", exclude_title="", exclude_text="")
