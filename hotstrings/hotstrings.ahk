@@ -1,34 +1,17 @@
-; ============================================================================
-; Global
-; ============================================================================
-; internet slang
+#include hotstrings/auto_correct.ahk
+
+; Abbreviations
 ::btw::by the way
 ::brb::be right back
 
-; brackets
-:*?c:cbr::{{}{}}{Left}
-:*?c:rbr::(){Left}
-:*?c:sbr::[]{Left}
+; Brackets
+:*?c:cb`;::{{}{}}{Left}
+:*?c:rb`;::(){Left}
+:*?c:sb`;::[]{Left}
 
-; symbols
-::bl::{AltDown}{Numpad7}{AltUp} 
+; Bullet Point
+:*?c:bl`;::{AltDown}{Numpad7}{AltUp}
 
-; semi-colon ending
-:*?c:deg`;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}	
+; Degree
+:*?c:deg`;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
 
-; ============================================================================
-; Context-Specific
-; ============================================================================
-#If WinActive("ahk_class gdkWindowToplevel")
-	::comp::computer
-	::tn::tonight
-	::tom::tomorrow
-	
-	::mon::Monday
-	::tue::Tuesday
-	::wed::Wednesday
-	::thu::Thursday
-	::fri::Friday
-	::satu::Saturday
-	::sund::Sunday
-#If
