@@ -1,11 +1,11 @@
 /**
   @brief The modes of the everywhere vim keyboard.
   */
-kModeNormal := 0
-kModeVisual := 1
+kVimModeNormal := 0
+kVimModeVisual := 1
 
 /**
   @brief The current mode of the vim keyboard.
   */
-vim_mode := kModeNormal
+vim_mode := kVimModeNormal
 
