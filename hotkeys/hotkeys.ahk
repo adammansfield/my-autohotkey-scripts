@@ -2,7 +2,7 @@
 #include hotkeys/cygwin.ahk
 #include hotkeys/music.ahk
 #include hotkeys/remote.ahk
-#include hotkeys/vi_commands_everywhere.ahk
+#include hotkeys/vim_commands_everywhere.ahk
 
 /*
  @brief Remap Capslock to escape.
