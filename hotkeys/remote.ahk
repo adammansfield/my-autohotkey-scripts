@@ -49,36 +49,36 @@
   #e::
   {
     if (remote_mode_enabled) {
-      Gui, Font, s64, Verdana
-      Gui, Add, Text,, Sleep
-      Gui, Font, s128, Verdana
-      Gui, Margin, 64, 64
-      Gui, Add, Edit, Number W420
-      Gui, Add, UpDown, vminutes Range0-180, 30
-      Gui, Font, s64, Verdana
-      Gui, Add, Button, W420 Default, OK
-      Gui, Add, Button, W420, Cancel
-      Gui, Show
+      Gui, 1:Font, s64, Verdana
+      Gui, 1:Add, Text,, Sleep
+      Gui, 1:Font, s128, Verdana
+      Gui, 1:Margin, 64, 64
+      Gui, 1:Add, Edit, Number W420
+      Gui, 1:Add, UpDown, vminutes Range0-180, 30
+      Gui, 1:Font, s64, Verdana
+      Gui, 1:Add, Button, W420 Default, OK
+      Gui, 1:Add, Button, W420, Cancel
+      Gui, 1:Show
       return
 
       ButtonOK:
       {
-        Gui, Submit
+        Gui, 1:Submit
         Speak("going to sleep in " . minutes . " minutes")
+        milliseconds := minutes * 60000
+        Gui, 1:Destroy
 
-        delayTime := minutes * 60000
         Thread, Priority, -1000  ; sets priority low to allow script to still function
-        Sleep, %delayTime%
+        Sleep, %milliseconds%
         DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
 
-        Gui, Destroy
         return
       }
 
       ButtonCancel:
       {
-        Gui, Submit
-        Gui, Destroy
+        Gui, 1:Submit
+        Gui, 1:Destroy
         return
       }
     }
@@ -101,38 +101,38 @@
   $Space::
   {
     if (remote_mode_enabled) {
-      Gui, 2:Default
-      Gui, Font, s64, Verdana
-      Gui, Add, Text,, Monitor
-      Gui, Font, s128, Verdana
-      Gui, Margin, 64, 64
-      Gui, Add, Edit, Number W420
-      Gui, Add, UpDown, vminutes Range0-180, 30
-      Gui, Font, s64, Verdana
-      Gui, Add, Button, W420 Default, OK
-      Gui, Add, Button, W420, Cancel
-      Gui, Show
+      Gui, 2:Font, s64, Verdana
+      Gui, 2:Add, Text,, Monitor
+      Gui, 2:Font, s128, Verdana
+      Gui, 2:Margin, 64, 64
+      Gui, 2:Add, Edit, Number W420
+      Gui, 2:Add, UpDown, vminutes Range0-180, 30
+      Gui, 2:Font, s64, Verdana
+      Gui, 2:Add, Button, W420 Default, OK
+      Gui, 2:Add, Button, W420, Cancel
+      Gui, 2:Show
       return
 
       2ButtonOK:
       {
-        Gui, Submit
-        Speak("turning monitor off in " . minutes . " minutes")
+        Gui, 2:Submit
+        Speak("blacking out monitor in " . minutes . " minutes")
+        milliseconds := minutes * 60000
+        Gui, 2:Destroy
 
-        delayTime := minutes * 60000
         Thread, Priority, -1000  ; sets priority low to allow script to still function
-        Sleep, %delayTime%
+        Sleep, %milliseconds%
 
-        ; TODO: replace sleep with show black screen since cannot screensaver during playback
-        ;Gui, Color, black
-        ;Gui +AlwayOnTop
-        ;Gui -Caption
-        ;Gui, Show, x0 y0 w%A_ScreenWidth% h%A_ScreenHeight%
-          ;return
+        Gui, 3:Default
+        Gui, 3:Color, black
+        Gui, +AlwaysOnTop
+        Gui -Caption
+        Gui, 3:Show, x0 y0 w%A_ScreenWidth% h%A_ScreenHeight%
+        MouseMove, 1920, 0
 
-        SendMessage, 0x112, 0xF170, 2,, Program Manager   ; 0x112 is WM_SYSCOMMAND, 0xF170 is SC_MONITORPOWER.
+        KeyWait, Esc, D
+        Gui, 3:Destroy
 
-        Gui, Destroy
         return
       }
 
