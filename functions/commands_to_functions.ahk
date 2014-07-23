@@ -129,6 +129,12 @@ GetKeyState(which_key , mode="")
   return retval
 }
 
+Gui(command, param_2="", param_3="", param_4="")
+{
+  Gui, %command%, %param_2%, %param_3%, %param_4%
+  return
+}
+
 GuiControlGet(sub_command="", control_id="", param_4="")
 {
   GuiControlGet, retval, %sub_command%, %control_id%, %param_4%
@@ -210,6 +216,12 @@ InputBox(Title="", prompt="", hide="", width="", height="", x="", y="", font="",
 {
   InputBox, retval, %Title%, %prompt%, %hide%, %width%, %height%, %x%, %y%, , %timeout%, %default%
   return retval
+}
+
+KeyWait(key_name, options="")
+{
+  KeyWait, %key_name%, %options%
+  return
 }
 
 MouseGetPos(ByRef out_x="", ByRef out_y="", ByRef out_war_win="", ByRef out_war_control="", mode="")
