@@ -49,36 +49,34 @@
   #e::
   {
     if (remote_mode_enabled) {
-      Gui, 1:Font, s64, Verdana
-      Gui, 1:Add, Text,, Sleep
-      Gui, 1:Font, s128, Verdana
-      Gui, 1:Margin, 64, 64
-      Gui, 1:Add, Edit, Number W420
-      Gui, 1:Add, UpDown, vminutes Range0-180, 30
-      Gui, 1:Font, s64, Verdana
-      Gui, 1:Add, Button, W420 Default, OK
-      Gui, 1:Add, Button, W420, Cancel
-      Gui, 1:Show
+      Gui("1:Font", "s768", "Verdana")
+      Gui("1:Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
+      Gui("1:Add", "UpDown", "x940 y0 w0 h980 Range0-180 vsleep_minutes", 30)
+      Gui("1:Font", "s64", "Verdana")
+      Gui("1:Add", "Button", "x0 y980 w1800  h100 Default gSleepButtonOk", "ACK")
+      Gui("1:Add", "Button", "x1800 y0 w120 h1080 gSleepButtonCancel", "NAK")
+      Gui("1:+AlwaysOnTop")
+      Gui("1:-Caption")
+      Gui("1:Show", "x0 y0 h1080 w1920")
       return
 
-      ButtonOK:
+      SleepButtonOk:
       {
-        Gui, 1:Submit
-        Speak("going to sleep in " . minutes . " minutes")
-        milliseconds := minutes * 60000
-        Gui, 1:Destroy
+        Gui("1:Submit")
+        Speak("going to sleep in " . sleep_minutes . " minutes")
+        sleep_msec := sleep_minutes * 60000
+        Gui("1:Destroy")
 
-        Thread, Priority, -1000  ; sets priority low to allow script to still function
-        Sleep, %milliseconds%
+        ; Set priority low to allow script to still function.
+        ThreadPriority(-1000)
+        Sleep(sleep_msec)
         DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
-
         return
       }
 
-      ButtonCancel:
+      SleepButtonCancel:
       {
-        Gui, 1:Submit
-        Gui, 1:Destroy
+        Gui("1:Destroy")
         return
       }
     }
@@ -94,57 +92,61 @@
   }
 
   /**
-    @brief Remote Mode Enabled: set timer to black out screen
+    @brief Monitor Blacked Out: quit black out screen
+           Remote Mode Enabled: set timer to black out screen
            Remote Mode Disabled: space
     @notes remote handmenu button
     */
   $Space::
   {
-    if (remote_mode_enabled) {
-      Gui, 2:Font, s64, Verdana
-      Gui, 2:Add, Text,, Monitor
-      Gui, 2:Font, s128, Verdana
-      Gui, 2:Margin, 64, 64
-      Gui, 2:Add, Edit, Number W420
-      Gui, 2:Add, UpDown, vminutes Range0-180, 30
-      Gui, 2:Font, s64, Verdana
-      Gui, 2:Add, Button, W420 Default, OK
-      Gui, 2:Add, Button, W420, Cancel
-      Gui, 2:Show
+    if (WinExist("BlackOutMonitor")) {
+      Gui("3:Destroy")
+      return
+    }
+    else if (remote_mode_enabled) {
+      Gui("2:Font", "s768", "Verdana")
+      Gui("2:Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
+      Gui("2:Add", "UpDown", "x940 y0 w0 h980 Range0-180 vblackout_minutes", 10)
+      Gui("2:Font", "s64", "Verdana")
+      Gui("2:Add", "Button", "x0 y980 w1800  h100 Default gBlackoutButtonOk", "ACK")
+      Gui("2:Add", "Button", "x1800 y0 w120 h1080 gBlackoutButtonCancel", "NAK")
+      Gui("2:+AlwaysOnTop")
+      Gui("2:-Caption")
+      Gui("2:Show", "x0 y0 h1080 w1920")
       return
 
-      2ButtonOK:
+      BlackoutButtonOk:
       {
-        Gui, 2:Submit
-        Speak("blacking out monitor in " . minutes . " minutes")
-        milliseconds := minutes * 60000
-        Gui, 2:Destroy
+        Gui("2:Submit")
+        Speak("blacking out monitor in " . blackout_minutes . " minutes")
+        blackout_msec := blackout_minutes * 60000
+        Gui("2:Destroy")
 
-        Thread, Priority, -1000  ; sets priority low to allow script to still function
-        Sleep, %milliseconds%
+        ; Set priority low to allow script to still function.
+        ThreadPriority(-1000)
+        Sleep(blackout_msec)
 
-        Gui, 3:Default
-        Gui, 3:Color, black
-        Gui, +AlwaysOnTop
-        Gui -Caption
-        Gui, 3:Show, x0 y0 w%A_ScreenWidth% h%A_ScreenHeight%
-        MouseMove, 1920, 0
+        Gui("3:Default")
+        Gui("3:Color", "black")
+        Gui("3:+AlwaysOnTop")
+        Gui("3:-Caption")
+        Gui("3:Show", "x0 y0 w" . A_ScreenWidth . " h" . A_ScreenHeight, "BlackOutMonitor")
+        MouseMove(1920, 0)
 
-        KeyWait, Esc, D
-        Gui, 3:Destroy
-
+        ; Activate XBMC so that remote hotkeys still work.
+        WinActivate("ahk_class XBMC")
         return
       }
 
-      2ButtonCancel:
+      BlackoutButtonCancel:
       {
-        Gui, Submit
-        Gui, Destroy
+        Gui("2:Destroy")
         return
       }
     }
     else {
       Send("{Space}")
+      return
     }
   }
 
@@ -188,7 +190,7 @@
   !F4::
   {
     if (remote_mode_enabled) {
-      Speak("restarting auto hot key")
+      Speak("reloading auto hot key")
       Reload()
     }
     else {
@@ -262,5 +264,14 @@
     return
   }
 }
+#If WinActive("BlackOutMonitor")
+  /**
+    @brief Quit the black out screen.
+    */
+  Esc::
+  {
+    Gui("3:Destroy")
+    return
+  }
 #If
 
