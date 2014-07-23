@@ -33,3 +33,8 @@ Scripts
 * __my-autohotkey-scripts/__
   - __main.ahk:__ Main script.
 
+Dependencies
+------------
+* [AutoHotkey v1.0.48.05+](http://autohotkey.org/) (ANSI 32-bit - AutoHotkeyA32.exe)
+  - ANSI 32-bit only needed for Speak() since using SAPI 32-bit, otherwise can use Unicode 64-bit.
+
