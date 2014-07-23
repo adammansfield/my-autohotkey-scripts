@@ -171,13 +171,13 @@
            Remote Mode Disabled: escape
     @notes remote voice button
     */
-  Escape::
+  Esc::
   {
     if (remote_mode_enabled) {
-      Send {Tab}
+      Send("{Tab}")
     }
     else {
-      Send("{Escape}")
+      Send("{Esc}")
     }
     return
   }
