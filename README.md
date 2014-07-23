@@ -1,15 +1,35 @@
 My AutoHotkey Scripts
 =====================
 
-This is my personal collection of AutoHotkey scripts. I have written most of
-the code except [AutoCorrect.ahk](http://www.autohotkey.com/download/AutoCorrect.ahk) (by [Jim Biancolo](http://www.biancolo.com)), which is modified by me.
+This is my personal collection of AutoHotkey scripts.
 
 Scripts
 -------
 
-* __Auto Correct:__ Modified version of [AutoCorrect.ahk](http://www.autohotkey.com/download/AutoCorrect.ahk).
-* __Easy Access Keyboard:__ My pesonal vim-inspired keyboard that is activated when holding right-alt to provide cursor movement and text editting. Also converts qwerty to dvorak.
-* __Hotkeys:__ My personal hotkey commands and macros.
-* __Hotstrings:__ My personal hotstrings for text substitution.
-* __Music:__ My personal quick input method for setting rating, mood and genre metadata for a song.
+* __my-autohotkey-scripts/functions/__
+  - __functions.ahk:__ General functions and includes the other function scripts.
+  - __commands_to_functions.ahk:__ Converts AutoHotkey commands to functions to make AutoHotkey more similar to other languages.
+  - __speak.ahk:__ Text to speech using SAPI through Win32 API.
+
+* __my-autohotkey-scripts/globals/__
+  - __globals.ahk:__ General global variables and includes other global variables scripts.
+  - __cygwin.ahk:__ Constants and variables for use with cygwin script.
+  - __directives.ahk:__ Overall settings for the script.
+  - __remote.ahk:__ Constants and variables for use with remote script.
+  - __vim_commands_everywhere.ahk:__ Constants and variables for use with vim commands everywhere script.
+
+* __my-autohotkey-scripts/hotkeys/__
+  - __hotkeys.ahk:__ General hotkeys and includes other hotkey scripts.
+  - __autohotkey.ahk:__ Hotkeys for Autohotkey script such as reloading and protoyping.
+  - __cygwin.ahk:__ Quick show/hide of the terminal and other hotkeys for Cygwin.
+  - __music.ahk:__ Quick tagging of music files and hotkeys for media.
+  - __remote.ahk:__ Customized hotkeys with remote for XBMC.
+  - __vim_commands_everywhere.ahk:__ Vim commands everywhere activated through right Alt key.
+
+* __my-autohotkey-scripts/hotstrings/__
+  - __hotstrings.ahk:__ General hotstrigs and includes other hostring scripts.
+  - __auto_correct.ahk:__ Automatic correction of spelling for everywhere.
+
+* __my-autohotkey-scripts/__
+  - __main.ahk:__ Main script.
 
