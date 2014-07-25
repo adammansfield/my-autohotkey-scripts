@@ -355,9 +355,9 @@ SoundGetWaveVolume(device_number="")
   return retval
 }
 
-SoundSet(NewSetting, component_type="", control_type="", device_number="")
+SoundSet(new_setting, component_type="", control_type="", device_number="")
 {
-  SoundSet, %NewSetting%, %component_type%, %control_type%, %device_number%
+  SoundSet, %new_setting%, %component_type%, %control_type%, %device_number%
   return
 }
 
