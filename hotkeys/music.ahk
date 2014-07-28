@@ -6,11 +6,35 @@
 #IfWinActive MediaMonkey
 {
   /**
-    @brief Hotkey to edit meta data.
+    @brief Hotkey to quickly edit meta data.
     */
 	<!m::
 	{
-    EditMetaData()
+    input_string := InputBox("Enter Custom Metadata", "Mood`, Genre",, 230, 120,, 100)
+    if (ErrorLevel) {
+      return
+    }
+
+    meta_data := StringSplit(input_string, "`,", A_Space)
+    mood := meta_data[1]
+    genre := meta_data[2]
+
+    Send("+{Enter}")
+    WinWaitActive("Properties")
+    Sleep(200)
+
+    Send("{Tab 7}")
+    if (genre) {
+      Send(genre)
+    }
+
+    Send("{Tab 6}")
+    if (mood) {
+      Send(mood)
+    }
+
+    Sleep(500)
+    ControlClick("TButtonPlus9")
     return
   }
 
@@ -70,35 +94,4 @@
 }
 #IfWinActive
 
-/**
-  @brief Creates an input box that with hotstrings enables easy editting of tags.
-  */
-EditMetaData()
-{
-	input_string := InputBox("Enter Custom Metadata", "Mood`, Genre",, 230, 120,, 100)
-	if (ErrorLevel)
-		return
-
-	meta_data := StringSplit(input_string, "`,", A_Space)
-  mood := meta_data[1]
-  genre := meta_data[2]
-
-	Send("+{Enter}")
-	WinWaitActive("Properties")
-	Sleep(200)
-
-	Send("{Tab 7}")
-	if (genre) {
-		Send(genre)
-	}
-
-	Send("{Tab 6}")
-	if (mood) {
-		Send(mood)
-	}
-
-	Sleep(500)
-	ControlClick("TButtonPlus9")
-	return
-}
 
