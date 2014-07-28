@@ -9,13 +9,17 @@ F12::
   }
   else {
     previous_window := WinGetActiveTitle()
-    if (!WinExist(kCygwinWindowTitle)) {
-      Run(kCygwinTargetWithArgs, kCygwinPath, "hide")
+    if (!ProcessExist(kCygwinXProcessName)) {
+      Run(kCygwinXTarget, kCygwinPath)
     }
-    WinWait(kCygwinWindowTitle, "", 5)
+    ProcessWaitExist(kCygwinXProcessName)
+    if (!WinExist(kCygwinWindowTitle)) {
+      Run(kCygwinTerminalTarget, kCygwinPath)
+    }
+    WinWait(kCygwinWindowTitle)
     WinActivate(kCygwinWindowTitle)
   }
-	return
+  return
 }
 
 /**
@@ -23,7 +27,11 @@ F12::
   */
 +F12::
 {
-  Run(kCygwinTargetWithArgs, kCygwinPath, "hide")
-	return
+  if (!ProcessExist(kCygwinXProcessName)) {
+    Run(kCygwinXTarget, kCygwinPath)
+  }
+  ProcessWaitExist(kCygwinXProcessName)
+  Run(kCygwinTerminalTarget, kCygwinPath)
+  return
 }
 
