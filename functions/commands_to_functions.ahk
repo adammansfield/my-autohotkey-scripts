@@ -271,6 +271,36 @@ PostMessage(ByRef msg, w_param="", l_param="", control_param="", win_title="", w
   return
 }
 
+ProcessClose(pid_or_name)
+{
+	Process, Close, %pid_or_name%
+	return ErrorLevel
+}
+
+ProcessExist(pid_or_name)
+{
+	Process, Exist, %pid_or_name%
+	return ErrorLevel
+}
+
+ProcessPriority(pid_or_name, priority)
+{
+	Process, Priority, %pid_or_name%, %priority%
+	return ErrorLevel
+}
+
+ProcessWaitClose(pid_or_name, seconds="")
+{
+  Process, WaitClose, %pid_or_name%, %seconds%
+  return ErrorLevel
+}
+
+ProcessWaitExist(pid_or_name, seconds="")
+{
+  Process, Wait, %pid_or_name%, %seconds%
+  return ErrorLevel
+}
+
 RegRead(root_key, sub_key, value_name="")
 {
   RegRead, retval, %root_key%, %sub_key%, %value_name%
