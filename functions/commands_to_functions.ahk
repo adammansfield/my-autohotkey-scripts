@@ -475,6 +475,16 @@ SysGet(sub_command, Param3="")
   return retval
 }
 
+SuspendComputer(delay_in_minutes="")
+{
+  ; Set priority low to allow script to still function.
+  delay_in_msec := delay_in_minutes * 60000
+  ThreadPriority(-1000)
+  Sleep(delay_in_msec)
+  DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
+  return
+}
+
 ThreadInterrupt(duration="", line_count="")
 {
   Thread, Interrupt, %duration%, %line_count%
