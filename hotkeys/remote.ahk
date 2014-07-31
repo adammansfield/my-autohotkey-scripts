@@ -9,17 +9,17 @@
   */
 #e::
 {
-  if (!WinExist(kRemoteXbmcClass)) {
-    Run("C:\Program Files (x86)\XBMC\XBMC.exe")
+  if (!WinExist(kXbmcWindowClass)) {
+    Run(kXbmcPath)
   }
 
-  WinWait(kRemoteXbmcClass)
-  WinActivate(kRemoteXbmcClass)
-  WinWaitActive(kRemoteXbmcClass, "", 5)
+  WinWait(kXbmcWindowClass)
+  WinActivate(kXbmcWindowClass)
+  WinWaitActive(kXbmcWindowClass, "", 5)
 
-  if (!IsFullScreen(kRemoteXbmcClass)) {
-    WinMove(kRemoteXbmcClass, "", 0, 0)
-    WinWaitPos(0, 0, kRemoteXbmcClass)
+  if (!IsFullScreen(kXbmcWindowClass)) {
+    WinMove(kXbmcWindowClass, "", 0, 0)
+    WinWaitPos(0, 0, kXbmcWindowClass)
     Send("\")
   }
 
@@ -28,7 +28,7 @@
   return
 }
 
-#If WinActive(kRemoteXbmcClass)
+#If WinActive(kXbmcWindowClass)
 {
   /**
     @brief XBMC fullscreen toggle key also used to disable remote mode.
@@ -64,14 +64,9 @@
       SleepButtonOk:
       {
         Gui("1:Submit")
-        Speak("going to sleep in " . sleep_minutes . " minutes")
-        sleep_msec := sleep_minutes * 60000
         Gui("1:Destroy")
-
-        ; Set priority low to allow script to still function.
-        ThreadPriority(-1000)
-        Sleep(sleep_msec)
-        DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
+        Speak("sleeping in " . sleep_minutes . " minutes")
+        SuspendComputer(sleep_minutes)
         return
       }
 
@@ -82,9 +77,9 @@
       }
     }
     else {
-      if (!IsFullScreen(kRemoteXbmcClass)) {
-        WinMove(kRemoteXbmcClass, "", 0, 0)
-        WinWaitPos(0, 0, kRemoteXbmcClass)
+      if (!IsFullScreen(kXbmcWindowClass)) {
+        WinMove(kXbmcWindowClass, "", 0, 0)
+        WinWaitPos(0, 0, kXbmcWindowClass)
         Send("\")
       }
       remote_mode_enabled := true
@@ -94,45 +89,47 @@
   }
 
   /**
-    @brief Monitor Blacked Out: quit black out screen
-           Remote Mode Enabled: set timer to black out screen
+    @brief Monitor Blanked:      quit blank screen
+           Remote Mode Enabled:  set timer to blank screen
            Remote Mode Disabled: space
     @notes remote handmenu button
     */
   $Space::
   {
-    if (WinExist("BlackOutMonitor")) {
+    if (WinExist(kBlankWindowTitle)) {
       Gui("3:Destroy")
       return
     }
     else if (remote_mode_enabled) {
       Gui("2:Font", "s768", "Verdana")
       Gui("2:Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
-      Gui("2:Add", "UpDown", "x940 y0 w0 h980 Range0-180 vblackout_minutes", 10)
+      Gui("2:Add", "UpDown", "x940 y0 w0 h980 Range0-180 vblank_minutes", 10)
       Gui("2:Font", "s64", "Verdana")
-      Gui("2:Add", "Button", "x0 y980 w1800  h100 Default gBlackoutButtonOk", "ACK")
-      Gui("2:Add", "Button", "x1800 y0 w120 h1080 gBlackoutButtonCancel", "NAK")
+      Gui("2:Add", "Button", "x0 y980 w1800  h100 Default gBlankButtonOk", "ACK")
+      Gui("2:Add", "Button", "x1800 y0 w120 h1080 gBlankButtonCancel", "NAK")
       Gui("2:+AlwaysOnTop")
       Gui("2:-Caption")
       Gui("2:Show", "x0 y0 h1080 w1920")
       return
 
-      BlackoutButtonOk:
+      BlankButtonOk:
       {
         Gui("2:Submit")
-        Speak("blacking out monitor in " . blackout_minutes . " minutes")
-        blackout_msec := blackout_minutes * 60000
+        Speak("blanking in " . blank_minutes . " minutes")
+        blank_msec := blank_minutes * 60000
         Gui("2:Destroy")
 
         ; Set priority low to allow script to still function.
         ThreadPriority(-1000)
-        Sleep(blackout_msec)
+        Sleep(blank_msec)
 
         Gui("3:Default")
         Gui("3:Color", "black")
         Gui("3:+AlwaysOnTop")
         Gui("3:-Caption")
-        Gui("3:Show", "x0 y0 w" . A_ScreenWidth . " h" . A_ScreenHeight, "BlackOutMonitor")
+        Gui("3:Show", "x0 y0 w" . A_ScreenWidth . " h" . A_ScreenHeight, kBlankWindowTitle)
+
+        ; Move mouse to side to hide it.
         MouseMove(1920, 0)
 
         ; Activate XBMC so that remote hotkeys still work.
@@ -140,7 +137,7 @@
         return
       }
 
-      BlackoutButtonCancel:
+      BlankButtonCancel:
       {
         Gui("2:Destroy")
         return
@@ -266,9 +263,9 @@
     return
   }
 }
-#If WinActive("BlackOutMonitor")
+#If WinActive(kBlankWindowTitle)
   /**
-    @brief Quit the black out screen.
+    @brief Quit the blank screen.
     */
   Esc::
   {
