@@ -273,20 +273,20 @@ PostMessage(ByRef msg, w_param="", l_param="", control_param="", win_title="", w
 
 ProcessClose(pid_or_name)
 {
-	Process, Close, %pid_or_name%
-	return ErrorLevel
+  Process, Close, %pid_or_name%
+  return ErrorLevel
 }
 
 ProcessExist(pid_or_name)
 {
-	Process, Exist, %pid_or_name%
-	return ErrorLevel
+  Process, Exist, %pid_or_name%
+  return ErrorLevel
 }
 
 ProcessPriority(pid_or_name, priority)
 {
-	Process, Priority, %pid_or_name%, %priority%
-	return ErrorLevel
+  Process, Priority, %pid_or_name%, %priority%
+  return ErrorLevel
 }
 
 ProcessWaitClose(pid_or_name, seconds="")
@@ -529,6 +529,17 @@ WinGetClass(win_title="", win_text="", exclude_title="", exclude_text="")
   return retval
 }
 
+WinGetPos(win_title="", win_text="", exclude_title="", exclude_text="")
+{
+  WinGetPos, x, y, width, height, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  retval := Object()
+  retval.x := x
+  retval.y := y
+  retval.width := width
+  retval.height := height
+  return retval
+}
+
 WinGetText(win_title="", win_text="", exclude_title="", exclude_text="")
 {
   WinGetText, retval, %win_title%, %win_text%, %exclude_title%, %exclude_text%
@@ -562,6 +573,15 @@ WinWait(win_title, win_text="", Seconds="", exclude_title="", exclude_text="")
 WinWaitActive(win_title="", win_text="", seconds="", exclude_title="", exclude_text="")
 {
   WinWaitActive, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
+  return
+}
+
+WinWaitPos(desired_x, desired_y, win_title, win_text="", Seconds="", exclude_title="", exclude_text="")
+{
+  WinGetPos, actual_x, actual_y, width, height, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  while (desired_x != actual_x && desired_y != actual_y) {
+    WinGetPos, actual_x, actual_y, width, height, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  }
   return
 }
 
