@@ -1,7 +1,17 @@
 /**
+  @brief The title of the window that blanks out the screen.
+  */
+kBlankWindowTitle := "BlankWindow"
+
+/**
   @brief The window class of XBMC.
   */
-kRemoteXbmcClass := "ahk_class XBMC"
+kXbmcWindowClass := "ahk_class XBMC"
+
+/**
+  @brief The path to XBMC executable.
+  */
+kXbmcPath := "C:\Program Files (x86)\XBMC\XBMC.exe"
 
 /**
   @brief The mode of the remote.
