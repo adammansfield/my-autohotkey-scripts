@@ -9,25 +9,26 @@
   */
 #e::
 {
-  if (!WinExist("ahk_class XBMC")) {
+  if (!WinExist(kRemoteXbmcClass)) {
     Run("C:\Program Files (x86)\XBMC\XBMC.exe")
   }
 
-  WinWait("ahk_class XBMC")
-  WinActivate("ahk_class XBMC")
-  WinWaitActive("ahk_class XBMC", "", 5)
-  WinMove("ahk_class XBMC", "", 0, 0)
+  WinWait(kRemoteXbmcClass)
+  WinActivate(kRemoteXbmcClass)
+  WinWaitActive(kRemoteXbmcClass, "", 5)
 
-  if (!IsFullScreen("ahk_class XBMC")) {
+  if (!IsFullScreen(kRemoteXbmcClass)) {
+    WinMove(kRemoteXbmcClass, "", 0, 0)
+    WinWaitPos(0, 0, kRemoteXbmcClass)
     Send("\")
   }
 
   remote_mode_enabled := true
-  Speak("remote mode enabled")
+  Speak("remote enabled")
   return
 }
 
-#If WinActive("ahk_class XBMC")
+#If WinActive(kRemoteXbmcClass)
 {
   /**
     @brief XBMC fullscreen toggle key also used to disable remote mode.
@@ -36,7 +37,7 @@
   {
     if (remote_mode_enabled) {
       remote_mode_enabled := false
-      Speak("remote mode disabled")
+      Speak("remote disabled")
     }
     return
   }
@@ -81,12 +82,13 @@
       }
     }
     else {
-      WinMove("ahk_class XBMC", "", 0, 0)
-      if (!IsFullScreen("ahk_class XBMC")) {
+      if (!IsFullScreen(kRemoteXbmcClass)) {
+        WinMove(kRemoteXbmcClass, "", 0, 0)
+        WinWaitPos(0, 0, kRemoteXbmcClass)
         Send("\")
       }
       remote_mode_enabled := true
-      Speak("remote mode enabled")
+      Speak("remote enabled")
       return
     }
   }
@@ -190,7 +192,7 @@
   !F4::
   {
     if (remote_mode_enabled) {
-      Speak("reloading auto hot key")
+      Speak("reloading")
       Reload()
     }
     else {
