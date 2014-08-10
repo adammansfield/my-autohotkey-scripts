@@ -15,13 +15,13 @@ CapsLock::Esc
 */
 +CapsLock::
 {
-	if (GetKeyState("Capslock", "T")) {
-		SetCapsLockState("off")
-	}
-	else {
+  if (GetKeyState("Capslock", "T")) {
+    SetCapsLockState("off")
+  }
+  else {
     SetCapsLockState("on")
-	}
-	return
+  }
+  return
 }
 
 /**
@@ -39,13 +39,13 @@ CapsLock::Esc
   */
 $<!s::
 {
-	minutes := InputBox("Monitor Shutoff", "", "", 150, 100)
+  minutes := InputBox("Monitor Shutoff", "", "", 150, 100)
   milliseconds := minutes * 60000
 
-	; Set the priority low to allow script to still function.
-	ThreadPriority(-1000)
-	Sleep(milliseconds)
-	SendMessage(0x112, 0xF170, 2, "", "Program Manager")
+  ; Set the priority low to allow script to still function.
+  ThreadPriority(-1000)
+  Sleep(milliseconds)
+  SendMessage(0x112, 0xF170, 2, "", "Program Manager")
   return
 }
 
