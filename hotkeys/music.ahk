@@ -10,7 +10,7 @@
     */
   <!m::
   {
-    input_string := InputBox(kMusicMetadataWindowName, "Mood`, Genre",, 230, 120,, 100)
+    input_string := InputBox(kMusicMetadataWindowTitle, "Mood`, Genre",, 230, 120,, 100)
     if (ErrorLevel) {
       return
     }
@@ -60,7 +60,7 @@
   }
 }
 
-#If WinActive(kMusicMetadataWindowName)
+#If WinActive(kMusicMetadataWindowTitle)
 {
   /**
     @brief Hotstrings for moods.
