@@ -3,14 +3,14 @@
   */
 
 
-#IfWinActive MediaMonkey
+#If WinActive(kMusicPlayerWindowTitle)
 {
   /**
     @brief Hotkey to quickly edit meta data.
     */
-	<!m::
-	{
-    input_string := InputBox("Enter Custom Metadata", "Mood`, Genre",, 230, 120,, 100)
+  <!m::
+  {
+    input_string := InputBox(kMusicMetadataWindowName, "Mood`, Genre",, 230, 120,, 100)
     if (ErrorLevel) {
       return
     }
@@ -20,6 +20,8 @@
     genre := meta_data[2]
 
     Send("+{Enter}")
+
+    ; Allow time for window to load.
     WinWaitActive("Properties")
     Sleep(200)
 
@@ -33,6 +35,7 @@
       Send(mood)
     }
 
+    ; Allow time for the input to be finished.
     Sleep(500)
     ControlClick("TButtonPlus9")
     return
@@ -41,57 +44,58 @@
   /**
     @brief Quick search. Select and clear search box.
     */
-	/::
-	{
-	  Send("{Click 1755, 55}{End}+{Home}{BS}")
-	  return
-	}
+  /::
+  {
+    Send("{Click 1755, 55}{End}+{Home}{BS}")
+    return
+  }
 
   /**
     @brief Quick rename.
     */
-	MButton::
-	{
-	  Send("{LButton}{F2}")
-	  return
+  MButton::
+  {
+    Send("{LButton}{F2}")
+    return
   }
 }
-#IfWinActive Enter Custom Metadata
-{
-	/**
-	  @brief Hotstrings for moods.
-	  */
-	:*:a1::A1,
-	:*:a2::A2,
-	:*:a3::A3,
-	:*:a4::A4,
-	:*:b1::B1,
-	:*:b2::B2,
-	:*:b3::B3,
-	:*:b4::B4,
-	:*:c1::C1,
-	:*:c2::C2,
-	:*:c3::C3,
-	:*:c4::C4,
-	:*:d1::D1,
-	:*:d2::D2,
-	:*:d3::D3,
-	:*:d4::D4,
 
-	/**
-	  @brief Hotstrings for genres.
-	  */
-	:*:ac::Acoustic`;
-	:*:bl::Blues`;
-	:*:cl::Classical`;
-	:*:el::Electronic`;
-	:*:fo::Folk`;
-	:*:hh::HipHop`;
-	:*:nv::NoVocal`;
-	:*:po::Pop`;
-	:*:ro::Rock`;
-	:*:so::Soundtrack`;
-	:*:un::Unclassifiable`;
+#If WinActive(kMusicMetadataWindowName)
+{
+  /**
+    @brief Hotstrings for moods.
+    */
+  :*:a1::A1,
+  :*:a2::A2,
+  :*:a3::A3,
+  :*:a4::A4,
+  :*:b1::B1,
+  :*:b2::B2,
+  :*:b3::B3,
+  :*:b4::B4,
+  :*:c1::C1,
+  :*:c2::C2,
+  :*:c3::C3,
+  :*:c4::C4,
+  :*:d1::D1,
+  :*:d2::D2,
+  :*:d3::D3,
+  :*:d4::D4,
+
+  /**
+    @brief Hotstrings for genres.
+    */
+  :*:ac::Acoustic`;
+  :*:bl::Blues`;
+  :*:cl::Classical`;
+  :*:el::Electronic`;
+  :*:fo::Folk`;
+  :*:hh::HipHop`;
+  :*:nv::NoVocal`;
+  :*:po::Pop`;
+  :*:ro::Rock`;
+  :*:so::Soundtrack`;
+  :*:un::Unclassifiable`;
 }
 #IfWinActive
 
