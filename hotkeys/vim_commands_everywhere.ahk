@@ -3,6 +3,30 @@
   */
 
 /**
+  @brief Send the input command with or without a shift depending on the mode.
+  */
+ModeDependentSend(command)
+{
+  global vim_mode, kVimModeVisual, kVimModeNormal
+  if (kVimModeNormal == vim_mode) {
+    Send(command)
+  }
+  else if (kVimModeVisual == vim_mode) {
+    Send("+" . command)
+  }
+}
+
+/**
+  @brief Send the input command with or without a shift depending on the mode.
+  */
+SendAndSetModeToNormal(command)
+{
+  global vim_mode, kVimModeNormal
+  Send(command)
+  vim_mode := kVimModeNormal
+}
+
+/**
   @brief Navigate/Highlight to beginning of line depending on mode.
   @notes vim key 0
   */
@@ -236,30 +260,6 @@
 {
   SendAndSetModeToNormal("{Space}")
   return
-}
-
-/**
-  @brief Send the input command with or without a shift depending on the mode.
-  */
-ModeDependentSend(command)
-{
-  global vim_mode, kVimModeVisual, kVimModeNormal
-  if (kVimModeNormal == vim_mode) {
-    Send(command)
-  }
-  else if (kVimModeVisual == vim_mode) {
-    Send("+" . command)
-  }
-}
-
-/**
-  @brief Send the input command with or without a shift depending on the mode.
-  */
-SendAndSetModeToNormal(command)
-{
-  global vim_mode, kVimModeNormal
-  Send(command)
-  vim_mode := kVimModeNormal
 }
 
 /**
