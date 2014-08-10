@@ -1,3 +1,4 @@
+#include globals/audio.ahk
 #include globals/directives.ahk
 #include globals/cygwin.ahk
 #include globals/music.ahk
