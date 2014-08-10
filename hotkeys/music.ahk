@@ -82,6 +82,7 @@
 	  @brief Hotstrings for genres.
 	  */
 	:*:ac::Acoustic`;
+	:*:bl::Blues`;
 	:*:cl::Classical`;
 	:*:el::Electronic`;
 	:*:fo::Folk`;
@@ -93,5 +94,4 @@
 	:*:un::Unclassifiable`;
 }
 #IfWinActive
-
 
