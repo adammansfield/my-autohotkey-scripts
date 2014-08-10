@@ -15,9 +15,9 @@ ControlClick(control_or_pos, win_title="", win_text="", which_button="", click_c
   return
 }
 
-ControlGet(cmd, value="", control_param="", win_title="", win_text="", exclude_title="", exclude_text="")
+ControlGet(cmd, value="", control_name="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
-  ControlGet, retval, %cmd%, %value%, %control_param%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  ControlGet, retval, %cmd%, %value%, %control_name%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
   return retval
 }
 
@@ -27,10 +27,22 @@ ControlGetFocus(win_title="", win_text="", exclude_title="", exclude_text="")
   return retval
 }
 
-ControlGetText(control_param="", win_title="", win_text="", exclude_title="", exclude_text="")
+ControlGetText(control_name="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
-  ControlGetText, retval, %control_param%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  ControlGetText, retval, %control_name%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
   return retval
+}
+
+ControlSend(control_name="", keys="", win_title="", win_text="", exclude_title="", exclude_text="")
+{
+  ControlSend, %control_name%, %keys%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  return
+}
+
+ControlSendRaw(control_name="", keys="", win_title="", win_text="", exclude_title="", exclude_text="")
+{
+  ControlSendRaw, %control_name%, %keys%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  return
 }
 
 DriveGet(cmd, value="")
@@ -265,9 +277,9 @@ PixelSearch(ByRef out_x, ByRef out_y, x_1, y_1, x_2, y_2, color_id, variation=""
   return
 }
 
-PostMessage(ByRef msg, w_param="", l_param="", control_param="", win_title="", win_text="", exclude_title="", exclude_text="")
+PostMessage(ByRef msg, w_param="", l_param="", control_name="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
-  PostMessage, %msg%, %w_param%, %l_param%, %control_param%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  PostMessage, %msg%, %w_param%, %l_param%, %control_name%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
   return
 }
 
@@ -337,9 +349,9 @@ Send(keys)
   return
 }
 
-SendMessage(ByRef msg, w_param="", l_param="", control_param="", win_title="", win_text="", exclude_title="", exclude_text="")
+SendMessage(ByRef msg, w_param="", l_param="", control_name="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
-  SendMessage, %msg%, %w_param%, %l_param%, %control_param%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  SendMessage, %msg%, %w_param%, %l_param%, %control_name%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
   return
 }
 
@@ -469,9 +481,9 @@ StringUpper(ByRef string, t="")
   return retval
 }
 
-SysGet(sub_command, Param3="")
+SysGet(sub_command, param_3="")
 {
-  SysGet, retval, %sub_command%, %Param3%
+  SysGet, retval, %sub_command%, %param_3%
   return retval
 }
 
@@ -521,6 +533,12 @@ WinActivate(win_title="", win_text="", exclude_title="", exclude_text="")
   return
 }
 
+WinClose(win_title="", win_text="", seconds_to_wait="", exclude_title="", exclude_text="")
+{
+  WinClose, %win_title%, %win_text%, %seconds_to_wait%, %exclude_title%, %exclude_text%
+  return
+}
+
 WinGet(cmd="", win_title="", win_text="", exclude_title="", exclude_text="")
 {
   WinGet, retval, %cmd%, %win_title%, %win_text%, %exclude_title%, %exclude_text%
@@ -562,6 +580,12 @@ WinGetTitle(win_title="", win_text="", exclude_title="", exclude_text="")
   return retval
 }
 
+WinHide(win_title="", win_text="", exclude_title="", exclude_text="")
+{
+  WinHide, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+  return
+}
+
 WinMinimize(win_title="", win_text="", exclude_title="", exclude_text="")
 {
   WinMinimize, %win_title%, %win_text%, %exclude_title%, %exclude_text%
@@ -571,6 +595,12 @@ WinMinimize(win_title="", win_text="", exclude_title="", exclude_text="")
 WinMove(win_title="", win_text="", x="", y="", width="", height="", exclude_title="", exclude_text="")
 {
   WinMove, %win_title%, %win_text%, %x%, %y%, %width%, %height%, %exclude_title%, %exclude_text%
+  return
+}
+
+WinShow(win_title="", win_text="", exclude_title="", exclude_text="")
+{
+  WinShow, %win_title%, %win_text%, %exclude_title%, %exclude_text%
   return
 }
 
