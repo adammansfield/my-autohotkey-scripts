@@ -1,5 +1,5 @@
 /**
-  @brief The modes of the everywhere vim keyboard.
+  @brief Enumeration of the modes of the everywhere vim keyboard.
   */
 kVimModeNormal := 0
 kVimModeVisual := 1
