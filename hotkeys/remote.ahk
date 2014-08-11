@@ -58,7 +58,7 @@
       Gui("1:Add", "Button", "x1800 y0 w120 h1080 gSleepButtonCancel", "NAK")
       Gui("1:+AlwaysOnTop")
       Gui("1:-Caption")
-      Gui("1:Show", "x0 y0 h1080 w1920")
+      Gui("1:Show", "x0 y0 h1080 w1920", kInputSleepWindowTitle)
       return
 
       SleepButtonOk:
@@ -109,7 +109,7 @@
       Gui("2:Add", "Button", "x1800 y0 w120 h1080 gBlankButtonCancel", "NAK")
       Gui("2:+AlwaysOnTop")
       Gui("2:-Caption")
-      Gui("2:Show", "x0 y0 h1080 w1920")
+      Gui("2:Show", "x0 y0 h1080 w1920", kInputBlankWindowTitle)
       return
 
       BlankButtonOk:
@@ -264,6 +264,7 @@
   }
 }
 #If WinActive(kBlankWindowTitle)
+{
   /**
     @brief Quit the blank screen.
     */
@@ -272,5 +273,30 @@
     Gui("3:Destroy")
     return
   }
+}
+#If WinActive(kInputBlankWindowTitle)
+{
+  /**
+    @brief Quit the input window for blanking the screen.
+    @notes remote back button
+    */
+  RButton::
+  {
+    Gui("2:Destroy")
+    return
+  }
+}
+#If WinActive(kInputSleepWindowTitle)
+{
+  /**
+    @brief Quit the input window for sleeping the screen.
+    @notes remote back button
+    */
+  RButton::
+  {
+    Gui("1:Destroy")
+    return
+  }
+}
 #If
 
