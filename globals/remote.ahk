@@ -4,6 +4,16 @@
 kBlankWindowTitle := "BlankWindow"
 
 /**
+  @brief The title of the window that inputs the timeout for blanking out the screen.
+  */
+kInputBlankWindowTitle := "InputBlankWindow"
+
+/**
+  @brief The title of the window that inputs the timeout for sleeping the computer.
+  */
+kInputSleepWindowTitle := "InputSleepWindow"
+
+/**
   @brief The window class of XBMC.
   */
 kXbmcWindowClass := "ahk_class XBMC"
