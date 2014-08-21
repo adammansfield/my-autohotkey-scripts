@@ -3,6 +3,22 @@
   */
 
 
+/**
+  @brief Remap broswer back for easier access.
+  */
+Browser_Back::Media_Prev
+
+/**
+  @brief Remap broswer forward for easier access.
+  */
+Browser_Forward::Media_Next
+
+/**
+  @brief MediaMonkey fix for Microsoft Natural Ergonomic Keyboard 4000.
+  */
+Media_Play_Pause::Media_Play_Pause
+
+
 #If WinActive(kMusicPlayerWindowTitle)
 {
   /**
