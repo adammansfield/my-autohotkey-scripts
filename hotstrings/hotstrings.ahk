@@ -1,17 +1,27 @@
 #include hotstrings/auto_correct.ahk
 
 ; Abbreviations
-::btw::by the way
-::brb::be right back
+:c:btw::by the way
+:c:brb::be right back
 
 ; Brackets
-:*?c:cb`;::{{}{}}{Left}
-:*?c:rb`;::(){Left}
-:*?c:sb`;::[]{Left}
+:?co:cbr::{{}{}}{Left}
+:?co:rbr::(){Left}
+:?co:sbr::[]{Left}
 
 ; Bullet Point
-:*?c:bl`;::{AltDown}{Numpad7}{AltUp}
+:?c:bp`;::{AltDown}{Numpad7}{AltUp}
 
 ; Degree
-:*?c:deg`;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
+:?c:deg`;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
+
+; Dont Commit Comments
+:?c:dcdc:://DontCommit
+:?c:dctodo:://DontCommit(todo)
+:?c:dcrd:://DontCommit(r/d)
+:?c:dcnote:://DontCommit(note)
+:?c:dcbeg:://{#}DontCommit
+:?c:dcend:://{#}EndDontCommit
+:?co:dcsec:://{#}DontCommit{Enter 2}//{#}EndDontCommit{Up}
+:?co:dccom::/*{#}DontCommit{Enter 2}{#}EndDontCommit*/{Up}
 
