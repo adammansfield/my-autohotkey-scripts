@@ -37,7 +37,7 @@ CapsLock::Esc
 /**
   @brief Turn off the display in a specified time in minutes.
   */
-$<!s::
+<!s::
 {
   minutes := InputBox("Monitor Shutoff", "", "", 150, 100)
   milliseconds := minutes * 60000
