@@ -271,7 +271,7 @@ SendAndSetModeToNormal(command)
 /**
   @brief Remap Ctrl-Shift-z to Ctrl-z for same as QWERTY undo.
   */
-$^+;::
+^+;::
 {
   Send("^z")
   return
@@ -280,7 +280,7 @@ $^+;::
 /**
   @brief Remap Ctrl-Shift-x to Ctrl-z for same as QWERTY cut.
   */
-$^+q::
+^+q::
 {
   Send("^x")
   return
@@ -289,7 +289,7 @@ $^+q::
 /**
   @brief Remap Ctrl-Shift-z to Ctrl-c for same as QWERTY copy.
   */
-$^+j::
+^+j::
 {
   Send("^c")
   return
@@ -298,7 +298,7 @@ $^+j::
 /**
   @brief Remap Ctrl-Shift-z to Ctrl-v for same as QWERTY paste.
   */
-$^+k::
+^+k::
 {
   Send("^v")
   return
