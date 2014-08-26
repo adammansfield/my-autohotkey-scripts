@@ -72,7 +72,13 @@ SendAndSetModeToNormal(command)
   */
 >!+d::
 {
-  ; TODO: implement delete to end of line.
+  if (kVimModeNormal == vim_mode) {
+    Send("+{End}{Delete}")
+  }
+  else if (kVimModeVisual == vim_mode) {
+    Send("{Home}+{End}{Backspace 2}")
+    vim_mode := kVimModeNormal
+  }
   return
 }
 
