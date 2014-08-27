@@ -17,6 +17,12 @@
 #InstallKeybdHook
 
 /**
+  @brief Forces the keyboard hook to be used to implement hotkeys.
+  @notes Turning this directive ON is equivalent to using the $ prefix for every hotkey.
+  */
+#UseHook On
+
+/**
   @brief Along with #HotkeyInterval, specifies the rate of hotkey activations beyond
          which a warning dialog will be displayed
   */

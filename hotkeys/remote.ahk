@@ -33,7 +33,7 @@
   /**
     @brief XBMC fullscreen toggle key also used to disable remote mode.
     */
-  ~$\::
+  ~\::
   {
     if (remote_mode_enabled) {
       remote_mode_enabled := false
@@ -94,7 +94,7 @@
            Remote Mode Disabled: space
     @notes remote handmenu button
     */
-  $Space::
+  Space::
   {
     if (WinExist(kBlankWindowTitle)) {
       Gui("3:Destroy")
