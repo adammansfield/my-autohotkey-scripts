@@ -1,9 +1,9 @@
-#If !WinActive("adam") &&
-    !WinActive("mansfa2")&&
-    !WinActive("Microsoft Visual") &&
+#If !WinActive(kCygwinWindowTitle) &&
     !WinActive("Editor") &&
-    !WinActive("Toodledo") &&
-    !WinActive("GnuCash")
+    !WinActive("GnuCash") &&
+    !WinActive("mansfa2")&&
+    !WinActive("Microsoft Visual Studio") &&
+    !WinActive("Toodledo")
 
 /**
   @brief Fix for -ign instead of -ing.
