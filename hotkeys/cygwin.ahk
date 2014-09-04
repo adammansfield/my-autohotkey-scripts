@@ -14,7 +14,7 @@ F12::
     }
     ProcessWaitExist(kCygwinXProcessName)
     if (!WinExist(kCygwinWindowTitle)) {
-      Run(kCygwinTerminalTarget, kCygwinPath)
+      Run(kCygwinXTerminalTarget, kCygwinPath)
     }
     WinWait(kCygwinWindowTitle)
     WinActivate(kCygwinWindowTitle)
@@ -23,7 +23,7 @@ F12::
 }
 
 /**
-  @brief Start new instance of a cygwin terminal.
+  @brief Start new instance of a cygwin X-terminal.
   */
 +F12::
 {
@@ -31,6 +31,15 @@ F12::
     Run(kCygwinXTarget, kCygwinPath)
   }
   ProcessWaitExist(kCygwinXProcessName)
+  Run(kCygwinXTerminalTarget, kCygwinPath)
+  return
+}
+
+/**
+  @brief Start new instance of a cygwin terminal.
+  */
+!F12::
+{
   Run(kCygwinTerminalTarget, kCygwinPath)
   return
 }

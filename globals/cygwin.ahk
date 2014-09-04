@@ -6,7 +6,12 @@ kCygwinPath := EnvGet("CYGWIN_BIN")
 /**
   @brief Target to Cygwin terminal with arguments.
   */
-kCygwinTerminalTarget := kCygwinPath . "\run.exe urxvt.exe -display 127.0.0.1:0 -e ./bash --login"
+kCygwinTerminalTarget := kCygwinPath . "\rxvt.exe -e ./bash --login"
+
+/**
+  @brief Target to Cygwin X terminal with arguments.
+  */
+kCygwinXTerminalTarget := kCygwinPath . "\run.exe urxvt.exe -display 127.0.0.1:0 -e ./bash --login"
 
 /**
   @brief The name of the Cygwin X server process.
