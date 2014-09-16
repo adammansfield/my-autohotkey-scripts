@@ -13,9 +13,18 @@
     Run(kXbmcPath)
   }
 
-  WinWait(kXbmcWindowClass)
+  WinWait(kXbmcWindowClass,, 5)
+  if (1 == ErrorLevel) {
+    MsgBox("Error: XBMC window does not exist")
+    return
+  }
+
   WinActivate(kXbmcWindowClass)
   WinWaitActive(kXbmcWindowClass, "", 5)
+  if (1 == ErrorLevel) {
+    MsgBox("Error: XBMC window is not active")
+    return
+  }
 
   if (!IsFullScreen(kXbmcWindowClass)) {
     WinMove(kXbmcWindowClass, "", 0, 0)
@@ -65,7 +74,9 @@
       {
         Gui("1:Submit")
         Gui("1:Destroy")
-        Speak("sleeping in " . sleep_minutes . " minutes")
+        if (0 != sleep_minutes) {
+          Speak("sleeping in " . sleep_minutes . " minutes")
+        }
         SuspendComputer(sleep_minutes)
         return
       }
@@ -103,7 +114,7 @@
     else if (remote_mode_enabled) {
       Gui("2:Font", "s768", "Verdana")
       Gui("2:Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
-      Gui("2:Add", "UpDown", "x940 y0 w0 h980 Range0-180 vblank_minutes", 10)
+      Gui("2:Add", "UpDown", "x940 y0 w0 h980 Range0-180 vblank_minutes", 0)
       Gui("2:Font", "s64", "Verdana")
       Gui("2:Add", "Button", "x0 y980 w1800  h100 Default gBlankButtonOk", "ACK")
       Gui("2:Add", "Button", "x1800 y0 w120 h1080 gBlankButtonCancel", "NAK")
@@ -115,7 +126,9 @@
       BlankButtonOk:
       {
         Gui("2:Submit")
-        Speak("blanking in " . blank_minutes . " minutes")
+        if (0 != blank_minutes) {
+          Speak("blanking in " . blank_minutes . " minutes")
+        }
         blank_msec := blank_minutes * 60000
         Gui("2:Destroy")
 
