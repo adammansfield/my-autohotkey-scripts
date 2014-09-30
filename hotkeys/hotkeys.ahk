@@ -25,16 +25,6 @@ CapsLock::Esc
 }
 
 /**
-  @brief Map ctrl-right to media next.
-  */
-^Right::Media_Next
-
-/**
-  @brief Map ctrl-left to media prev.
-  */
-^Left::Media_Prev
-
-/**
   @brief Turn off the display in a specified time in minutes.
   */
 <!s::
