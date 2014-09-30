@@ -26,5 +26,5 @@ kCygwinXTarget := kCygwinPath . "\run.exe -p /usr/X11R6/bin XWin -multiwindow -c
 /**
   @brief Get the title of a cygwin terminal.
   */
-kCygwinWindowTitle := "i)" . A_UserName . "@" . A_ComputerName
+kCygwinWindowTitle := "terminal "
 
