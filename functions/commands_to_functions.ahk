@@ -607,13 +607,15 @@ WinShow(win_title="", win_text="", exclude_title="", exclude_text="")
 WinWait(win_title, win_text="", Seconds="", exclude_title="", exclude_text="")
 {
   WinWait, %win_title%, %win_text%, %Seconds%, %exclude_title%, %exclude_text%
-  return
+  retval := ErrorLevel
+  return retval
 }
 
 WinWaitActive(win_title="", win_text="", seconds="", exclude_title="", exclude_text="")
 {
   WinWaitActive, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
-  return
+  retval := ErrorLevel
+  return retval
 }
 
 WinWaitPos(desired_x, desired_y, win_title, win_text="", Seconds="", exclude_title="", exclude_text="")
