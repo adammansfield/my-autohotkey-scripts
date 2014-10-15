@@ -33,7 +33,7 @@
   }
 
   remote_mode_enabled := true
-  Speak("remote enabled")
+  AsyncSpeak("remote enabled")
   return
 }
 
@@ -46,7 +46,7 @@
   {
     if (remote_mode_enabled) {
       remote_mode_enabled := false
-      Speak("remote disabled")
+      AsyncSpeak("remote disabled")
     }
     return
   }
@@ -75,7 +75,7 @@
         Gui("1:Submit")
         Gui("1:Destroy")
         if (0 != sleep_minutes) {
-          Speak("sleeping in " . sleep_minutes . " minutes")
+          AsyncSpeak("sleeping in " . sleep_minutes . " minutes")
         }
         SuspendComputer(sleep_minutes)
         return
@@ -94,7 +94,7 @@
         Send("\")
       }
       remote_mode_enabled := true
-      Speak("remote enabled")
+      AsyncSpeak("remote enabled")
       return
     }
   }
@@ -127,7 +127,7 @@
       {
         Gui("2:Submit")
         if (0 != blank_minutes) {
-          Speak("blanking in " . blank_minutes . " minutes")
+          AsyncSpeak("blanking in " . blank_minutes . " minutes")
         }
         blank_msec := blank_minutes * 60000
         Gui("2:Destroy")
