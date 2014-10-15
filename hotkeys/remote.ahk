@@ -13,15 +13,13 @@
     Run(kXbmcPath)
   }
 
-  WinWait(kXbmcWindowClass,, 5)
-  if (1 == ErrorLevel) {
+  if (1 == WinWait(kXbmcWindowClass,, 5)) {
     MsgBox("Error: XBMC window does not exist")
     return
   }
 
   WinActivate(kXbmcWindowClass)
-  WinWaitActive(kXbmcWindowClass, "", 5)
-  if (1 == ErrorLevel) {
+  if (1 == WinWaitActive(kXbmcWindowClass, "", 5)) {
     MsgBox("Error: XBMC window is not active")
     return
   }
