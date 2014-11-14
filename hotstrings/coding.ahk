@@ -11,15 +11,9 @@
 }
 
 ; Dont Commit Comments
-:?co:dctag::DontCommit
-:?c:dcdc:://DontCommit
-:?c:dctodo:://DontCommit(todo)
-:?c:dcrd:://DontCommit(r/d)
-:?c:dcnote:://DontCommit(note)
-:?co:dcsec:://{#}DontCommit{Enter 2}//{#}EndDontCommit{Up}
-:?c:dcsecbeg:://{#}DontCommit
-:?c:dcsecend:://{#}EndDontCommit
-:?co:dccom::/*{#}DontCommit{Enter 2}{#}EndDontCommit*/{Up}
-:?c:dccombeg::/*{#}DontCommit
-:?c:dccomend::{#}EndDontCommit*/
-
+:?co:dcdc::DontCommit
+:?c:dctodo::DontCommit(todo)
+:?c:dcrd::DontCommit(r/d)
+:?c:dcnote::DontCommit(note)
+:?c:dcbegin::DontCommit(begin)
+:?c:dcend::DontCommit(end)
