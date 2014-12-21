@@ -1,6 +1,3 @@
-#include functions/commands_to_functions.ahk
-#include functions/speak.ahk
-
 /**
   @brief Determine whether a given window is full screen or not.
   */

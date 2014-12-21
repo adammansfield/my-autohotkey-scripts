@@ -1,5 +1,5 @@
-#include globals/globals.ahk
-#include functions/functions.ahk
-#include hotkeys/hotkeys.ahk
-#include hotstrings/hotstrings.ahk
+#include globals/package.ahk
+#include functions/package.ahk
+#include hotkeys/package.ahk
+#include hotstrings/package.ahk
 
