@@ -4,10 +4,10 @@
 IsFullScreen(win_title="")
 {
   ; The window has a thin-line border.
-  kWsBorder := 0x00800000
+  static kWsBorder := 0x00800000
 
   ; The window is initially minimized.
-  kWsMinimize := 0x20000000
+  static kWsMinimize := 0x20000000
 
   kBorderOrMinimizeStyle := kWsBorder | kWsMinimize
 
