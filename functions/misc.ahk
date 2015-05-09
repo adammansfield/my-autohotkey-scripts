@@ -3,12 +3,16 @@
   */
 IsFullScreen(win_title="")
 {
-  ; WS_BORDER    0x00800000  The window has a thin-line border.
-  ; WS_MINIMIZE  0x20000000  The window is initially minimized.
-  kBorderAnddMinimizeFlag := 0x20800000
+  ; The window has a thin-line border.
+  kWsBorder := 0x00800000
+
+  ; The window is initially minimized.
+  kWsMinimize := 0x20000000
+
+  kBorderOrMinimizeStyle := kWsBorder | kWsMinimize
 
   style := WinGet("Style", win_title)
-  if (style & kBorderAnddMinimizeFlag)
+  if (style & kBorderOrMinimizeStyle)
   {
     return false
   }
