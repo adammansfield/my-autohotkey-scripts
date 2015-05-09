@@ -17,7 +17,9 @@ MultiByteToWideChar(code_page, flags, multibyte_string, multibyte_string_length,
     wide_string_length := DllCall("MultiByteToWideChar", "UInt", code_page, "UInt", flags, "Str", multibyte_string, "Int", multibyte_string_length, "UInt", 0, "Int", 0)
   }
 
-  VarSetCapacity(wide_string, wide_string_length)
+  wide_string_bytes := 2 * wide_string_length
+  VarSetCapacity(wide_string, wide_string_bytes)
+
   DllCall("MultiByteToWideChar", "UInt", code_page, "UInt", flags, "Str", multibyte_string, "Int", multibyte_string_length, "UInt", &wide_string, "Int", wide_string_length)
 }
 
