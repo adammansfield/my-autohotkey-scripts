@@ -250,10 +250,12 @@ MouseMove(x, y, speed="", r="")
 
 MsgBox(text, options="", title="", timeout="")
 {
-  if (options || title || timeout) {
+  if (options || title || timeout)
+  {
     MsgBox, %options%, %title%, %text%, %timeout%
   }
-  else {
+  else
+  {
     MsgBox, %text%
   }
   return
@@ -621,7 +623,8 @@ WinWaitActive(win_title="", win_text="", seconds="", exclude_title="", exclude_t
 WinWaitPos(desired_x, desired_y, win_title, win_text="", Seconds="", exclude_title="", exclude_text="")
 {
   WinGetPos, actual_x, actual_y, width, height, %win_title%, %win_text%, %exclude_title%, %exclude_text%
-  while (desired_x != actual_x && desired_y != actual_y) {
+  while (desired_x != actual_x && desired_y != actual_y)
+  {
     WinGetPos, actual_x, actual_y, width, height, %win_title%, %win_text%, %exclude_title%, %exclude_text%
   }
   return
