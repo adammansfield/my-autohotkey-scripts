@@ -12,8 +12,25 @@
 
 ; Dont Commit Comments
 :?co:dcdc::DontCommit
-:?c:dctodo::DontCommit(todo)
-:?c:dcrd::DontCommit(r/d)
+:?c:dcb::Begin DontCommit
+:?c:dce::End DontCommit
+
+:?c:dcd::DontCommit(debug)
+:?c:dcbdebug::Begin DontCommit(debug)
+:?c:dcededbug::End DontCommit(debug)
+
 :?c:dcnote::DontCommit(note)
-:?c:dcbegin::DontCommit(begin)
-:?c:dcend::DontCommit(end)
+:?c:dcbnote::Begin DontCommit(note)
+:?c:dcenote::End DontCommit(note)
+
+:?c:dcorg::DontCommit(original)
+:?c:dcborg::Begin DontCommit(original)
+:?c:dceorg::End DontCommit(original)
+
+:?c:dcrd::DontCommit(r/d)
+:?c:dcbrd::Begin DontCommit(r/d)
+:?c:dcerd::End DontCommit(r/d)
+
+:?c:dctodo::DontCommit(todo)
+:?c:dcbtodo::Begin DontCommit(todo)
+:?c:dcetodo::End DontCommit(todo)
