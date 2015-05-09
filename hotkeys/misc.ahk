@@ -1,17 +1,19 @@
 /*
  @brief Remap Capslock to escape.
-*/
-CapsLock::Esc
+ */
+CapsLock::-
 
 /*
  @brief Remap Shift-Capslock to toggle Capslock.
-*/
+ */
 +CapsLock::
 {
-  if (GetKeyState("Capslock", "T")) {
+  if (GetKeyState("Capslock", "T"))
+  {
     SetCapsLockState("off")
   }
-  else {
+  else
+  {
     SetCapsLockState("on")
   }
   return
@@ -31,20 +33,3 @@ CapsLock::Esc
   SendMessage(0x112, 0xF170, 2, "", "Program Manager")
   return
 }
-
-#If WinActive("Counter-Strike")
-{
-  CapsLock::
-  {
-    Send("{- down}")
-    return
-  }
-
-  CapsLock Up::
-  {
-    Send("{- up}")
-    return
-  }
-}
-#If
-
