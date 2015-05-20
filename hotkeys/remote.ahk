@@ -57,21 +57,21 @@
   #e::
   {
     if (remote_mode_enabled) {
-      Gui("1:Font", "s768", "Verdana")
-      Gui("1:Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
-      Gui("1:Add", "UpDown", "x940 y0 w0 h980 Range0-180 vsleep_minutes", 30)
-      Gui("1:Font", "s64", "Verdana")
-      Gui("1:Add", "Button", "x0 y980 w1800  h100 Default gSleepButtonOk", "ACK")
-      Gui("1:Add", "Button", "x1800 y0 w120 h1080 gSleepButtonCancel", "NAK")
-      Gui("1:+AlwaysOnTop")
-      Gui("1:-Caption")
-      Gui("1:Show", "x0 y0 h1080 w1920", kInputSleepWindowTitle)
+      Gui(kGuiSleepInputId . ":Font", "s768", "Verdana")
+      Gui(kGuiSleepInputId . ":Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
+      Gui(kGuiSleepInputId . ":Add", "UpDown", "x940 y0 w0 h980 Range0-180 vsleep_minutes", 30)
+      Gui(kGuiSleepInputId . ":Font", "s64", "Verdana")
+      Gui(kGuiSleepInputId . ":Add", "Button", "x0 y980 w1800  h100 Default gSleepButtonOk", "ACK")
+      Gui(kGuiSleepInputId . ":Add", "Button", "x1800 y0 w120 h1080 gSleepButtonCancel", "NAK")
+      Gui(kGuiSleepInputId . ":+AlwaysOnTop")
+      Gui(kGuiSleepInputId . ":-Caption")
+      Gui(kGuiSleepInputId . ":Show", "x0 y0 h1080 w1920", kGuiSleepInputTitle)
       return
 
       SleepButtonOk:
       {
-        Gui("1:Submit")
-        Gui("1:Destroy")
+        Gui(kGuiSleepInputId . ":Submit")
+        Gui(kGuiSleepInputId . ":Destroy")
         if (0 != sleep_minutes) {
           AsyncSpeak("sleeping in " . sleep_minutes . " minutes")
         }
@@ -81,7 +81,7 @@
 
       SleepButtonCancel:
       {
-        Gui("1:Destroy")
+        Gui(kGuiSleepInputId . ":Destroy")
         return
       }
     }
@@ -105,40 +105,40 @@
     */
   Space::
   {
-    if (WinExist(kBlankWindowTitle)) {
-      Gui("3:Destroy")
+    if (WinExist(kGuiBlankTitle)) {
+      Gui(kGuiBlankId . ":Destroy")
       return
     }
     else if (remote_mode_enabled) {
-      Gui("2:Font", "s768", "Verdana")
-      Gui("2:Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
-      Gui("2:Add", "UpDown", "x940 y0 w0 h980 Range0-180 vblank_minutes", 0)
-      Gui("2:Font", "s64", "Verdana")
-      Gui("2:Add", "Button", "x0 y980 w1800  h100 Default gBlankButtonOk", "ACK")
-      Gui("2:Add", "Button", "x1800 y0 w120 h1080 gBlankButtonCancel", "NAK")
-      Gui("2:+AlwaysOnTop")
-      Gui("2:-Caption")
-      Gui("2:Show", "x0 y0 h1080 w1920", kInputBlankWindowTitle)
+      Gui(kGuiBlankInputId . ":Font", "s768", "Verdana")
+      Gui(kGuiBlankInputId . ":Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
+      Gui(kGuiBlankInputId . ":Add", "UpDown", "x940 y0 w0 h980 Range0-180 vblank_minutes", 0)
+      Gui(kGuiBlankInputId . ":Font", "s64", "Verdana")
+      Gui(kGuiBlankInputId . ":Add", "Button", "x0 y980 w1800  h100 Default gBlankButtonOk", "ACK")
+      Gui(kGuiBlankInputId . ":Add", "Button", "x1800 y0 w120 h1080 gBlankButtonCancel", "NAK")
+      Gui(kGuiBlankInputId . ":+AlwaysOnTop")
+      Gui(kGuiBlankInputId . ":-Caption")
+      Gui(kGuiBlankInputId . ":Show", "x0 y0 h1080 w1920", kGuiBlankInputTitle)
       return
 
       BlankButtonOk:
       {
-        Gui("2:Submit")
+        Gui(kGuiBlankInputId . ":Submit")
         if (0 != blank_minutes) {
           AsyncSpeak("blanking in " . blank_minutes . " minutes")
         }
         blank_msec := blank_minutes * 60000
-        Gui("2:Destroy")
+        Gui(kGuiBlankInputId . ":Destroy")
 
         ; Set priority low to allow script to still function.
         ThreadPriority(-1000)
         Sleep(blank_msec)
 
-        Gui("3:Default")
-        Gui("3:Color", "black")
-        Gui("3:+AlwaysOnTop")
-        Gui("3:-Caption")
-        Gui("3:Show", "x0 y0 w" . A_ScreenWidth . " h" . A_ScreenHeight, kBlankWindowTitle)
+        Gui(kGuiBlankId . ":Default")
+        Gui(kGuiBlankId . ":Color", "black")
+        Gui(kGuiBlankId . ":+AlwaysOnTop")
+        Gui(kGuiBlankId . ":-Caption")
+        Gui(kGuiBlankId . ":Show", "x0 y0 w" . A_ScreenWidth . " h" . A_ScreenHeight, kGuiBlankTitle)
 
         ; Move mouse to side to hide it.
         MouseMove(1920, 0)
@@ -150,7 +150,7 @@
 
       BlankButtonCancel:
       {
-        Gui("2:Destroy")
+        Gui(kGuiBlankInputId . ":Destroy")
         return
       }
     }
@@ -274,18 +274,18 @@
     return
   }
 }
-#If WinActive(kBlankWindowTitle)
+#If WinActive(kGuiBlankTitle)
 {
   /**
     @brief Quit the blank screen.
     */
   Esc::
   {
-    Gui("3:Destroy")
+    Gui(kGuiBlankId . ":Destroy")
     return
   }
 }
-#If WinActive(kInputBlankWindowTitle)
+#If WinActive(kGuiBlankInputTitle)
 {
   /**
     @brief Quit the input window for blanking the screen.
@@ -293,11 +293,11 @@
     */
   RButton::
   {
-    Gui("2:Destroy")
+    Gui(kGuiBlankInputId . ":Destroy")
     return
   }
 }
-#If WinActive(kInputSleepWindowTitle)
+#If WinActive(kGuiSleepInputTitle)
 {
   /**
     @brief Quit the input window for sleeping the screen.
@@ -305,7 +305,7 @@
     */
   RButton::
   {
-    Gui("1:Destroy")
+    Gui(kGuiSleepInputId . ":Destroy")
     return
   }
 }
