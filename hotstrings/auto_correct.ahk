@@ -1,7 +1,8 @@
 #If !WinActive(kCygwinWindowTitle) &&
     !WinActive("Editor") &&
     !WinActive("GnuCash") &&
-    !WinActive("mansfa2")&&
+    !WinActive("Ideone") &&
+    !WinActive("mansfa2") &&
     !WinActive("Microsoft Visual Studio") &&
     !WinActive("Toodledo")
 
