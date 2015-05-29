@@ -110,6 +110,13 @@ ToggleVolumeState()
 
   static audio_state := kStateSpeakers
 
+  volume := VA_GetMasterVolume()
+  if (90 <= volume)
+  {
+    ; Speakers should never be very high so assume it is headphones.
+    audio_state := kStateHeadphones
+  }
+
   if (kStateHeadphones == audio_state)
   {
     VA_SetMasterVolume(kSpeakersVolume)
@@ -118,15 +125,20 @@ ToggleVolumeState()
   else if (kStateSpeakers == audio_state)
   {
     AsyncSpeak("Switch volume")
-    err:= KeyWait("Control", "D T2")
-    if (err)
+
+    result := Msgbox("Press ok to switch to headphone volume", 0, "", 2)
+    if ("ok" == result)
+    {
+      VA_SetMasterVolume(kHeadphonesVolume)
+      audio_state := kStateHeadphones
+    }
+    else if ("timeout" == result)
     {
       AsyncSpeak("Switch failed")
     }
     else
     {
-      VA_SetMasterVolume(kHeadphonesVolume)
-      audio_state := kStateHeadphones
+      Msgbox("Error: result of Msgbox() """ . result """ is unexpected.")
     }
   }
   else
