@@ -96,3 +96,43 @@ ToggleMicMute()
   SoundSet("+1", kAudioMicrophoneDevice, "mute")
   return
 }
+
+/**
+  @brief Toggle between volumes states.
+  */
+ToggleVolumeState()
+{
+  static kStateSpeakers := 0
+  static kStateHeadphones := 1
+
+  static kSpeakersVolume := 20
+  static kHeadphonesVolume := 100
+
+  static audio_state := kStateSpeakers
+
+  if (kStateHeadphones == audio_state)
+  {
+    VA_SetMasterVolume(kSpeakersVolume)
+    audio_state := kStateSpeakers
+  }
+  else if (kStateSpeakers == audio_state)
+  {
+    AsyncSpeak("Switch volume")
+    err:= KeyWait("Control", "D T2")
+    if (err)
+    {
+      AsyncSpeak("Switch failed")
+    }
+    else
+    {
+      VA_SetMasterVolume(kHeadphonesVolume)
+      audio_state := kStateHeadphones
+    }
+  }
+  else
+  {
+    MsgBox("Error: audio state """ . audio_state . """ is unknown")
+  }
+
+  return
+}

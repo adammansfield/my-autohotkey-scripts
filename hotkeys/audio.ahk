@@ -1,10 +1,3 @@
-/**
-  @brief Toggle between default audio devices.
-  */
-<!a::ToggleAudioDevice()
+<!a::ToggleVolumeState()
 
-/**
-  @brief Toggle mute for microphone.
-  */
 <!o::ToggleMicMute()
-
