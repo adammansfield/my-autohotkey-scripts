@@ -233,7 +233,8 @@ InputBox(Title="", prompt="", hide="", width="", height="", x="", y="", font="",
 KeyWait(key_name, options="")
 {
   KeyWait, %key_name%, %options%
-  return
+  retval := ErrorLevel
+  return retval
 }
 
 MouseGetPos(ByRef out_x="", ByRef out_y="", ByRef out_war_win="", ByRef out_war_control="", mode="")
