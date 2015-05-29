@@ -253,7 +253,26 @@ MsgBox(text, options="", title="", timeout="")
 {
   if (options || title || timeout)
   {
-    MsgBox, %options%, %title%, %text%, %timeout%
+    ; The options parameter does not work if we use %options%
+    ; so we use % (expression) instead.
+    MsgBox, % options, %title%, %text%, %timeout%
+
+    IfMsgBox Yes
+      return "yes"
+    IfMsgBox No
+      return "no"
+    IfMsgBox OK
+      return "ok"
+    IfMsgBox Cancel
+      return "cancel"
+    IfMsgBox Abort
+      return "abort"
+    IfMsgBox Ignore
+      return "ignore"
+    IfMsgBox Retry
+      return "retry"
+    IfMsgBox Timeout
+      return "timeout"
   }
   else
   {
