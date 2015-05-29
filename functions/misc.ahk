@@ -69,6 +69,22 @@ ToggleAudioDevice()
 }
 
 /**
+  @brief Toggle Capslock.
+  */
+ToggleCapsLock()
+{
+  if (GetKeyState("Capslock", "T"))
+  {
+    SetCapsLockState("off")
+  }
+  else
+  {
+    SetCapsLockState("on")
+  }
+  return
+}
+
+/**
   @brief Toggle mute for microphone.
   */
 ToggleMicMute()
