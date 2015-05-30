@@ -25,8 +25,7 @@ Scripts
 
 Dependencies
 ------------
-* [AutoHotkey v1.0.48.05+ (ANSI 32-bit)](http://autohotkey.org/)
-  - ANSI 32-bit needed for text to speech since using SAPI 32-bit. Otherwise scripts can run on Unicode 64-bit version.
+* [AutoHotkey v1.1.21.00+](http://ahkscript.org/)
 
 Third Party Sources
 -------------------
