@@ -30,41 +30,25 @@ SendAndSetModeToNormal(command)
   @brief Navigate/Highlight to beginning of line depending on mode.
   @notes vim key 0
   */
->!0::
-{
-  ModeDependentSend("{Home}")
-  return
-}
+>!0::ModeDependentSend("{Home}")
 
 /**
   @brief Navigate/Highlight to end of line depending on mode.
   @notes vim key $
   */
->!+4::
-{
-  ModeDependentSend("{End}")
-  return
-}
+>!+4::ModeDependentSend("{End}")
 
 /**
   @brief Navigate/Highlight previous word depending on mode.
   @notes vim key b
   */
->!b::
-{
-  ModeDependentSend("^{Left}")
-  return
-}
+>!b::ModeDependentSend("^{Left}")
 
 /**
   @brief Delete.
   @notes vim key d
   */
->!d::
-{
-  SendAndSetModeToNormal("^x")
-  return
-}
+>!d::SendAndSetModeToNormal("^x")
 
 /**
   @brief Delete to end of line.
@@ -86,51 +70,31 @@ SendAndSetModeToNormal(command)
   @brief Navigate/Highlight left depending on mode.
   @notes vim key h
   */
->!h::
-{
-  ModeDependentSend("{Left}")
-  return
-}
+>!h::ModeDependentSend("{Left}")
 
 /**
   @brief Navigate/Highlight down depending on mode.
   @notes vim key j
   */
->!j::
-{
-  ModeDependentSend("{Down}")
-  return
-}
+>!j::ModeDependentSend("{Down}")
 
 /**
   @brief Navigate/Highlight up depending on mode.
   @notes vim key k
   */
->!k::
-{
-  ModeDependentSend("{Up}")
-  return
-}
+>!k::ModeDependentSend("{Up}")
 
 /**
   @brief Navigate/Highlight right depending on mode.
   @notes vim key l
   */
->!l::
-{
-  ModeDependentSend("{Right}")
-  return
-}
+>!l::ModeDependentSend("{Right}")
 
 /**
   @brief Paste after.
   @notes vim key p
   */
->!p::
-{
-  SendAndSetModeToNormal("^v")
-  return
-}
+>!p::SendAndSetModeToNormal("^v")
 
 /**
   @brief Paste before.
@@ -146,11 +110,7 @@ SendAndSetModeToNormal(command)
   @brief Undo.
   @notes vim key u
   */
->!u::
-{
-  Send("^z")
-  return
-}
+>!u:: Send("^z")
 
 /**
   @brief Enters or exits visual mode.
@@ -172,41 +132,25 @@ SendAndSetModeToNormal(command)
   @brief Navigate/Highlight next word depending on mode.
   @notes vim key w
   */
->!w::
-{
-  ModeDependentSend("^{Right}")
-  return
-}
+>!w::ModeDependentSend("^{Right}")
 
 /**
   @brief Delete character.
   @notes vim key x
   */
->!x::
-{
-  SendAndSetModeToNormal("{Delete}")
-  return
-}
+>!x::SendAndSetModeToNormal("{Delete}")
 
 /**
   @brief Backspace.
   @notes vim key X
   */
->!+x::
-{
-  SendAndSetModeToNormal("{Backspace}")
-  return
-}
+>!+x::SendAndSetModeToNormal("{Backspace}")
 
 /**
   @brief Yank.
   @notes vim key y
   */
->!y::
-{
-  SendAndSetModeToNormal("^c{Left}")
-  return
-}
+>!y::SendAndSetModeToNormal("^c{Left}")
 
 /**
   @brief Yank line.
@@ -222,85 +166,49 @@ SendAndSetModeToNormal(command)
   @brief Backspace.
   @notes vim key backspace
   */
->!Backspace::
-{
-  Send("{Backspace}")
-  return
-}
+>!Backspace::Send("{Backspace}")
 
 /**
   @brief Indent.
   @notes vim key tab
   */
->!Tab::
-{
-  Send("{Tab}")
-  return
-}
+>!Tab::Send("{Tab}")
 
 /**
   @brief Dedent.
   @notes vim key shift-tab
   */
->!+Tab::
-{
-  Send("+{Tab}")
-  return
-}
+>!+Tab::Send("+{Tab}")
 
 /**
   @brief Enter.
   @notes vim key enter
   */
->!Enter::
-{
-  SendAndSetModeToNormal("{Enter}")
-  return
-}
+>!Enter::SendAndSetModeToNormal("{Enter}")
 
 /**
   @brief Space.
   @notes vim key space
   */
->!Space::
-{
-  SendAndSetModeToNormal("{Space}")
-  return
-}
+>!Space::SendAndSetModeToNormal("{Space}")
 
 /**
   @brief Remap Ctrl-Shift-z to Ctrl-z for same as QWERTY undo.
   */
-^+;::
-{
-  Send("^z")
-  return
-}
+^+;::Send("^z")
 
 /**
   @brief Remap Ctrl-Shift-x to Ctrl-z for same as QWERTY cut.
   */
-^+q::
-{
-  Send("^x")
-  return
-}
+^+q::Send("^x")
 
 /**
   @brief Remap Ctrl-Shift-z to Ctrl-c for same as QWERTY copy.
   */
-^+j::
-{
-  Send("^c")
-  return
-}
+^+j::Send("^c")
 
 /**
   @brief Remap Ctrl-Shift-z to Ctrl-v for same as QWERTY paste.
   */
-^+k::
-{
-  Send("^v")
-  return
-}
+^+k::Send("^v")
 
