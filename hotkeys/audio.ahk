@@ -19,11 +19,11 @@ ToggleMicMute()
   */
 ToggleVolumeState()
 {
-  static kStateSpeakers := 0
-  static kStateHeadphones := 1
-
   static kSpeakersVolume := 20
   static kHeadphonesVolume := 100
+
+  static kStateSpeakers := 0
+  static kStateHeadphones := 1
 
   static audio_state := kStateSpeakers
 
@@ -44,12 +44,12 @@ ToggleVolumeState()
     AsyncSpeak("Switch volume")
 
     result := Msgbox("Press ok to switch to headphone volume", 0, "", 2)
-    if ("ok" == result)
+    if (MsgboxResult.ok() == result)
     {
       VA_SetMasterVolume(kHeadphonesVolume)
       audio_state := kStateHeadphones
     }
-    else if ("timeout" == result)
+    else if (MsgboxResult.timeout() == result)
     {
       AsyncSpeak("Switch failed")
     }
