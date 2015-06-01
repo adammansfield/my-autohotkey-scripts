@@ -23,6 +23,14 @@ IsFullScreen(win_title="")
 }
 
 /**
+  @brief Handles errors by displaying an error message.
+  */
+ShowError(ByRef errmsg)
+{
+  MsgBox("Error: " . errmsg)
+}
+
+/**
   @brief Toggle between default audio devices.
   */
 ToggleAudioDevice()
