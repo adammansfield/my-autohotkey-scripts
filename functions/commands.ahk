@@ -2,6 +2,15 @@
   @brief Convert every command to a function. Function names are the same as its command.
   */
 
+/**
+  @brief Provides a wrapper for both the return value and error value into one container.
+  */
+class CommandResult
+{
+  val := ""
+  err := 0
+}
+
 Click(x, y)
 {
   Click, %x%, %y%
@@ -224,9 +233,17 @@ Input(options="", end_keys="", match_list="")
   return result
 }
 
+/**
+  @brief Displays an input box to ask the user to enter a string.
+  @return CommandResult val is the text entered
+                        err is 0 if ok is pressed else 1.
+  */
 InputBox(Title="", prompt="", hide="", width="", height="", x="", y="", font="", timeout="", default="")
 {
-  InputBox, result, %Title%, %prompt%, %hide%, %width%, %height%, %x%, %y%, , %timeout%, %default%
+  result := new CommandResult
+  InputBox, OutputVar, %Title%, %prompt%, %hide%, %width%, %height%, %x%, %y%, , %timeout%, %default%
+  result.err := ErrorLevel
+  result.val := OutputVar
   return result
 }
 
@@ -248,87 +265,208 @@ MouseMove(x, y, speed="", r="")
   return
 }
 
+/**
+  @brief Provides all possible results of Msgbox from the IfMsgBox command.
+  */
 class MsgboxResult
 {
-  ; These are functions so they act as constants and cannot be overwritten.
-  abort()
+  Abort[]
   {
-    return "abort"
+    get
+    {
+      return "abort"
+    }
+
+    set
+    {
+    }
   }
 
-  cancel()
+  Cancel[]
   {
-    return "cancel"
+    get
+    {
+      return "cancel"
+    }
+
+    set
+    {
+    }
   }
 
-  ignore()
+  Continue[]
   {
-    return "ignore"
+    get
+    {
+      return "continue"
+    }
+
+    set
+    {
+    }
   }
 
-  no()
+  Ignore[]
   {
-    return "no"
+    get
+    {
+      return "ignore"
+    }
+
+    set
+    {
+    }
   }
 
-  none()
+  No[]
   {
-    return "none"
+    get
+    {
+      return "no"
+    }
+
+    set
+    {
+    }
   }
 
-  ok()
+  Ok[]
   {
-    return "ok"
+    get
+    {
+      return "ok"
+    }
+
+    set
+    {
+    }
   }
 
-  retry()
+  Retry[]
   {
-    return "retry"
+    get
+    {
+      return "retry"
+    }
+
+    set
+    {
+    }
   }
 
-  timeout()
+  Timeout[]
   {
-    return "timeout"
+    get
+    {
+      return "timeout"
+    }
+
+    set
+    {
+    }
   }
 
-  yes()
+  TryAgain[]
   {
-    return "yes"
+    get
+    {
+      return "tryagain"
+    }
+
+    set
+    {
+    }
+  }
+
+  Yes[]
+  {
+    get
+    {
+      return "yes"
+    }
+
+    set
+    {
+    }
   }
 }
 
-MsgBox(text, options="", title="", timeout="")
+/**
+  @brief Displays the specified text in a small window containing one
+         or more buttons (such as Yes and No).
+  @return CommandResult val is a MsgboxResult
+                        err is always 0
+  */
+MsgBox(text="", options="", title="", timeout="")
 {
+  retval := new CommandResult
+
   if (options || title || timeout)
   {
     ; The options parameter does not work if we use %options%
     ; so we use % (expression) instead.
     MsgBox, % options, %title%, %text%, %timeout%
 
-    IfMsgBox Yes
-      return MsgboxResult.yes()
-    IfMsgBox No
-      return MsgboxResult.no()
-    IfMsgBox OK
-      return MsgboxResult.ok()
-    IfMsgBox Cancel
-      return MsgboxResult.cancel()
-    IfMsgBox Abort
-      return MsgboxResult.abort()
-    IfMsgBox Ignore
-      return MsgboxResult.ignore()
-    IfMsgBox Retry
-      return MsgboxResult.retry()
-    IfMsgBox Timeout
-      return MsgboxResult.timeout()
+    IfMsgBox, Abort
+    {
+      retval.val := MsgboxResult.Abort
+    }
 
-    return MsgBoxResult.unknown()
+    IfMsgBox, Cancel
+    {
+      retval.val := MsgboxResult.Cancel
+    }
+
+    IfMsgBox, Continue
+    {
+      retval.val := MsgboxResult.Continue
+    }
+
+    IfMsgBox, Ignore
+    {
+      retval.val := MsgboxResult.Ignore
+    }
+
+    IfMsgBox, No
+    {
+      retval.val := MsgboxResult.No
+    }
+
+    IfMsgBox, OK
+    {
+      retval.val := MsgboxResult.Ok
+    }
+
+    IfMsgBox, Retry
+    {
+      retval.val := MsgboxResult.Retry
+    }
+
+    IfMsgBox, Timeout
+    {
+      retval.val := MsgboxResult.Timeout
+    }
+
+    IfMsgBox, TryAgain
+    {
+      retval.val := MsgboxResult.TryAgain
+    }
+
+    IfMsgBox, Yes
+    {
+      retval.val := MsgboxResult.Yes
+    }
+  }
+  else if ("" == text)
+  {
+    MsgBox
   }
   else
   {
     MsgBox, %text%
-    return MsgBoxResult.none()
   }
+
+  return retval
 }
 
 OutputDebug(string)

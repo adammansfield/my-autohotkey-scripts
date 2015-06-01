@@ -43,24 +43,25 @@ ToggleVolumeState()
   {
     AsyncSpeak("Switch volume")
 
-    result := Msgbox("Press ok to switch to headphone volume", 0, "", 2)
-    if (MsgboxResult.ok() == result)
+    result := Msgbox("Press ok to switch to headphone volume", 0, "Switch Volume", 2)
+
+    if (MsgboxResult.Ok == result.val)
     {
       VA_SetMasterVolume(kHeadphonesVolume)
       audio_state := kStateHeadphones
     }
-    else if (MsgboxResult.timeout() == result)
+    else if (MsgboxResult.Timeout == result.val)
     {
-      AsyncSpeak("Switch failed")
+      AsyncSpeak("Switch timed out")
     }
     else
     {
-      Msgbox("Error: result of Msgbox() """ . result """ is unexpected.")
+      ShowError("result of Msgbox() """ . result.val """ is unexpected")
     }
   }
   else
   {
-    MsgBox("Error: audio state """ . audio_state . """ is unknown")
+    ShowError("audio state """ . audio_state . """ is unknown")
     audio_state := kStateSpeakers
   }
 
