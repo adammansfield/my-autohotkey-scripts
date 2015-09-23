@@ -11,7 +11,7 @@ class StdResult
   __New()
   {
     this.ok_ := ""
-    this.err_ := 0
+    this.err_ := ""
     this.is_err_ := false
     this.is_ok_ := false
   }
@@ -20,7 +20,14 @@ class StdResult
   {
     get
     {
-      return this.ok_
+    if (this.is_ok())
+    {
+        return this.ok_
+    }
+    else
+    {
+      throw Exception("StdResult is err, but trying to access ok.", -1)
+    }
     }
 
     set
@@ -35,14 +42,21 @@ class StdResult
   {
     get
     {
+    if (this.is_err())
+    {
       return this.err_
+    }
+      else
+    {
+      throw Exception("StdResult is ok, but trying to access err.", -1)
+    }
     }
 
     set
     {
-      this.err_ := error
-      this.is_ok_ := false
+      this.err_ := value
       this.is_err_ := true
+      this.is_ok_ := false
     }
   }
 
