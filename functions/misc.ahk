@@ -1,3 +1,79 @@
+
+/**
+  @brief Launches and activates AMD Catalyst Control Center.
+  @param is_retry Whether this is a retry or not.
+  @returns 0 if successful, else 1.
+  */
+CatalystControlCenterActivate(is_retry=false)
+{
+  static kCCCPath := "C:\Program Files (x86)\AMD\ATI.ACE\Core-Static\CCC.exe"
+  static kCCCTitle := "AMD Catalyst Control Center"
+  static kCCCProcess := "CCC.exe"
+
+  if (is_retry)
+  {
+    ; Sometimes CCC window will not appear so we kill and restart program.
+    if (ProcessExist(kCCCProcess).is_ok())
+    {
+      if (ProcessWaitClose(kCCCProcess, 1).is_err())
+      {
+        MsgBox("Error: ProcessWaitClose timed out")
+        return 1
+      }
+    }
+
+    Run(kCCCPath)
+    if (ProcessWait(kCCCProcess, 1).is_err())
+    {
+      MsgBox("Error: ProcessWait timed out")
+      return 1
+    }
+  }
+
+  if (ProcessExist(kCCCProcess).is_err())
+  {
+    Run(kCCCPath)
+    if (ProcessWait(kCCCProcess, 1).is_err())
+    {
+      MsgBox("Error: ProcessWait timed out")
+      return 1
+    }
+  }
+
+  ; Running CCC if it already exists will cause the CCC window to appear.
+  Run(kCCCPath)
+
+  if (1 == WinWait(kCCCTitle, "", 3))
+  {
+    if (is_retry)
+    {
+      MsgBox("Error: WinWait timed out")
+      return 1
+    }
+    else
+    {
+      CatalystControlCenterActivate(true)
+    }
+  }
+
+  WinActivate(kCCCTitle)
+  if (1 == WinWaitActive(kCCCTitle, "", 1))
+  {
+    if (is_retry)
+    {
+      MsgBox("Error: WinWaitActive timed out")
+      return 1
+    }
+    else
+    {
+      CatalystControlCenterActivate(true)
+    }
+  }
+
+  return 0
+}
+
+
 /**
   @brief Determine whether a given window is full screen or not.
   */

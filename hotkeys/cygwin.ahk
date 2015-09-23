@@ -12,7 +12,7 @@ F12::
     if (!ProcessExist(kCygwinXProcessName)) {
       Run(kCygwinXTarget, kCygwinPath)
     }
-    ProcessWaitExist(kCygwinXProcessName)
+    ProcessWait(kCygwinXProcessName)
     if (!WinExist(kCygwinWindowTitle)) {
       Run(kCygwinXTerminalTarget, kCygwinPath)
     }
@@ -30,7 +30,7 @@ F12::
   if (!ProcessExist(kCygwinXProcessName)) {
     Run(kCygwinXTarget, kCygwinPath)
   }
-  ProcessWaitExist(kCygwinXProcessName)
+  ProcessWait(kCygwinXProcessName)
   Run(kCygwinXTerminalTarget, kCygwinPath)
   return
 }

@@ -4,11 +4,41 @@
 
 /**
   @brief Provides a wrapper for both the return value and error value into one container.
+  @note Based on Rust's std::Result.
   */
-class CommandResult
+class StdResult
 {
-  val := ""
-  err := 0
+  __New()
+  {
+    this.ok_ := ""
+    this.err_ := 0
+    this.is_err_ := false
+    this.is_ok_ := false
+  }
+
+  ok(value)
+  {
+    this.ok_ := value
+    this.is_ok_ := true
+    this.is_err_ := false
+  }
+
+  err(error)
+  {
+    this.err_ := error
+    this.is_ok_ := false
+    this.is_err_ := true
+  }
+
+  is_err()
+  {
+    return this.is_err_
+  }
+
+  is_ok()
+  {
+    return this.is_ok_
+  }
 }
 
 Click(x, y)
@@ -235,15 +265,15 @@ Input(options="", end_keys="", match_list="")
 
 /**
   @brief Displays an input box to ask the user to enter a string.
-  @return CommandResult val is the text entered
-                        err is 0 if ok is pressed else 1.
+  @return StdResult ok is the text entered
+                    err is 0 if ok is pressed else 1.
   */
 InputBox(Title="", prompt="", hide="", width="", height="", x="", y="", font="", timeout="", default="")
 {
-  result := new CommandResult
+  result := new StdResult()
   InputBox, OutputVar, %Title%, %prompt%, %hide%, %width%, %height%, %x%, %y%, , %timeout%, %default%
   result.err := ErrorLevel
-  result.val := OutputVar
+  result.ok := OutputVar
   return result
 }
 
@@ -394,12 +424,12 @@ class MsgboxResult
 /**
   @brief Displays the specified text in a small window containing one
          or more buttons (such as Yes and No).
-  @return CommandResult val is a MsgboxResult
-                        err is always 0
+  @return StdResult ok is a MsgboxResult
+                    err is always 0
   */
 MsgBox(text="", options="", title="", timeout="")
 {
-  retval := new CommandResult
+  retval := new StdResult()
 
   if (options || title || timeout)
   {
@@ -409,52 +439,52 @@ MsgBox(text="", options="", title="", timeout="")
 
     IfMsgBox, Abort
     {
-      retval.val := MsgboxResult.Abort
+      retval.ok(MsgboxResult.Abort)
     }
 
     IfMsgBox, Cancel
     {
-      retval.val := MsgboxResult.Cancel
+      retval.ok(MsgboxResult.Cancel)
     }
 
     IfMsgBox, Continue
     {
-      retval.val := MsgboxResult.Continue
+      retval.ok(MsgboxResult.Continue)
     }
 
     IfMsgBox, Ignore
     {
-      retval.val := MsgboxResult.Ignore
+      retval.ok(MsgboxResult.Ignore)
     }
 
     IfMsgBox, No
     {
-      retval.val := MsgboxResult.No
+      retval.ok(MsgboxResult.No)
     }
 
     IfMsgBox, OK
     {
-      retval.val := MsgboxResult.Ok
+      retval.ok(MsgboxResult.Ok)
     }
 
     IfMsgBox, Retry
     {
-      retval.val := MsgboxResult.Retry
+      retval.ok(MsgboxResult.Retry)
     }
 
     IfMsgBox, Timeout
     {
-      retval.val := MsgboxResult.Timeout
+      retval.ok(MsgboxResult.Timeout)
     }
 
     IfMsgBox, TryAgain
     {
-      retval.val := MsgboxResult.TryAgain
+      retval.ok(MsgboxResult.TryAgain)
     }
 
     IfMsgBox, Yes
     {
-      retval.val := MsgboxResult.Yes
+      retval.ok(MsgboxResult.Yes)
     }
   }
   else if ("" == text)
@@ -502,7 +532,19 @@ ProcessClose(pid_or_name)
 ProcessExist(pid_or_name)
 {
   Process, Exist, %pid_or_name%
-  return ErrorLevel
+  pid := ErrorLevel
+
+  result := new StdResult()
+  if (0 == pid)
+  {
+    result.err(pid)
+  }
+  else
+  {
+    result.ok(pid)
+  }
+
+  return result
 }
 
 ProcessPriority(pid_or_name, priority)
@@ -511,16 +553,40 @@ ProcessPriority(pid_or_name, priority)
   return ErrorLevel
 }
 
+ProcessWait(pid_or_name, seconds="")
+{
+  Process, Wait, %pid_or_name%, %seconds%
+  pid := ErrorLevel
+
+  result := new StdResult()
+  if (0 == pid)
+  {
+    result.err(pid)
+  }
+  else
+  {
+    result.ok(pid)
+  }
+
+  return result
+}
+
 ProcessWaitClose(pid_or_name, seconds="")
 {
   Process, WaitClose, %pid_or_name%, %seconds%
-  return ErrorLevel
-}
+  pid := ErrorLevel
 
-ProcessWaitExist(pid_or_name, seconds="")
-{
-  Process, Wait, %pid_or_name%, %seconds%
-  return ErrorLevel
+  result := new StdResult()
+  if (0 == pid)
+  {
+    result.ok(pid)
+  }
+  else
+  {
+    result.err(pid)
+  }
+
+  return result
 }
 
 RegRead(root_key, sub_key, value_name="")
