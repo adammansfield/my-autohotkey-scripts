@@ -3,19 +3,25 @@
   */
 F12::
 {
-  if (WinActive(kCygwinWindowTitle)) {
+  if (WinActive(kCygwinWindowTitle))
+  {
     WinMinimize()
     WinActivate(previous_window)
   }
-  else {
+  else
+  {
     previous_window := WinGetActiveTitle()
-    if (!ProcessExist(kCygwinXProcessName)) {
+    if (ProcessExist(kCygwinXProcessName).is_err())
+    {
       Run(kCygwinXTarget, kCygwinPath)
     }
+
     ProcessWait(kCygwinXProcessName)
-    if (!WinExist(kCygwinWindowTitle)) {
+    if (!WinExist(kCygwinWindowTitle))
+    {
       Run(kCygwinXTerminalTarget, kCygwinPath)
     }
+
     WinWait(kCygwinWindowTitle)
     WinActivate(kCygwinWindowTitle)
   }
@@ -27,7 +33,8 @@ F12::
   */
 +F12::
 {
-  if (!ProcessExist(kCygwinXProcessName)) {
+  if (!ProcessExist(kCygwinXProcessName))
+  {
     Run(kCygwinXTarget, kCygwinPath)
   }
   ProcessWait(kCygwinXProcessName)
