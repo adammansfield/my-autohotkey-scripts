@@ -13,6 +13,12 @@ CapsLock::Esc
   return
 }
 
+<!+p::
+{
+  Run("C:\Program Files (x86)\SVP\MPC-HC\mpc-hc.exe " . clipboard)
+  return
+}
+
 #If WinActive(kGuiBlackoutTitle)
 {
   Esc::Gui(kGuiBlackoutId . ":Destroy")
