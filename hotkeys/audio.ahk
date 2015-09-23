@@ -45,18 +45,18 @@ ToggleVolumeState()
 
     result := Msgbox("Press ok to switch to headphone volume", 0, "Switch Volume", 2)
 
-    if (MsgboxResult.Ok == result.val)
+    if (MsgboxResult.Ok == result.ok)
     {
       VA_SetMasterVolume(kHeadphonesVolume)
       audio_state := kStateHeadphones
     }
-    else if (MsgboxResult.Timeout == result.val)
+    else if (MsgboxResult.Timeout == result.ok)
     {
       AsyncSpeak("Switch timed out")
     }
     else
     {
-      ShowError("result of Msgbox() """ . result.val """ is unexpected")
+      ShowError("result of Msgbox() """ . result.ok """ is unexpected")
     }
   }
   else
