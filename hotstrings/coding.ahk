@@ -9,8 +9,8 @@
 :?c:dce::End DontCommit
 
 :?c:dcd::DontCommit(debug)
-:?c:dcbdebug::Begin DontCommit(debug)
-:?c:dcededbug::End DontCommit(debug)
+:?c:dcbd::Begin DontCommit(debug)
+:?c:dced::End DontCommit(debug)
 
 :?c:dcnote::DontCommit(note)
 :?c:dcbnote::Begin DontCommit(note)
