@@ -16,18 +16,34 @@ class StdResult
     this.is_ok_ := false
   }
 
-  ok(value)
+  ok[]
   {
-    this.ok_ := value
-    this.is_ok_ := true
-    this.is_err_ := false
+    get
+    {
+      return this.ok_
+    }
+
+    set
+    {
+      this.ok_ := value
+      this.is_ok_ := true
+      this.is_err_ := false
+    }
   }
 
-  err(error)
+  err[]
   {
-    this.err_ := error
-    this.is_ok_ := false
-    this.is_err_ := true
+    get
+    {
+      return this.err_
+    }
+
+    set
+    {
+      this.err_ := error
+      this.is_ok_ := false
+      this.is_err_ := true
+    }
   }
 
   is_err()
@@ -439,52 +455,52 @@ MsgBox(text="", options="", title="", timeout="")
 
     IfMsgBox, Abort
     {
-      retval.ok(MsgboxResult.Abort)
+      retval.ok := MsgboxResult.Abort
     }
 
     IfMsgBox, Cancel
     {
-      retval.ok(MsgboxResult.Cancel)
+      retval.ok := MsgboxResult.Cancel
     }
 
     IfMsgBox, Continue
     {
-      retval.ok(MsgboxResult.Continue)
+      retval.ok := MsgboxResult.Continue
     }
 
     IfMsgBox, Ignore
     {
-      retval.ok(MsgboxResult.Ignore)
+      retval.ok := MsgboxResult.Ignore
     }
 
     IfMsgBox, No
     {
-      retval.ok(MsgboxResult.No)
+      retval.ok := MsgboxResult.No
     }
 
     IfMsgBox, OK
     {
-      retval.ok(MsgboxResult.Ok)
+      retval.ok := MsgboxResult.Ok
     }
 
     IfMsgBox, Retry
     {
-      retval.ok(MsgboxResult.Retry)
+      retval.ok := MsgboxResult.Retry
     }
 
     IfMsgBox, Timeout
     {
-      retval.ok(MsgboxResult.Timeout)
+      retval.ok := MsgboxResult.Timeout
     }
 
     IfMsgBox, TryAgain
     {
-      retval.ok(MsgboxResult.TryAgain)
+      retval.ok := MsgboxResult.TryAgain
     }
 
     IfMsgBox, Yes
     {
-      retval.ok(MsgboxResult.Yes)
+      retval.ok := MsgboxResult.Yes
     }
   }
   else if ("" == text)
@@ -537,11 +553,11 @@ ProcessExist(pid_or_name)
   result := new StdResult()
   if (0 == pid)
   {
-    result.err(pid)
+    result.err := pid
   }
   else
   {
-    result.ok(pid)
+    result.ok := pid
   }
 
   return result
@@ -561,11 +577,11 @@ ProcessWait(pid_or_name, seconds="")
   result := new StdResult()
   if (0 == pid)
   {
-    result.err(pid)
+    result.err := pid
   }
   else
   {
-    result.ok(pid)
+    result.ok := pid
   }
 
   return result
@@ -579,11 +595,11 @@ ProcessWaitClose(pid_or_name, seconds="")
   result := new StdResult()
   if (0 == pid)
   {
-    result.ok(pid)
+    result.ok := pid
   }
   else
   {
-    result.err(pid)
+    result.err := pid
   }
 
   return result
