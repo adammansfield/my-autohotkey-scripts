@@ -17,7 +17,7 @@ CatalystControlCenterActivate(is_retry=false)
     {
       ProcessClose(kCCCProcess)
 
-      if (ProcessWaitClose(kCCCProcess, 1).is_err())
+      if (ProcessWaitClose(kCCCProcess, 2).is_err())
       {
         ShowError("ProcessWaitClose timed out")
         return 1
@@ -38,7 +38,7 @@ CatalystControlCenterActivate(is_retry=false)
   ; Running CCC if it already exists will cause the CCC window to appear.
   Run(kCCCPath)
 
-  if (1 == WinWait(kCCCTitle, "", 5))
+  if (1 == WinWait(kCCCTitle, "", 7))
   {
     if (is_retry)
     {
