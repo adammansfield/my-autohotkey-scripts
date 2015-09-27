@@ -5,15 +5,15 @@
 {
   CatalystControlCenterActivate()
 
-  Click(50, 150)  ; Pinned.
-  Sleep(500)      ; Wait for pinned to expand.
-  Click(50, 195)  ; Desktop Color.
+  Send("{Tab 9}{Enter}") ; Expand "Desktop Management".
+  Send("{Tab 4}{Enter}") ; Open "Desktop Color"
 
-  Click(470, 200) ; Expand desktop selection list. 
-  Click(470, 330) ; Select Center desktop.
+  Send("{Tab 12}{Enter}") ; Open "Select the display that you want to configure".
+  Send("{Tab 4}{Enter}")  ; Select Monitor 3 (center monitor).
+  Sleep(1000)             ; Wait for monitor select menu to disapear.
 
-  Sleep(500)      ; Wait for list to disappear.
-  Click(470, 275) ; Reactive AMD color controls.
+  Send("{Tab 2}{Space}") ; Reactivate AMD color controls.
+  Sleep(1000)             ; Wait for color reactivation.
 
   WinClose()
 
