@@ -15,18 +15,13 @@ CatalystControlCenterActivate(is_retry=false)
     ; Sometimes CCC window will not appear so we kill and restart program.
     if (ProcessExist(kCCCProcess).is_ok())
     {
+      ProcessClose(kCCCProcess)
+
       if (ProcessWaitClose(kCCCProcess, 1).is_err())
       {
-        MsgBox("Error: ProcessWaitClose timed out")
+        ShowError("ProcessWaitClose timed out")
         return 1
       }
-    }
-
-    Run(kCCCPath)
-    if (ProcessWait(kCCCProcess, 1).is_err())
-    {
-      MsgBox("Error: ProcessWait timed out")
-      return 1
     }
   }
 
@@ -35,7 +30,7 @@ CatalystControlCenterActivate(is_retry=false)
     Run(kCCCPath)
     if (ProcessWait(kCCCProcess, 1).is_err())
     {
-      MsgBox("Error: ProcessWait timed out")
+      ShowError("ProcessWait timed out")
       return 1
     }
   }
@@ -43,16 +38,16 @@ CatalystControlCenterActivate(is_retry=false)
   ; Running CCC if it already exists will cause the CCC window to appear.
   Run(kCCCPath)
 
-  if (1 == WinWait(kCCCTitle, "", 3))
+  if (1 == WinWait(kCCCTitle, "", 5))
   {
     if (is_retry)
     {
-      MsgBox("Error: WinWait timed out")
+      ShowError("WinWait timed out")
       return 1
     }
     else
     {
-      CatalystControlCenterActivate(true)
+      return CatalystControlCenterActivate(true)
     }
   }
 
@@ -61,12 +56,12 @@ CatalystControlCenterActivate(is_retry=false)
   {
     if (is_retry)
     {
-      MsgBox("Error: WinWaitActive timed out")
+      ShowError("WinWaitActive timed out")
       return 1
     }
     else
     {
-      CatalystControlCenterActivate(true)
+      return CatalystControlCenterActivate(true)
     }
   }
 

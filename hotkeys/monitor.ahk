@@ -21,9 +21,45 @@
 }
 
 /**
-  @brief Activates night-time mode for monitors.
+  @brief Activates day-time mode for monitors.
   */
 <!+q::
+{
+  if (1 == CatalystControlCenterActivate())
+  {
+    return
+  }
+
+  Send("{Tab 12}{Enter}") ; Expand "My Digit Flat-Panels".
+  Send("{Tab 2}{Enter}")  ; Open "Display Color (Digital Flat-Panel)".
+
+  Send("{Tab 10}{Enter}") ; Open "Select the display that you want to configure".
+  Send("{Enter}")         ; Select Monitor 1 (side monitor).
+  Sleep(500)              ; Wait for monitor select menu to disappear.
+  Send("{Tab 16}{Enter}") ; Select "Defaults".
+
+  Send("+{Tab 16}{Enter}") ; Open "Select the display that you want to configure".
+  Send("{Tab 3}{Enter}")   ; Select Monitor 2 (side monitor).
+  Sleep(1000)              ; Wait for monitor select menu to disappear.
+  Send("{Tab 16}{Enter}") ; Select "Defaults".
+
+  Send("+{Tab 16}{Enter}") ; Open "Select the display that you want to configure".
+  Send("{Tab 4}{Enter}")   ; Select Monitor 3 (center monitor).
+  Sleep(1000)              ; Wait for monitor select menu to disappear.
+  Send("{Tab 16}{Enter}") ; Select "Defaults".
+
+  Send("{Right 2}{Enter}") ; Apply changes.
+  Sleep(1000) ; Wait for changes to apply.
+
+  WinClose()
+
+  return
+}
+
+/**
+  @brief Activates night-time mode for monitors.
+  */
+<!+j::
 {
   ; Temperature has range from 4000 to 6500.
   center_temp := 4500
@@ -39,7 +75,10 @@
   sides_bright_num_lefts := sides_brightness * -1
   center_bright_num_lefts := center_brightness * -1
 
-  CatalystControlCenterActivate()
+  if (1 == CatalystControlCenterActivate())
+  {
+    return
+  }
 
   Send("{Tab 12}{Enter}") ; Expand "My Digit Flat-Panels".
   Send("{Tab 2}{Enter}")  ; Open "Display Color (Digital Flat-Panel)".
