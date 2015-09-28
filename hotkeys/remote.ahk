@@ -9,22 +9,26 @@
   */
 #e::
 {
-  if (!WinExist(kXbmcWindowClass)) {
+  if (!WinExist(kXbmcWindowClass))
+  {
     Run(kXbmcPath)
   }
 
-  if (1 == WinWait(kXbmcWindowClass,, 5)) {
+  if (1 == WinWait(kXbmcWindowClass,, 5))
+  {
     MsgBox("Error: XBMC window does not exist")
     return
   }
 
   WinActivate(kXbmcWindowClass)
-  if (1 == WinWaitActive(kXbmcWindowClass, "", 5)) {
+  if (1 == WinWaitActive(kXbmcWindowClass, "", 5))
+  {
     MsgBox("Error: XBMC window is not active")
     return
   }
 
-  if (!IsFullScreen(kXbmcWindowClass)) {
+  if (!IsFullScreen(kXbmcWindowClass))
+  {
     WinMove(kXbmcWindowClass, "", 0, 0)
     WinWaitPos(0, 0, kXbmcWindowClass)
     Send("\")
@@ -42,7 +46,8 @@
     */
   ~\::
   {
-    if (remote_mode_enabled) {
+    if (remote_mode_enabled)
+    {
       remote_mode_enabled := false
       AsyncSpeak("remote disabled")
     }
@@ -56,7 +61,8 @@
     */
   #e::
   {
-    if (remote_mode_enabled) {
+    if (remote_mode_enabled)
+    {
       Gui(kGuiSleepInputId . ":Font", "s768", "Verdana")
       Gui(kGuiSleepInputId . ":Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
       Gui(kGuiSleepInputId . ":Add", "UpDown", "x940 y0 w0 h980 Range0-180 vsleep_minutes", 30)
@@ -72,7 +78,8 @@
       {
         Gui(kGuiSleepInputId . ":Submit")
         Gui(kGuiSleepInputId . ":Destroy")
-        if (0 != sleep_minutes) {
+        if (0 != sleep_minutes)
+        {
           AsyncSpeak("sleeping in " . sleep_minutes . " minutes")
         }
         SuspendComputer(sleep_minutes)
@@ -85,12 +92,17 @@
         return
       }
     }
-    else {
-      if (!IsFullScreen(kXbmcWindowClass)) {
-        WinMove(kXbmcWindowClass, "", 0, 0)
-        WinWaitPos(0, 0, kXbmcWindowClass)
+    else
+    {
+      if (IsFullScreen(kXbmcWindowClass))
+      {
         Send("\")
+        Sleep(500)
       }
+      WinMove(kXbmcWindowClass, "", 0, 0)
+      WinWaitPos(0, 0, kXbmcWindowClass)
+      Send("\")
+
       remote_mode_enabled := true
       AsyncSpeak("remote enabled")
       return
@@ -105,11 +117,13 @@
     */
   Space::
   {
-    if (WinExist(kGuiBlankTitle)) {
+    if (WinExist(kGuiBlankTitle))
+    {
       Gui(kGuiBlankId . ":Destroy")
       return
     }
-    else if (remote_mode_enabled) {
+    else if (remote_mode_enabled)
+    {
       Gui(kGuiBlankInputId . ":Font", "s768", "Verdana")
       Gui(kGuiBlankInputId . ":Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
       Gui(kGuiBlankInputId . ":Add", "UpDown", "x940 y0 w0 h980 Range0-180 vblank_minutes", 0)
@@ -124,7 +138,8 @@
       BlankButtonOk:
       {
         Gui(kGuiBlankInputId . ":Submit")
-        if (0 != blank_minutes) {
+        if (0 != blank_minutes)
+        {
           AsyncSpeak("blanking in " . blank_minutes . " minutes")
         }
         blank_msec := blank_minutes * 60000
@@ -154,7 +169,8 @@
         return
       }
     }
-    else {
+    else
+    {
       Send("{Space}")
       return
     }
@@ -167,10 +183,12 @@
     */
   RButton::
   {
-    if (remote_mode_enabled) {
+    if (remote_mode_enabled)
+    {
       Send("{Backspace}")
     }
-    else {
+    else
+    {
       Send("{RButton}")
     }
     return
@@ -183,10 +201,12 @@
     */
   Esc::
   {
-    if (remote_mode_enabled) {
+    if (remote_mode_enabled)
+    {
       Send("{Tab}")
     }
-    else {
+    else
+    {
       Send("{Esc}")
     }
     return
@@ -199,11 +219,13 @@
     */
   !F4::
   {
-    if (remote_mode_enabled) {
+    if (remote_mode_enabled)
+    {
       Speak("reloading")
       Reload()
     }
-    else {
+    else
+    {
       Send("!{F4}")
     }
     return
@@ -216,10 +238,12 @@
     */
   Volume_Mute::
   {
-    if (remote_mode_enabled) {
+    if (remote_mode_enabled)
+    {
       Send("q")
     }
-    else {
+    else
+    {
       Send("{Volume_Mute}")
     }
     return
@@ -233,10 +257,12 @@
     */
   Media_Play_pause::
   {
-    if (remote_mode_enabled) {
+    if (remote_mode_enabled)
+    {
       Send("{Space}")
     }
-    else {
+    else
+    {
       Send("{Media_Play_pause}")
     }
     return
@@ -249,10 +275,12 @@
     */
   Media_Prev::
   {
-    if (remote_mode_enabled) {
+    if (remote_mode_enabled)
+    {
       Send("{Left}")
     }
-    else {
+    else
+    {
       Send("{Media_Prev}")
     }
     return
@@ -265,10 +293,12 @@
     */
   Media_Next::
   {
-    if (remote_mode_enabled) {
+    if (remote_mode_enabled)
+    {
       Send("{Right}")
     }
-    else {
+    else
+    {
       Send("{Media_Next}")
     }
     return
