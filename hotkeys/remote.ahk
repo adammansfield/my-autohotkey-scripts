@@ -9,6 +9,8 @@
   */
 #e::
 {
+  CatalystControlCenterReactivateControl()
+
   if (!WinExist(kXbmcWindowClass))
   {
     Run(kXbmcPath)
@@ -94,6 +96,8 @@
     }
     else
     {
+      CatalystControlCenterReactivateControl()
+
       if (IsFullScreen(kXbmcWindowClass))
       {
         Send("\")
