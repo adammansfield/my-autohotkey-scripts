@@ -1,24 +1,4 @@
-/**
-  @brief Enables AMD color controls for central monitor.
-  */
-<!+`;::
-{
-  CatalystControlCenterActivate()
-
-  Send("{Tab 9}{Enter}") ; Expand "Desktop Management".
-  Send("{Tab 4}{Enter}") ; Open "Desktop Color"
-
-  Send("{Tab 12}{Enter}") ; Open "Select the display that you want to configure".
-  Send("{Tab 4}{Enter}")  ; Select Monitor 3 (center monitor).
-  Sleep(1000)             ; Wait for monitor select menu to disapear.
-
-  Send("{Tab 2}{Space}") ; Reactivate AMD color controls.
-  Sleep(1000)             ; Wait for color reactivation.
-
-  WinClose()
-
-  return
-}
+<!+`;::CatalystControlCenterReactivateControl()
 
 /**
   @brief Activates day-time mode for monitors.
