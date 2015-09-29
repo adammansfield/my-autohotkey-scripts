@@ -2,7 +2,6 @@
   @brief Hotkeys for the F-Dolphin Air Mouse.
   */
 
-
 /**
   @brief Setup XBMC as full screen and enable remote mode.
   @notes remote's home button
@@ -96,16 +95,23 @@
     }
     else
     {
-      CatalystControlCenterReactivateControl()
-
       if (IsFullScreen(kXbmcWindowClass))
       {
-        Send("\")
-        Sleep(500)
+        pos := WinGetPos(kXbmcWindowClass)
+        if (pos.x != 0)
+        {
+          Send("\") ; Exit full-screen.
+        }
       }
-      WinMove(kXbmcWindowClass, "", 0, 0)
-      WinWaitPos(0, 0, kXbmcWindowClass)
-      Send("\")
+
+      CatalystControlCenterReactivateControl()
+
+      if (!IsFullScreen(kXbmcWindowClass))
+      {
+        WinMove(kXbmcWindowClass, "", 0, 0)
+        WinWaitPos(0, 0, kXbmcWindowClass)
+        Send("\") ; Enter full-screen.
+      }
 
       remote_mode_enabled := true
       AsyncSpeak("remote enabled")
