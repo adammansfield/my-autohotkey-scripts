@@ -43,7 +43,7 @@
 {
   ; Temperature has range from 4000 to 6500.
   center_temp := 4500
-  sides_temp := 4500
+  sides_temp := 4000
 
   ; Brightness has range from -100 to 0.
   center_brightness := -25
