@@ -2725,7 +2725,6 @@
   ::meaninng::meaning
   ::menat::meant
   ::mchanics::mechanics
-  ::medieval::mediaeval
   ::medacine::medicine
   ::mediciney::mediciny
   ::medeival::medieval
