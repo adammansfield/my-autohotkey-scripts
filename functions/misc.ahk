@@ -32,12 +32,14 @@ CatalystControlCenterActivate(is_retry=false)
       ShowError("ProcessWait timed out")
       return 1
     }
+
+    Sleep(1000) ; Increase this if CCC does not appear after retry.
   }
 
   ; Running CCC if it already exists will cause the CCC window to appear.
   Run(kCCCPath)
 
-  if (1 == WinWait(kCCCTitle, "", 7))
+  if (1 == WinWait(kCCCTitle, "", 5))
   {
     if (is_retry)
     {
