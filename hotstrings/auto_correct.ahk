@@ -490,7 +490,7 @@
   ::alcoholical::alcoholic
   ::algebraical::algebraic
   ::algoritm::algorithm
-  ::algorhitms::algorithms
+  ::algorithms::algorithms
   ::algoritms::algorithms
   ::alientating::alienating
   ::alltime::all-time
