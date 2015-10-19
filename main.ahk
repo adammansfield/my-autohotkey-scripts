@@ -10,4 +10,4 @@
 #include monitor.ahk
 #include music.ahk
 #include remote.ahk
-#include vim_commands_everywhere.ahk
+#include vim_everywhere.ahk
