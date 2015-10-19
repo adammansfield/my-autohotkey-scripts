@@ -19,7 +19,7 @@ ToggleMicMute()
   */
 ToggleVolumeState()
 {
-  static kSpeakersVolume := 20
+  static kSpeakersVolume := 10
   static kHeadphonesVolume := 100
 
   static kStateSpeakers := 0
