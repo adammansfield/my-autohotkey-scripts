@@ -8,10 +8,12 @@
 ModeDependentSend(command)
 {
   global vim_mode, kVimModeVisual, kVimModeNormal
-  if (kVimModeNormal == vim_mode) {
+  if (kVimModeNormal == vim_mode)
+  {
     Send(command)
   }
-  else if (kVimModeVisual == vim_mode) {
+  else if (kVimModeVisual == vim_mode)
+  {
     Send("+" . command)
   }
 }
@@ -56,10 +58,12 @@ SendAndSetModeToNormal(command)
   */
 >!+d::
 {
-  if (kVimModeNormal == vim_mode) {
+  if (kVimModeNormal == vim_mode)
+  {
     Send("+{End}{Delete}")
   }
-  else if (kVimModeVisual == vim_mode) {
+  else if (kVimModeVisual == vim_mode)
+  {
     Send("{Home}+{End}{Backspace 2}")
     vim_mode := kVimModeNormal
   }
@@ -118,11 +122,13 @@ SendAndSetModeToNormal(command)
   */
 >!v::
 {
-  if (kVimModeVisual == vim_mode) {
-    Send("{Left}")   ; to unhighlight
+  if (kVimModeVisual == vim_mode)
+  {
+    Send("{Left}")  ; To unhighlight.
     vim_mode := kVimModeNormal
   }
-  else {
+  else
+  {
     vim_mode := kVimModeVisual
   }
   return
@@ -138,7 +144,19 @@ SendAndSetModeToNormal(command)
   @brief Delete character.
   @notes vim key x
   */
->!x::SendAndSetModeToNormal("{Delete}")
+>!x::
+{
+  if (kVimModeVisual == vim_mode)
+  {
+    ; Vim saves to default buffer when deleting.
+    SendAndSetModeToNormal("^x")
+  }
+  else
+  {
+    SendAndSetModeToNormal("{Delete}")
+  }
+  return
+}
 
 /**
   @brief Backspace.
@@ -211,4 +229,3 @@ SendAndSetModeToNormal(command)
   @brief Remap Ctrl-Shift-z to Ctrl-v for same as QWERTY paste.
   */
 ^+k::Send("^v")
-
