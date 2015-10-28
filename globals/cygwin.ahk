@@ -11,7 +11,7 @@ kCygwinTerminalTarget := kCygwinPath . "\rxvt.exe -e ./bash --login"
 /**
   @brief Target to Cygwin X terminal with arguments.
   */
-kCygwinXTerminalTarget := kCygwinPath . "\run.exe urxvt.exe -display 127.0.0.1:0 -e ./bash --login"
+kCygwinXTerminalTarget := kCygwinPath . "\run.exe urxvt.exe -e ./bash --login"
 
 /**
   @brief The name of the Cygwin X server process.
