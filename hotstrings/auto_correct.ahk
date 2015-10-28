@@ -2422,7 +2422,6 @@
   ::hypocricy::hypocrisy
   ::hypocrit::hypocrite
   ::hypocrits::hypocrites
-  :c:i::I
   ::i"m::I'm
   ::iconclastic::iconoclastic
   ::idae::idea
