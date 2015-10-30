@@ -22,15 +22,17 @@ ToggleVolumeState()
   static kSpeakersVolume := 10
   static kHeadphonesVolume := 100
 
+  ; If above this volume then assume, headphone state.
+  static kHeadphonesVolumeThreshold := 90
+
   static kStateSpeakers := 0
   static kStateHeadphones := 1
 
   static audio_state := kStateSpeakers
 
   volume := VA_GetMasterVolume()
-  if (90 <= volume)
+  if (kHeadphonesVolumeThreshold <= volume)
   {
-    ; Speakers should never be very high so assume it is headphones.
     audio_state := kStateHeadphones
   }
 
