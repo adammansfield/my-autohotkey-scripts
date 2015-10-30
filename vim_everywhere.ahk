@@ -60,7 +60,7 @@ SendAndSetModeToNormal(command)
 {
   if (kVimModeNormal == vim_mode)
   {
-    Send("+{End}{Delete}")
+    Send("+{End}^x")
   }
   else if (kVimModeVisual == vim_mode)
   {
