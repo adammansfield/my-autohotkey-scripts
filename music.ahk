@@ -1,7 +1,23 @@
 /**
-  @brief Hotkeys and hotstrings for a music player.
+  @brief Initialize state for this package.
   */
+Music_Init()
+{
+  if (global g_is_music_initialized)
+  {
+    return
+  }
+  else
+  {
+    g_is_music_initialized := true
+  }
 
+  ; The name of the input box for entering custom music metadata.
+  global kMusicMetadataWindowTitle := "Enter Custom Metadata"
+
+  ; The window title of the music player.
+  global kMusicPlayerWindowTitle := "MediaMonkey"
+}
 
 /**
   @brief Remap broswer back for easier access.
@@ -26,6 +42,8 @@ Media_Play_Pause::Media_Play_Pause
     */
   <!m::
   {
+    Music_Init()
+
     input_string := InputBox(kMusicMetadataWindowTitle, "Mood`, Genre",, 230, 120,, 100)
     if (ErrorLevel) {
       return
@@ -114,4 +132,3 @@ Media_Play_Pause::Media_Play_Pause
   :*:un::Unclassifiable`;
 }
 #IfWinActive
-
