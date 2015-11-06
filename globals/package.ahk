@@ -1,3 +1,2 @@
-#include globals/directives.ahk
 #include globals/gui.ahk
 #include globals/remote.ahk
