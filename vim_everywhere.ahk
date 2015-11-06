@@ -1,18 +1,56 @@
+; Enumeration of the modes of the vim everywhere keyboard.
+class VimMode
+{
+  kNormal[]
+  {
+    get
+    {
+      return 0
+    }
+    set
+    {
+    }
+  }
+
+  kVisual[]
+  {
+    get
+    {
+      return 1
+    }
+    set
+    {
+    }
+  }
+}
+
 /**
-  @brief Hotkeys for Vim commands everywhere.
+  @brief Get or set the vim mode.
+  @param new_mode If blank then return current mode else set to new mode.
   */
+VimEverywhere_Mode(new_mode="")
+{
+  static mode := VimMode.kNormal
+  if ("" == new_mode)
+  {
+    return mode
+  }
+  else
+  {
+    mode := new_mode
+  }
+}
 
 /**
   @brief Send the input command with or without a shift depending on the mode.
   */
-ModeDependentSend(command)
+VimEverywhere_ModeDependentSend(command)
 {
-  global vim_mode, kVimModeVisual, kVimModeNormal
-  if (kVimModeNormal == vim_mode)
+  if (VimMode.kNormal == VimEverywhere_Mode())
   {
     Send(command)
   }
-  else if (kVimModeVisual == vim_mode)
+  else if (VimMode.kVisual == VimEverywhere_Mode())
   {
     Send("+" . command)
   }
@@ -21,36 +59,35 @@ ModeDependentSend(command)
 /**
   @brief Send the input command with or without a shift depending on the mode.
   */
-SendAndSetModeToNormal(command)
+VimEverywhere_SendAndSetModeToNormal(command)
 {
-  global vim_mode, kVimModeNormal
   Send(command)
-  vim_mode := kVimModeNormal
+  VimEverywhere_Mode(VimMode.kNormal)
 }
 
 /**
   @brief Navigate/Highlight to beginning of line depending on mode.
   @notes vim key 0
   */
->!0::ModeDependentSend("{Home}")
+>!0::VimEverywhere_ModeDependentSend("{Home}")
 
 /**
   @brief Navigate/Highlight to end of line depending on mode.
   @notes vim key $
   */
->!+4::ModeDependentSend("{End}")
+>!+4::VimEverywhere_ModeDependentSend("{End}")
 
 /**
   @brief Navigate/Highlight previous word depending on mode.
   @notes vim key b
   */
->!b::ModeDependentSend("^{Left}")
+>!b::VimEverywhere_ModeDependentSend("^{Left}")
 
 /**
   @brief Delete.
   @notes vim key d
   */
->!d::SendAndSetModeToNormal("^x")
+>!d::VimEverywhere_SendAndSetModeToNormal("^x")
 
 /**
   @brief Delete to end of line.
@@ -58,14 +95,14 @@ SendAndSetModeToNormal(command)
   */
 >!+d::
 {
-  if (kVimModeNormal == vim_mode)
+  if (VimMode.kNormal == VimEverywhere_Mode())
   {
     Send("+{End}^x")
   }
-  else if (kVimModeVisual == vim_mode)
+  else if (VimMode.kVisual == VimEverywhere_Mode())
   {
     Send("{Home}+{End}{Backspace 2}")
-    vim_mode := kVimModeNormal
+    VimEverywhere_Mode(VimMode.kNormal)
   }
   return
 }
@@ -74,31 +111,31 @@ SendAndSetModeToNormal(command)
   @brief Navigate/Highlight left depending on mode.
   @notes vim key h
   */
->!h::ModeDependentSend("{Left}")
+>!h::VimEverywhere_ModeDependentSend("{Left}")
 
 /**
   @brief Navigate/Highlight down depending on mode.
   @notes vim key j
   */
->!j::ModeDependentSend("{Down}")
+>!j::VimEverywhere_ModeDependentSend("{Down}")
 
 /**
   @brief Navigate/Highlight up depending on mode.
   @notes vim key k
   */
->!k::ModeDependentSend("{Up}")
+>!k::VimEverywhere_ModeDependentSend("{Up}")
 
 /**
   @brief Navigate/Highlight right depending on mode.
   @notes vim key l
   */
->!l::ModeDependentSend("{Right}")
+>!l::VimEverywhere_ModeDependentSend("{Right}")
 
 /**
   @brief Paste after.
   @notes vim key p
   */
->!p::SendAndSetModeToNormal("^v")
+>!p::VimEverywhere_SendAndSetModeToNormal("^v")
 
 /**
   @brief Paste before.
@@ -122,14 +159,14 @@ SendAndSetModeToNormal(command)
   */
 >!v::
 {
-  if (kVimModeVisual == vim_mode)
+  if (VimMode.kVisual == VimEverywhere_Mode())
   {
     Send("{Left}")  ; To unhighlight.
-    vim_mode := kVimModeNormal
+    VimEverywhere_Mode(VimMode.kNormal)
   }
   else
   {
-    vim_mode := kVimModeVisual
+    VimEverywhere_Mode(VimMode.kVisual)
   }
   return
 }
@@ -138,7 +175,7 @@ SendAndSetModeToNormal(command)
   @brief Navigate/Highlight next word depending on mode.
   @notes vim key w
   */
->!w::ModeDependentSend("^{Right}")
+>!w::VimEverywhere_ModeDependentSend("^{Right}")
 
 /**
   @brief Delete character.
@@ -146,14 +183,14 @@ SendAndSetModeToNormal(command)
   */
 >!x::
 {
-  if (kVimModeVisual == vim_mode)
+  if (VimMode.kVisual == VimEverywhere_Mode())
   {
     ; Vim saves to default buffer when deleting.
-    SendAndSetModeToNormal("^x")
+    VimEverywhere_SendAndSetModeToNormal("^x")
   }
   else
   {
-    SendAndSetModeToNormal("{Delete}")
+    VimEverywhere_SendAndSetModeToNormal("{Delete}")
   }
   return
 }
@@ -162,13 +199,13 @@ SendAndSetModeToNormal(command)
   @brief Backspace.
   @notes vim key X
   */
->!+x::SendAndSetModeToNormal("{Backspace}")
+>!+x::VimEverywhere_SendAndSetModeToNormal("{Backspace}")
 
 /**
   @brief Yank.
   @notes vim key y
   */
->!y::SendAndSetModeToNormal("^c{Left}")
+>!y::VimEverywhere_SendAndSetModeToNormal("^c{Left}")
 
 /**
   @brief Yank line.
@@ -202,13 +239,13 @@ SendAndSetModeToNormal(command)
   @brief Enter.
   @notes vim key enter
   */
->!Enter::SendAndSetModeToNormal("{Enter}")
+>!Enter::VimEverywhere_SendAndSetModeToNormal("{Enter}")
 
 /**
   @brief Space.
   @notes vim key space
   */
->!Space::SendAndSetModeToNormal("{Space}")
+>!Space::VimEverywhere_SendAndSetModeToNormal("{Space}")
 
 /**
   @brief Remap Ctrl-Shift-z to Ctrl-z for same as QWERTY undo.
