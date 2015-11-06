@@ -1,89 +1,132 @@
 /**
-  @brief Initialize state for this package.
+  @brief The paths and various settings for Cygwin.
   */
-Cygwin_Init()
+class CygwinConfig
 {
-  if (global g_is_cygwin_initialized)
-  {
-    return
-  }
-  else
-  {
-    g_is_cygwin_initialized := true
-  }
-
   ; Get the location of cygwin's /bin
-  global kCygwinPath := EnvGet("CYGWIN_BIN")
+  kBinPath[]
+  {
+    get
+    {
+      static _cygwin_path := EnvGet("CYGWIN_BIN")
+      return _cygwin_path
+    }
+    set
+    {
+    }
+  }
 
-  ; Target to Cygwin terminal with arguments.
-  global kCygwinTerminalTarget := kCygwinPath . "\rxvt.exe -e ./bash --login"
+  ; Path to Cygwin terminal with arguments.
+  kTerminalTarget[]
+  {
+    get
+    {
+      return CygwinConfig.kBinPath . "\rxvt.exe -e ./bash --login"
+    }
+    set
+    {
+    }
+  }
 
-  ; Target to Cygwin X terminal with arguments.
-  global kCygwinXTerminalTarget := kCygwinPath . "\run.exe urxvt.exe -e ./bash --login"
+  ; Path to Cygwin X server terminal with arguments.
+  kXTerminalTarget[]
+  {
+    get
+    {
+      return CygwinConfig.kBinPath . "\run.exe urxvt.exe -e ./bash --login"
+    }
+    set
+    {
+    }
+  }
 
   ; The name of the Cygwin X server process.
-  global kCygwinXProcessName := "XWin.exe"
+  kXServerProcessName[]
+  {
+    get
+    {
+      return "XWin.exe"
+    }
+    set
+    {
+    }
+  }
 
-  ; Target to Cygwin X server in the background.
-  global kCygwinXTarget := kCygwinPath . "\run.exe -p /usr/X11R6/bin XWin -multiwindow -clipboard -silent-dup-error"
+  ; Path to Cygwin X server in the background with arguments.
+  kXServerTarget[]
+  {
+    get
+    {
+      return CygwinConfig.kBinPath . "\run.exe -p /usr/X11R6/bin XWin -multiwindow -clipboard -silent-dup-error"
+    }
+    set
+    {
+    }
+  }
 
-  ; Get the title of a cygwin terminal.
-  global kCygwinWindowTitle := "terminal "
+  ; The title of a cygwin terminal.
+  kTerminalTitle[]
+  {
+    get
+    {
+      return "terminal "
+    }
+    set
+    {
+    }
+  }
 }
 
 /**
-  @brief Guake-like cygwin hotkey. Show/Hide cygwin terminal.
+  @brief Guake-like cygwin functionality as show and hide cygwin terminal.
   */
-F12::
+Cygwin_ActivateXTerminal()
 {
-  Cygwin_Init()
-
-  if (WinActive(kCygwinWindowTitle))
+  static previous_window := ""
+  if (WinActive(CygwinConfig.kTerminalTitle))
   {
-    WinActivate(previous_window)
+    if ("" != previous_window)
+    {
+      WinActivate(previous_window)
+    }
   }
   else
   {
     previous_window := WinGetActiveTitle()
-    if (ProcessExist(kCygwinXProcessName).is_err())
+
+    if (!WinExist(CygwinConfig.kTerminalTitle))
     {
-      Run(kCygwinXTarget, kCygwinPath)
+      Cygwin_LaunchXTerminal()
     }
 
-    ProcessWait(kCygwinXProcessName)
-    if (!WinExist(kCygwinWindowTitle))
-    {
-      Run(kCygwinXTerminalTarget, kCygwinPath)
-    }
-
-    WinWait(kCygwinWindowTitle)
-    WinActivate(kCygwinWindowTitle)
+    WinWait(CygwinConfig.kTerminalTitle)
+    WinActivate(CygwinConfig.kTerminalTitle)
   }
-  return
 }
 
 /**
-  @brief Start new instance of a cygwin X-terminal.
+  @brief Launch a new instance of a cygwin terminal.
   */
-+F12::
+Cygwin_LaunchTerminal()
 {
-  Cygwin_Init()
+  Run(CygwinConfig.kTerminalTarget, CygwinConfig.kBinPath)
+}
 
-  if (!ProcessExist(kCygwinXProcessName))
+/**
+  @brief Launch a new instance of a cygwin X-terminal.
+  */
+Cygwin_LaunchXTerminal()
+{
+  if (ProcessExist(CygwinConfig.kXServerProcessName).is_err())
   {
-    Run(kCygwinXTarget, kCygwinPath)
+    Run(CygwinConfig.kXServerTarget, CygwinConfig.kBinPath)
   }
-  ProcessWait(kCygwinXProcessName)
-  Run(kCygwinXTerminalTarget, kCygwinPath)
-  return
+
+  ProcessWait(CygwinConfig.kXServerProcessName)
+  Run(CygwinConfig.kXTerminalTarget, CygwinConfig.kBinPath)
 }
 
-/**
-  @brief Start new instance of a cygwin terminal.
-  */
-!F12::
-{
-  Cygwin_Init()
-  Run(kCygwinTerminalTarget, kCygwinPath)
-  return
-}
+
+F12::Cygwin_ActivateXTerminal()
++F12::Cygwin_LaunchXTerminal()
+!F12::Cygwin_LaunchTerminal()

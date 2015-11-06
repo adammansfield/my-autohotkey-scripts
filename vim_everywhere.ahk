@@ -1,4 +1,6 @@
-; Enumeration of the modes of the vim everywhere keyboard.
+/**
+  @brief Enumeration of the modes of the vim everywhere keyboard.
+  */
 class VimMode
 {
   kNormal[]
