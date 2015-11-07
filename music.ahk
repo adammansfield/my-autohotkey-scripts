@@ -1,104 +1,26 @@
-/**
-  @brief Initialize state for this package.
-  */
-Music_Init()
-{
-  if (global g_is_music_initialized)
-  {
-    return
-  }
-  else
-  {
-    g_is_music_initialized := true
-  }
-
-  ; The name of the input box for entering custom music metadata.
-  global kMusicMetadataWindowTitle := "Enter Custom Metadata"
-
-  ; The window title of the music player.
-  global kMusicPlayerWindowTitle := "MediaMonkey"
-}
-
-/**
-  @brief Remap broswer back for easier access.
-  */
+; Remap broswer back for easier access.
 Browser_Back::Media_Prev
 
-/**
-  @brief Remap broswer forward for easier access.
-  */
+; Remap broswer forward for easier access.
 Browser_Forward::Media_Next
 
-/**
-  @brief MediaMonkey fix for Microsoft Natural Ergonomic Keyboard 4000.
-  */
+; MediaMonkey fix for Microsoft Natural Ergonomic Keyboard 4000.
 Media_Play_Pause::Media_Play_Pause
 
-
-#If WinActive(kMusicPlayerWindowTitle)
+#if WinActive(Music_Info.kPlayerWindowTitle)
 {
-  /**
-    @brief Hotkey to quickly edit meta data.
-    */
-  <!m::
-  {
-    Music_Init()
+  <!m::Music_QuickEditMetaData()
 
-    input_string := InputBox(kMusicMetadataWindowTitle, "Mood`, Genre",, 230, 120,, 100)
-    if (ErrorLevel) {
-      return
-    }
+  ; Quick search. Select and clear search box.
+  /::Send("{Click 1755, 55}{End}+{Home}{BS}")
 
-    meta_data := StringSplit(input_string, "`,", A_Space)
-    mood := meta_data[1]
-    genre := meta_data[2]
-
-    Send("+{Enter}")
-
-    ; Allow time for window to load.
-    WinWaitActive("Properties")
-    Sleep(200)
-
-    Send("{Tab 7}")
-    if (genre) {
-      Send(genre)
-    }
-
-    Send("{Tab 6}")
-    if (mood) {
-      Send(mood)
-    }
-
-    ; Allow time for the input to be finished.
-    Sleep(500)
-    ControlClick("TButtonPlus9")
-    return
-  }
-
-  /**
-    @brief Quick search. Select and clear search box.
-    */
-  /::
-  {
-    Send("{Click 1755, 55}{End}+{Home}{BS}")
-    return
-  }
-
-  /**
-    @brief Quick rename.
-    */
-  MButton::
-  {
-    Send("{LButton}{F2}")
-    return
-  }
+  ; Quick rename.
+  MButton::Send("{LButton}{F2}")
 }
 
-#If WinActive(kMusicMetadataWindowTitle)
+#if WinActive(Music_Info.kMetadataWindowTitle)
 {
-  /**
-    @brief Hotstrings for moods.
-    */
+  ; Hotstrings for moods.
   :*:a1::A1,
   :*:a2::A2,
   :*:a3::A3,
@@ -116,9 +38,7 @@ Media_Play_Pause::Media_Play_Pause
   :*:d3::D3,
   :*:d4::D4,
 
-  /**
-    @brief Hotstrings for genres.
-    */
+  ; Hotstrings for genres.
   :*:ac::Acoustic`;
   :*:bl::Blues`;
   :*:cl::Classical`;
@@ -131,4 +51,65 @@ Media_Play_Pause::Media_Play_Pause
   :*:so::Soundtrack`;
   :*:un::Unclassifiable`;
 }
-#IfWinActive
+#if
+
+; Configuration options for music package.
+class Music_Info
+{
+  ; The name of the input box for entering custom music metadata.
+  kMetadataWindowTitle[]
+  {
+    get
+    {
+      return "Enter Custom Metadata"
+    }
+    set
+    {
+    }
+  }
+
+  ; The window title of the music player.
+  kPlayerWindowTitle[]
+  {
+    get
+    {
+      return "MediaMonkey"
+    }
+    set
+    {
+    }
+  }
+}
+
+; Launches an input box to quickly add metadata to music file.
+Music_QuickEditMetaData()
+{
+  input_string := InputBox(Music_Info.kMetadataWindowTitle, "Mood`, Genre",, 230, 120,, 100)
+  if (ErrorLevel) {
+    return
+  }
+
+  meta_data := StringSplit(input_string, "`,", A_Space)
+  mood := meta_data[1]
+  genre := meta_data[2]
+
+  Send("+{Enter}")
+
+  ; Allow time for window to load.
+  WinWaitActive("Properties")
+  Sleep(200)
+
+  Send("{Tab 7}")
+  if (genre) {
+    Send(genre)
+  }
+
+  Send("{Tab 6}")
+  if (mood) {
+    Send(mood)
+  }
+
+  ; Allow time for the input to be finished.
+  Sleep(500)
+  ControlClick("TButtonPlus9")
+}
