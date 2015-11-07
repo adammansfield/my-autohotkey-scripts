@@ -1,9 +1,30 @@
 /**
-  @brief Enumeration of the modes of the vim everywhere keyboard.
+  @brief The modes of the vim everywhere keyboard.
   */
-class VimMode
+class Vim_Info
 {
-  kNormal[]
+  static _mode := Vim_Info.kNormalMode
+
+  mode[]
+  {
+    get
+    {
+      return Vim_Info._mode
+    }
+    set
+    {
+      if (value == Vim_Info.kNormalMode || value == Vim_Info.kVisualMode)
+      {
+        Vim_Info._mode := value
+      }
+      else
+      {
+        ShowError("Cannot set invalid vim mode " . value)
+      }
+    }
+  }
+
+  kNormalMode[]
   {
     get
     {
@@ -14,7 +35,7 @@ class VimMode
     }
   }
 
-  kVisual[]
+  kVisualMode[]
   {
     get
     {
@@ -27,32 +48,15 @@ class VimMode
 }
 
 /**
-  @brief Get or set the vim mode.
-  @param new_mode If blank then return current mode else set to new mode.
-  */
-VimEverywhere_Mode(new_mode="")
-{
-  static mode := VimMode.kNormal
-  if ("" == new_mode)
-  {
-    return mode
-  }
-  else
-  {
-    mode := new_mode
-  }
-}
-
-/**
   @brief Send the input command with or without a shift depending on the mode.
   */
 VimEverywhere_ModeDependentSend(command)
 {
-  if (VimMode.kNormal == VimEverywhere_Mode())
+  if (Vim_Info.kNormalMode == Vim_Info.mode)
   {
     Send(command)
   }
-  else if (VimMode.kVisual == VimEverywhere_Mode())
+  else if (Vim_Info.kVisualMode == Vim_Info.mode)
   {
     Send("+" . command)
   }
@@ -64,7 +68,7 @@ VimEverywhere_ModeDependentSend(command)
 VimEverywhere_SendAndSetModeToNormal(command)
 {
   Send(command)
-  VimEverywhere_Mode(VimMode.kNormal)
+  Vim_Info.mode := Vim_Info.kNormalMode
 }
 
 /**
@@ -97,14 +101,14 @@ VimEverywhere_SendAndSetModeToNormal(command)
   */
 >!+d::
 {
-  if (VimMode.kNormal == VimEverywhere_Mode())
+  if (Vim_Info.kNormalMode == Vim_Info.mode)
   {
     Send("+{End}^x")
   }
-  else if (VimMode.kVisual == VimEverywhere_Mode())
+  else if (Vim_Info.kVisualMode == Vim_Info.mode)
   {
     Send("{Home}+{End}{Backspace 2}")
-    VimEverywhere_Mode(VimMode.kNormal)
+    Vim_Info.mode := Vim_Info.kNormalMode
   }
   return
 }
@@ -161,14 +165,14 @@ VimEverywhere_SendAndSetModeToNormal(command)
   */
 >!v::
 {
-  if (VimMode.kVisual == VimEverywhere_Mode())
+  if (Vim_Info.kVisualMode == Vim_Info.mode)
   {
     Send("{Left}")  ; To unhighlight.
-    VimEverywhere_Mode(VimMode.kNormal)
+    Vim_Info.mode := Vim_Info.kNormalMode
   }
   else
   {
-    VimEverywhere_Mode(VimMode.kVisual)
+    Vim_Info.mode := Vim_Info.kVisualMode
   }
   return
 }
@@ -185,7 +189,7 @@ VimEverywhere_SendAndSetModeToNormal(command)
   */
 >!x::
 {
-  if (VimMode.kVisual == VimEverywhere_Mode())
+  if (Vim_Info.kVisualMode == Vim_Info.mode)
   {
     ; Vim saves to default buffer when deleting.
     VimEverywhere_SendAndSetModeToNormal("^x")
