@@ -11,7 +11,6 @@ ToggleMicMute()
 
   ; +1 will toggle current setting.
   SoundSet("+1", kAudioMicrophoneDevice, "mute")
-  return
 }
 
 /**
@@ -66,6 +65,4 @@ ToggleVolumeState()
     ShowError("audio state """ . audio_state . """ is unknown")
     audio_state := kStateSpeakers
   }
-
-  return
 }
