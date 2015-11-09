@@ -1,8 +1,7 @@
-/**
-  @brief Launches and activates AMD Catalyst Control Center.
-  @param is_retry Whether this is a retry or not.
-  @returns 0 if successful, else 1.
-  */
+;; Launches and activates AMD Catalyst Control Center.
+;;
+;; @param is_retry Whether this is a retry or not.
+;; @return 0 if successful, else 1.
 CatalystControlCenterActivate(is_retry=false)
 {
   static kCCCPath := "C:\Program Files (x86)\AMD\ATI.ACE\Core-Static\CCC.exe"
@@ -69,9 +68,7 @@ CatalystControlCenterActivate(is_retry=false)
   return 0
 }
 
-/**
-  @brief Reactivates color control on centre monitor.
-  */
+;; Reactivates color control on centre monitor.
 CatalystControlCenterReactivateControl()
 {
   CatalystControlCenterActivate()
@@ -90,10 +87,11 @@ CatalystControlCenterReactivateControl()
 }
 
 
-/**
-  @brief Determine whether a given window is full screen or not.
-  */
-IsFullScreen(win_title="")
+;; Determine whether a given window is full screen or not.
+;;
+;; @param window_title The title of window to check for fullscreen.
+;; @return True if fullscreen; otherwise, false.
+IsFullScreen(window_title="")
 {
   ; The window has a thin-line border.
   static kWsBorder := 0x00800000
@@ -103,7 +101,7 @@ IsFullScreen(win_title="")
 
   kBorderOrMinimizeStyle := kWsBorder | kWsMinimize
 
-  style := WinGet("Style", win_title)
+  style := WinGet("Style", window_title)
   if (style & kBorderOrMinimizeStyle)
   {
     return false
@@ -114,17 +112,15 @@ IsFullScreen(win_title="")
   }
 }
 
-/**
-  @brief Handles errors by displaying an error message.
-  */
-ShowError(ByRef errmsg)
+;; Handles errors by displaying an error message.
+;;
+;; @param message The message to display.
+ShowError(ByRef message)
 {
-  MsgBox("Error: " . errmsg)
+  MsgBox("Error: " . message)
 }
 
-/**
-  @brief Toggle between default audio devices.
-  */
+;; Toggles between default audio devices.
 ToggleAudioDevice()
 {
   static kAudioWindowTarget := "mmsys.cpl"         ; Target to sound settings.
@@ -168,9 +164,22 @@ ToggleAudioDevice()
   return
 }
 
-/**
-  @brief Toggle Capslock.
-  */
+;; Suspends the computer after a number of minutes.
+;;
+;; @param delay_in_minutes The number of minutes to wait until suspending
+;;                         computer.
+SuspendComputer(delay_in_minutes="")
+{
+  ; Set priority low to allow script to still function.
+  ThreadPriority(-1000)
+
+  delay_in_msec := delay_in_minutes * 60000
+  Sleep(delay_in_msec)
+  DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
+  return
+}
+
+;; Toggle Capslock.
 ToggleCapsLock()
 {
   if (GetKeyState("Capslock", "T"))
@@ -181,5 +190,4 @@ ToggleCapsLock()
   {
     SetCapsLockState("on")
   }
-  return
 }
