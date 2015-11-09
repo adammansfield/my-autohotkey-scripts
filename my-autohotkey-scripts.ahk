@@ -1,7 +1,7 @@
 ; Avoids checking empty variables to see if they are environment variables.
 #NoEnv
 
-; Determines whether a script is allowed to run again when it is already running
+; Determines whether a script is allowed to run again when it is already running.
 #SingleInstance force
 
 ; Forces the unconditional installation of the keyboard hook
@@ -26,9 +26,19 @@ SendMode Input
 SetTitleMatchMode RegEx
 
 
-#include globals/package.ahk
-#include functions/package.ahk
-#include hotstrings/package.ahk
+#include globals/gui.ahk
+#include globals/remote.ahk
+
+#include lib/commands.ahk
+#include lib/misc.ahk
+#include lib/speak.ahk
+#include lib/vista_audio_control.ahk
+
+#include hotstrings/abbreviations.ahk
+#include hotstrings/auto_correct.ahk
+#include hotstrings/coding.ahk
+#include hotstrings/misc.ahk
+#include hotstrings/symbols.ahk
 
 #include audio.ahk
 #include cygwin.ahk
