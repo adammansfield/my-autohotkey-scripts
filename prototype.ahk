@@ -13,6 +13,6 @@ Prototype_ExperimentalMethod()
   */
 Prototype_ReloadThisScript()
 {
-  Speak("reloading")
+  Speak("re loading")
   Reload()
 }
