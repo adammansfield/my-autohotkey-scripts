@@ -8,7 +8,7 @@
   */
 #e::
 {
-  CatalystControlCenterReactivateControl()
+  ReactivateColorControl()
 
   if (!WinExist(kXbmcWindowClass))
   {
@@ -104,7 +104,7 @@
         }
       }
 
-      CatalystControlCenterReactivateControl()
+      ReactivateColorControl()
 
       if (!IsFullScreen(kXbmcWindowClass))
       {
