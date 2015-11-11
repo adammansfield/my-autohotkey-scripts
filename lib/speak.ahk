@@ -62,7 +62,7 @@ Speak(speech_utf8, flags=0)
 ;;                           If 0, then get the required buffer size.
 ;; @note https://msdn.microsoft.com/en-us/library/windows/desktop/dd319072%28v=vs.85%29.aspx
 _MultiByteToWideChar(code_page, flags, multibyte_string, multibyte_string_length
-                   ,ByRef wide_string, wide_string_length)
+                    ,ByRef wide_string, wide_string_length)
 {
   if (0 = wide_string_length)
   {
