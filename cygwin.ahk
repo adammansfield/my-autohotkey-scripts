@@ -13,7 +13,15 @@ class Cygwin_Info
     get
     {
       static _cygwin_bin_path := EnvGet("CYGWIN_BIN")
-      return _cygwin_bin_path
+
+      if (_cygwin_bin_path)
+      {
+        return _cygwin_bin_path
+      }
+      else
+      {
+        throw Exception("Environment variable CYGWIN_BIN is empty")
+      }
     }
     set
     {
