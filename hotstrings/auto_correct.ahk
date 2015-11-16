@@ -1,4 +1,4 @@
-#If !WinActive(kCygwinWindowTitle) &&
+#If !WinActive(Cygwin_Info.kTerminalTitle) &&
     !WinActive("Editor") &&
     !WinActive("GnuCash") &&
     !WinActive("Ideone") &&
