@@ -15,18 +15,10 @@
     Run(kXbmcPath)
   }
 
-  if (1 == WinWait(kXbmcWindowClass,, 5))
-  {
-    MsgBox("Error: XBMC window does not exist")
-    return
-  }
+  WinWait(kXbmcWindowClass,, 5)
 
   WinActivate(kXbmcWindowClass)
-  if (1 == WinWaitActive(kXbmcWindowClass, "", 5))
-  {
-    MsgBox("Error: XBMC window is not active")
-    return
-  }
+  WinWaitActive(kXbmcWindowClass, "", 5)
 
   if (!IsFullScreen(kXbmcWindowClass))
   {

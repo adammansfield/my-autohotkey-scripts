@@ -33,7 +33,7 @@ class Cygwin_Info
   {
     get
     {
-      return Cygwin_Info.kBinPath . "\rxvt.exe -e ./bash --login"
+      return Cygwin_Info.kBinPath . "\run.exe rxvt.exe -e ./bash --login"
     }
     set
     {
@@ -95,6 +95,7 @@ class Cygwin_Info
 Cygwin_ActivateXTerminal()
 {
   static previous_window := ""
+
   if (WinActive(Cygwin_Info.kTerminalTitle))
   {
     if ("" != previous_window)
@@ -111,8 +112,15 @@ Cygwin_ActivateXTerminal()
       Cygwin_LaunchXTerminal()
     }
 
-    WinWait(Cygwin_Info.kTerminalTitle)
-    WinActivate(Cygwin_Info.kTerminalTitle)
+    try
+    {
+      WinWait(Cygwin_Info.kTerminalTitle, "", 2)
+    }
+    catch
+    {
+      ; Retry since there is sometimes a bug running 32-bit URxvt on 64-bit Windows.
+      Cygwin_ActivateXTerminal()
+    }
   }
 }
 
@@ -129,11 +137,11 @@ Cygwin_LaunchTerminal()
   */
 Cygwin_LaunchXTerminal()
 {
-  if (ProcessExist(Cygwin_Info.kXServerProcessName).is_err())
+  if (!ProcessExist(Cygwin_Info.kXServerProcessName))
   {
     Run(Cygwin_Info.kXServerTarget, Cygwin_Info.kBinPath)
   }
 
-  ProcessWait(Cygwin_Info.kXServerProcessName)
+  ProcessWait(Cygwin_Info.kXServerProcessName, 5)
   Run(Cygwin_Info.kXTerminalTarget, Cygwin_Info.kBinPath)
 }

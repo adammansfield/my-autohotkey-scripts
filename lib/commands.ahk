@@ -2,75 +2,6 @@
   @brief Convert every command to a function. Function names are the same as its command.
   */
 
-/**
-  @brief Provides a wrapper for both the return value and error value into one container.
-  @note Based on Rust's std::Result.
-  */
-class StdResult
-{
-  __New()
-  {
-    this.ok_ := ""
-    this.err_ := ""
-    this.is_err_ := false
-    this.is_ok_ := false
-  }
-
-  ok[]
-  {
-    get
-    {
-    if (this.is_ok())
-    {
-        return this.ok_
-    }
-    else
-    {
-      throw Exception("StdResult is err, but trying to access ok.", -1)
-    }
-    }
-
-    set
-    {
-      this.ok_ := value
-      this.is_ok_ := true
-      this.is_err_ := false
-    }
-  }
-
-  err[]
-  {
-    get
-    {
-    if (this.is_err())
-    {
-      return this.err_
-    }
-      else
-    {
-      throw Exception("StdResult is ok, but trying to access err.", -1)
-    }
-    }
-
-    set
-    {
-      this.err_ := value
-      this.is_err_ := true
-      this.is_ok_ := false
-    }
-  }
-
-  is_err()
-  {
-    return this.is_err_
-  }
-
-  is_ok()
-  {
-    return this.is_ok_
-  }
-}
-
 Click(x, y)
 {
   Click, %x%, %y%
@@ -293,18 +224,22 @@ Input(options="", end_keys="", match_list="")
   return result
 }
 
-/**
-  @brief Displays an input box to ask the user to enter a string.
-  @return StdResult ok is the text entered
-                    err is 0 if ok is pressed else 1.
-  */
-InputBox(Title="", prompt="", hide="", width="", height="", x="", y="", font="", timeout="", default="")
+;; Displays an input box to ask the user to enter a string.
+;;
+;; @return Text inputted to InputBox.
+;; @throw If ok is not pressed.
+InputBox(title="", prompt="", hide="", width="", height="", x="", y="", font="", timeout="", default="")
 {
-  result := new StdResult()
-  InputBox, OutputVar, %Title%, %prompt%, %hide%, %width%, %height%, %x%, %y%, , %timeout%, %default%
-  result.err := ErrorLevel
-  result.ok := OutputVar
-  return result
+  InputBox, output, %title%, %prompt%, %hide%, %width%, %height%, %x%, %y%, , %timeout%, %default%
+  if (1 == ErrorLevel)
+  {
+    throw Exception("Error: InputBox pressed cancel")
+  }
+  else if (2 == ErrorLevel)
+  {
+    throw Exception("Error: InputBox timed out; timeout=" timeout)
+  }
+  return output
 }
 
 KeyWait(key_name, options="")
@@ -459,8 +394,6 @@ class MsgboxResult
   */
 MsgBox(text="", options="", title="", timeout="")
 {
-  retval := new StdResult()
-
   if (options || title || timeout)
   {
     ; The options parameter does not work if we use %options%
@@ -469,52 +402,52 @@ MsgBox(text="", options="", title="", timeout="")
 
     IfMsgBox, Abort
     {
-      retval.ok := MsgboxResult.Abort
+      return MsgboxResult.Abort
     }
 
     IfMsgBox, Cancel
     {
-      retval.ok := MsgboxResult.Cancel
+      return MsgboxResult.Cancel
     }
 
     IfMsgBox, Continue
     {
-      retval.ok := MsgboxResult.Continue
+      return MsgboxResult.Continue
     }
 
     IfMsgBox, Ignore
     {
-      retval.ok := MsgboxResult.Ignore
+      return MsgboxResult.Ignore
     }
 
     IfMsgBox, No
     {
-      retval.ok := MsgboxResult.No
+      return MsgboxResult.No
     }
 
     IfMsgBox, OK
     {
-      retval.ok := MsgboxResult.Ok
+      return MsgboxResult.Ok
     }
 
     IfMsgBox, Retry
     {
-      retval.ok := MsgboxResult.Retry
+      return MsgboxResult.Retry
     }
 
     IfMsgBox, Timeout
     {
-      retval.ok := MsgboxResult.Timeout
+      return MsgboxResult.Timeout
     }
 
     IfMsgBox, TryAgain
     {
-      retval.ok := MsgboxResult.TryAgain
+      return MsgboxResult.TryAgain
     }
 
     IfMsgBox, Yes
     {
-      retval.ok := MsgboxResult.Yes
+      return MsgboxResult.Yes
     }
   }
   else if ("" == text)
@@ -525,8 +458,6 @@ MsgBox(text="", options="", title="", timeout="")
   {
     MsgBox, %text%
   }
-
-  return retval
 }
 
 OutputDebug(string)
@@ -562,19 +493,7 @@ ProcessClose(pid_or_name)
 ProcessExist(pid_or_name)
 {
   Process, Exist, %pid_or_name%
-  pid := ErrorLevel
-
-  result := new StdResult()
-  if (0 == pid)
-  {
-    result.err := pid
-  }
-  else
-  {
-    result.ok := pid
-  }
-
-  return result
+  return ErrorLevel
 }
 
 ProcessPriority(pid_or_name, priority)
@@ -586,37 +505,27 @@ ProcessPriority(pid_or_name, priority)
 ProcessWait(pid_or_name, seconds="")
 {
   Process, Wait, %pid_or_name%, %seconds%
-  pid := ErrorLevel
 
-  result := new StdResult()
+  pid := ErrorLevel
   if (0 == pid)
   {
-    result.err := pid
-  }
-  else
-  {
-    result.ok := pid
+    throw Exception("Error: ProcessWait timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
   }
 
-  return result
+  return pid
 }
 
 ProcessWaitClose(pid_or_name, seconds="")
 {
   Process, WaitClose, %pid_or_name%, %seconds%
-  pid := ErrorLevel
 
-  result := new StdResult()
+  pid := ErrorLevel
   if (0 == pid)
   {
-    result.ok := pid
-  }
-  else
-  {
-    result.err := pid
+    throw Exception("Error: ProcessWaitClose timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
   }
 
-  return result
+  return pid
 }
 
 RegRead(root_key, sub_key, value_name="")
@@ -900,19 +809,25 @@ WinShow(win_title="", win_text="", exclude_title="", exclude_text="")
   return
 }
 
-WinWait(win_title, win_text="", Seconds="", exclude_title="", exclude_text="")
+WinWait(win_title, win_text="", seconds="", exclude_title="", exclude_text="")
 {
-  WinWait, %win_title%, %win_text%, %Seconds%, %exclude_title%, %exclude_text%
-  return ErrorLevel
+  WinWait, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
+  if (ErrorLevel)
+  {
+    throw Exception("Error: WinWait timed out; win_title=" win_title " , seconds=" seconds)
+  }
 }
 
 WinWaitActive(win_title="", win_text="", seconds="", exclude_title="", exclude_text="")
 {
   WinWaitActive, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
-  return ErrorLevel
+  if (ErrorLevel)
+  {
+    throw Exception("Error: WinWaitActive timed out; win_title=" win_title " , seconds=" seconds)
+  }
 }
 
-WinWaitPos(desired_x, desired_y, win_title, win_text="", Seconds="", exclude_title="", exclude_text="")
+WinWaitPos(desired_x, desired_y, win_title, win_text="", seconds="", exclude_title="", exclude_text="")
 {
   WinGetPos, actual_x, actual_y, width, height, %win_title%, %win_text%, %exclude_title%, %exclude_text%
   while (desired_x != actual_x && desired_y != actual_y)
