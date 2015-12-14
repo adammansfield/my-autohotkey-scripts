@@ -96,7 +96,7 @@ Music_QuickEditMetaData()
   Send("+{Enter}")
 
   ; Allow time for window to load.
-  WinWaitActive("Properties")
+  WinWaitActive("Properties", "", 5)
   Sleep(200)
 
   Send("{Tab 7}")

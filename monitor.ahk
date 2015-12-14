@@ -61,70 +61,65 @@ _ActivateCatalystControlCenter(is_retry=false)
   if (is_retry)
   {
     ; Sometimes CCC window will not appear so we kill and restart program.
-    if (ProcessExist(kCCCProcess).is_ok())
+    if (ProcessExist(kCCCProcess))
     {
       ProcessClose(kCCCProcess)
-
-      if (ProcessWaitClose(kCCCProcess, 2).is_err())
-      {
-        ShowError("ProcessWaitClose timed out")
-        return 1
-      }
+      ProcessWaitClose(kCCCProcess, 2)
     }
   }
 
-  if (ProcessExist(kCCCProcess).is_err())
+  if (!ProcessExist(kCCCProcess))
   {
     Run(kCCCPath)
-    if (ProcessWait(kCCCProcess, 1).is_err())
-    {
-      ShowError("ProcessWait timed out")
-      return 1
-    }
 
-    Sleep(1000) ; Increase this if CCC does not appear after retry.
+    ProcessWait(kCCCProcess, 1)
+
+    ; Increase this if CCC does not appear after retry.
+    Sleep(1000)
   }
 
   ; Running CCC if it already exists will cause the CCC window to appear.
   Run(kCCCPath)
 
-  if (1 == WinWait(kCCCTitle, "", 5))
+  try
+  {
+    WinWait(kCCCTitle, "", 5)
+  }
+  catch err
   {
     if (is_retry)
     {
-      ShowError("WinWait timed out")
-      return 1
+      throw err
     }
     else
     {
-      return _ActivateCatalystControlCenter(true)
+      _ActivateCatalystControlCenter(true)
     }
   }
 
   WinActivate(kCCCTitle)
-  if (1 == WinWaitActive(kCCCTitle, "", 1))
+
+  try
+  {
+    WinWaitActive(kCCCTitle, "", 1)
+  }
+  catch err
   {
     if (is_retry)
     {
-      ShowError("WinWaitActive timed out")
-      return 1
+      throw err
     }
     else
     {
-      return _ActivateCatalystControlCenter(true)
+      _ActivateCatalystControlCenter(true)
     }
   }
-
-  return 0
 }
 
 ;; Activates day-time mode for monitors by resetting color and brightness.
 _ActivateDayTimeMode()
 {
-  if (1 == _ActivateCatalystControlCenter())
-  {
-    return
-  }
+  _ActivateCatalystControlCenter()
 
   Send("{Tab 12}{Enter}") ; Expand "My Digit Flat-Panels".
   Send("{Tab 2}{Enter}")  ; Open "Display Color (Digital Flat-Panel)".
