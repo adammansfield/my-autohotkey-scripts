@@ -62,7 +62,6 @@ ToggleVolumeState()
   }
   else
   {
-    ShowError("audio state """ . audio_state . """ is unknown")
-    audio_state := kStateSpeakers
+    throw Exception("Error: audio state """ . audio_state . """ is unknown")
   }
 }
