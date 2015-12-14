@@ -1,11 +1,3 @@
-;; Handles errors by displaying an error message.
-;;
-;; @param message The message to display.
-ShowError(ByRef message)
-{
-  MsgBox("Error: " . message)
-}
-
 ;; Toggles between default audio devices.
 ToggleAudioDevice()
 {
@@ -37,15 +29,12 @@ ToggleAudioDevice()
 
   Run(kAudioWindowTarget)
 
-  err := WinWait(kAudioWindowTitle, 5)
-  if (!err)
-  {
-    select_audio_device := "{Down " . current_audio_device . "}"
+  WinWait(kAudioWindowTitle, 5)
+  select_audio_device := "{Down " . current_audio_device . "}"
 
-    ControlSend(kAudioListControl, select_audio_device, kAudioWindowTitle)
-    ControlClick(kAudioSetDefaultControl, kAudioWindowTitle, "", "", "", "na")
-    WinClose(kAudioWindowTitle)
-  }
+  ControlSend(kAudioListControl, select_audio_device, kAudioWindowTitle)
+  ControlClick(kAudioSetDefaultControl, kAudioWindowTitle, "", "", "", "na")
+  WinClose(kAudioWindowTitle)
 
   return
 }
