@@ -19,7 +19,7 @@ class Vim_Info
       }
       else
       {
-        ShowError("Cannot set invalid vim mode " . value)
+        throw Exception("Error: Cannot set invalid vim mode " . value)
       }
     }
   }
