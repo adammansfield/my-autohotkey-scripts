@@ -115,6 +115,7 @@ Cygwin_ActivateXTerminal()
     try
     {
       WinWait(Cygwin_Info.kTerminalTitle, "", 2)
+      WinActivate(Cygwin_Info.kTerminalTitle)
     }
     catch
     {
