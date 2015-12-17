@@ -2,9 +2,7 @@ F12::Cygwin_ActivateXTerminal()
 +F12::Cygwin_LaunchXTerminal()
 !F12::Cygwin_LaunchTerminal()
 
-/**
-  @brief The paths and various settings for Cygwin.
-  */
+;; The paths and various settings for Cygwin.
 class Cygwin_Info
 {
   ; Get the location of cygwin's /bin
@@ -40,12 +38,12 @@ class Cygwin_Info
     }
   }
 
-  ; Path to Cygwin X server terminal with arguments.
-  kXTerminalTarget[]
+  ; The title of a cygwin X-terminal.
+  kTerminalTitle[]
   {
     get
     {
-      return Cygwin_Info.kBinPath . "\run.exe urxvt.exe -e ./bash --login"
+      return "ahk_class rxvt"
     }
     set
     {
@@ -76,12 +74,24 @@ class Cygwin_Info
     }
   }
 
-  ; The title of a cygwin terminal.
-  kTerminalTitle[]
+  ; Path to Cygwin X server terminal with arguments.
+  kXTerminalTarget[]
   {
     get
     {
-      return "terminal "
+      return Cygwin_Info.kBinPath . "\run.exe urxvt.exe -e ./bash --login"
+    }
+    set
+    {
+    }
+  }
+
+  ; The title of a cygwin X-terminal.
+  kXTerminalTitle[]
+  {
+    get
+    {
+      return "ahk_class cygwin"
     }
     set
     {
@@ -89,14 +99,12 @@ class Cygwin_Info
   }
 }
 
-/**
-  @brief Guake-like cygwin functionality as show and hide cygwin terminal.
-  */
+;; Guake-like cygwin functionality as show and hide cygwin terminal.
 Cygwin_ActivateXTerminal()
 {
   static previous_window := ""
 
-  if (WinActive(Cygwin_Info.kTerminalTitle))
+  if (WinActive(Cygwin_Info.kXTerminalTitle))
   {
     if ("" != previous_window)
     {
@@ -107,15 +115,15 @@ Cygwin_ActivateXTerminal()
   {
     previous_window := WinGetActiveTitle()
 
-    if (!WinExist(Cygwin_Info.kTerminalTitle))
+    if (!WinExist(Cygwin_Info.kXTerminalTitle))
     {
       Cygwin_LaunchXTerminal()
     }
 
     try
     {
-      WinWait(Cygwin_Info.kTerminalTitle, "", 2)
-      WinActivate(Cygwin_Info.kTerminalTitle)
+      WinWait(Cygwin_Info.kXTerminalTitle, "", 2)
+      WinActivate(Cygwin_Info.kXTerminalTitle)
     }
     catch
     {
@@ -125,17 +133,13 @@ Cygwin_ActivateXTerminal()
   }
 }
 
-/**
-  @brief Launch a new instance of a cygwin terminal.
-  */
+;; Launch a new instance of a cygwin terminal.
 Cygwin_LaunchTerminal()
 {
   Run(Cygwin_Info.kTerminalTarget, Cygwin_Info.kBinPath)
 }
 
-/**
-  @brief Launch a new instance of a cygwin X-terminal.
-  */
+;; Launchs a new instance of a cygwin X-terminal.
 Cygwin_LaunchXTerminal()
 {
   if (!ProcessExist(Cygwin_Info.kXServerProcessName))
