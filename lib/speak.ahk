@@ -1,3 +1,86 @@
+;; SpeechVoiceSpeakFlags Enum (SAPI 5.3)
+;;
+;; @note https://msdn.microsoft.com/en-us/library/ms720892(v=vs.85).aspx
+class SpeakFlag
+{
+	kDefault[]
+	{
+	  get
+	  {
+	    return 0
+	  }
+	  set
+	  {
+	  }
+	}
+
+	kFlagsAsync[]
+	{
+	  get
+	  {
+	    return 1
+	  }
+	  set
+	  {
+	  }
+	}
+
+	kPurgeBeforeSpeak[]
+	{
+	  get
+	  {
+	    return 2
+	  }
+	  set
+	  {
+	  }
+	}
+
+	kIsFilename[]
+	{
+	  get
+	  {
+	    return 4
+	  }
+	  set
+	  {
+	  }
+	}
+
+	kIsXML[]
+	{
+	  get
+	  {
+	    return 8
+	  }
+	  set
+	  {
+	  }
+	}
+
+	kNotXML[]
+	{
+	  get
+	  {
+	    return 16
+	  }
+	  set
+	  {
+	  }
+	}
+
+	kPersistXML[]
+	{
+	  get
+	  {
+	    return 32
+	  }
+	  set
+	  {
+	  }
+	}
+}
+
 ;; Asynchronous text to speech using Win32 COM.
 ;;
 ;; @param text_to_speak_utf8 The text to speak in UTF-8.
