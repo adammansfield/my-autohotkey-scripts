@@ -154,7 +154,7 @@ _ActivateNightTimeMode()
 
   ; Brightness has range from -100 to 0.
   center_brightness := -25
-  sides_brightness := -25
+  sides_brightness := -40
 
   sides_temp_num_lefts := (6500 - sides_temp) / 100
   center_temp_num_lefts := (6500 - center_temp) / 100
