@@ -1,9 +1,49 @@
 <!a::ToggleVolumeState()
 <!o::ToggleMicMute()
 
-/**
-  @brief Toggle mute for microphone.
-  */
+;; Toggles between default audio devices.
+ToggleAudioDevice()
+{
+  static kAudioWindowTarget := "mmsys.cpl"         ; Target to sound settings.
+  static kAudioWindowTitle := "ahk_class #32770"   ; The window title for the sound settings.
+  static kAudioListControl := "SysListView321"     ; The control name for the playback devices list.
+  static kAudioSetDefaultControl := "&Set Default" ; The control name for the set default button.
+
+  ; Enumeration of audio devices. The number corresponds to the
+  ; position in the Playback devices list.
+  static kAudioDeviceExternal := 1
+  static kAudioDeviceInternal := 2
+
+  static current_audio_device := kAudioDeviceExternal
+
+  if (kAudioDeviceInternal == current_audio_device)
+  {
+    current_audio_device := kAudioDeviceExternal
+  }
+  else if (kAudioDeviceExternal == current_audio_device)
+  {
+    current_audio_device := kAudioDeviceInternal
+  }
+  else
+  {
+    MsgBox("Error: audio device """ . current_audio_device . """ is unknown")
+    current_audio_device := kAudioDeviceDefault
+  }
+
+  Run(kAudioWindowTarget)
+
+  err := WinWait(kAudioWindowTitle, 5)
+  if (!err)
+  {
+    select_audio_device := "{Down " . current_audio_device . "}"
+
+    ControlSend(kAudioListControl, select_audio_device, kAudioWindowTitle)
+    ControlClick(kAudioSetDefaultControl, kAudioWindowTitle, "", "", "", "na")
+    WinClose(kAudioWindowTitle)
+  }
+}
+
+;; Toggles mute for microphone.
 ToggleMicMute()
 {
   ; The name of the mircophone audio device.
@@ -13,24 +53,20 @@ ToggleMicMute()
   SoundSet("+1", kAudioMicrophoneDevice, "mute")
 }
 
-/**
-  @brief Toggle between headphones and speakers volumes states.
-  */
+;; Toggles between headphones and speakers volumes states.
 ToggleVolumeState()
 {
   static kSpeakersVolume := 10
   static kHeadphonesVolume := 100
-
-  ; If above this volume then assume, headphone state.
-  static kHeadphonesVolumeThreshold := 90
 
   static kStateSpeakers := 0
   static kStateHeadphones := 1
 
   static audio_state := kStateSpeakers
 
+  ; To be safe assume headphone state if volume is loud.
   volume := VA_GetMasterVolume()
-  if (kHeadphonesVolumeThreshold <= volume)
+  if (kSpeakersVolume < volume)
   {
     audio_state := kStateHeadphones
   }
