@@ -32,6 +32,7 @@ SetTitleMatchMode RegEx
 #include lib/commands.ahk
 #include lib/etc.ahk
 #include lib/exceptionhandler.ahk
+#include lib/ping.ahk
 #include lib/speak.ahk
 #include lib/vista_audio_control.ahk
 
