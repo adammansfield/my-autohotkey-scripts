@@ -30,21 +30,21 @@ SetTitleMatchMode RegEx
 #include globals/remote.ahk
 
 #include lib/commands.ahk
+#include lib/etc.ahk
 #include lib/exceptionhandler.ahk
-#include lib/misc.ahk
 #include lib/speak.ahk
 #include lib/vista_audio_control.ahk
 
 #include hotstrings/abbreviations.ahk
 #include hotstrings/auto_correct.ahk
 #include hotstrings/coding.ahk
-#include hotstrings/misc.ahk
+#include hotstrings/etc.ahk
 #include hotstrings/symbols.ahk
 
 #include audio.ahk
 #include cygwin.ahk
+#include etc.ahk
 #include games.ahk
-#include misc.ahk
 #include monitor.ahk
 #include music.ahk
 #include prototype.ahk
