@@ -85,11 +85,11 @@ _ActivateCatalystControlCenter(is_retry=false)
   {
     WinWait(kCCCTitle, "", 5)
   }
-  catch err
+  catch e
   {
     if (is_retry)
     {
-      throw err
+      HandleException(e)
     }
     else
     {
@@ -103,11 +103,11 @@ _ActivateCatalystControlCenter(is_retry=false)
   {
     WinWaitActive(kCCCTitle, "", 1)
   }
-  catch err
+  catch e
   {
     if (is_retry)
     {
-      throw err
+      HandleException(e)
     }
     else
     {

@@ -64,40 +64,47 @@ ToggleVolumeState()
 
   static audio_state := kStateSpeakers
 
-  ; To be safe assume headphone state if volume is loud.
-  volume := VA_GetMasterVolume()
-  if (kSpeakersVolume < volume)
+  try
   {
-    audio_state := kStateHeadphones
-  }
-
-  if (kStateHeadphones == audio_state)
-  {
-    VA_SetMasterVolume(kSpeakersVolume)
-    audio_state := kStateSpeakers
-  }
-  else if (kStateSpeakers == audio_state)
-  {
-    AsyncSpeak("Switch volume")
-
-    result := Msgbox("Press ok to switch to headphone volume", 0, "Switch Volume", 2)
-
-    if (MsgboxResult.Ok == result)
+    ; To be safe assume headphone state if volume is loud.
+    volume := VA_GetMasterVolume()
+    if (kSpeakersVolume < volume)
     {
-      VA_SetMasterVolume(kHeadphonesVolume)
       audio_state := kStateHeadphones
     }
-    else if (MsgboxResult.Timeout == result)
+
+    if (kStateHeadphones == audio_state)
     {
-      AsyncSpeak("Switch timed out")
+      VA_SetMasterVolume(kSpeakersVolume)
+      audio_state := kStateSpeakers
+    }
+    else if (kStateSpeakers == audio_state)
+    {
+      AsyncSpeak("Switch volume")
+
+      result := Msgbox("Press ok to switch to headphone volume", 0, "Switch Volume", 2)
+
+      if (MsgboxResult.Ok == result)
+      {
+        VA_SetMasterVolume(kHeadphonesVolume)
+        audio_state := kStateHeadphones
+      }
+      else if (MsgboxResult.Timeout == result)
+      {
+        AsyncSpeak("Switch timed out")
+      }
+      else
+      {
+        throw Exception("Error: result of Msgbox() """ . result """ is unexpected")
+      }
     }
     else
     {
-      throw Exception("Error: result of Msgbox() """ . result """ is unexpected")
+      throw Exception("Error: audio state """ . audio_state . """ is unknown")
     }
   }
-  else
+  catch e
   {
-    throw Exception("Error: audio state """ . audio_state . """ is unknown")
+    HandleException(e)
   }
 }
