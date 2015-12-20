@@ -1,6 +1,4 @@
-/**
-  @brief Convert every command to a function. Function names are the same as its command.
-  */
+;; Convert every command to a function. Function names are the same as its command.
 
 Click(x, y)
 {
@@ -233,11 +231,11 @@ InputBox(title="", prompt="", hide="", width="", height="", x="", y="", font="",
   InputBox, output, %title%, %prompt%, %hide%, %width%, %height%, %x%, %y%, , %timeout%, %default%
   if (1 == ErrorLevel)
   {
-    throw Exception("Error: InputBox pressed cancel")
+    throw _BuildException("Error: InputBox pressed cancel")
   }
   else if (2 == ErrorLevel)
   {
-    throw Exception("Error: InputBox timed out; timeout=" timeout)
+    throw _BuildException("Error: InputBox timed out; timeout=" timeout)
   }
   return output
 }
@@ -509,7 +507,7 @@ ProcessWait(pid_or_name, seconds="")
   pid := ErrorLevel
   if (0 == pid)
   {
-    throw Exception("Error: ProcessWait timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
+    throw _BuildException("Error: ProcessWait timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
   }
 
   return pid
@@ -522,7 +520,7 @@ ProcessWaitClose(pid_or_name, seconds="")
   pid := ErrorLevel
   if (0 == pid)
   {
-    throw Exception("Error: ProcessWaitClose timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
+    throw _BuildException("Error: ProcessWaitClose timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
   }
 
   return pid
@@ -624,10 +622,35 @@ StatusBarGetText(part="", win_title="", win_text="", exclude_title="", exclude_t
   return result
 }
 
-SplitPath(ByRef path, ByRef out_filename="", ByRef out_dir="", ByRef out_extension="", ByRef out_name_no_ext="", ByRef out_drive="")
+;; Separates a file name or URL into its name, directory, extension, and drive.
+;;
+;; @param path The path to split.
+;; @returns An Object with the following properties:
+;;     filename: Name of the variable in which to store the file name without
+;;               its path. The file's extension is included.
+;;     dir: Name of the variable in which to store the directory of the file,
+;;          including drive letter or share name (if present). The final
+;;          backslash is not included even if the file is located in a drive's
+;;          root directory.
+;;     extension: Name of the variable in which to store the file's extension
+;;                (e.g. TXT, DOC, or EXE). The dot is not included.
+;;     name_no_ext: Name of the variable in which to store the file name without
+;;                  its path, dot and extension.
+;;     drive: Name of the variable in which to store the drive letter or server
+;;            name of the file. If the file is on a local or mapped drive, the
+;;            variable will be set to the drive letter followed by a colon (no
+;;            backslash). If the file is on a network path (UNC), the variable
+;;            will be set to the share name, e.g. \\Workstation01
+SplitPath(ByRef path)
 {
-  SplitPath, path, out_filename, out_dir, out_extension, out_name_no_ext, out_drive
-  return
+  SplitPath, path, filename, dir, extension, name_no_ext, drive_letter
+  result := Object()
+  result.filename := filename
+  result.dir := dir
+  result.extension := extension
+  result.name_no_ext := name_no_ext
+  result.drive := drive
+  return result
 }
 
 StringGetPos(ByRef string, search_text, mode="", offset="")
@@ -814,7 +837,7 @@ WinWait(win_title, win_text="", seconds="", exclude_title="", exclude_text="")
   WinWait, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
   if (ErrorLevel)
   {
-    throw Exception("Error: WinWait timed out; win_title=" win_title " , seconds=" seconds)
+    throw _BuildException("Error: WinWait timed out; title=" win_title ", seconds=" seconds)
   }
 }
 
@@ -823,7 +846,7 @@ WinWaitActive(win_title="", win_text="", seconds="", exclude_title="", exclude_t
   WinWaitActive, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
   if (ErrorLevel)
   {
-    throw Exception("Error: WinWaitActive timed out; win_title=" win_title " , seconds=" seconds)
+    throw _BuildException("Error: WinWaitActive timed out; title=" win_title ", seconds=" seconds)
   }
 }
 
@@ -843,3 +866,57 @@ URLDownloadToFile(url, filename)
   return
 }
 
+;; Returns an exception with a stack trace.
+;;
+;; @param message The message of the Exception.
+_BuildException(message)
+{
+  extra := _GetStackTrace(-3)
+  return Exception(message, -2, extra)
+}
+
+;; Returns the current call stack excluding this function call.
+;;
+;; @param level What level to start the call stack tracing.
+_GetStackTrace(level=-2)
+{
+  e := Exception("", level)
+  while (_IsValidException(e, level))
+  {
+    if (stack_trace)
+    {
+      stack_trace := stack_trace "`n"
+    }
+    else
+    {
+      stack_trace := "Traceback (most recent call first):" "`n"
+    }
+
+    filename := SplitPath(e.file).filename
+    line := FileReadLine(e.file, e.line)
+    line := LTrim(line)
+    stack_trace := stack_trace "    File """ filename """, line " e.line
+
+    ; Advance trace level here to get the function for this line.
+    level := level - 1
+    e := Exception("", level)
+    if (_IsValidException(e, level))
+    {
+      stack_trace := stack_trace ", in " e.what
+    }
+
+    stack_trace := stack_trace "`n" "        " line
+  }
+
+  return stack_trace
+}
+
+;; Returns true if the exception is valid for the given level.
+;;
+;; @param e Exception to check.
+;; @param level The current level in the stack trace.
+_IsValidException(e, level)
+{
+  static kInvalidWhat := "<!;"
+  return kInvalidWhat != e.what && level != e.what
+}
