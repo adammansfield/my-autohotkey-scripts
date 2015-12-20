@@ -107,30 +107,37 @@ Speak(speech_utf8, flags=0)
   static spvoice_object := ""
   static speak_function := ""
 
-  if (!is_tts_initialized)
+  try
   {
-    spvoice_clsid_utf8 := "{96749377-3391-11D2-9EE3-00C04F797396}"
-    ispeechvoice_iid_utf8 := "{269316D8-57BD-11D2-9EEE-00C04F797396}"
+    if (!is_tts_initialized)
+    {
+      spvoice_clsid_utf8 := "{96749377-3391-11D2-9EE3-00C04F797396}"
+      ispeechvoice_iid_utf8 := "{269316D8-57BD-11D2-9EEE-00C04F797396}"
 
-    _Utf8ToUtf16(spvoice_clsid_utf8, spvoice_clsid_utf16)
-    _Utf8ToUtf16(ispeechvoice_iid_utf8, ispeechvoice_iid_utf16)
+      _Utf8ToUtf16(spvoice_clsid_utf8, spvoice_clsid_utf16)
+      _Utf8ToUtf16(ispeechvoice_iid_utf8, ispeechvoice_iid_utf16)
 
-    VarSetCapacity(spvoice_clsid, 16)
-    VarSetCapacity(ispeechvoice_iid, 16)
+      VarSetCapacity(spvoice_clsid, 16)
+      VarSetCapacity(ispeechvoice_iid, 16)
 
-    DllCall("ole32\CoInitialize", "uint", 0)
-    DllCall("ole32\CLSIDFromString", "str", spvoice_clsid_utf16, "str", spvoice_clsid)
-    DllCall("ole32\IIDFromString", "str", ispeechvoice_iid_utf16, "str", ispeechvoice_iid)
-    DllCall("ole32\CoCreateInstance", "uint", &spvoice_clsid, "uint", 0, "uint", 1, "uint", &ispeechvoice_iid, "uintp", spvoice_object)
+      DllCall("ole32\CoInitialize", "uint", 0)
+      DllCall("ole32\CLSIDFromString", "str", spvoice_clsid_utf16, "str", spvoice_clsid)
+      DllCall("ole32\IIDFromString", "str", ispeechvoice_iid_utf16, "str", ispeechvoice_iid)
+      DllCall("ole32\CoCreateInstance", "uint", &spvoice_clsid, "uint", 0, "uint", 1, "uint", &ispeechvoice_iid, "uintp", spvoice_object)
 
-    DllCall("ntdll\RtlMoveMemory", "uintp", spvoice_header, "uint", spvoice_object, "uint", 4)
-    DllCall("ntdll\RtlMoveMemory", "uintp", speak_function, "uint", spvoice_header + 4 * 28, "uint", 4)
+      DllCall("ntdll\RtlMoveMemory", "uintp", spvoice_header, "uint", spvoice_object, "uint", 4)
+      DllCall("ntdll\RtlMoveMemory", "uintp", speak_function, "uint", spvoice_header + 4 * 28, "uint", 4)
 
-    is_tts_initialized = true
+      is_tts_initialized = true
+    }
+
+    _Utf8ToUtf16(speech_utf8, speech_utf16)
+    DllCall(speak_function, "uint", spvoice_object, "str", speech_utf16, "uint", flags)
   }
-
-  _Utf8ToUtf16(speech_utf8, speech_utf16)
-  DllCall(speak_function, "uint", spvoice_object, "str", speech_utf16, "uint", flags)
+  catch
+  {
+    ; Do nothing.
+  }
 }
 
 ;; Converts a multibyte character string to a wide character string.
