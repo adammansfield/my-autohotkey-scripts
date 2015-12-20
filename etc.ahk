@@ -10,16 +10,28 @@ CapsLock::Esc
 DisconnectVPN()
 {
   static kWorkingDir := "C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\"
-  static kTarget := "vpncli.exe disconnect"
-  static kProcessName := "vpnui.exe"
+  static kCliTarget := "vpncli.exe disconnect"
+  static kUIProcessName := "vpnui.exe"
+  static kProcessName := "vpnagent.exe"
+  static kTestAddress := "am-centos"
 
   try
   {
-    RunWait(kTarget, kWorkingDir, "hide")
-
     if (ProcessExist(kProcessName))
     {
-      ProcessClose(kProcessName)
+      RunWait(kCliTarget, kWorkingDir, "hide")
+      ProcessWaitClose(kProcessName, 1)
+    }
+
+    if (ProcessExist(kUIProcessName))
+    {
+      ProcessClose(kUIProcessName)
+    }
+
+    Ping(kTestAddress)
+    if (0 == ErrorLevel)
+    {
+      throw Exception("Error: VPN not disconnected, can still ping test address")
     }
 
     Speak("V P N disconnected")
