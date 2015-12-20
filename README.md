@@ -5,23 +5,19 @@ This is my personal collection of AutoHotkey scripts.
 
 Scripts
 -------
-
-* __Hotkey Scripts__
-  - __autohotkey.ahk:__ Hotkeys for this Autohotkey script such as reloading and protoyping.
-  - __cygwin.ahk:__ Quick show/hide of the terminal and other hotkeys for Cygwin.
-  - __music.ahk:__ Quick tagging of music files and hotkeys for media.
-  - __remote.ahk:__ Customized hotkeys with remote for XBMC.
-  - __vim_commands_everywhere.ahk:__ Vim commands everywhere activated through right Alt key.
+* __audio.ahk:__ Hotkeys for controlling playback and recording audio devices.
+* __cygwin.ahk:__ Quick show/hide of a terminal and other hotkeys for Cygwin.
+* __prototype.ahk:__ Hotkeys for this Autohotkey script such as reloading and protoyping.
+* __monitor.ahk:__ Hotkeys for controlling the monitor such as sleeping, night time mode, etc.
+* __music.ahk:__ Quick tagging of music files and hotkeys for media.
+* __remote.ahk:__ Customized hotkeys with remote for Kodi.
+* __vim_commands_everywhere.ahk:__ Vim commands everywhere activated through right Alt key.
 
 * __Hotstring Scripts__
   - __abbreviatons.ahk:__ Automatic exapnsions for abbreviations.
   - __auto_correct.ahk:__ Automatic spelling corrections while typing.
   - __coding.ahk:__ Marcos useful for coding.
   - __symbols.ahk:__ Replace hotstring with symbols.
-
-* __Function Scripts__
-  - __commands.ahk:__ Converts AutoHotkey commands to functions to make AutoHotkey more similar to other languages.
-  - __speak.ahk:__ Text to speech using SAPI through Win32 API.
 
 Dependencies
 ------------
@@ -32,8 +28,12 @@ Third Party Sources
 * Autocorrect
   - Version: Sep 13 2007
   - Author: Jim Biancolo
-  - URL: http://www.autohotkey.com/download/AutoCorrect.ahk
+  - Source: http://www.autohotkey.com/download/AutoCorrect.ahk
+* Ping
+  - Version: 2.0
+  - Author: Drugwash
+  - Source: https://autohotkey.com/board/topic/41127-ping-function-without-pingexe-formerly-a-ping/
 * Vista Audio Control Functions
   - Version: 2.3
   - Author: Lexikos
-  - URL: http://www.autohotkey.com/board/topic/21984-vista-audio-control-functions/
+  - Source: http://www.autohotkey.com/board/topic/21984-vista-audio-control-functions/
