@@ -231,11 +231,11 @@ InputBox(title="", prompt="", hide="", width="", height="", x="", y="", font="",
   InputBox, output, %title%, %prompt%, %hide%, %width%, %height%, %x%, %y%, , %timeout%, %default%
   if (1 == ErrorLevel)
   {
-    throw _BuildException("Error: InputBox pressed cancel")
+    throw _BuildException("InputBox pressed cancel")
   }
   else if (2 == ErrorLevel)
   {
-    throw _BuildException("Error: InputBox timed out; timeout=" timeout)
+    throw _BuildException("InputBox timed out; timeout=" timeout)
   }
   return output
 }
@@ -485,7 +485,12 @@ PostMessage(ByRef msg, w_param="", l_param="", control_name="", win_title="", wi
 ProcessClose(pid_or_name)
 {
   Process, Close, %pid_or_name%
-  return ErrorLevel
+  former_pid := ErrorLevel
+  if (0 == former_pid)
+  {
+    throw _BuildException("Process was not successfully terminated; pid_or_name=" pid_or_name)
+  }
+  return former_pid
 }
 
 ProcessExist(pid_or_name)
@@ -507,7 +512,7 @@ ProcessWait(pid_or_name, seconds="")
   pid := ErrorLevel
   if (0 == pid)
   {
-    throw _BuildException("Error: ProcessWait timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
+    throw _BuildException("ProcessWait timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
   }
 
   return pid
@@ -520,7 +525,7 @@ ProcessWaitClose(pid_or_name, seconds="")
   pid := ErrorLevel
   if (0 == pid)
   {
-    throw _BuildException("Error: ProcessWaitClose timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
+    throw _BuildException("ProcessWaitClose timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
   }
 
   return pid
@@ -544,12 +549,48 @@ Reload()
   return
 }
 
+;; Runs an external program.
+;;
+;; @param target A document, URL, executable file (.exe, .com, .bat, etc.),
+;;     shortcut (.lnk), or system verb to launch (see remarks). If Target is a
+;;     local file and no path was specified with it, A_WorkingDir will be
+;;     searched first. If no matching file is found there, the system will
+;;     search for and launch the file if it is integrated ("known"), e.g. by
+;;     being contained in one of the PATH folders.
+;;     To pass parameters, add them immediately after the program or document
+;;     name. If a parameter contains spaces, it is safest to enclose it in
+;;     double quotes (even though it may work without them in some cases).
+;; @param working_dir The working directory for the launched item. Do not
+;;     enclose the name in double quotes even if it contains spaces. If omitted,
+;;     the script's own working directory (A_WorkingDir) will be used.
+;; @param mode Max: launch maximized
+;;             Min: launch minimized
+;;             Hide: launch hidden (cannot be used in combination with either of the above)
+;; @return The Process ID (PID) of the newly launched program.
 Run(target, working_dir="", mode="")
 {
   Run, %target%, %working_dir%, %mode%, result
   return result
 }
 
+;; Runs an external program and waits until the program finishes before continuing.
+;;
+;; @param target A document, URL, executable file (.exe, .com, .bat, etc.),
+;;     shortcut (.lnk), or system verb to launch (see remarks). If Target is a
+;;     local file and no path was specified with it, A_WorkingDir will be
+;;     searched first. If no matching file is found there, the system will
+;;     search for and launch the file if it is integrated ("known"), e.g. by
+;;     being contained in one of the PATH folders.
+;;     To pass parameters, add them immediately after the program or document
+;;     name. If a parameter contains spaces, it is safest to enclose it in
+;;     double quotes (even though it may work without them in some cases).
+;; @param working_dir The working directory for the launched item. Do not
+;;     enclose the name in double quotes even if it contains spaces. If omitted,
+;;     the script's own working directory (A_WorkingDir) will be used.
+;; @param mode Max: launch maximized
+;;             Min: launch minimized
+;;             Hide: launch hidden (cannot be used in combination with either of the above)
+;; @return The Process ID (PID) of the newly launched program.
 RunWait(target, working_dir="", mode="")
 {
   RunWait, %target%, %working_dir%, %mode%, result
@@ -837,7 +878,7 @@ WinWait(win_title, win_text="", seconds="", exclude_title="", exclude_text="")
   WinWait, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
   if (ErrorLevel)
   {
-    throw _BuildException("Error: WinWait timed out; title=" win_title ", seconds=" seconds)
+    throw _BuildException("WinWait timed out; title=" win_title ", seconds=" seconds)
   }
 }
 
@@ -846,7 +887,7 @@ WinWaitActive(win_title="", win_text="", seconds="", exclude_title="", exclude_t
   WinWaitActive, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
   if (ErrorLevel)
   {
-    throw _BuildException("Error: WinWaitActive timed out; title=" win_title ", seconds=" seconds)
+    throw _BuildException("WinWaitActive timed out; title=" win_title ", seconds=" seconds)
   }
 }
 
@@ -871,6 +912,7 @@ URLDownloadToFile(url, filename)
 ;; @param message The message of the Exception.
 _BuildException(message)
 {
+  message := "Error: " message
   extra := _GetStackTrace(-3)
   return Exception(message, -2, extra)
 }
@@ -881,7 +923,7 @@ _BuildException(message)
 _GetStackTrace(level=-2)
 {
   e := Exception("", level)
-  while (_IsValidException(e, level))
+  while (_IsExceptionValid(e, level))
   {
     if (stack_trace)
     {
@@ -900,7 +942,7 @@ _GetStackTrace(level=-2)
     ; Advance trace level here to get the function for this line.
     level := level - 1
     e := Exception("", level)
-    if (_IsValidException(e, level))
+    if (_IsExceptionValid(e, level))
     {
       stack_trace := stack_trace ", in " e.what
     }
@@ -915,8 +957,19 @@ _GetStackTrace(level=-2)
 ;;
 ;; @param e Exception to check.
 ;; @param level The current level in the stack trace.
-_IsValidException(e, level)
+_IsExceptionValid(e, level)
 {
-  static kInvalidWhat := "<!;"
-  return kInvalidWhat != e.what && level != e.what
+  static kHotkeyRegex := "\W+\w+"
+
+  if (RegExMatch(e.what, kHotkeyRegex))
+  {
+    return false
+  }
+
+  if (level == e.what)
+  {
+    return false
+  }
+
+  return true
 }
