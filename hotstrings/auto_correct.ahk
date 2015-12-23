@@ -914,7 +914,8 @@
   ::basicly::basically
   ::cattleship::battleship
   ::bve::be
-  ::eb::be
+  :c:eb::be
+  :c:Eb::Be
   ::beachead::beachhead
   ::beatiful::beautiful
   ::beautyfull::beautiful

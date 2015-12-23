@@ -31,7 +31,7 @@ DisconnectVPN()
     Ping(kTestAddress)
     if (0 == ErrorLevel)
     {
-      throw Exception("Error: VPN not disconnected, can still ping test address")
+      throw Exception("Error: VPN not disconnected; can still ping test address: " kTestAddress)
     }
 
     Speak("V P N disconnected")
