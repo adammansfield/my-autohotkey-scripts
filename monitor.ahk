@@ -58,61 +58,68 @@ _ActivateCatalystControlCenter(is_retry=false)
   static kCCCTitle := "AMD Catalyst Control Center"
   static kCCCProcess := "CCC.exe"
 
-  if (is_retry)
+  try
   {
-    ; Sometimes CCC window will not appear so we kill and restart program.
-    if (ProcessExist(kCCCProcess))
+    if (is_retry)
     {
-      ProcessClose(kCCCProcess)
-      ProcessWaitClose(kCCCProcess, 2)
+      ; Sometimes CCC window will not appear so we kill and restart program.
+      if (ProcessExist(kCCCProcess))
+      {
+        ProcessClose(kCCCProcess)
+        ProcessWaitClose(kCCCProcess, 2)
+      }
     }
-  }
 
-  if (!ProcessExist(kCCCProcess))
-  {
+    if (!ProcessExist(kCCCProcess))
+    {
+      Run(kCCCPath)
+
+      ProcessWait(kCCCProcess, 1)
+
+      ; Increase this if CCC does not appear after retry.
+      Sleep(1000)
+    }
+
+    ; Running CCC if it already exists will cause the CCC window to appear.
     Run(kCCCPath)
 
-    ProcessWait(kCCCProcess, 1)
+    try
+    {
+      WinWait(kCCCTitle, "", 5)
+    }
+    catch e
+    {
+      if (is_retry)
+      {
+        HandleException(e)
+      }
+      else
+      {
+        _ActivateCatalystControlCenter(true)
+      }
+    }
 
-    ; Increase this if CCC does not appear after retry.
-    Sleep(1000)
-  }
+    WinActivate(kCCCTitle)
 
-  ; Running CCC if it already exists will cause the CCC window to appear.
-  Run(kCCCPath)
-
-  try
-  {
-    WinWait(kCCCTitle, "", 5)
+    try
+    {
+      WinWaitActive(kCCCTitle, "", 1)
+    }
+    catch e
+    {
+      if (is_retry)
+      {
+        HandleException(e)
+      }
+      else
+      {
+        _ActivateCatalystControlCenter(true)
+      }
+    }
   }
   catch e
   {
-    if (is_retry)
-    {
-      HandleException(e)
-    }
-    else
-    {
-      _ActivateCatalystControlCenter(true)
-    }
-  }
-
-  WinActivate(kCCCTitle)
-
-  try
-  {
-    WinWaitActive(kCCCTitle, "", 1)
-  }
-  catch e
-  {
-    if (is_retry)
-    {
-      HandleException(e)
-    }
-    else
-    {
-      _ActivateCatalystControlCenter(true)
-    }
+    HandleException(e)
   }
 }
 
