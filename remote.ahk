@@ -1,18 +1,32 @@
-/**
-  @brief Hotkeys for the F-Dolphin Air Mouse.
-  */
+;; Hotkeys for the F-Dolphin Air Mouse.
 
-/**
-  @brief Setup XBMC as full screen and enable remote mode.
-  @notes remote's home button
-  */
+class _Remote_Info
+{
+  ;; Whether or not remote mode is enabled.
+  static is_remote_mode := false
+
+  ;; The window class of XBMC.
+  kXbmcWindowClass[]
+  {
+    get
+    {
+      return "ahk_class XBMC"
+    }
+    set
+    {
+    }
+  }
+}
+
+;; Setup XBMC as full screen and enable remote mode.
+;; @note remote's home button
 #e::
 {
   ReactivateColorControl()
 
   if (!WinExist(kXbmcWindowClass))
   {
-    Run(kXbmcPath)
+    Run("C:\Program Files (x86)\XBMC\XBMC.exe")
   }
 
   WinWait(kXbmcWindowClass,, 5)
@@ -27,34 +41,30 @@
     Send("\")
   }
 
-  remote_mode_enabled := true
+  _Remote_Info.is_remote_mode := true
   AsyncSpeak("remote enabled")
   return
 }
 
 #If WinActive(kXbmcWindowClass)
 {
-  /**
-    @brief XBMC fullscreen toggle key also used to disable remote mode.
-    */
+  ;; XBMC fullscreen toggle key also used to disable remote mode.
   ~\::
   {
-    if (remote_mode_enabled)
+    if (_Remote_Info.is_remote_mode)
     {
-      remote_mode_enabled := false
+      _Remote_Info.is_remote_mode := false
       AsyncSpeak("remote disabled")
     }
     return
   }
 
-  /**
-    @brief Remote Mode Enabled: set timer to sleep computer
-           Remote Mode Disabled: enable remote mode
-    @notes remote home button
-    */
+  ;; Remote Mode Enabled: set timer to sleep computer
+  ;; Remote Mode Disabled: enable remote mode
+  ;; @note remote's home button
   #e::
   {
-    if (remote_mode_enabled)
+    if (_Remote_Info.is_remote_mode)
     {
       Gui(kGuiSleepInputId . ":Font", "s768", "Verdana")
       Gui(kGuiSleepInputId . ":Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
@@ -105,18 +115,16 @@
         Send("\") ; Enter full-screen.
       }
 
-      remote_mode_enabled := true
+      _Remote_Info.is_remote_mode := true
       AsyncSpeak("remote enabled")
       return
     }
   }
 
-  /**
-    @brief Monitor Blanked:      quit blank screen
-           Remote Mode Enabled:  set timer to blank screen
-           Remote Mode Disabled: space
-    @notes remote handmenu button
-    */
+  ;; Monitor Blanked: quit blank screen
+  ;; Remote Mode Enabled: set timer to blank screen
+  ;; Remote Mode Disabled: space
+  ;; @note remote's handmenu button
   Space::
   {
     if (WinExist(kGuiBlankTitle))
@@ -124,7 +132,7 @@
       Gui(kGuiBlankId . ":Destroy")
       return
     }
-    else if (remote_mode_enabled)
+    else if (_Remote_Info.is_remote_mode)
     {
       Gui(kGuiBlankInputId . ":Font", "s768", "Verdana")
       Gui(kGuiBlankInputId . ":Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
@@ -178,14 +186,12 @@
     }
   }
 
-  /**
-    @brief Remote Mode Enabled:  backspace/back
-           Remote Mode Disabled: right click
-    @notes remote back button
-    */
+  ;; Remote Mode Enabled:  backspace/back
+  ;; Remote Mode Disabled: right click
+  ;; @note remote's back button
   RButton::
   {
-    if (remote_mode_enabled)
+    if (_Remote_Info.is_remote_mode)
     {
       Send("{Backspace}")
     }
@@ -196,14 +202,12 @@
     return
   }
 
-  /**
-    @brief Remote Mode Enabled:  hide full-screen menu
-           Remote Mode Disabled: escape
-    @notes remote voice button
-    */
+  ;; Remote Mode Enabled: hide full-screen menu
+  ;; Remote Mode Disabled: escape
+  ;; @note remote's voice button
   Esc::
   {
-    if (remote_mode_enabled)
+    if (_Remote_Info.is_remote_mode)
     {
       Send("{Tab}")
     }
@@ -214,14 +218,12 @@
     return
   }
 
-  /**
-    @brief Remote Mode Enabled:  restart autohotkey (to stop countdowns)
-           Remote Mode Disabled: exit
-    @notes remote voice button (hold)
-    */
+  ;; Remote Mode Enabled: restart autohotkey (to stop countdowns)
+  ;; Remote Mode Disabled: exit
+  ;; @note remote's voice button (hold)
   !F4::
   {
-    if (remote_mode_enabled)
+    if (_Remote_Info.is_remote_mode)
     {
       Speak("reloading")
       Reload()
@@ -233,14 +235,12 @@
     return
   }
 
-  /**
-    @brief Remote Mode Enabled:  queue file
-           Remote Mode Disabled: mute volume
-    @notes remote mute button
-    */
+  ;; Remote Mode Enabled: queue file
+  ;; Remote Mode Disabled: mute volume
+  ;; @note remote's mute button
   Volume_Mute::
   {
-    if (remote_mode_enabled)
+    if (_Remote_Info.is_remote_mode)
     {
       Send("q")
     }
@@ -251,15 +251,13 @@
     return
   }
 
-  /**
-    @brief Remote Mode Enabled:  space (play/pause)
-           Remote Mode Disabled: media_play_pause
-    @notes remote play/pause button
-           Remapped like this not to accidently play music.
-    */
+  ;; Remote Mode Enabled:  space (play/pause)
+  ;; Remote Mode Disabled: media_play_pause
+  ;; @note remote's play/pause button
+  ;;       Remapped like this not to accidently play music.
   Media_Play_pause::
   {
-    if (remote_mode_enabled)
+    if (_Remote_Info.is_remote_mode)
     {
       Send("{Space}")
     }
@@ -270,14 +268,12 @@
     return
   }
 
-  /**
-    @brief Remote Mode Enabled:  left (for easier rewind)
-           Remote Mode Disabled: previous media
-    @notes remote previous media button
-    */
+  ;; Remote Mode Enabled:  left (for easier rewind)
+  ;; Remote Mode Disabled: previous media
+  ;; @note remote's previous media button
   Media_Prev::
   {
-    if (remote_mode_enabled)
+    if (_Remote_Info.is_remote_mode)
     {
       Send("{Left}")
     }
@@ -288,14 +284,12 @@
     return
   }
 
-  /**
-    @brief Remote Mode Enabled:  right (for easier fast forward)
-           Remote Mode Disabled: next media
-    @notes remote next media button
-    */
+  ;; Remote Mode Enabled:  right (for easier fast forward)
+  ;; Remote Mode Disabled: next media
+  ;; @note remote's next media button
   Media_Next::
   {
-    if (remote_mode_enabled)
+    if (_Remote_Info.is_remote_mode)
     {
       Send("{Right}")
     }
@@ -308,9 +302,7 @@
 }
 #If WinActive(kGuiBlankTitle)
 {
-  /**
-    @brief Quit the blank screen.
-    */
+  ;; Quit the blank screen.
   Esc::
   {
     Gui(kGuiBlankId . ":Destroy")
@@ -319,10 +311,8 @@
 }
 #If WinActive(kGuiBlankInputTitle)
 {
-  /**
-    @brief Quit the input window for blanking the screen.
-    @notes remote back button
-    */
+  ;; Quit the input window for blanking the screen.
+  ;; @note remote's back button
   RButton::
   {
     Gui(kGuiBlankInputId . ":Destroy")
@@ -331,10 +321,8 @@
 }
 #If WinActive(kGuiSleepInputTitle)
 {
-  /**
-    @brief Quit the input window for sleeping the screen.
-    @notes remote back button
-    */
+  ;; @brief Quit the input window for sleeping the screen.
+  ;; @note remote's back button
   RButton::
   {
     Gui(kGuiSleepInputId . ":Destroy")

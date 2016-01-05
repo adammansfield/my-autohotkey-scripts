@@ -27,7 +27,6 @@ SetTitleMatchMode RegEx
 
 
 #include globals/gui.ahk
-#include globals/remote.ahk
 
 #include lib/commands.ahk
 #include lib/consoleapp.ahk
