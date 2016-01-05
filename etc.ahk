@@ -13,7 +13,6 @@ DisconnectVPN()
   static kCliTarget := "vpncli.exe disconnect"
   static kUIProcessName := "vpnui.exe"
   static kProcessName := "vpnagent.exe"
-  static kTestAddress := "am-centos"
 
   try
   {
@@ -28,8 +27,7 @@ DisconnectVPN()
       ProcessClose(kUIProcessName)
     }
 
-    Ping(kTestAddress)
-    if (0 == ErrorLevel)
+    if (IsVPNConnected())
     {
       throw Exception("Error: VPN not disconnected; can still ping test address: " kTestAddress)
     }
@@ -40,6 +38,46 @@ DisconnectVPN()
   {
     HandleException(e)
   }
+}
+
+;; Returns whether or not the VPN is connected.
+IsVPNConnected()
+{
+  static kTestAddress := "am-centos"
+  static kDNSSuffix := "corp.ssv.com"
+
+  while (true)
+  {
+    ipconfig_stdout := ConsoleApp_RunWait("ipconfig.exe")
+
+    if (!Contains(ipconfig_stdout, "Connection-specific DNS Suffix"))
+    {
+      continue ; Retry.
+    }
+    else if (Contains(ipconfig_stdout, kDNSSuffix))
+    {
+      dns_test := true
+      break
+    }
+    else
+    {
+      dns_test := false
+      break
+    }
+  }
+
+  Ping(kTestAddress)
+  if (0 == ErrorLevel)
+  {
+    ping_test := true
+  }
+  else
+  {
+    ping_test := false
+  }
+
+  ; Return true if any of these are true for safety.
+  return dns_test || ping_test
 }
 
 ;; Runs MPC-HC with video path/URL from the clipboard.

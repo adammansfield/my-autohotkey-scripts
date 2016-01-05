@@ -66,7 +66,7 @@ _ActivateCatalystControlCenter(is_retry=false)
       if (ProcessExist(kCCCProcess))
       {
         ProcessClose(kCCCProcess)
-        ProcessWaitClose(kCCCProcess, 2)
+        ProcessWaitClose(kCCCProcess, 3)
       }
     }
 

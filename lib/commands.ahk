@@ -150,7 +150,7 @@ GuiControlGet(sub_command="", control_id="", param_4="")
   return result
 }
 
-IfBetween(ByRef var, lower_bound, upper_bound)
+IsBetween(ByRef var, lower_bound, upper_bound)
 {
   if var between %lower_bound% and %upper_bound%
   {
@@ -162,7 +162,7 @@ IfBetween(ByRef var, lower_bound, upper_bound)
   }
 }
 
-IfContains(ByRef var, match_list)
+Contains(ByRef var, match_list)
 {
   if var contains %match_list%
   {
@@ -174,7 +174,7 @@ IfContains(ByRef var, match_list)
   }
 }
 
-IfIn(ByRef var, match_list)
+IsIn(ByRef var, match_list)
 {
   if var in %match_list%
   {
@@ -186,7 +186,7 @@ IfIn(ByRef var, match_list)
   }
 }
 
-IfType(ByRef var, type)
+IsType(ByRef var, type)
 {
   if var is %type%
   {
