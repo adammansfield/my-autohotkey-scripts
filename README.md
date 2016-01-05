@@ -11,11 +11,11 @@ Scripts
 * __monitor.ahk:__ Hotkeys for controlling the monitor such as sleeping, night time mode, etc.
 * __music.ahk:__ Quick tagging of music files and hotkeys for media.
 * __remote.ahk:__ Customized hotkeys with remote for Kodi.
-* __vim_commands_everywhere.ahk:__ Vim commands everywhere activated through right Alt key.
+* __vim.ahk:__ Vim commands everywhere activated through right Alt key.
 
 * __Hotstring Scripts__
   - __abbreviatons.ahk:__ Automatic exapnsions for abbreviations.
-  - __auto_correct.ahk:__ Automatic spelling corrections while typing.
+  - __autocorrect.ahk:__ Automatic spelling corrections while typing.
   - __coding.ahk:__ Marcos useful for coding.
   - __symbols.ahk:__ Replace hotstring with symbols.
 
@@ -29,6 +29,10 @@ Third Party Sources
   - Version: Sep 13 2007
   - Author: Jim Biancolo
   - Source: http://www.autohotkey.com/download/AutoCorrect.ahk
+* ConsoleApp
+  - Version: V2
+  - Author: Marcus Cortes
+  - Source: https://github.com/camerb/AHKs/blob/master/thirdParty/ConsoleApp.ah://github.com/camerb/AHKs/blob/master/thirdParty/ConsoleApp.ahk
 * Ping
   - Version: 2.0
   - Author: Drugwash

@@ -1,3 +1,9 @@
+;; Provides hotkeys for various games.
+
+#if WinActive("ahk_class Valve001")
+{
+  Capslock::-
+}
 #If WinActive("Counter-Strike")
 {
   CapsLock::
