@@ -38,8 +38,9 @@ SetTitleMatchMode RegEx
 #include lib/vistaaudiocontrol.ahk
 
 #include hotstrings/abbreviations.ahk
-#include hotstrings/auto_correct.ahk
+#include hotstrings/autocorrect.ahk
 #include hotstrings/coding.ahk
+#include hotstrings/date.ahk
 #include hotstrings/etc.ahk
 #include hotstrings/symbols.ahk
 
@@ -51,4 +52,4 @@ SetTitleMatchMode RegEx
 #include music.ahk
 #include prototype.ahk
 #include remote.ahk
-#include vim_everywhere.ahk
+#include vim.ahk
