@@ -1,21 +1,21 @@
-/**
-  @brief The modes of the vim everywhere keyboard.
-  */
-class Vim_Info
+;; Vim commands and hotkeys everywhere.
+
+;; The modes of the vim everywhere keyboard.
+class _Vim_Mode
 {
-  static _mode := Vim_Info.kNormalMode
+  static _mode := _Vim_Mode.kNormalMode
 
   mode[]
   {
     get
     {
-      return Vim_Info._mode
+      return _Vim_Mode._mode
     }
     set
     {
-      if (value == Vim_Info.kNormalMode || value == Vim_Info.kVisualMode)
+      if (value == _Vim_Mode.kNormalMode || value == _Vim_Mode.kVisualMode)
       {
-        Vim_Info._mode := value
+        _Vim_Mode._mode := value
       }
       else
       {
@@ -47,228 +47,151 @@ class Vim_Info
   }
 }
 
-/**
-  @brief Send the input command with or without a shift depending on the mode.
-  */
-VimEverywhere_ModeDependentSend(command)
+;; Send the input command with or without a shift depending on the mode.
+;; 
+;; @param command The command to send.
+Vim_ModeDependentSend(command)
 {
-  if (Vim_Info.kNormalMode == Vim_Info.mode)
+  if (_Vim_Mode.kNormalMode == _Vim_Mode.mode)
   {
     Send(command)
   }
-  else if (Vim_Info.kVisualMode == Vim_Info.mode)
+  else if (_Vim_Mode.kVisualMode == _Vim_Mode.mode)
   {
     Send("+" . command)
   }
 }
 
-/**
-  @brief Send the input command with or without a shift depending on the mode.
-  */
-VimEverywhere_SendAndSetModeToNormal(command)
+;; Send the input command with or without a shift depending on the mode.
+;;
+;; @param command The command to send.
+Vim_SendAndSetModeToNormal(command)
 {
   Send(command)
-  Vim_Info.mode := Vim_Info.kNormalMode
+  _Vim_Mode.mode := _Vim_Mode.kNormalMode
 }
 
-/**
-  @brief Navigate/Highlight to beginning of line depending on mode.
-  @notes vim key 0
-  */
->!0::VimEverywhere_ModeDependentSend("{Home}")
+;; Navigate/Highlight to beginning of line depending on mode (vim key 0).
+>!0::Vim_ModeDependentSend("{Home}")
 
-/**
-  @brief Navigate/Highlight to end of line depending on mode.
-  @notes vim key $
-  */
->!+4::VimEverywhere_ModeDependentSend("{End}")
+;; Navigate/Highlight to end of line depending on mode (vim key $).
+>!+4::Vim_ModeDependentSend("{End}")
 
-/**
-  @brief Navigate/Highlight previous word depending on mode.
-  @notes vim key b
-  */
->!b::VimEverywhere_ModeDependentSend("^{Left}")
+;; Navigate/Highlight previous word depending on mode (vim key b).
+>!b::Vim_ModeDependentSend("^{Left}")
 
-/**
-  @brief Delete.
-  @notes vim key d
-  */
->!d::VimEverywhere_SendAndSetModeToNormal("^x")
+;; Delete (vim key d).
+>!d::Vim_SendAndSetModeToNormal("^x")
 
-/**
-  @brief Delete to end of line.
-  @notes vim key D
-  */
+;; Delete to end of line (vim key D).
 >!+d::
 {
-  if (Vim_Info.kNormalMode == Vim_Info.mode)
+  if (_Vim_Mode.kNormalMode == _Vim_Mode.mode)
   {
     Send("+{End}^x")
   }
-  else if (Vim_Info.kVisualMode == Vim_Info.mode)
+  else if (_Vim_Mode.kVisualMode == _Vim_Mode.mode)
   {
     Send("{Home}+{End}{Backspace 2}")
-    Vim_Info.mode := Vim_Info.kNormalMode
+    _Vim_Mode.mode := _Vim_Mode.kNormalMode
   }
   return
 }
 
-/**
-  @brief Navigate/Highlight left depending on mode.
-  @notes vim key h
-  */
->!h::VimEverywhere_ModeDependentSend("{Left}")
+;; Navigate/Highlight left depending on mode (vim key h).
+>!h::Vim_ModeDependentSend("{Left}")
 
-/**
-  @brief Navigate/Highlight down depending on mode.
-  @notes vim key j
-  */
->!j::VimEverywhere_ModeDependentSend("{Down}")
+;; Navigate/Highlight down depending on mode (vim key j).
+>!j::Vim_ModeDependentSend("{Down}")
 
-/**
-  @brief Navigate/Highlight up depending on mode.
-  @notes vim key k
-  */
->!k::VimEverywhere_ModeDependentSend("{Up}")
+;; Navigate/Highlight up depending on mode (vim key k).
+>!k::Vim_ModeDependentSend("{Up}")
 
-/**
-  @brief Navigate/Highlight right depending on mode.
-  @notes vim key l
-  */
->!l::VimEverywhere_ModeDependentSend("{Right}")
+;; Navigate/Highlight right depending on mode (vim key l).
+>!l::Vim_ModeDependentSend("{Right}")
 
-/**
-  @brief Paste after.
-  @notes vim key p
-  */
->!p::VimEverywhere_SendAndSetModeToNormal("^v")
+;; Paste after (vim key p).
+>!p::Vim_SendAndSetModeToNormal("^v")
 
-/**
-  @brief Paste before.
-  @notes vim key P
-  */
+;; Paste before (vim key P).
 >!+p::
 {
   ; TODO: implement paste before.
   return
 }
 
-/**
-  @brief Undo.
-  @notes vim key u
-  */
+;; Undo (vim key u).
 >!u:: Send("^z")
 
-/**
-  @brief Enters or exits visual mode.
-  @notes vim key v
-  */
+;; Enters or exits visual mode (vim key v).
 >!v::
 {
-  if (Vim_Info.kVisualMode == Vim_Info.mode)
+  if (_Vim_Mode.kVisualMode == _Vim_Mode.mode)
   {
     Send("{Left}")  ; To unhighlight.
-    Vim_Info.mode := Vim_Info.kNormalMode
+    _Vim_Mode.mode := _Vim_Mode.kNormalMode
   }
   else
   {
-    Vim_Info.mode := Vim_Info.kVisualMode
+    _Vim_Mode.mode := _Vim_Mode.kVisualMode
   }
   return
 }
 
-/**
-  @brief Navigate/Highlight next word depending on mode.
-  @notes vim key w
-  */
->!w::VimEverywhere_ModeDependentSend("^{Right}")
+;; Navigate/Highlight next word depending on mode (vim key w).
+>!w::Vim_ModeDependentSend("^{Right}")
 
-/**
-  @brief Delete character.
-  @notes vim key x
-  */
+;; Delete character (vim key x).
 >!x::
 {
-  if (Vim_Info.kVisualMode == Vim_Info.mode)
+  if (_Vim_Mode.kVisualMode == _Vim_Mode.mode)
   {
     ; Vim saves to default buffer when deleting.
-    VimEverywhere_SendAndSetModeToNormal("^x")
+    Vim_SendAndSetModeToNormal("^x")
   }
   else
   {
-    VimEverywhere_SendAndSetModeToNormal("{Delete}")
+    Vim_SendAndSetModeToNormal("{Delete}")
   }
   return
 }
 
-/**
-  @brief Backspace.
-  @notes vim key X
-  */
->!+x::VimEverywhere_SendAndSetModeToNormal("{Backspace}")
+;; Backspace (vim key X).
+>!+x::Vim_SendAndSetModeToNormal("{Backspace}")
 
-/**
-  @brief Yank.
-  @notes vim key y
-  */
->!y::VimEverywhere_SendAndSetModeToNormal("^c{Left}")
+;; @brief Yank (vim key y).
+>!y::Vim_SendAndSetModeToNormal("^c{Left}")
 
-/**
-  @brief Yank line.
-  @notes vim key Y
-  */
+;; Yank line (vim key Y).
 >!+y::
 {
   ; TODO: implement yank line.
   return
 }
 
-/**
-  @brief Backspace.
-  @notes vim key backspace
-  */
+;; Backspace (vim key backspace).
 >!Backspace::Send("{Backspace}")
 
-/**
-  @brief Indent.
-  @notes vim key tab
-  */
+;; Indent (vim key tab).
 >!Tab::Send("{Tab}")
 
-/**
-  @brief Dedent.
-  @notes vim key shift-tab
-  */
+;; Dedent (vim key shift-tab)
 >!+Tab::Send("+{Tab}")
 
-/**
-  @brief Enter.
-  @notes vim key enter
-  */
->!Enter::VimEverywhere_SendAndSetModeToNormal("{Enter}")
+;; Enter (vim key enter).
+>!Enter::Vim_SendAndSetModeToNormal("{Enter}")
 
-/**
-  @brief Space.
-  @notes vim key space
-  */
->!Space::VimEverywhere_SendAndSetModeToNormal("{Space}")
+;;Space (vim key space).
+>!Space::Vim_SendAndSetModeToNormal("{Space}")
 
-/**
-  @brief Remap Ctrl-Shift-z to Ctrl-z for same as QWERTY undo.
-  */
+;; Remap Ctrl-Shift-z to Ctrl-z for same as QWERTY undo.
 ^+;::Send("^z")
 
-/**
-  @brief Remap Ctrl-Shift-x to Ctrl-z for same as QWERTY cut.
-  */
+;; Remap Ctrl-Shift-x to Ctrl-z for same as QWERTY cut.
 ^+q::Send("^x")
 
-/**
-  @brief Remap Ctrl-Shift-z to Ctrl-c for same as QWERTY copy.
-  */
+;; Remap Ctrl-Shift-z to Ctrl-c for same as QWERTY copy.
 ^+j::Send("^c")
 
-/**
-  @brief Remap Ctrl-Shift-z to Ctrl-v for same as QWERTY paste.
-  */
+;; Remap Ctrl-Shift-z to Ctrl-v for same as QWERTY paste.
 ^+k::Send("^v")
