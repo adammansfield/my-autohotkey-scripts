@@ -6,9 +6,12 @@ CapsLock::Esc
 <!d::DisconnectVPN()
 <!+p::LaunchVideoFromClipboard()
 
-;; Disconnects Cisco Anyconnect and terminates the process.
+;; Disconnects Cisco Anyconnect, terminates the process, and tests that VPN is disconnected.
 DisconnectVPN()
 {
+  static kTestAddress := "am-centos"
+  static kDNSSuffix := "corp.ssv.com"
+
   static kWorkingDir := "C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\"
   static kCliTarget := "vpncli.exe disconnect"
   static kUIProcessName := "vpnui.exe"
@@ -27,9 +30,26 @@ DisconnectVPN()
       ProcessClose(kUIProcessName)
     }
 
-    if (IsVPNConnected())
+    Ping(kTestAddress)
+    if (0 == ErrorLevel)
     {
       throw Exception("Error: VPN not disconnected; can still ping test address: " kTestAddress)
+    }
+
+    while (ipconfig_stdout := ConsoleApp_RunWait("ipconfig.exe"))
+    {
+      if (!Contains(ipconfig_stdout, "Connection-specific DNS Suffix"))
+      {
+        continue ; Retry.
+      }
+      else if (Contains(ipconfig_stdout, kDNSSuffix))
+      {
+        throw Exception("Error: VPN not disconnected; DNS suffix is VPN suffix: " kDNSSuffix)
+      }
+      else
+      {
+        break
+      }
     }
 
     Speak("V P N disconnected")
@@ -38,46 +58,6 @@ DisconnectVPN()
   {
     HandleException(e)
   }
-}
-
-;; Returns whether or not the VPN is connected.
-IsVPNConnected()
-{
-  static kTestAddress := "am-centos"
-  static kDNSSuffix := "corp.ssv.com"
-
-  while (true)
-  {
-    ipconfig_stdout := ConsoleApp_RunWait("ipconfig.exe")
-
-    if (!Contains(ipconfig_stdout, "Connection-specific DNS Suffix"))
-    {
-      continue ; Retry.
-    }
-    else if (Contains(ipconfig_stdout, kDNSSuffix))
-    {
-      dns_test := true
-      break
-    }
-    else
-    {
-      dns_test := false
-      break
-    }
-  }
-
-  Ping(kTestAddress)
-  if (0 == ErrorLevel)
-  {
-    ping_test := true
-  }
-  else
-  {
-    ping_test := false
-  }
-
-  ; Return true if any of these are true for safety.
-  return dns_test || ping_test
 }
 
 ;; Runs MPC-HC with video path/URL from the clipboard.
