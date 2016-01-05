@@ -1,14 +1,10 @@
-#If !WinActive(Cygwin_Info.kXTerminalTitle) &&
-    !WinActive("Editor") &&
-    !WinActive("GnuCash") &&
-    !WinActive("Ideone") &&
-    !WinActive("mansfa2") &&
-    !WinActive("Microsoft Visual Studio") &&
-    !WinActive("Toodledo")
+;; Automatic spelling corrections while typing.
 
-/**
-  @brief Fix for -ign instead of -ing.
-  */
+#If !WinActive(Cygwin_Info.kXTerminalTitle) &&
+    !WinActive("Microsoft Visual Studio") &&
+    !WinActive("Ideone.com")
+
+; Fix for -ign instead of -ing.
 {
 	; Makes these hotstrings do nothing so that they override the ign->ing rule below.
 	#Hotstring B0
@@ -95,15 +91,15 @@
   ::sovereign::
   ::unbenign::
   ::verisign::
+  {
     return
+  }
 
   #Hotstring B
   :?:ign::ing
 }
 
-/**
-  @brief Word beginnings.
-  */
+; Word beginnings.
 {
 	:*:abondon::abandon
 	:*:abreviat::abbreviat
@@ -274,9 +270,7 @@
   :*:weild::wield
 }
 
-/**
-  @brief Word endings.
-  */
+; Word endings.
 {
   :?:bilites::bilities
   :?:bilties::bilities
@@ -295,17 +289,13 @@
   :?:t hem:: them
 }
 
-/**
-  @brief Word middles.
-  */
+; Word middles.
 {
   :?*:compatab::compatib  ; Covers incompat* and compat*
   :?*:catagor::categor  ; Covers subcatagories and catagories.
 }
 
-/**
-  @brief Capitalize dates.
-  */
+; Capitalize dates.
 {
   :c:monday::Monday
   :c:tuesday::Tuesday
@@ -329,9 +319,7 @@
   :c:december::December
 }
 
-/**
-  @brief Capitalize after period(.), question mark(?), or exclamation point(!).
-  */
+; Capitalize after period(.), question mark(?), or exclamation point(!).
 {
   :*?c:. a::. A
   :*?c:. b::. B
@@ -415,9 +403,7 @@
   :*?c:! z::{Raw}! Z
 }
 
-/**
-  @brief Words.
-  */
+; Words.
 {
   ::htp:::http:
   ::http:\\::http://
