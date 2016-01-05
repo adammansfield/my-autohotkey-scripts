@@ -30,11 +30,12 @@ SetTitleMatchMode RegEx
 #include globals/remote.ahk
 
 #include lib/commands.ahk
+#include lib/consoleapp.ahk
 #include lib/etc.ahk
 #include lib/exceptionhandler.ahk
 #include lib/ping.ahk
 #include lib/speak.ahk
-#include lib/vista_audio_control.ahk
+#include lib/vistaaudiocontrol.ahk
 
 #include hotstrings/abbreviations.ahk
 #include hotstrings/auto_correct.ahk
