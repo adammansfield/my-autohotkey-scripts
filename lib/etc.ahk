@@ -20,16 +20,3 @@ SuspendComputer(delay_in_minutes="")
   DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
   return
 }
-
-;; Toggle Capslock.
-ToggleCapsLock()
-{
-  if (GetKeyState("Capslock", "T"))
-  {
-    SetCapsLockState("off")
-  }
-  else
-  {
-    SetCapsLockState("on")
-  }
-}

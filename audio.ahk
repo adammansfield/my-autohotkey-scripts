@@ -1,5 +1,9 @@
+;; Hotkeys for controlling playback and recording audio devices.
+
+
 <!a::ToggleVolumeState()
 <!o::ToggleMicMute()
+
 
 ;; Toggles between default audio devices.
 ToggleAudioDevice()

@@ -1,11 +1,15 @@
-F12::Cygwin_ActivateXTerminal()
-+F12::Cygwin_LaunchXTerminal()
-!F12::Cygwin_LaunchTerminal()
+;; Quick launch, show, and hide of cygwin terminals.
 
-;; The paths and various settings for Cygwin.
-class Cygwin_Info
+
+F12::ActivateXTerminal()
++F12::LaunchXTerminal()
+!F12::LaunchTerminal()
+
+
+;; The configuration settings for Cygwin.
+class CygwinConfig
 {
-  ; Get the location of cygwin's /bin
+  ;; Get the location of cygwin's /bin
   kBinPath[]
   {
     get
@@ -26,19 +30,19 @@ class Cygwin_Info
     }
   }
 
-  ; Path to Cygwin terminal with arguments.
+  ;; Path to Cygwin terminal with arguments.
   kTerminalTarget[]
   {
     get
     {
-      return Cygwin_Info.kBinPath . "\run.exe rxvt.exe -e ./bash --login"
+      return CygwinConfig.kBinPath . "\run.exe rxvt.exe -e ./bash --login"
     }
     set
     {
     }
   }
 
-  ; The title of a cygwin X-terminal.
+  ;; The title of a cygwin terminal.
   kTerminalTitle[]
   {
     get
@@ -50,7 +54,7 @@ class Cygwin_Info
     }
   }
 
-  ; The name of the Cygwin X server process.
+  ;; The name of the Cygwin X server process.
   kXServerProcessName[]
   {
     get
@@ -62,31 +66,31 @@ class Cygwin_Info
     }
   }
 
-  ; Path to Cygwin X server in the background with arguments.
+  ;; Path to Cygwin X server in the background with arguments.
   kXServerTarget[]
   {
     get
     {
-      return Cygwin_Info.kBinPath . "\run.exe -p /usr/X11R6/bin XWin -multiwindow -clipboard -silent-dup-error"
+      return CygwinConfig.kBinPath . "\run.exe -p /usr/X11R6/bin XWin -multiwindow -clipboard -silent-dup-error"
     }
     set
     {
     }
   }
 
-  ; Path to Cygwin X server terminal with arguments.
+  ;; Path to Cygwin X server terminal with arguments.
   kXTerminalTarget[]
   {
     get
     {
-      return Cygwin_Info.kBinPath . "\run.exe urxvt.exe -e ./bash --login"
+      return CygwinConfig.kBinPath . "\run.exe urxvt.exe -e ./bash --login"
     }
     set
     {
     }
   }
 
-  ; The title of a cygwin X-terminal.
+  ;; The title of a cygwin X-terminal.
   kXTerminalTitle[]
   {
     get
@@ -99,12 +103,13 @@ class Cygwin_Info
   }
 }
 
+
 ;; Guake-like cygwin functionality as show and hide cygwin terminal.
-Cygwin_ActivateXTerminal()
+ActivateXTerminal()
 {
   static previous_window := ""
 
-  if (WinActive(Cygwin_Info.kXTerminalTitle))
+  if (WinActive(CygwinConfig.kXTerminalTitle))
   {
     if ("" != previous_window)
     {
@@ -115,38 +120,38 @@ Cygwin_ActivateXTerminal()
   {
     previous_window := WinGetActiveTitle()
 
-    if (!WinExist(Cygwin_Info.kXTerminalTitle))
+    if (!WinExist(CygwinConfig.kXTerminalTitle))
     {
-      Cygwin_LaunchXTerminal()
+      LaunchXTerminal()
     }
 
     try
     {
-      WinWait(Cygwin_Info.kXTerminalTitle, "", 2)
-      WinActivate(Cygwin_Info.kXTerminalTitle)
+      WinWait(CygwinConfig.kXTerminalTitle, "", 2)
+      WinActivate(CygwinConfig.kXTerminalTitle)
     }
     catch
     {
       ; Retry since there is sometimes a bug running 32-bit URxvt on 64-bit Windows.
-      Cygwin_ActivateXTerminal()
+      ActivateXTerminal()
     }
   }
 }
 
 ;; Launch a new instance of a cygwin terminal.
-Cygwin_LaunchTerminal()
+LaunchTerminal()
 {
-  Run(Cygwin_Info.kTerminalTarget, Cygwin_Info.kBinPath)
+  Run(CygwinConfig.kTerminalTarget, CygwinConfig.kBinPath)
 }
 
 ;; Launchs a new instance of a cygwin X-terminal.
-Cygwin_LaunchXTerminal()
+LaunchXTerminal()
 {
-  if (!ProcessExist(Cygwin_Info.kXServerProcessName))
+  if (!ProcessExist(CygwinConfig.kXServerProcessName))
   {
-    Run(Cygwin_Info.kXServerTarget, Cygwin_Info.kBinPath)
+    Run(CygwinConfig.kXServerTarget, CygwinConfig.kBinPath)
   }
 
-  ProcessWait(Cygwin_Info.kXServerProcessName, 5)
-  Run(Cygwin_Info.kXTerminalTarget, Cygwin_Info.kBinPath)
+  ProcessWait(CygwinConfig.kXServerProcessName, 5)
+  Run(CygwinConfig.kXTerminalTarget, CygwinConfig.kBinPath)
 }

@@ -4,7 +4,9 @@ CapsLock::Esc
 +F11::ShowBlankWindow()
 
 <!d::DisconnectVPN()
-<!+p::LaunchVideoFromClipboard()
+<!m::LaunchVideoFromClipboard()
+<!t::ToggleAlwaysOnTop()
+
 
 ;; Disconnects Cisco Anyconnect, terminates the process, and tests that VPN is disconnected.
 DisconnectVPN()
@@ -63,7 +65,7 @@ DisconnectVPN()
 ;; Runs MPC-HC with video path/URL from the clipboard.
 LaunchVideoFromClipboard()
 {
-  Run("C:\Program Files (x86)\SVP\MPC-HC\mpc-hc.exe " . clipboard)
+  Run("C:\Program Files (x86)\SVP\MPC-HC\mpc-hc.exe """ clipboard """")
 }
 
 ;; Shows blank window.
@@ -73,6 +75,25 @@ ShowBlankWindow()
   Gui(kGuiBlackoutId . ":Color", "black")
   Gui(kGuiBlackoutId . ":-Caption")
   Gui(kGuiBlackoutId . ":Show", "x0 y0 w" . A_ScreenWidth . " h" . (A_ScreenHeight - 1), kGuiBlackoutTitle)
+}
+
+;; Toggle always-on-top property for the current window.
+ToggleAlwaysOnTop()
+{
+  WinSet, AlwaysOnTop, Off, A
+}
+
+;; Toggle Capslock.
+ToggleCapsLock()
+{
+  if (GetKeyState("Capslock", "T"))
+  {
+    SetCapsLockState("off")
+  }
+  else
+  {
+    SetCapsLockState("on")
+  }
 }
 
 #If WinActive(kGuiBlackoutTitle)
