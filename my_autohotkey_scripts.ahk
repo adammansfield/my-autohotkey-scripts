@@ -26,8 +26,6 @@ SendMode Input
 SetTitleMatchMode RegEx
 
 
-#include globals/gui.ahk
-
 #include lib/commands.ahk
 #include lib/consoleapp.ahk
 #include lib/etc.ahk
@@ -36,19 +34,20 @@ SetTitleMatchMode RegEx
 #include lib/speak.ahk
 #include lib/vistaaudiocontrol.ahk
 
-#include hotstrings/abbreviations.ahk
-#include hotstrings/autocorrect.ahk
-#include hotstrings/coding.ahk
-#include hotstrings/date.ahk
-#include hotstrings/etc.ahk
-#include hotstrings/symbols.ahk
+#include src/hotstrings/abbreviations.ahk
+#include src/hotstrings/autocorrect.ahk
+#include src/hotstrings/coding.ahk
+#include src/hotstrings/date.ahk
+#include src/hotstrings/etc.ahk
+#include src/hotstrings/symbols.ahk
 
-#include audio.ahk
-#include cygwin.ahk
-#include etc.ahk
-#include games.ahk
-#include monitor.ahk
-#include music.ahk
-#include prototype.ahk
-#include remote.ahk
-#include vim.ahk
+#include src/audio.ahk
+#include src/cygwin.ahk
+#include src/etc.ahk
+#include src/games.ahk
+#include src/gui.ahk
+#include src/monitor.ahk
+#include src/music.ahk
+#include src/prototype.ahk
+#include src/remote.ahk
+#include src/vim.ahk
