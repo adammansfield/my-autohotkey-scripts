@@ -6,10 +6,10 @@ This is my personal collection of AutoHotkey scripts.
 Scripts
 -------
 * __audio.ahk:__ Hotkeys for controlling playback and recording audio devices.
-* __cygwin.ahk:__ Quick show/hide of a terminal and other hotkeys for Cygwin.
-* __prototype.ahk:__ Hotkeys for this Autohotkey script such as reloading and protoyping.
+* __cygwin.ahk:__ Quick launch, show, and hide of Cygwin terminals.
 * __monitor.ahk:__ Hotkeys for controlling the monitor such as sleeping, night time mode, etc.
-* __music.ahk:__ Quick tagging of music files and hotkeys for media.
+* __music.ahk:__ Hotkeys for my music program.
+* __prototype.ahk:__ Hotkeys for this Autohotkey script such as reloading and protoyping.
 * __remote.ahk:__ Customized hotkeys with remote for Kodi.
 * __vim.ahk:__ Vim commands everywhere activated through right Alt key.
 
