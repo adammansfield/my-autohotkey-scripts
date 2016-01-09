@@ -1,18 +1,18 @@
-<!r::Prototype_ReloadThisScript()
-<!`;::Prototype_ExperimentalMethod()
+;; Hotkeys for this Autohotkey script such as reloading and protoyping.
 
-/**
-  @brief Method used for prototyping.
-  */
-Prototype_ExperimentalMethod()
-{
-}
 
-/**
-  @brief Reload script.
-  */
-Prototype_ReloadThisScript()
+<!r::AlertedReload()
+<!'::PrototypeFunction()
+
+
+;; Reload script with alert.
+AlertedReload()
 {
   Speak("re loading")
   Reload()
+}
+
+;; Function used for prototyping.
+PrototypeFunction()
+{
 }
