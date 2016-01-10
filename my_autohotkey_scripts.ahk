@@ -45,9 +45,9 @@ SetTitleMatchMode RegEx
 #include src/cygwin.ahk
 #include src/etc.ahk
 #include src/games.ahk
-#include src/gui.ahk
 #include src/monitor.ahk
 #include src/music.ahk
 #include src/prototype.ahk
 #include src/remote.ahk
+#include src/ui.ahk
 #include src/vim.ahk

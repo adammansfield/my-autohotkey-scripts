@@ -7,7 +7,7 @@ F12::ActivateXTerminal()
 
 
 ;; The configuration settings for Cygwin.
-class CygwinConfig
+class Cygwin
 {
   ;; Get the location of cygwin's /bin
   kBinPath[]
@@ -35,7 +35,7 @@ class CygwinConfig
   {
     get
     {
-      return CygwinConfig.kBinPath . "\run.exe rxvt.exe -e ./bash --login"
+      return Cygwin.kBinPath . "\run.exe rxvt.exe -e ./bash --login"
     }
     set
     {
@@ -71,7 +71,7 @@ class CygwinConfig
   {
     get
     {
-      return CygwinConfig.kBinPath . "\run.exe -p /usr/X11R6/bin XWin -multiwindow -clipboard -silent-dup-error"
+      return Cygwin.kBinPath . "\run.exe -p /usr/X11R6/bin XWin -multiwindow -clipboard -silent-dup-error"
     }
     set
     {
@@ -83,7 +83,7 @@ class CygwinConfig
   {
     get
     {
-      return CygwinConfig.kBinPath . "\run.exe urxvt.exe -e ./bash --login"
+      return Cygwin.kBinPath . "\run.exe urxvt.exe -e ./bash --login"
     }
     set
     {
@@ -109,7 +109,7 @@ ActivateXTerminal()
 {
   static previous_window := ""
 
-  if (WinActive(CygwinConfig.kXTerminalTitle))
+  if (WinActive(Cygwin.kXTerminalTitle))
   {
     if ("" != previous_window)
     {
@@ -120,15 +120,15 @@ ActivateXTerminal()
   {
     previous_window := WinGetActiveTitle()
 
-    if (!WinExist(CygwinConfig.kXTerminalTitle))
+    if (!WinExist(Cygwin.kXTerminalTitle))
     {
       LaunchXTerminal()
     }
 
     try
     {
-      WinWait(CygwinConfig.kXTerminalTitle, "", 2)
-      WinActivate(CygwinConfig.kXTerminalTitle)
+      WinWait(Cygwin.kXTerminalTitle, "", 2)
+      WinActivate(Cygwin.kXTerminalTitle)
     }
     catch
     {
@@ -141,17 +141,17 @@ ActivateXTerminal()
 ;; Launch a new instance of a cygwin terminal.
 LaunchTerminal()
 {
-  Run(CygwinConfig.kTerminalTarget, CygwinConfig.kBinPath)
+  Run(Cygwin.kTerminalTarget, Cygwin.kBinPath)
 }
 
 ;; Launchs a new instance of a cygwin X-terminal.
 LaunchXTerminal()
 {
-  if (!ProcessExist(CygwinConfig.kXServerProcessName))
+  if (!ProcessExist(Cygwin.kXServerProcessName))
   {
-    Run(CygwinConfig.kXServerTarget, CygwinConfig.kBinPath)
+    Run(Cygwin.kXServerTarget, Cygwin.kBinPath)
   }
 
-  ProcessWait(CygwinConfig.kXServerProcessName, 5)
-  Run(CygwinConfig.kXTerminalTarget, CygwinConfig.kBinPath)
+  ProcessWait(Cygwin.kXServerProcessName, 5)
+  Run(Cygwin.kXTerminalTarget, Cygwin.kBinPath)
 }
