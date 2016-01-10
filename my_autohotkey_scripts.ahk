@@ -28,7 +28,6 @@ SetTitleMatchMode RegEx
 
 #include lib/commands.ahk
 #include lib/consoleapp.ahk
-#include lib/etc.ahk
 #include lib/exceptionhandler.ahk
 #include lib/ping.ahk
 #include lib/speak.ahk
