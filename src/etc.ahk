@@ -71,10 +71,12 @@ LaunchVideoFromClipboard()
 ;; Shows blank window.
 ShowBlankWindow()
 {
-  Gui(kGuiBlackoutId . ":Default")
-  Gui(kGuiBlackoutId . ":Color", "black")
-  Gui(kGuiBlackoutId . ":-Caption")
-  Gui(kGuiBlackoutId . ":Show", "x0 y0 w" . A_ScreenWidth . " h" . (A_ScreenHeight - 1), kGuiBlackoutTitle)
+  Gui(UI.kBlackoutId . ":Default")
+  Gui(UI.kBlackoutId . ":Color", "black")
+  Gui(UI.kBlackoutId . ":-Caption")
+  Gui(UI.kBlackoutId . ":Show"
+     ,"x0 y0 w" . A_ScreenWidth . " h" . (A_ScreenHeight - 1)
+     ,UI.kBlackoutTitle)
 }
 
 ;; Toggle always-on-top property for the current window.
@@ -96,8 +98,8 @@ ToggleCapsLock()
   }
 }
 
-#If WinActive(kGuiBlackoutTitle)
+#If WinActive(UI.kBlackoutTitle)
 {
-  Esc::Gui(kGuiBlackoutId . ":Destroy")
+  Esc::Gui(UI.kBlackoutId . ":Destroy")
 }
 #If

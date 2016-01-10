@@ -4,7 +4,7 @@
 #if WinActive("MediaMonkey")
 {
   /::MediaMonkeyQuickSearch()
-  MButton::MediaMonkeyQuickSearch()
+  MButton::MediaMonkeyQuickEdit()
 }
 #if
 
@@ -13,10 +13,12 @@
 MediaMonkeyQuickSearch()
 {
   Send("{Click 1755, 55}{End}+{Home}{BS}")
+  return
 }
 
 ;; Edit the attribute under the mouse.
 MediaMonkeyQuickEdit()
 {
   Send("{LButton}{F2}")
+  return
 }

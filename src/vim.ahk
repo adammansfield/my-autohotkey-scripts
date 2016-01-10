@@ -1,21 +1,21 @@
 ;; Vim commands and hotkeys everywhere.
 
 ;; The modes of the vim everywhere keyboard.
-class _Vim_Mode
+class Vim
 {
-  static _mode := _Vim_Mode.kNormalMode
+  static mode_ := Vim.kNormalMode
 
   mode[]
   {
     get
     {
-      return _Vim_Mode._mode
+      return Vim.mode_
     }
     set
     {
-      if (value == _Vim_Mode.kNormalMode || value == _Vim_Mode.kVisualMode)
+      if (Vim.kNormalMode == value || Vim.kVisualMode == value)
       {
-        _Vim_Mode._mode := value
+        Vim.mode_ := value
       }
       else
       {
@@ -47,30 +47,6 @@ class _Vim_Mode
   }
 }
 
-;; Send the input command with or without a shift depending on the mode.
-;; 
-;; @param command The command to send.
-Vim_ModeDependentSend(command)
-{
-  if (_Vim_Mode.kNormalMode == _Vim_Mode.mode)
-  {
-    Send(command)
-  }
-  else if (_Vim_Mode.kVisualMode == _Vim_Mode.mode)
-  {
-    Send("+" . command)
-  }
-}
-
-;; Send the input command with or without a shift depending on the mode.
-;;
-;; @param command The command to send.
-Vim_SendAndSetModeToNormal(command)
-{
-  Send(command)
-  _Vim_Mode.mode := _Vim_Mode.kNormalMode
-}
-
 ;; Navigate/Highlight to beginning of line depending on mode (vim key 0).
 >!0::Vim_ModeDependentSend("{Home}")
 
@@ -86,14 +62,14 @@ Vim_SendAndSetModeToNormal(command)
 ;; Delete to end of line (vim key D).
 >!+d::
 {
-  if (_Vim_Mode.kNormalMode == _Vim_Mode.mode)
+  if (Vim.kNormalMode == Vim.mode)
   {
     Send("+{End}^x")
   }
-  else if (_Vim_Mode.kVisualMode == _Vim_Mode.mode)
+  else if (Vim.kVisualMode == Vim.mode)
   {
     Send("{Home}+{End}{Backspace 2}")
-    _Vim_Mode.mode := _Vim_Mode.kNormalMode
+    Vim.mode := Vim.kNormalMode
   }
   return
 }
@@ -126,14 +102,14 @@ Vim_SendAndSetModeToNormal(command)
 ;; Enters or exits visual mode (vim key v).
 >!v::
 {
-  if (_Vim_Mode.kVisualMode == _Vim_Mode.mode)
+  if (Vim.kVisualMode == Vim.mode)
   {
     Send("{Left}")  ; To unhighlight.
-    _Vim_Mode.mode := _Vim_Mode.kNormalMode
+    Vim.mode := Vim.kNormalMode
   }
   else
   {
-    _Vim_Mode.mode := _Vim_Mode.kVisualMode
+    Vim.mode := Vim.kVisualMode
   }
   return
 }
@@ -144,7 +120,7 @@ Vim_SendAndSetModeToNormal(command)
 ;; Delete character (vim key x).
 >!x::
 {
-  if (_Vim_Mode.kVisualMode == _Vim_Mode.mode)
+  if (Vim.kVisualMode == Vim.mode)
   {
     ; Vim saves to default buffer when deleting.
     Vim_SendAndSetModeToNormal("^x")
@@ -159,7 +135,7 @@ Vim_SendAndSetModeToNormal(command)
 ;; Backspace (vim key X).
 >!+x::Vim_SendAndSetModeToNormal("{Backspace}")
 
-;; @brief Yank (vim key y).
+;; Yank (vim key y).
 >!y::Vim_SendAndSetModeToNormal("^c{Left}")
 
 ;; Yank line (vim key Y).
@@ -195,3 +171,25 @@ Vim_SendAndSetModeToNormal(command)
 
 ;; Remap Ctrl-Shift-z to Ctrl-v for same as QWERTY paste.
 ^+k::Send("^v")
+
+;; Send the input command with or without a shift depending on the mode.
+;; @param command The command to send.
+Vim_ModeDependentSend(command)
+{
+  if (Vim.kNormalMode == Vim.mode)
+  {
+    Send(command)
+  }
+  else if (Vim.kVisualMode == Vim.mode)
+  {
+    Send("+" . command)
+  }
+}
+
+;; Send the input command with or without a shift depending on the mode.
+;; @param command The command to send.
+Vim_SendAndSetModeToNormal(command)
+{
+  Send(command)
+  Vim.mode := Vim.kNormalMode
+}
