@@ -1,17 +1,17 @@
 ; Bullet Point
-:co:bp`;::{AltDown}{Numpad7}{AltUp}
+:c:bp`;::{AltDown}{Numpad7}{AltUp}
 
 ; Dash (Em Dash)
-:co:mdash`;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad1}{AltUp}
+:c:mdash`;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad1}{AltUp}
 
 ; Dash (En Dash)
-:co:ndash`;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad0}{AltUp}
+:c:ndash`;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad0}{AltUp}
 
 ; Degree
-:co:deg`;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
+:c:deg`;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
 
 ; Non-breaking space
-:co:nbsp;::{AltDown}{Numpad0}{Numpad1}{Numpad6}{Numpad0}{AltUp}
+:c:nbsp;::{AltDown}{Numpad0}{Numpad1}{Numpad6}{Numpad0}{AltUp}
 
 
 ; Greek Letters

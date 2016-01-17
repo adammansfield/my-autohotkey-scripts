@@ -1,4 +1,18 @@
 ;; Hotkeys for the F-Dolphin Air Mouse.
+;;
+;; Remote Key    | Keyboard Key
+;; --------------|-------------
+;; Home          | #e
+;; HandMenu      | Space
+;; Back          | RButton
+;; Voice (Press) | Esc
+;; Voice (Hold)  | !F4
+;; Mute          | Volume_Mute
+;; Play/Pause    | Media_Play_Pause
+;; Previous      | Media_Prev
+;; Next          | Media_Next
+
+#e::ActivateRemoteMode()
 
 class Remote
 {
@@ -18,34 +32,6 @@ class Remote
   }
 }
 
-;; Setup XBMC as full screen and enable remote mode.
-;; @note remote's home button
-#e::
-{
-  ReactivateColorControl()
-
-  if (!WinExist(Remote.kXbmcWindowClass))
-  {
-    Run("C:\Program Files (x86)\XBMC\XBMC.exe")
-  }
-
-  WinWait(Remote.kXbmcWindowClass,, 5)
-
-  WinActivate(Remote.kXbmcWindowClass)
-  WinWaitActive(Remote.kXbmcWindowClass, "", 5)
-
-  if (!IsFullScreen(Remote.kXbmcWindowClass))
-  {
-    WinMove(Remote.kXbmcWindowClass, "", 0, 0)
-    WinWaitPos(0, 0, Remote.kXbmcWindowClass)
-    Send("\")
-  }
-
-  Remote.is_remote_mode := true
-  AsyncSpeak("remote enabled")
-  return
-}
-
 #If WinActive(Remote.kXbmcWindowClass)
 {
   ;; XBMC fullscreen toggle key also used to disable remote mode.
@@ -61,70 +47,22 @@ class Remote
 
   ;; Remote Mode Enabled: set timer to sleep computer
   ;; Remote Mode Disabled: enable remote mode
-  ;; @note remote's home button
   #e::
   {
     if (Remote.is_remote_mode)
     {
-      Gui(UI.kSleepInputId . ":Font", "s768", "Verdana")
-      Gui(UI.kSleepInputId . ":Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
-      Gui(UI.kSleepInputId . ":Add", "UpDown", "x940 y0 w0 h980 Range0-180 vsleep_minutes", 30)
-      Gui(UI.kSleepInputId . ":Font", "s64", "Verdana")
-      Gui(UI.kSleepInputId . ":Add", "Button", "x0 y980 w1800  h100 Default gSleepButtonOk", "ACK")
-      Gui(UI.kSleepInputId . ":Add", "Button", "x1800 y0 w120 h1080 gSleepButtonCancel", "NAK")
-      Gui(UI.kSleepInputId . ":+AlwaysOnTop")
-      Gui(UI.kSleepInputId . ":-Caption")
-      Gui(UI.kSleepInputId . ":Show", "x0 y0 h1080 w1920", UI.kSleepInputTitle)
-      return
-
-      SleepButtonOk:
-      {
-        Gui(UI.kSleepInputId . ":Submit")
-        Gui(UI.kSleepInputId . ":Destroy")
-        if (0 != sleep_minutes)
-        {
-          AsyncSpeak("sleeping in " . sleep_minutes . " minutes")
-        }
-        SuspendComputer(sleep_minutes)
-        return
-      }
-
-      SleepButtonCancel:
-      {
-        Gui(UI.kSleepInputId . ":Destroy")
-        return
-      }
+      ShowSleepInputWindow()
     }
     else
     {
-      if (IsFullScreen(Remote.kXbmcWindowClass))
-      {
-        pos := WinGetPos(Remote.kXbmcWindowClass)
-        if (pos.x != 0)
-        {
-          Send("\") ; Exit full-screen.
-        }
-      }
-
-      ReactivateColorControl()
-
-      if (!IsFullScreen(Remote.kXbmcWindowClass))
-      {
-        WinMove(Remote.kXbmcWindowClass, "", 0, 0)
-        WinWaitPos(0, 0, Remote.kXbmcWindowClass)
-        Send("\") ; Enter full-screen.
-      }
-
-      Remote.is_remote_mode := true
-      AsyncSpeak("remote enabled")
-      return
+      ActivateRemoteMode()
     }
+    return
   }
 
   ;; Monitor Blanked: quit blank screen
   ;; Remote Mode Enabled: set timer to blank screen
   ;; Remote Mode Disabled: space
-  ;; @note remote's handmenu button
   Space::
   {
     if (WinExist(UI.kBlankTitle))
@@ -188,7 +126,6 @@ class Remote
 
   ;; Remote Mode Enabled:  backspace/back
   ;; Remote Mode Disabled: right click
-  ;; @note remote's back button
   RButton::
   {
     if (Remote.is_remote_mode)
@@ -204,7 +141,6 @@ class Remote
 
   ;; Remote Mode Enabled: hide full-screen menu
   ;; Remote Mode Disabled: escape
-  ;; @note remote's voice button
   Esc::
   {
     if (Remote.is_remote_mode)
@@ -220,7 +156,6 @@ class Remote
 
   ;; Remote Mode Enabled: restart autohotkey (to stop countdowns)
   ;; Remote Mode Disabled: exit
-  ;; @note remote's voice button (hold)
   !F4::
   {
     if (Remote.is_remote_mode)
@@ -237,7 +172,6 @@ class Remote
 
   ;; Remote Mode Enabled: queue file
   ;; Remote Mode Disabled: mute volume
-  ;; @note remote's mute button
   Volume_Mute::
   {
     if (Remote.is_remote_mode)
@@ -253,10 +187,9 @@ class Remote
 
   ;; Remote Mode Enabled:  space (play/pause)
   ;; Remote Mode Disabled: media_play_pause
-  ;; @note remote's play/pause button
-  ;;       Remapped like this not to accidently play music.
-  Media_Play_pause::
+  Media_Play_Pause::
   {
+    ;; Remapped like this not to accidently play music in other applications.
     if (Remote.is_remote_mode)
     {
       Send("{Space}")
@@ -270,7 +203,6 @@ class Remote
 
   ;; Remote Mode Enabled:  left (for easier rewind)
   ;; Remote Mode Disabled: previous media
-  ;; @note remote's previous media button
   Media_Prev::
   {
     if (Remote.is_remote_mode)
@@ -286,7 +218,6 @@ class Remote
 
   ;; Remote Mode Enabled:  right (for easier fast forward)
   ;; Remote Mode Disabled: next media
-  ;; @note remote's next media button
   Media_Next::
   {
     if (Remote.is_remote_mode)
@@ -303,33 +234,91 @@ class Remote
 #If WinActive(UI.kBlankTitle)
 {
   ;; Quit the blank screen.
-  Esc::
-  {
-    Gui(UI.kBlankId . ":Destroy")
-    return
-  }
+  Esc::Gui(UI.kBlankId ":Destroy")
+  RButton::Gui(UI.kBlankId ":Destroy")
 }
 #If WinActive(UI.kBlankInputTitle)
 {
   ;; Quit the input window for blanking the screen.
-  ;; @note remote's back button
-  RButton::
-  {
-    Gui(UI.kBlankInputId . ":Destroy")
-    return
-  }
+  Esc::Gui(UI.kBlankInputId ":Destroy")
+  RButton::Gui(UI.kBlankInputId ":Destroy")
 }
 #If WinActive(UI.kSleepInputTitle)
 {
   ;; @brief Quit the input window for sleeping the screen.
-  ;; @note remote's back button
-  RButton::
-  {
-    Gui(UI.kSleepInputId . ":Destroy")
-    return
-  }
+  Esc::Gui(UI.kSleepInputId ":Destroy")
+  RButton::Gui(UI.kSleepInputId ":Destroy")
 }
 #If
+
+;; Setup XBMC as full screen and enable remote mode.
+ActivateRemoteMode()
+{
+  if (!WinExist(Remote.kXbmcWindowClass))
+  {
+    Run("C:\Program Files (x86)\XBMC\XBMC.exe")
+  }
+  else if (WinActive(Remote.kXbmcWindowClass))
+  {
+    if (IsFullScreen(Remote.kXbmcWindowClass))
+    {
+      pos := WinGetPos(Remote.kXbmcWindowClass)
+      if (pos.x != 0)
+      {
+        Send("\") ; Exit full-screen.
+      }
+    }
+  }
+
+  ReactivateColorControl()
+
+  WinWait(Remote.kXbmcWindowClass,, 5)
+  WinActivate(Remote.kXbmcWindowClass)
+  WinWaitActive(Remote.kXbmcWindowClass, "", 5)
+
+  if (!IsFullScreen(Remote.kXbmcWindowClass))
+  {
+    WinMove(Remote.kXbmcWindowClass, "", 0, 0)
+    WinWaitPos(0, 0, Remote.kXbmcWindowClass)
+    Send("\")
+  }
+
+  Remote.is_remote_mode := true
+  AsyncSpeak("remote enabled")
+  return
+}
+
+ShowSleepInputWindow()
+{
+  Gui(UI.kSleepInputId . ":Font", "s768", "Verdana")
+  Gui(UI.kSleepInputId . ":Add", "Edit", "x-75 y-170 w1900 h1150 Number -VScroll ", "Edit")
+  Gui(UI.kSleepInputId . ":Add", "UpDown", "x940 y0 w0 h980 Range0-180 vsleep_minutes", 30)
+  Gui(UI.kSleepInputId . ":Font", "s64", "Verdana")
+  Gui(UI.kSleepInputId . ":Add", "Button", "x0 y980 w1800  h100 Default gSleepButtonOk", "ACK")
+  Gui(UI.kSleepInputId . ":Add", "Button", "x1800 y0 w120 h1080 gSleepButtonCancel", "NAK")
+  Gui(UI.kSleepInputId . ":+AlwaysOnTop")
+  Gui(UI.kSleepInputId . ":-Caption")
+  Gui(UI.kSleepInputId . ":Show", "x0 y0 h1080 w1920", UI.kSleepInputTitle)
+  return
+}
+
+SleepButtonOk:
+{
+  Gui(UI.kSleepInputId . ":Submit")
+  Gui(UI.kSleepInputId . ":Destroy")
+  if (0 != sleep_minutes)
+  {
+    AsyncSpeak("sleeping in " . sleep_minutes . " minutes")
+  }
+  SuspendComputer(sleep_minutes)
+  return
+}
+
+SleepButtonCancel:
+{
+  Gui(UI.kSleepInputId . ":Destroy")
+  return
+}
 
 ;; Suspends the computer after a number of minutes.
 ;; @param delay_in_minutes The number of minutes to wait until suspending
