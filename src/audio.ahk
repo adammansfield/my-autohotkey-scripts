@@ -4,6 +4,9 @@
 <!a::ToggleVolumeState()
 <!o::ToggleMicMute()
 
+Volume_Down::SoundSet("-1")
+Volume_Up::SoundSet("+1")
+
 
 ;; Toggles between default audio devices.
 ToggleAudioDevice()
