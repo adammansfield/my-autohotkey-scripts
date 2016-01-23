@@ -64,7 +64,7 @@ class UI
   {
     get
     {
-      return "InputBlankWindow"
+      return "BlankInputTitle"
     }
     set
     {
@@ -75,7 +75,7 @@ class UI
   {
     get
     {
-      return "InputSleepWindow"
+      return "SleepInputTitle"
     }
     set
     {
@@ -86,7 +86,7 @@ class UI
   {
     get
     {
-      return "MyAutohotkey Black Window"
+      return "BlackoutTitle"
     }
     set
     {

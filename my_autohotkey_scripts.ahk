@@ -23,7 +23,7 @@
 SendMode Input
 
 ; Sets the matching behavior of the WinTitle parameter in commands such as WinWait.
-SetTitleMatchMode RegEx
+SetTitleMatchMode 2
 
 
 #include lib/commands.ahk
