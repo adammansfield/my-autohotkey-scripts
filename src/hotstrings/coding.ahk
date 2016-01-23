@@ -4,26 +4,18 @@
 :?co:sbr::[]{Left}
 
 ; Dont Commit Comments
-:?co:dcdc::DontCommit
-:?co:dcb::Begin DontCommit
-:?co:dce::End DontCommit
+:?co:dcdc::DontCommit(AdamM)
+:?co:dcb::begin DontCommit(AdamM)
+:?co:dce::end   DontCommit(AdamM)
 
-:?c:dcd::DontCommit(debug)
-:?c:dcbd::Begin DontCommit(debug)
-:?c:dced::End DontCommit(debug)
+:?c:dctodo::DontCommit(AdamM): TODO
+:?c:dcbtodo::begin DontCommit(AdamM): TODO
+:?c:dcetodo::end   DontCommit(AdamM): TODO
 
-:?c:dcnote::DontCommit(note)
-:?c:dcbnote::Begin DontCommit(note)
-:?c:dcenote::End DontCommit(note)
+:?co:dcd::DontCommit(AdamM): debug
+:?co:dcbd::begin DontCommit(AdamM): debug
+:?co:dced::end   DontCommit(AdamM): debug
 
-:?co:dcorg::DontCommit(original)
-:?co:dcborg::Begin DontCommit(original)
-:?co:dceorg::End DontCommit(original)
-
-:?c:dcrd::DontCommit(r/d)
-:?c:dcbrd::Begin DontCommit(r/d)
-:?c:dcerd::End DontCommit(r/d)
-
-:?c:dctodo::DontCommit(todo)
-:?c:dcbtodo::Begin DontCommit(todo)
-:?c:dcetodo::End DontCommit(todo)
+:?co:dcorg::DontCommit(AdamM): original
+:?co:dcborg::begin DontCommit(AdamM): original
+:?co:dceorg::end   DontCommit(AdamM): original
