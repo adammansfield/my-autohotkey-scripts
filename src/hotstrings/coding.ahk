@@ -8,22 +8,22 @@
 :?co:dcb::Begin DontCommit
 :?co:dce::End DontCommit
 
-:?co:dcd::DontCommit(debug)
-:?co:dcbd::Begin DontCommit(debug)
-:?co:dced::End DontCommit(debug)
+:?c:dcd::DontCommit(debug)
+:?c:dcbd::Begin DontCommit(debug)
+:?c:dced::End DontCommit(debug)
 
-:?co:dcnote::DontCommit(note)
-:?co:dcbnote::Begin DontCommit(note)
-:?co:dcenote::End DontCommit(note)
+:?c:dcnote::DontCommit(note)
+:?c:dcbnote::Begin DontCommit(note)
+:?c:dcenote::End DontCommit(note)
 
 :?co:dcorg::DontCommit(original)
 :?co:dcborg::Begin DontCommit(original)
 :?co:dceorg::End DontCommit(original)
 
-:?co:dcrd::DontCommit(r/d)
-:?co:dcbrd::Begin DontCommit(r/d)
-:?co:dcerd::End DontCommit(r/d)
+:?c:dcrd::DontCommit(r/d)
+:?c:dcbrd::Begin DontCommit(r/d)
+:?c:dcerd::End DontCommit(r/d)
 
-:?co:dctodo::DontCommit(todo)
-:?co:dcbtodo::Begin DontCommit(todo)
-:?co:dcetodo::End DontCommit(todo)
+:?c:dctodo::DontCommit(todo)
+:?c:dcbtodo::Begin DontCommit(todo)
+:?c:dcetodo::End DontCommit(todo)
