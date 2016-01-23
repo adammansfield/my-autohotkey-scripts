@@ -60,15 +60,21 @@ EnvGet(env_var_name)
   return result
 }
 
-FileAppend(string="", filename="")
+FileAppend(ByRef string="", filename="", encoding="")
 {
-  FileAppend, %string%, %filename%
+  FileAppend, %string%, %filename%, %encoding%
   return
 }
 
 FileCopy(source, destination, overwrite="")
 {
   FileCopy, %source%, %destination%, %overwrite%
+  return
+}
+
+FileCreateDir(dir_name)
+{
+  FileCreateDir, %dir_name%
   return
 }
 

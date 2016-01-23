@@ -100,10 +100,10 @@ BlankInputWindowSubmit()
   Gui(UI.kBlankId . ":Show", "x0 y0 w" . A_ScreenWidth . " h" . A_ScreenHeight, UI.kBlankTitle)
 
   ; Move mouse to side to hide it.
-  MouseMove(1920, 0) ; DontCommit
+  MouseMove(1920, 0)
 
   ; Activate XBMC so that remote hotkeys still work.
-  WinActivate("ahk_class XBMC") ;DontCommit
+  WinActivate("ahk_class XBMC")
   return
 }
 
@@ -212,7 +212,7 @@ SleepInputWindowSubmit()
   {
     AsyncSpeak("sleeping in " . sleep_minutes . " minutes")
   }
-  ;SuspendComputer(sleep_minutes) ;DontCommit
+  SuspendComputer(sleep_minutes)
   return
 }
 
