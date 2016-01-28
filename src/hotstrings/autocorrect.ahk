@@ -1,6 +1,6 @@
 ;; Automatic spelling corrections while typing.
 
-#If !WinActive(Cygwin_Info.kXTerminalTitle) &&
+#if !WinActive(Cygwin.kXTerminalTitle) &&
     !WinActive("Microsoft Visual Studio") &&
     !WinActive("Ideone.com")
 
