@@ -4,7 +4,7 @@
 <!`;::ReactivateColorControl()
 <!j::ActivateNightTimeMode()
 <!q::ActivateDayTimeMode()
-<!s::TurnOffMonitors()
+<!s::DelayedTurnOffMonitors()
 
 
 ;; Launches and activates AMD Catalyst Control Center.
@@ -204,7 +204,7 @@ ReactivateColorControl()
 }
 
 ;; Turn off the display in a specified time in minutes.
-TurnOffMonitors()
+DelayedTurnOffMonitors()
 {
   minutes := InputBox("Monitor Shutoff", "", "", 150, 100)
   milliseconds := minutes * 60000
@@ -212,5 +212,25 @@ TurnOffMonitors()
   ; Set the priority low to allow script to still function.
   ThreadPriority(-1000)
   Sleep(milliseconds)
+
+  SleepMonitors()
+  Sleep(2000)
+
+  while (!IsUserActive(1000))
+  {
+    SleepMonitors()
+  }
+}
+
+;; Returns if the user is active.
+;; @param threshold_in_ms The threshold to consider the user inactive.
+IsUserActive(threshold_in_ms)
+{
+  return A_TimeIdlePhysical < threshold_in_ms
+}
+
+;; Puts the monitors to sleep.
+SleepMonitors()
+{
   SendMessage(0x112, 0xF170, 2, "", "Program Manager")
 }
