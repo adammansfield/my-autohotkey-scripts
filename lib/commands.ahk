@@ -766,6 +766,11 @@ StringUpper(ByRef string, t="")
   return result
 }
 
+Suspend(mode)
+{
+  Suspend, %mode%
+}
+
 SysGet(sub_command, param_3="")
 {
   SysGet, result, %sub_command%, %param_3%
@@ -899,10 +904,15 @@ WinWaitActive(win_title="", win_text="", seconds="", exclude_title="", exclude_t
 
 WinWaitPos(desired_x, desired_y, win_title, win_text="", seconds="", exclude_title="", exclude_text="")
 {
+  start := A_Now
   WinGetPos, actual_x, actual_y, width, height, %win_title%, %win_text%, %exclude_title%, %exclude_text%
-  while (desired_x != actual_x && desired_y != actual_y)
+  while ((A_Now - start) < seconds
+         && desired_x != actual_x
+         && desired_y != actual_y)
   {
+    WinMove, %win_title%, %win_text%, %desired_x%, %desired_y%
     WinGetPos, actual_x, actual_y, width, height, %win_title%, %win_text%, %exclude_title%, %exclude_text%
+    Sleep(500)
   }
   return
 }
