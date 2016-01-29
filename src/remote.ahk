@@ -12,7 +12,7 @@
 ;; Previous      | Media_Prev
 ;; Next          | Media_Next
 
-#e::EnableRemoteMode()
+#e::RemoteMenu()
 
 #if WinActive(Remote.kKodiWindowClass) && Remote.is_remote_mode
 {
@@ -30,16 +30,22 @@
   Media_Next::Right ; Remapped to Right (for easier fast forward).
 }
 #if WinExist(UI.kBlankTitle)
+{
   Esc::Gui(UI.kBlankId . ":Destroy")
   RButton::Gui(UI.kBlankId . ":Destroy")
+}
 #if WinExist(UI.kBlankInputTitle)
+{
   Esc::Gui(UI.kBlankInputId . ":Destroy")
   RButton::Gui(UI.kBlankInputId . ":Destroy")
   Enter::BlankInputWindowSubmit()
+}
 #if WinExist(UI.kSleepInputTitle)
+{
   Esc::Gui(UI.kSleepInputId . ":Destroy")
   RButton::Gui(UI.kSleepInputId . ":Destroy")
   Enter::SleepInputWindowSubmit()
+}
 #if
 
 
@@ -116,7 +122,7 @@ DisableRemoteMode()
 }
 
 ;; Setup XBMC as full screen and enable remote mode.
-EnableRemoteMode()
+EnableRemoteMode(reactivate_color_control=false)
 {
   try
   {
@@ -136,11 +142,14 @@ EnableRemoteMode()
       }
     }
 
-    ReactivateColorControl()
+    if (reactivate_color_control)
+    {
+      ReactivateColorControl()
+    }
 
-    WinWait(Remote.kKodiWindowClass,, 5)
+    WinWait(Remote.kKodiWindowClass,, 2)
     WinActivate(Remote.kKodiWindowClass)
-    WinWaitActive(Remote.kKodiWindowClass, "", 5)
+    WinWaitActive(Remote.kKodiWindowClass, "", 2)
 
     if (!IsFullScreen(Remote.kKodiWindowClass))
     {
@@ -185,6 +194,37 @@ KodiPlayPause()
 KodiQueueFile()
 {
   Send("q")
+  return
+}
+
+;; Perform a task depending on the next key pressed.
+RemoteMenu()
+{
+  AsyncSpeak("Remote Menu")
+
+  key := Input("E L2 I T2", "{Enter}{Up}{Down}{Left}{Right}{Space}{Escape}")
+  end_key := ErrorLevel
+
+  if ("EndKey:Enter" == end_key)
+  {
+    reactivate_color_control := false
+    EnableRemoteMode(reactivate_color_control)
+  }
+  else if ("EndKey:Space" == end_key)
+  {
+    reactivate_color_control := true
+    EnableRemoteMode(reactivate_color_control)
+  }
+  else if ("Timeout" == end_key)
+  {
+    AsyncSpeak("timed out")
+  }
+  else
+  {
+    prefix_length := StringLen("EndKey:") + 1
+    unregistered_key := StringMid(end_key, prefix_length, StringLen(end_key) - prefix_length + 1)
+    AsyncSpeak("Key has no assigned action. " . unregistered_key)
+  }
   return
 }
 
