@@ -5,9 +5,22 @@
 {
   /::MediaMonkeyQuickSearch()
   MButton::MediaMonkeyQuickEdit()
+  <!p::MediaMonkeyLaunchPlayer()
 }
 #if
 
+
+;; Launches external video player.
+MediaMonkeyLaunchPlayer()
+{
+  Send("+{Enter}")
+  WinWait("File Properties")
+  Send("{Tab}^c")
+  Sleep(100)
+  Send("{Enter}")
+  Sleep(100)
+  LaunchVideoFromClipboard()
+}
 
 ;; Quick search by selecting and clearing search box.
 MediaMonkeyQuickSearch()

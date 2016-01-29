@@ -4,7 +4,7 @@ CapsLock::Esc
 +F11::ShowBlankWindow()
 
 <!d::DisconnectVPN()
-<!m::LaunchVideoFromClipboard()
+<!p::LaunchVideoFromClipboard()
 <!t::ToggleAlwaysOnTop()
 
 
