@@ -1,7 +1,7 @@
 CapsLock::Esc
 +CapsLock::ToggleCapsLock()
 
-+F11::ShowBlankWindow()
+^+F11::ShowBlankWindow()
 
 <!d::DisconnectVPN()
 <!p::LaunchVideoFromClipboard()

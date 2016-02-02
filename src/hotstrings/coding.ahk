@@ -8,14 +8,14 @@
 :?co:dcb::begin DontCommit
 :?co:dce::end DontCommit
 
-:?c:dctodo::DontCommit(todo)
-:?c:dcbtodo::begin DontCommit(todo)
-:?co:dcetodo::end DontCommit(todo)
+:?c:dct::DontCommit(todo)
+:?c:dcbt::begin DontCommit(todo)
+:?co:dcet::end DontCommit(todo)
 
 :?co:dcd::DontCommit(debug)
 :?co:dcbd::begin DontCommit(debug)
 :?co:dced::end DontCommit(debug)
 
-:?co:dcorg::DontCommit(original)
-:?co:dcborg::begin DontCommit(original)
-:?co:dceorg::end DontCommit(original)
+:?co:dco::DontCommit(original)
+:?co:dcbo::begin DontCommit(original)
+:?co:dceo::end DontCommit(original)
