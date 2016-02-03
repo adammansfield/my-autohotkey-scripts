@@ -627,6 +627,12 @@ SendPlay(keys)
   return
 }
 
+SendRaw(keys)
+{
+  SendRaw, %keys%
+  return
+}
+
 SetCapsLockState(state)
 {
   SetCapsLockState, %state%

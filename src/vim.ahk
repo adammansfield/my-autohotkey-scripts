@@ -97,7 +97,42 @@ class Vim
 }
 
 ;; Undo (vim key u).
->!u:: Send("^z")
+>!u::
+{
+  if (Vim.kVisualMode == Vim.mode)
+  {
+    Send("^x")
+    Sleep(10)
+    text := StringLower(Clipboard)
+    text := StringReplace(text, "`n", "", "all")
+    SendRaw(text)
+    Vim.mode := Vim.kNormalMode
+  }
+  else
+  {
+    Send("^z")
+  }
+  return
+}
+
+;; To Upper Case (vim key U).
+>!+u::
+{
+  if (Vim.kVisualMode == Vim.mode)
+  {
+    Send("^x")
+    Sleep(10)
+    text := StringUpper(Clipboard)
+    text := StringReplace(text, "`n", "", "all")
+    SendRaw(text)
+    Vim.mode := Vim.kNormalMode
+  }
+  else
+  {
+    Send("^z")
+  }
+  return
+}
 
 ;; Enters or exits visual mode (vim key v).
 >!v::
