@@ -213,6 +213,10 @@ ImageSearch(ByRef out_x, ByRef out_y, x_1, y_1, x_2, y_2, image_file)
 IniRead(filename, section, key, default="")
 {
   IniRead, result, %filename%, %section%, %key%, %default%
+  if ("ERROR" == result)
+  {
+    throw _BuildException("IniRead could not find requested key", ErrorLevel)
+  }
   return result
 }
 
@@ -237,11 +241,11 @@ InputBox(title="", prompt="", hide="", width="", height="", x="", y="", font="",
   InputBox, output, %title%, %prompt%, %hide%, %width%, %height%, %x%, %y%, , %timeout%, %default%
   if (1 == ErrorLevel)
   {
-    throw _BuildException("InputBox pressed cancel")
+    throw _BuildException("InputBox pressed cancel", ErrorLevel)
   }
   else if (2 == ErrorLevel)
   {
-    throw _BuildException("InputBox timed out; timeout=" timeout)
+    throw _BuildException("InputBox timed out; timeout=" timeout, ErrorLevel)
   }
   return output
 }
@@ -494,7 +498,7 @@ ProcessClose(pid_or_name)
   former_pid := ErrorLevel
   if (0 == former_pid)
   {
-    throw _BuildException("Process was not successfully terminated; pid_or_name=" pid_or_name)
+    throw _BuildException("Process was not successfully terminated; pid_or_name=" pid_or_name, ErrorLevel)
   }
   return former_pid
 }
@@ -518,7 +522,7 @@ ProcessWait(pid_or_name, seconds="")
   pid := ErrorLevel
   if (0 == pid)
   {
-    throw _BuildException("ProcessWait timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
+    throw _BuildException("ProcessWait timed out; pid_or_name=" pid_or_name " , seconds=" seconds, ErrorLevel)
   }
 
   return pid
@@ -531,7 +535,7 @@ ProcessWaitClose(pid_or_name, seconds="")
   pid := ErrorLevel
   if (0 == pid)
   {
-    throw _BuildException("ProcessWaitClose timed out; pid_or_name=" pid_or_name " , seconds=" seconds)
+    throw _BuildException("ProcessWaitClose timed out; pid_or_name=" pid_or_name " , seconds=" seconds, ErrorLevel)
   }
 
   return pid
@@ -895,7 +899,7 @@ WinWait(win_title, win_text="", seconds="", exclude_title="", exclude_text="")
   WinWait, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
   if (ErrorLevel)
   {
-    throw _BuildException("WinWait timed out; title=" win_title ", seconds=" seconds)
+    throw _BuildException("WinWait timed out; title=" win_title ", seconds=" seconds, ErrorLevel)
   }
 }
 
@@ -904,7 +908,7 @@ WinWaitActive(win_title="", win_text="", seconds="", exclude_title="", exclude_t
   WinWaitActive, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
   if (ErrorLevel)
   {
-    throw _BuildException("WinWaitActive timed out; title=" win_title ", seconds=" seconds)
+    throw _BuildException("WinWaitActive timed out; title=" win_title ", seconds=" seconds, ErrorLevel)
   }
 }
 
@@ -930,13 +934,15 @@ URLDownloadToFile(url, filename)
 }
 
 ;; Returns an exception with a stack trace.
-;;
 ;; @param message The message of the Exception.
-_BuildException(message)
+;; @param error_level The message of the Exception.
+_BuildException(message, error_level="")
 {
   message := "Error: " message
   extra := _GetStackTrace(-3)
-  return Exception(message, -2, extra)
+  e :=  Exception(message, -2, extra)
+  e.error_level := error_level
+  return e
 }
 
 ;; Returns the current call stack excluding this function call.

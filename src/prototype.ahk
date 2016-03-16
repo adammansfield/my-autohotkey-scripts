@@ -8,6 +8,7 @@
 ;; Reload script with alert.
 AlertedReload()
 {
+  Tooltip("reloading my-autohotkey-scripts.ahk")
   Speak("re loading")
   Reload()
 }
