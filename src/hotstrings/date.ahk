@@ -30,7 +30,15 @@
   return
 }
 
-:?c:timestamp`;::
+;; File ISO 8601 timestamp.
+:?c:fts`;::
+{
+  Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour A_Min)
+  return
+}
+
+;; ISO 8601 timestamp.
+:?c:ts`;::
 {
   Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min)
   return

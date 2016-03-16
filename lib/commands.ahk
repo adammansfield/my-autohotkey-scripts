@@ -912,6 +912,15 @@ WinWaitActive(win_title="", win_text="", seconds="", exclude_title="", exclude_t
   }
 }
 
+WinWaitClose(win_title="", win_text="", seconds="", exclude_title="", exclude_text="")
+{
+  WinWaitClose, %win_title%, %win_text%, %seconds%, %exclude_title%, %exclude_text%
+  if (ErrorLevel)
+  {
+    throw _BuildException("WinWaitClose timed out; title=" win_title ", seconds=" seconds)
+  }
+}
+
 WinWaitPos(desired_x, desired_y, win_title, win_text="", seconds="", exclude_title="", exclude_text="")
 {
   start := A_Now

@@ -6,6 +6,7 @@
   /::MediaMonkeyQuickSearch()
   MButton::MediaMonkeyQuickEdit()
   <!p::MediaMonkeyLaunchPlayer()
+  !+p::MediaMonkeyLaunchPlayerAndCount()
 }
 #if
 
@@ -18,8 +19,28 @@ MediaMonkeyLaunchPlayer()
   Send("{Tab}^c")
   Sleep(100)
   Send("{Enter}")
-  Sleep(100)
+  WinWaitClose("File Properties")
   LaunchVideoFromClipboard()
+}
+
+;; Increments play count.
+MediaMonkeyIncrementPlayCount()
+{
+  Send("+{Enter}")
+  WinWait("File Properties")
+  Send("{Right}{Tab 11}^c")
+  Sleep(100)
+  play_count := Round(Clipboard) + 1
+  Send(play_count)
+  Send("{Enter}")
+  WinWaitClose("File Properties")
+}
+
+;; Launches external video player and increments play count.
+MediaMonkeyLaunchPlayerAndCount()
+{
+  MediaMonkeyIncrementPlayCount()
+  MediaMonkeyLaunchPlayer()
 }
 
 ;; Quick search by selecting and clearing search box.
