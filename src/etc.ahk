@@ -34,6 +34,9 @@ DisconnectVPN()
       ProcessClose(kUIProcessName)
     }
 
+    ; Give additional time to disconnect fully.
+    Sleep(1000)
+
     Ping(kTestAddress)
     if (0 == ErrorLevel)
     {
