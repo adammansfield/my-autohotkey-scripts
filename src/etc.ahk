@@ -70,7 +70,7 @@ DisconnectVPN()
 ;; Runs MPC-HC with video path/URL from the clipboard.
 LaunchVideoFromClipboard()
 {
-  Run("C:\Program Files (x86)\SVP\MPC-HC\mpc-hc.exe """ clipboard """")
+  Run("C:\Program Files (x86)\MPC-HC\mpc-hc.exe """ clipboard """")
 }
 
 ;; Shows blank window.
