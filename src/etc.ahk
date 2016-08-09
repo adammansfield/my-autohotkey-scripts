@@ -7,6 +7,8 @@ CapsLock::Esc
 <!p::LaunchVideoFromClipboard()
 <!t::ToggleAlwaysOnTop()
 
+~#l::Send("{Media_Stop}{Volume_Mute}")
+
 
 ;; Disconnects Cisco Anyconnect, terminates the process, and tests that VPN is disconnected.
 DisconnectVPN()
