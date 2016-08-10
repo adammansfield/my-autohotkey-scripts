@@ -11,8 +11,23 @@
 :c:deg`;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
 
 ; Non-breaking space
-:co:nbsp;::{AltDown}{Numpad0}{Numpad1}{Numpad6}{Numpad0}{AltUp}
+:co:nbsp;::
+  nonBreakingSpace()
+  return
+:co:2nbsp;::
+  nonBreakingSpace(2)
+  return
+:co:4nbsp;::
+  nonBreakingSpace(4)
+  return
 
+nonBreakingSpace(count=1)
+{
+  Loop %count%
+  {
+    Send("{AltDown}{Numpad0}{Numpad1}{Numpad6}{Numpad0}{AltUp}")
+  }
+}
 
 ; Greek Letters
 ; -------------
