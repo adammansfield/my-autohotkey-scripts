@@ -11,31 +11,28 @@
 :c:deg`;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
 
 ; Non-breaking space
-:co:nbsp;::{AltDown}{Numpad0}{Numpad1}{Numpad6}{Numpad0}{AltUp}
-
-; Thumbs Upo
-:co:thumbsup;::
-  SendUnicodeChar(0x1F44D)
+:co:nbsp;::
+  nonBreakingSpace(1)
+  return
+:co:2nbsp;::
+  nonBreakingSpace(2)
+  return
+:co:4nbsp;::
+  nonBreakingSpace(4)
+  return
+:co:8nbsp;::
+  nonBreakingSpace(8)
+  return
+:co:16nbsp;::
+  nonBreakingSpace(16)
   return
 
-SendUnicodeChar(charCode)
+nonBreakingSpace(count)
 {
-  VarSetCapacity(ki, 28 * 2, 0)
-  EncodeInteger(&ki + 0, 1)
-  EncodeInteger(&ki + 6, charCode)
-  EncodeInteger(&ki + 8, 4)
-  EncodeInteger(&ki +28, 1)
-  EncodeInteger(&ki +34, charCode)
-  EncodeInteger(&ki +36, 4|2)
-
-
-  DllCall("SendInput", "UInt", 2, "UInt", &ki, "Int", 28)
-}
-
-
-EncodeInteger(ref, val)
-{
-  DllCall("ntdll\RtlFillMemoryUlong", "Uint", ref, "Uint", 4, "Uint", val)
+  Loop %count%
+  {
+    Send("{AltDown}{Numpad0}{Numpad1}{Numpad6}{Numpad0}{AltUp}")
+  }
 }
 
 ; Greek Letters
