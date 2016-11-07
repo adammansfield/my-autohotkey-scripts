@@ -127,7 +127,7 @@ ActivateXTerminal()
 
     try
     {
-      WinWait(Cygwin.kXTerminalTitle, "", 2)
+      WinWait(Cygwin.kXTerminalTitle, "", 5)
       WinActivate(Cygwin.kXTerminalTitle)
     }
     catch
