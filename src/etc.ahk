@@ -9,8 +9,7 @@ CapsLock::Esc
 
 ~#l::
   SoundSet("0", "Master", "Volume")
-  SoundSet("0", "Master", "Mute")
-  Send("{Media_Stop}")
+  SoundSet("1", "Master", "Mute")
   return
 
 
