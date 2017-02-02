@@ -18,22 +18,15 @@
 ; A_NowUTC    The current Coordinated Universal Time (UTC) in YYYYMMDDHH24MISS format.
 ; A_TickCount The number of milliseconds since the computer was rebooted.
 
+:?c:datetime`;::
+{
+  Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
+  return
+}
+
 :?c:date`;::
 {
   Send(A_YYYY "-" A_MM "-" A_DD)
-  return
-}
-
-:?c:datemonth`;::
-{
-  Send(A_YYYY "-" A_MMM "-" A_DD)
-  return
-}
-
-;; ISO 8601 timestamp.
-:?c:timestamp`;::
-{
-  Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour A_Min)
   return
 }
 
