@@ -8,17 +8,21 @@
 :?co:dcb::begin DontCommit
 :?co:dce::end DontCommit
 
-:?c:dct::DontCommit(todo)
-:?c:dcbt::begin DontCommit(todo)
-:?co:dcet::end DontCommit(todo)
-
 :?co:dcd::DontCommit(debug)
 :?co:dcbd::begin DontCommit(debug)
 :?co:dced::end DontCommit(debug)
 
+:?co:dcf::DontCommit(fixme)
+:?co:dcbf::begin DontCommit(fixme)
+:?co:dcef::end DontCommit(fixme)
+
 :?co:dco::DontCommit(original)
 :?co:dcbo::begin DontCommit(original)
 :?co:dceo::end DontCommit(original)
+
+:?c:dct::DontCommit(todo)
+:?c:dcbt::begin DontCommit(todo)
+:?co:dcet::end DontCommit(todo)
 
 :?co:cppheader::
 {
