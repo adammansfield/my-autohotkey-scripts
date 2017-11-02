@@ -1,40 +1,51 @@
 ; Brackets
-:?co:cbr::{{}{}}{Left}
-:?co:rbr::(){Left}
-:?co:sbr::[]{Left}
+:?co:cb`;::{{}{}}{Left}
+:?co:rb`;::(){Left}
+:?co:sb`;::[]{Left}
 
 ; Dont Commit Comments
-:?co:dcdc::DontCommit
-:?co:dcb::begin DontCommit
-:?co:dce::end DontCommit
+:?co:dcc`;::DontCommit(){Left}
+:?co:dccb`;::begin DontCommit(){Left}
+:?co:dcce`;::end DontCommit
 
-:?co:dcd::DontCommit(debug)
-:?co:dcbd::begin DontCommit(debug)
-:?co:dced::end DontCommit(debug)
+:?co:dcd`;::DontCommit(debug)
+:?co:dcbd`;::begin DontCommit(debug)
+:?co:dced`;::end DontCommit(debug)
 
-:?co:dcf::DontCommit(fixme)
-:?co:dcbf::begin DontCommit(fixme)
-:?co:dcef::end DontCommit(fixme)
+:?co:dcf`;::DontCommit(fixme)
+:?co:dcbf`;::begin DontCommit(fixme)
+:?co:dcef`;::end DontCommit(fixme)
 
-:?co:dco::DontCommit(original)
-:?co:dcbo::begin DontCommit(original)
-:?co:dceo::end DontCommit(original)
+:?co:dci`;::DontCommit(implement)
+:?co:dcbi`;::begin DontCommit(implement)
+:?co:dcei`;::end DontCommit(implement)
 
-:?c:dct::DontCommit(todo)
-:?c:dcbt::begin DontCommit(todo)
-:?co:dcet::end DontCommit(todo)
+:?co:dco`;::DontCommit(original)
+:?co:dcbo`;::begin DontCommit(original)
+:?co:dceo`;::end DontCommit(original)
 
-:?co:cppheader::
+:?c:dcq`;::DontCommit(query)
+:?c:dcbq`;::begin DontCommit(query)
+:?co:dceq`;::end DontCommit(query)
+
+:?co:dcr`;::DontCommit(remove)
+:?co:dcbr`;::begin DontCommit(remove)
+:?co:dcer`;::end DontCommit(remove)
+
+:?c:dct`;::DontCommit(todo)
+:?c:dcbt`;::begin DontCommit(todo)
+:?co:dcet`;::end DontCommit(todo)
+
+:?co:dcu`;::DontCommit(uncomment)
+:?co:dcbu`;::begin DontCommit(uncomment)
+:?co:dceu`;::end DontCommit(uncomment)
+
+:?co:cppheader`;::
 {
   text =
   (
-/**
-@file DontCommit_Filename.h
-@brief Defines the DontCommit_Class class.
-*/
-
-#if !defined(DontCommit_Guard)
-#define DontCommit_Guard
+#if !defined(DontCommit_Header_Guard)
+#define DontCommit_Header_Guard
 
 #ifdef _MSC_VER
 #pragma once
@@ -43,11 +54,12 @@
 namespace DontCommit_Namespace
 {
 /**
-@brief DontCommit(Todo) Fill out.
+@brief DontCommit(todo) Fill out.
 */
 class DontCommit_Class
 {
 public:
+private:
 };
 }
 
