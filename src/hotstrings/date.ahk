@@ -18,49 +18,49 @@
 ; A_NowUTC    The current Coordinated Universal Time (UTC) in YYYYMMDDHH24MISS format.
 ; A_TickCount The number of milliseconds since the computer was rebooted.
 
-:?c:ym`;::
+:*c:ym;;::
 {
   Send(A_YYYY A_MM)
   return
 }
 
-:?c:ymd`;::
+:*c:ymd;;::
 {
   Send(A_YYYY A_MM A_DD)
   return
 }
 
-:?c:ymdhm`;::
+:*c:ymdhm;;::
 {
   Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
   return
 }
 
-:?c:ymdhms`;::
+:*c:ymdhms;;::
 {
   Send(A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec)
   return
 }
 
-:?c:y-m`;::
+:*c:y-m;;::
 {
   Send(A_YYYY "-" A_MM)
   return
 }
 
-:?c:y-m-d`;::
+:*c:y-m-d;;::
 {
   Send(A_YYYY "-" A_MM "-" A_DD)
   return
 }
 
-:?c:y-m-d-h-m`;::
+:*c:y-m-d-h-m;;::
 {
   Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min)
   return
 }
 
-:?c:y-m-d-h-m-s`;::
+:*c:y-m-d-h-m-s;;::
 {
   Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
   return

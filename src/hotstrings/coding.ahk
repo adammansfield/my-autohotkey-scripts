@@ -1,46 +1,47 @@
 ; Brackets
-:?co:cb`;::{{}{}}{Left}
-:?co:rb`;::(){Left}
-:?co:sb`;::[]{Left}
+:*c?:cb;;::{{}{}}{Left}
+:*c?:rb;;::(){Left}
+:*c?:sb;;::[]{Left}
 
 ; Dont Commit Comments
-:?co:dcc`;::DontCommit(){Left}
-:?co:dccb`;::begin DontCommit(){Left}
-:?co:dcce`;::end DontCommit
+:*c?:dcc;;::DontCommit(){Left}
+:*c?:dccb;;::begin DontCommit(){Left}
+:*c?:dcce;;::end DontCommit
 
-:?co:dcd`;::DontCommit(debug)
-:?co:dcbd`;::begin DontCommit(debug)
-:?co:dced`;::end DontCommit(debug)
+:*c?:dcd;;::DontCommit(debug)
+:*c?:dcbd;;::begin DontCommit(debug)
+:*c?:dced;;::end DontCommit(debug)
 
-:?co:dcf`;::DontCommit(fixme)
-:?co:dcbf`;::begin DontCommit(fixme)
-:?co:dcef`;::end DontCommit(fixme)
+:*c?:dcf;;::DontCommit(fixme)
+:*c?:dcbf;;::begin DontCommit(fixme)
+:*c?:dcef;;::end DontCommit(fixme)
 
-:?co:dci`;::DontCommit(implement)
-:?co:dcbi`;::begin DontCommit(implement)
-:?co:dcei`;::end DontCommit(implement)
+:*c?:dci;;::DontCommit(implement)
+:*c?:dcbi;;::begin DontCommit(implement)
+:*c?:dcei;;::end DontCommit(implement)
 
-:?co:dco`;::DontCommit(original)
-:?co:dcbo`;::begin DontCommit(original)
-:?co:dceo`;::end DontCommit(original)
+:*c?:dc;;::DontCommit(original)
+:*c?:dcbo;;::begin DontCommit(original)
+:*c?:dceo;;::end DontCommit(original)
 
-:?c:dcq`;::DontCommit(query)
-:?c:dcbq`;::begin DontCommit(query)
-:?co:dceq`;::end DontCommit(query)
+:*c?:dcq;;::DontCommit(query)
+:*c?:dcbq;;::begin DontCommit(query)
+:*c?:dceq;;::end DontCommit(query)
 
-:?co:dcr`;::DontCommit(remove)
-:?co:dcbr`;::begin DontCommit(remove)
-:?co:dcer`;::end DontCommit(remove)
+:*c?:dcr;;::DontCommit(remove)
+:*c?:dcbr;;::begin DontCommit(remove)
+:*c?:dcer;;::end DontCommit(remove)
 
-:?c:dct`;::DontCommit(todo)
-:?c:dcbt`;::begin DontCommit(todo)
-:?co:dcet`;::end DontCommit(todo)
+:*c?:dct;;::DontCommit(todo){Space}
+:*c?:dcbt;;::begin DontCommit(todo){Space}
+:*c?:dcet;;::end DontCommit(todo)
 
-:?co:dcu`;::DontCommit(uncomment)
-:?co:dcbu`;::begin DontCommit(uncomment)
-:?co:dceu`;::end DontCommit(uncomment)
+:*c?:dcu;;::DontCommit(uncomment)
+:*c?:dcbu;;::begin DontCommit(uncomment)
+:*c?:dceu;;::end DontCommit(uncomment)
 
-:?co:cppheader`;::
+
+:*c?:cppheader;;::
 {
   text =
   (
