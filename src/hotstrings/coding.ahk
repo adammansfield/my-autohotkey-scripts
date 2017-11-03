@@ -4,6 +4,10 @@
 :*c?:sb;;::[]{Left}
 
 ; Dont Commit Comments
+:*c?:dc;;::DontCommit
+:*c?:dcb;;::begin DontCommit
+:*c?:dce;;::end DontCommit
+
 :*c?:dcc;;::DontCommit(){Left}
 :*c?:dccb;;::begin DontCommit(){Left}
 :*c?:dcce;;::end DontCommit
@@ -20,7 +24,7 @@
 :*c?:dcbi;;::begin DontCommit(implement)
 :*c?:dcei;;::end DontCommit(implement)
 
-:*c?:dc;;::DontCommit(original)
+:*c?:dco;;::DontCommit(original)
 :*c?:dcbo;;::begin DontCommit(original)
 :*c?:dceo;;::end DontCommit(original)
 
