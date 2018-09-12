@@ -18,6 +18,11 @@
 ; A_NowUTC    The current Coordinated Universal Time (UTC) in YYYYMMDDHH24MISS format.
 ; A_TickCount The number of milliseconds since the computer was rebooted.
 
+GetWeekNumber()
+{
+  return StringRight(A_YWeek, 2)
+}
+
 :*c:ym;;::
 {
   Send(A_YYYY A_MM)
@@ -42,6 +47,12 @@
   return
 }
 
+:*c:yw;;::
+{
+  Send(A_YYYY "W" GetWeekNumber())
+  return
+}
+
 :*c:y-m;;::
 {
   Send(A_YYYY "-" A_MM)
@@ -63,5 +74,11 @@
 :*c:y-m-d-h-m-s;;::
 {
   Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
+  return
+}
+
+:*c:y-w;;::
+{
+  Send(A_YYYY "-W" GetWeekNumber())
   return
 }
