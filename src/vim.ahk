@@ -87,7 +87,12 @@ class Vim
 >!l::Vim_ModeDependentSend("{Right}")
 
 ;; Paste after (vim key p).
->!p::Vim_SendAndSetModeToNormal("^v")
+>!p::
+{
+  Clipboard := Clipboard ; Remove formatting.
+  Vim_SendAndSetModeToNormal("^v")
+  return
+}
 
 ;; Paste before (vim key P).
 >!+p::
