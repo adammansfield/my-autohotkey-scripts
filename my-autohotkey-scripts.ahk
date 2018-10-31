@@ -37,6 +37,7 @@ SetTitleMatchMode RegEx
 #include src/hotstrings/coding.ahk
 #include src/hotstrings/date.ahk
 #include src/hotstrings/etc.ahk
+#include src/hotstrings/logging.ahk
 #include src/hotstrings/symbols.ahk
 
 #include src/audio.ahk
