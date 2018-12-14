@@ -1,10 +1,6 @@
-;; Quick launch, show, and hide of cygwin terminals.
-
-
 F12::ActivateXTerminal()
 +F12::LaunchXTerminal()
 !F12::LaunchTerminal()
-
 
 ;; The configuration settings for Cygwin.
 class Cygwin
