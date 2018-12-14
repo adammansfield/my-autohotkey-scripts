@@ -1,5 +1,3 @@
-;; Date and time hotstrings.
-
 ; A_YYYY      Current 4-digit year (e.g. 2004). Synonymous with A_Year.
 ; A_MM        Current 2-digit month (01-12). Synonymous with A_Mon.
 ; A_DD        Current 2-digit day of the month (01-31). Synonymous with A_MDay.
@@ -18,68 +16,19 @@
 ; A_NowUTC    The current Coordinated Universal Time (UTC) in YYYYMMDDHH24MISS format.
 ; A_TickCount The number of milliseconds since the computer was rebooted.
 
+:*?cx:;ym;::Send(A_YYYY A_MM)
+:*?cx:;ymd;::Send(A_YYYY A_MM A_DD)
+:*?cx:;ts;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
+:*?cx:;ymdhm;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
+:*?cx:;ymdhms;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec)
+:*?cx:;yw;::Send(A_YYYY "W" GetWeekNumber())
+:*?cx:;y-m;::Send(A_YYYY "-" A_MM)
+:*?cx:;y-m-d;::Send(A_YYYY "-" A_MM "-" A_DD)
+:*?cx:;y-m-d-h-m;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min)
+:*?cx:;y-m-d-h-m-s;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
+:*?cx:;y-w;::Send(A_YYYY "-W" GetWeekNumber())
+
 GetWeekNumber()
 {
   return StringRight(A_YWeek, 2)
-}
-
-:*?c:;ym;::
-{
-  Send(A_YYYY A_MM)
-  return
-}
-
-:*?c:;ymd;::
-{
-  Send(A_YYYY A_MM A_DD)
-  return
-}
-
-:*?c:;ts;::
-:*?c:;ymdhm;::
-{
-  Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
-  return
-}
-
-:*?c:;ymdhms;::
-{
-  Send(A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec)
-  return
-}
-
-:*?c:;yw;::
-{
-  Send(A_YYYY "W" GetWeekNumber())
-  return
-}
-
-:*?c:;y-m;::
-{
-  Send(A_YYYY "-" A_MM)
-  return
-}
-
-:*?c:;y-m-d;::
-{
-  Send(A_YYYY "-" A_MM "-" A_DD)
-  return
-}
-
-:*?c:;y-m-d-h-m;::
-{
-  Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min)
-  return
-}
-
-:*?c:;y-m-d-h-m-s;::
-{
-  Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
-  return
-}
-
-:*?c:;y-w;::
-{
-  Send(A_YYYY "-W" GetWeekNumber())
-  return
 }

@@ -1,15 +1,10 @@
-;; Hotkeys for my music program.
-
-
 #if WinActive("MediaMonkey")
 {
-  /::MediaMonkeyQuickSearch()
   MButton::MediaMonkeyQuickEdit()
   <!p::MediaMonkeyLaunchPlayer()
-  !+p::MediaMonkeyLaunchPlayerAndCount()
+  !+p::MediaMonkeyLaunchPlayerAndIncrementCount()
 }
 #if
-
 
 ;; Launches external video player.
 MediaMonkeyLaunchPlayer()
@@ -20,7 +15,14 @@ MediaMonkeyLaunchPlayer()
   Sleep(100)
   Send("{Enter}")
   WinWaitClose("File Properties")
-  LaunchVideoFromClipboard()
+  Run("C:\Program Files (x86)\MPC-HC\mpc-hc.exe """ clipboard """")
+}
+
+;; Launches external video player and increments play count.
+MediaMonkeyLaunchPlayerAndIncrementCount()
+{
+  MediaMonkeyIncrementPlayCount()
+  MediaMonkeyLaunchPlayer()
 }
 
 ;; Increments play count.
@@ -34,20 +36,6 @@ MediaMonkeyIncrementPlayCount()
   Send(play_count)
   Send("{Enter}")
   WinWaitClose("File Properties")
-}
-
-;; Launches external video player and increments play count.
-MediaMonkeyLaunchPlayerAndCount()
-{
-  MediaMonkeyIncrementPlayCount()
-  MediaMonkeyLaunchPlayer()
-}
-
-;; Quick search by selecting and clearing search box.
-MediaMonkeyQuickSearch()
-{
-  Send("{Click 1755, 55}{End}+{Home}{BS}")
-  return
 }
 
 ;; Edit the attribute under the mouse.

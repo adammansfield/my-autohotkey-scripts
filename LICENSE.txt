@@ -1,6 +1,6 @@
-The ISC License (ISC) <https://opensource.org/licenses/ISC>
+ISC License <https://opensource.org/licenses/ISC>
 
-Copyright (c) 2015-2016, Adam Mansfield <me@adammansfield.com>
+Copyright 2015 Adam Mansfield <me@adammansfield.com>
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above

@@ -10,73 +10,51 @@
 ; Degree
 :*c:;deg;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
 
-; Non-breaking space
-:*c:;nbsp;::
-  nonBreakingSpace(1)
-  return
-:*c:;2nbsp;::
-  nonBreakingSpace(2)
-  return
-:*c:;4nbsp;::
-  nonBreakingSpace(4)
-  return
-:*c:;8nbsp;::
-  nonBreakingSpace(8)
-  return
-:*c:;16nbsp;::
-  nonBreakingSpace(16)
-  return
-
-nonBreakingSpace(count)
-{
-  Loop %count%
-  {
-    Send("{AltDown}{Numpad0}{Numpad1}{Numpad6}{Numpad0}{AltUp}")
-  }
-}
-
-; Greek Letters
-; -------------
-
-; Alpha
+; Greek character: Alpha
 :*c:;alpha;::{AltDown}{Numpad2}{Numpad2}{Numpad4}{AltUp}
 
-; Beta
+; Greek character: Beta
 :*c:;beta;::{AltDown}{Numpad2}{Numpad2}{Numpad5}{AltUp}
 
-; Delta
+; Greek character: Delta
 :*c:;delta;::{AltDown}{Numpad2}{Numpad3}{Numpad5}{AltUp}
 
-; Epsilon
+; Greek character: Epsilon
 :*c:;epsilon;::{AltDown}{Numpad2}{Numpad3}{Numpad8}{AltUp}
 
-; Gamma
+; Greek character: Gamma
 :*c:;gamma;::{AltDown}{Numpad2}{Numpad2}{Numpad6}{AltUp}
 
-; Omega
+; Greek character: Omega
 :*c:;omega;::{AltDown}{Numpad2}{Numpad3}{Numpad4}{AltUp}
 
-; Phi (Lowercase)
+; Greek character: Phi (Lowercase)
 :*c:;phi;::{AltDown}{Numpad2}{Numpad3}{Numpad7}{AltUp}
 
-; Phi (Uppercase)
+; Greek character: Phi (Uppercase)
 :*c:;Phi;::{AltDown}{Numpad2}{Numpad3}{Numpad2}{AltUp}
 
-; Pi
+; Greek character: Pi
 :*c:;pi;::{AltDown}{Numpad2}{Numpad2}{Numpad7}{AltUp}
 
-; Sigma (Lowercase)
+; Greek character: Sigma (Lowercase)
 :*c:;sigma;::{AltDown}{Numpad2}{Numpad2}{Numpad9}{AltUp}
 
-; Sigma (Uppercase)
+; Greek character: Sigma (Uppercase)
 :*c:;Sigma;::{AltDown}{Numpad2}{Numpad2}{Numpad8}{AltUp}
 
-; Tau
+; Greek character: Tau
 :*c:;tau;::{AltDown}{Numpad2}{Numpad3}{Numpad1}{AltUp}
 
-; Theta
+; Greek character: Theta
 :*c:;theta;::{AltDown}{Numpad2}{Numpad3}{Numpad3}{AltUp}
 
+; Non-breaking space
+:*cx:;nbsp;::nonBreakingSpace(1)
+:*cx:;2nbsp;::nonBreakingSpace(2)
+:*cx:;4nbsp;::nonBreakingSpace(4)
+:*cx:;8nbsp;::nonBreakingSpace(8)
+:*cx:;16nbsp;::nonBreakingSpace(16)
 
 SendUnicodeChar(charCode)
 {
@@ -90,8 +68,15 @@ SendUnicodeChar(charCode)
   DllCall("SendInput", "UInt", 2, "UInt", &ki, "Int", 28)
 }
 
-
 EncodeInteger(ref, val)
 {
   DllCall("ntdll\RtlFillMemoryUlong", "Uint", ref, "Uint", 4, "Uint", val)
+}
+
+nonBreakingSpace(count)
+{
+  Loop %count%
+  {
+    Send("{AltDown}{Numpad0}{Numpad1}{Numpad6}{Numpad0}{AltUp}")
+  }
 }
