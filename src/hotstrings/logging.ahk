@@ -3,6 +3,8 @@ SendLogMessage(message)
   Send(A_YYYY A_MM A_DD "T" A_Hour A_Min " " message)
 }
 
+:*cx:;log;::SendLogMessage("")
+
 :*cx:;logarrival;::SendLogMessage("Arrived at work.")
 
 :*cx:;logbreak;::SendLogMessage("Break.")
@@ -10,6 +12,13 @@ SendLogMessage(message)
 :*cx:;logfinish;::SendLogMessage("Finished work.")
 
 :*cx:;loglunch;::SendLogMessage("Lunch.")
+
+:*cx:;logmits;::
+{
+  SendLogMessage("MITs:")
+  Send("{Enter}{Tab}^1")
+  return
+}
 
 :*cx:;logstandup;::SendLogMessage("Stand-up.")
 
