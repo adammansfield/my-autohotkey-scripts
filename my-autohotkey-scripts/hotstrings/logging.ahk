@@ -11,7 +11,11 @@
 SendMitsLogMessage()
 {
   SendLogMessage("MITs:")
-  Send("{Enter}{Tab}^1")
+  Send("{Enter}")
+  Sleep(750) ; Sometimes fails to indent if we do not wait.
+  Send("{Tab}")
+  Sleep(10) ; Ensure position is indented before applying Todo tag.
+  Send("^1") ; OneNote Todo tag.
   return
 }
 
