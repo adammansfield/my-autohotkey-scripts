@@ -1,8 +1,8 @@
 #if WinActive("MediaMonkey")
 {
   MButton::MediaMonkeyQuickEdit()
+  ~RButton & LButton::MediaMonkeyLaunchPlayerAndIncrementCount()
   <!p::MediaMonkeyLaunchPlayer()
-  !+p::MediaMonkeyLaunchPlayerAndIncrementCount()
 }
 #if
 
