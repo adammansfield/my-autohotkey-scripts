@@ -1,6 +1,8 @@
 :*cx:;log;::SendLogMessage("")
 :*cx:;logarrival;::SendLogMessage("Arrived at work.")
 :*cx:;logbreak;::SendLogMessage("Break.")
+:*cx:;logdoing;::SendLogMessage("DOING: ")
+:*cx:;logdone;::SendLogMessage("DONE: ")
 :*cx:;logfinish;::SendLogMessage("Finished work.")
 :*cx:;loglunch;::SendLogMessage("Lunch.")
 :*cx:;logmits;::SendMitsLogMessage()
