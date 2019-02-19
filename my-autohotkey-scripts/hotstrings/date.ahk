@@ -17,17 +17,18 @@
 ; A_TickCount The number of milliseconds since the computer was rebooted.
 
 :*?cx:;hm;::Send(A_Hour A_Min)
+:*?cx:;hm-;::Send(A_Hour ":" A_Min)
 :*?cx:;ts;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
 :*?cx:;ym;::Send(A_YYYY A_MM)
+:*?cx:;ym-;::Send(A_YYYY "-" A_MM)
 :*?cx:;ymd;::Send(A_YYYY A_MM A_DD)
+:*?cx:;ymd-;::Send(A_YYYY "-" A_MM "-" A_DD)
 :*?cx:;ymdhm;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
+:*?cx:;ymdhm-;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min)
 :*?cx:;ymdhms;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec)
+:*?cx:;ymdhms-;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
 :*?cx:;yw;::Send(A_YYYY "W" GetWeekNumber())
-:*?cx:;y-m;::Send(A_YYYY "-" A_MM)
-:*?cx:;y-m-d;::Send(A_YYYY "-" A_MM "-" A_DD)
-:*?cx:;y-m-d-h-m;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min)
-:*?cx:;y-m-d-h-m-s;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
-:*?cx:;y-w;::Send(A_YYYY "-W" GetWeekNumber())
+:*?cx:;yw;::Send(A_YYYY "-W" GetWeekNumber())
 
 GetWeekNumber()
 {
