@@ -21,10 +21,11 @@
 
 :*?cx:#consider::SendConsiderCodeTag("{#}")
 :*?cx:#document::SendDocumentCodeTag("{#}")
-:*?cx:#debug::SendDebugCodeTage("{#}")
+:*?cx:#debug::SendDebugCodeTag("{#}")
 :*?cx:#doing::SendDoingCodeTag("{#}")
-:*?cx:#dm::SendDontMergeCodeTage("{#}")
-:*?cx:#fixme::SendFixMeCodeTage("{#}")
+:*?cx:#dm::SendDontMergeCodeTag("{#}")
+:*?cx:#fixme::SendFixMeCodeTag("{#}")
+:*?cx:#hack::SendHackCodeTag("{#}")
 :*?cx:#implement::SendImplementCodeTag("{#}")
 :*?cx:#note::SendNoteCodeTag("{#}")
 :*?cx:#original::SendOriginalCodeTag("{#}")
@@ -32,13 +33,15 @@
 :*?cx:#remove::SendRemoveCodeTag("{#}")
 :*?cx:#todo::SendTodoCodeTag("{#}")
 :*?cx:#???::SendQuestionCodeTag("{#}")
+:*?cx:#uncomment::SendUncommentCodeTag("{#}")
 
 :*?cx://consider::SendConsiderCodeTag("//")
 :*?cx://document::SendDocumentCodeTag("//")
-:*?cx://debug::SendDebugCodeTage("//")
+:*?cx://debug::SendDebugCodeTag("//")
 :*?cx://doing::SendDoingCodeTag("//")
-:*?cx://dm::SendDontMergeCodeTage("//")
-:*?cx://fixme::SendFixMeCodeTage("//")
+:*?cx://dm::SendDontMergeCodeTag("//")
+:*?cx://fixme::SendFixMeCodeTag("//")
+:*?cx://hack::SendHackCodeTag("//")
 :*?cx://implement::SendImplementCodeTag("//")
 :*?cx://note::SendNoteCodeTag("//")
 :*?cx://original::SendOriginalCodeTag("//")
@@ -46,13 +49,15 @@
 :*?cx://remove::SendRemoveCodeTag("//")
 :*?cx://todo::SendTodoCodeTag("//")
 :*?cx://???::SendQuestionCodeTag("//")
+:*?cx://uncomment::SendUncommentCodeTag("//")
 
 :*?cx:;;consider::SendConsiderCodeTag(";")
 :*?cx:;;document::SendDocumentCodeTag(";")
-:*?cx:;;debug::SendDebugCodeTage(";")
+:*?cx:;;debug::SendDebugCodeTag(";")
 :*?cx:;;doing::SendDoingCodeTag(";")
-:*?cx:;;dm::SendDontMergeCodeTage(";")
-:*?cx:;;fixme::SendFixMeCodeTage(";")
+:*?cx:;;dm::SendDontMergeCodeTag(";")
+:*?cx:;;fixme::SendFixMeCodeTag(";")
+:*?cx:;;hack::SendHackCodeTag(";")
 :*?cx:;;implement::SendImplementCodeTag(";")
 :*?cx:;;note::SendNoteCodeTag(";")
 :*?cx:;;original::SendOriginalCodeTag(";")
@@ -60,10 +65,11 @@
 :*?cx:;;remove::SendRemoveCodeTag(";")
 :*?cx:;;todo::SendTodoCodeTag(";")
 :*?cx:;;???::SendQuestionCodeTag(";")
+:*?cx:;;uncomment::SendUncommentCodeTag(";")
 
-:*?cx:;ctauthor;::SendCodeTagAuthor()
-:*?cx:;ctdm;::SendCodeTagIdentifier("DONTMERGE")
-:*?cx:;cttodo;::SendCodeTagIdentifier("TODO")
+:*?cx:;authorct;::SendCodeTagAuthor()
+:*?cx:;dmct;::SendCodeTagIdentifier("DONTMERGE")
+:*?cx:;todoct;::SendCodeTagIdentifier("TODO")
 
 GetCodeTagAuthor()
 {
@@ -127,7 +133,7 @@ SendDocumentCodeTag(comment_char)
   SendCodeTag(comment_char, "TODO", "document.")
 }
 
-SendDebugCodeTage(comment_char)
+SendDebugCodeTag(comment_char)
 {
   SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "code below is for debugging purposes.")
 }
@@ -138,14 +144,19 @@ SendDoingCodeTag(comment_char)
   Send("{Left 13}")
 }
 
-SendDontMergeCodeTage(comment_char)
+SendDontMergeCodeTag(comment_char)
 {
   SendCodeTag(comment_char, "DONTMERGE")
 }
 
-SendFixMeCodeTage(comment_char)
+SendFixMeCodeTag(comment_char)
 {
   SendCodeTag(comment_char, "FIXME")
+}
+
+SendHackCodeTag(comment_char)
+{
+  SendCodeTag(comment_char, "HACK")
 }
 
 SendImplementCodeTag(comment_char)
@@ -189,4 +200,9 @@ SendRemoveCodeTag(comment_char)
 SendTodoCodeTag(comment_char)
 {
   SendCodeTag(comment_char, "TODO")
+}
+
+SendUncommentCodeTag(comment_char)
+{
+  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "uncomment.")
 }
