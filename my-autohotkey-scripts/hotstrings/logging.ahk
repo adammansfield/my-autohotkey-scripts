@@ -1,7 +1,8 @@
 :*cx:;log;::SendLogMessage("")
 :*cx:;logarrival;::SendLogMessage("Arrived at work")
 :*cx:;logbreak;::SendLogMessage("Break")
-:*cx:;logdoing;::SendLogMessage("DOING: ")
+:*cx:;logdoing;::DoingMessage.LogDoing()
+:*cx:;logdoingdone;::DoingMessage.LogDone()
 :*cx:;logdone;::SendLogMessage("DONE: ")
 :*cx:;logfinish;::SendLogMessage("Finished work")
 :*cx:;loglunch;::SendLogMessage("Lunch")
@@ -12,6 +13,24 @@
 :*cx:;logtodo;::SendTodoLogMessage()
 :*cx:;logtodolist;::SendLogMessage("DOING: processing todo list")
 :*cx:;logvpn;::SendLogMessage("Connected to work VPN")
+
+;; Doing and done log messages that will resend the last doing task for the done message.
+class DoingMessage
+{
+  static last_task := ""
+
+  LogDoing()
+  {
+    SendLogMessage("DOING: ")
+    DoingMessage.last_task := Input("V", "{Enter}")
+  }
+
+  LogDone()
+  {
+    SendLogMessage("DONE: ")
+    Send(DoingMessage.last_task)
+  }
+}
 
 SendMitsLogMessage()
 {
