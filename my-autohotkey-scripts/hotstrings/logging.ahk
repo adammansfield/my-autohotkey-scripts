@@ -5,18 +5,19 @@
 :*cx:;logdone;::SendLogMessage("DONE: ")
 :*cx:;logfinish;::SendLogMessage("Finished work")
 :*cx:;loglunch;::SendLogMessage("Lunch")
-:*cx:;logmail;::SendLogMessage("DOING: Processing email")
+:*cx:;logmail;::SendLogMessage("DOING: processing mail")
+:*cx:;logmeeting;::SendLogMessage("Meeting")
 :*cx:;logmits;::SendMitsLogMessage()
-:*cx:;logstandup;::SendLogMessage("Stand-up")
+:*cx:;logscrum;::SendLogMessage("Scrum")
 :*cx:;logtodo;::SendTodoLogMessage()
-:*cx:;logtodolist;::SendLogMessage("DOING: Processing todo list")
-:*cx:;logvpn;::SendLogMessage("Signed into VPN")
+:*cx:;logtodolist;::SendLogMessage("DOING: processing todo list")
+:*cx:;logvpn;::SendLogMessage("Connected to work VPN")
 
 SendMitsLogMessage()
 {
   SendLogMessage("MITs:")
   Send("{Enter}")
-  Sleep(750) ; Sometimes fails to indent if we do not wait.
+  Sleep(750) ; Sometimes it fails to indent if we do not wait.
   Send("{Tab}")
   Sleep(10) ; Ensure position is indented before applying Todo tag.
   Send("^1") ; OneNote Todo tag.
