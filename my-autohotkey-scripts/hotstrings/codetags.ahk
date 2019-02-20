@@ -19,6 +19,8 @@
 ;  ???
 ;   Question about the code below.
 
+#if !WinActive("Remote Desktop Connection")
+
 :*?cx:#consider::SendConsiderCodeTag("{#}")
 :*?cx:#document::SendDocumentCodeTag("{#}")
 :*?cx:#debug::SendDebugCodeTag("{#}")
@@ -206,3 +208,5 @@ SendUncommentCodeTag(comment_char)
 {
   SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "uncomment.")
 }
+
+#If
