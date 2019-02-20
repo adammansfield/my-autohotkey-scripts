@@ -6,12 +6,12 @@
 :*cx:;logdone;::SendLogMessage("DONE: ")
 :*cx:;logfinish;::SendLogMessage("Finished work")
 :*cx:;loglunch;::SendLogMessage("Lunch")
-:*cx:;logmail;::SendLogMessage("DOING: processing mail")
+:*cx:;logmail;::DoingMessage.LogDoing("processing mail")
 :*cx:;logmeeting;::SendLogMessage("Meeting")
 :*cx:;logmits;::SendMitsLogMessage()
 :*cx:;logscrum;::SendLogMessage("Scrum")
 :*cx:;logtodo;::SendTodoLogMessage()
-:*cx:;logtodolist;::SendLogMessage("DOING: processing todo list")
+:*cx:;logtodolist;::DoingMessage.LogDoing("processing todo list")
 :*cx:;logvpn;::SendLogMessage("Connected to work VPN")
 
 ;; Doing and done log messages that will resend the last doing task for the done message.
@@ -19,10 +19,14 @@ class DoingMessage
 {
   static last_task := ""
 
-  LogDoing()
+  LogDoing(task = "")
   {
-    SendLogMessage("DOING: ")
-    DoingMessage.last_task := Input("V", "{Enter}")
+    SendLogMessage("DOING: " task)
+    if ("" == task)
+    {
+      task := Input("V", "{Enter}")
+    }
+    DoingMessage.last_task := task
   }
 
   LogDone()
