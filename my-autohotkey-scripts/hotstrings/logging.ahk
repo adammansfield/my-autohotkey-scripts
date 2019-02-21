@@ -4,6 +4,7 @@
 ; SE will use SendEvent so the keystrokes can be delayed. [2019-02-20]
 :*cK1SEx:;log;::SendLogMessage("")
 :*cK1SEx:;logarrival;::SendLogMessage("Arrived at work")
+:*cK1SEx:;logbathroom;::SendLogMessage("Bathroom")
 :*cK1SEx:;logbreak;::SendLogMessage("Break")
 :*cK1SEx:;logdid;::DoingMessage.LogDone()
 :*cK1SEx:;logdoing;::DoingMessage.LogDoing()
