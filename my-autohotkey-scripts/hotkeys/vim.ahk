@@ -8,7 +8,17 @@
 >!b::Vim.ModeDependentSend("^{Left}")
 
 ;; Delete (vim key d).
->!d::Vim.SendThenResetMode("^x")
+>!d::
+{
+  command := Input("L1")
+  ; NOTE(me@adammansfield.com): Input cannot capture Alt-key presses [2019-02-21]
+  if ("d" == command) ; vim key dd
+  {
+    Send("{Home}+{End}^x")
+  }
+  ; TODO(me@adammansfield.com): Add other characters [2019-02-21]
+  return
+}
 
 ;; Delete to end of line (vim key D).
 >!+d::
