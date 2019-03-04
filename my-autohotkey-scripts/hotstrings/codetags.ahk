@@ -132,12 +132,12 @@ SendConsiderCodeTag(comment_char)
 
 SendDocumentCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "TODO", "document.")
+  SendCodeTag(comment_char, "TODO", "document")
 }
 
 SendDebugCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "code below is for debugging purposes.")
+  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "code below is for debugging purposes")
 }
 
 SendDoingCodeTag(comment_char)
@@ -163,7 +163,7 @@ SendHackCodeTag(comment_char)
 
 SendImplementCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "TODO", "implement.")
+  SendCodeTag(comment_char, "TODO", "implement")
 }
 
 SendNoteCodeTag(comment_char)
@@ -181,7 +181,7 @@ SendOpeningAndClosingCodeTags(comment_char, mnemonic, subject = "")
 
 SendOriginalCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "original code below.")
+  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "original code below")
 }
 
 SendQuestionCodeTag(comment_char)
@@ -196,7 +196,7 @@ SendRefactorCodeTag(comment_char)
 
 SendRemoveCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "remove code below.")
+  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "remove code below")
 }
 
 SendTodoCodeTag(comment_char)
@@ -206,7 +206,7 @@ SendTodoCodeTag(comment_char)
 
 SendUncommentCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "uncomment.")
+  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "uncomment")
 }
 
 #If
