@@ -11,6 +11,7 @@
 :*?cK10SEx:;logdoing;::DoingMessage.LogDoing()
 :*?cK10SEx:;logdone;::SendLogMessage("DONE: ")
 :*?cK10SEx:;logfinish;::SendLogMessage("Finished work")
+:*?cK10SEx:;loggnucash;::DoingMessage.LogDoing("gnucash")
 :*?cK10SEx:;loglunch;::SendLogMessage("Lunch")
 :*?cK10SEx:;logmail;::DoingMessage.LogDoing("process mail")
 :*?cK10SEx:;logmeeting;::SendLogMessage("Meeting")
