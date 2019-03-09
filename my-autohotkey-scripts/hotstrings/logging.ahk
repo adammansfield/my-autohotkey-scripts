@@ -16,6 +16,7 @@
 :*?cK10SEx:;logmail;::DoingMessage.LogDoing("process mail")
 :*?cK10SEx:;logmeeting;::SendLogMessage("Meeting")
 :*?cK10SEx:;logplanning;::SendLogMessage("Planning")
+:*?cK10SEx:;logredo;::DoingMessage.LogRedo()
 :*?cK10SEx:;logretro;::SendLogMessage("Retrospective")
 :*?cK10SEx:;logscrum;::SendLogMessage("Scrum")
 :*?cK10SEx:;logsprint;::SendSprintLogMessage()
@@ -38,6 +39,11 @@ class DoingMessage
       task := Input("V", "{Enter}")
     }
     DoingMessage.last_task := task
+  }
+
+  LogRedo()
+  {
+    DoingMessage.LogDoing(DoingMessage.last_task)
   }
 
   LogDone()
