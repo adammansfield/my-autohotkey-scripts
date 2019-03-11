@@ -76,7 +76,7 @@ SendOneNoteTodoList()
 
 SendStretchLogMessage()
 {
-  SendLogMessage("Daily stretch tasks:")
+  SendLogMessage("Stretch:")
   SendOneNoteTodoList()
 }
 
