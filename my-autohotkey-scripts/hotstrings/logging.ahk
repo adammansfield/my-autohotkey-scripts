@@ -60,7 +60,7 @@ SendLogMessage(message)
 
 SendSprintLogMessage()
 {
-  SendLogMessage("Daily sprint tasks:")
+  SendLogMessage("Sprint:")
   SendOneNoteTodoList()
 }
 
