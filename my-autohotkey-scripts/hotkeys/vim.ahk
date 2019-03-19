@@ -10,13 +10,20 @@
 ;; Delete (vim key d).
 >!d::
 {
-  command := Input("L1")
-  ; NOTE(me@adammansfield.com): Input cannot capture Alt-key presses [2019-02-21]
-  if ("d" == command) ; vim key dd
+  if (Vim.IsVisualMode())
   {
-    Send("{Home}+{End}^x")
+    Vim.SendThenResetMode("^x")
   }
-  ; TODO(me@adammansfield.com): Add other characters [2019-02-21]
+  else
+  {
+    command := Input("L1")
+    ; NOTE(me@adammansfield.com): Input cannot capture Alt-key presses [2019-02-21]
+    if ("d" == command) ; vim key dd
+    {
+      Send("{Home}+{End}^x")
+    }
+    ; TODO(me@adammansfield.com): Add other characters [2019-02-21]
+  }
   return
 }
 
