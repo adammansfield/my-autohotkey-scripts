@@ -13,7 +13,7 @@
 :*?cK10SEx:;logfinish;::SendLogMessage("Finished work")
 :*?cK10SEx:;loggnucash;::DoingMessage.LogDoing("gnucash")
 :*?cK10SEx:;loglunch;::SendLogMessage("Lunch")
-:*?cK10SEx:;logmail;::DoingMessage.LogDoing("process mail")
+:*?cK10SEx:;logmail;::DoingMessage.LogDoing("mail")
 :*?cK10SEx:;logmeeting;::SendLogMessage("Meeting")
 :*?cK10SEx:;logplanning;::SendLogMessage("Planning")
 :*?cK10SEx:;logredo;::DoingMessage.LogRedo()
@@ -22,7 +22,7 @@
 :*?cK10SEx:;logsprint;::SendSprintLogMessage()
 :*?cK10SEx:;logstretch;::SendStretchLogMessage()
 :*?cK10SEx:;logtodo;::SendTodoLogMessage()
-:*?cK10SEx:;logtoodledo;::DoingMessage.LogDoing("process toodledo")
+:*?cK10SEx:;logtoodledo;::DoingMessage.LogDoing("toodledo")
 :*?cK10SEx:;logvpn;::SendLogMessage("Connected to work VPN")
 :*?cK10SEx:;log???;::SendLogMessage("???: ")
 
