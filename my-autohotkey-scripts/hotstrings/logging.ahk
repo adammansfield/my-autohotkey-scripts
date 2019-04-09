@@ -3,28 +3,28 @@
 ; Kn will add a 'n' ms delay between keystrokes.
 ; SE will use SendEvent so the keystrokes can be delayed. [2019-02-20]
 :*?cK10SEx:;log;::SendLogMessage("")
-:*?cK10SEx:;logarrival;::SendLogMessage("Arrived at work")
-:*?cK10SEx:;logbathroom;::SendLogMessage("Bathroom")
-:*?cK10SEx:;logbreak;::SendLogMessage("Break")
-:*?cK10SEx:;logdemo;::SendLogMessage("Demo")
+:*?cK10SEx:;logarrival;::SendLogMessageAndNewLine("Arrived at work")
+:*?cK10SEx:;logbathroom;::SendLogMessageAndNewLine("Bathroom")
+:*?cK10SEx:;logbreak;::SendLogMessageAndNewLine("Break")
+:*?cK10SEx:;logdemo;::SendLogMessageAndNewLine("Demo")
 :*?cK10SEx:;logdid;::TaskMessage.LogDone()
 :*?cK10SEx:;logdoing;::TaskMessage.LogDoing()
 :*?cK10SEx:;logdone;::SendLogMessage("DONE: ")
-:*?cK10SEx:;logfinish;::SendLogMessage("Finished work")
+:*?cK10SEx:;logfinish;::SendLogMessageAndNewLine("Finished work")
 :*?cK10SEx:;loggnucash;::TaskMessage.LogDoing("gnucash")
-:*?cK10SEx:;loglunch;::SendLogMessage("Lunch")
+:*?cK10SEx:;loglunch;::SendLogMessageAndNewLine("Lunch")
 :*?cK10SEx:;logmail;::TaskMessage.LogDoing("mail")
 :*?cK10SEx:;logmeeting;::SendLogMessage("Meeting")
 :*?cK10SEx:;logpause;::TaskMessage.LogPause()
-:*?cK10SEx:;logplanning;::SendLogMessage("Planning")
+:*?cK10SEx:;logplanning;::SendLogMessageAndNewLine("Planning")
 :*?cK10SEx:;logresume;::TaskMessage.LogResume()
-:*?cK10SEx:;logretro;::SendLogMessage("Retrospective")
-:*?cK10SEx:;logscrum;::SendLogMessage("Scrum")
+:*?cK10SEx:;logretro;::SendLogMessageAndNewLine("Retrospective")
+:*?cK10SEx:;logscrum;::SendLogMessageAndNewLine("Scrum")
 :*?cK10SEx:;logsprint;::SendSprintLogMessage()
 :*?cK10SEx:;logstretch;::SendStretchLogMessage()
 :*?cK10SEx:;logtodo;::SendTodoLogMessage()
 :*?cK10SEx:;logtoodledo;::TaskMessage.LogDoing("toodledo")
-:*?cK10SEx:;logvpn;::SendLogMessage("Connected to work VPN")
+:*?cK10SEx:;logvpn;::SendLogMessageAndNewLine("Connected to work VPN")
 :*?cK10SEx:;log???;::SendLogMessage("???: ")
 
 ;; Task log message (doing, done, pause) that remembers the last task.
@@ -66,10 +66,12 @@ class TaskMessage
 SendLogMessage(message)
 {
   Send(A_YYYY A_MM A_DD "T" A_Hour A_Min " " message)
-  if (message != "")
-  {
-    Send("{Enter}")
-  }
+}
+
+SendLogMessageAndNewLine(message)
+{
+  SendLogMessage(message)
+  Send("{Enter}")
 }
 
 SendSprintLogMessage()
