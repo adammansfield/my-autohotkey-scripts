@@ -7,27 +7,28 @@
 :*?cK10SEx:;logbathroom;::SendLogMessage("Bathroom")
 :*?cK10SEx:;logbreak;::SendLogMessage("Break")
 :*?cK10SEx:;logdemo;::SendLogMessage("Demo")
-:*?cK10SEx:;logdid;::DoingMessage.LogDone()
-:*?cK10SEx:;logdoing;::DoingMessage.LogDoing()
+:*?cK10SEx:;logdid;::TaskMessage.LogDone()
+:*?cK10SEx:;logdoing;::TaskMessage.LogDoing()
 :*?cK10SEx:;logdone;::SendLogMessage("DONE: ")
 :*?cK10SEx:;logfinish;::SendLogMessage("Finished work")
-:*?cK10SEx:;loggnucash;::DoingMessage.LogDoing("gnucash")
+:*?cK10SEx:;loggnucash;::TaskMessage.LogDoing("gnucash")
 :*?cK10SEx:;loglunch;::SendLogMessage("Lunch")
-:*?cK10SEx:;logmail;::DoingMessage.LogDoing("mail")
+:*?cK10SEx:;logmail;::TaskMessage.LogDoing("mail")
 :*?cK10SEx:;logmeeting;::SendLogMessage("Meeting")
+:*?cK10SEx:;logpause;::TaskMessage.LogPause()
 :*?cK10SEx:;logplanning;::SendLogMessage("Planning")
-:*?cK10SEx:;logredo;::DoingMessage.LogRedo()
+:*?cK10SEx:;logresume;::TaskMessage.LogResume()
 :*?cK10SEx:;logretro;::SendLogMessage("Retrospective")
 :*?cK10SEx:;logscrum;::SendLogMessage("Scrum")
 :*?cK10SEx:;logsprint;::SendSprintLogMessage()
 :*?cK10SEx:;logstretch;::SendStretchLogMessage()
 :*?cK10SEx:;logtodo;::SendTodoLogMessage()
-:*?cK10SEx:;logtoodledo;::DoingMessage.LogDoing("toodledo")
+:*?cK10SEx:;logtoodledo;::TaskMessage.LogDoing("toodledo")
 :*?cK10SEx:;logvpn;::SendLogMessage("Connected to work VPN")
 :*?cK10SEx:;log???;::SendLogMessage("???: ")
 
-;; Doing and done log messages that will resend the last task for the done message.
-class DoingMessage
+;; Task log message (doing, done, pause) that remembers the last task.
+class TaskMessage
 {
   static last_task := ""
 
@@ -38,24 +39,37 @@ class DoingMessage
     {
       task := Input("V", "{Enter}")
     }
-    DoingMessage.last_task := task
-  }
-
-  LogRedo()
-  {
-    DoingMessage.LogDoing(DoingMessage.last_task)
+    TaskMessage.last_task := task
   }
 
   LogDone()
   {
     SendLogMessage("DONE: ")
-    Send(DoingMessage.last_task)
+    Send(TaskMessage.last_task)
+    Send("{Enter}")
+  }
+
+  LogPause()
+  {
+    SendLogMessage("PAUSE: ")
+    Send(TaskMessage.last_task)
+    Send("{Enter}")
+  }
+
+  LogResume()
+  {
+    TaskMessage.LogDoing(TaskMessage.last_task)
+    Send("{Enter}")
   }
 }
 
 SendLogMessage(message)
 {
   Send(A_YYYY A_MM A_DD "T" A_Hour A_Min " " message)
+  if (message != "")
+  {
+    Send("{Enter}")
+  }
 }
 
 SendSprintLogMessage()
