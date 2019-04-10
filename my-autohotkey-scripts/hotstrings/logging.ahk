@@ -39,6 +39,10 @@ class TaskMessage
     {
       task := Input("V", "{Enter}")
     }
+    else
+    {
+      Send("{Enter}")
+    }
     TaskMessage.last_task := task
   }
 
