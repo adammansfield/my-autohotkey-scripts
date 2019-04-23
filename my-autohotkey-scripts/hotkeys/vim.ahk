@@ -146,11 +146,7 @@
 >!y::Vim.SendThenResetMode("^c{Left}")
 
 ;; Yank line (vim key Y).
->!+y::
-{
-  ; TODO: implement yank line.
-  return
-}
+>!+y::Send("{Home}+{End}^c{Right}")
 
 ;; Backspace (vim key backspace).
 >!Backspace::Vim.SendThenResetMode("{Backspace}")
