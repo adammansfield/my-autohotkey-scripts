@@ -1,13 +1,13 @@
 ; Multi-language codetage comments inspired by https://www.python.org/dev/peps/pep-0350/
 ;
 ; Format
-;  # MNEMONIC(AUTHOR): SUBJECT. [YYY-MM-DD]
+;  # MNEMONIC: SUBJECT [YYYY-MM-DD]
 ;
 ; Mnemonics
 ;  CONSIDER
 ;   Reminder to CONSIDER something.
 ;  DONTMERGE
-;   Self reminder to DONTMERGE the code below.
+;   Self reminder to DONTMERGE this comemnt or the code below.
 ;  FIXME
 ;   The code below needs to be FIXed.
 ;  NOTE
@@ -69,37 +69,8 @@
 :*?cx:;;???::SendQuestionCodeTag(";")
 :*?cx:;;uncomment::SendUncommentCodeTag(";")
 
-:*?cx:;authorct;::SendCodeTagAuthor()
 :*?cx:;dmct;::SendCodeTagIdentifier("DONTMERGE")
 :*?cx:;todoct;::SendCodeTagIdentifier("TODO")
-
-GetCodeTagAuthor()
-{
-  static author := ""
-
-  if (author = "")
-  {
-    ; CONSIDER(me@adammansfield.com): Moving the code below to a separate config.ahk [2019-01-24]
-    filename := "my-autohotkey-scripts.ini"
-    section := "CodeTag"
-    key := "Author"
-
-    try
-    {
-      author := IniRead(filename, section, key)
-    }
-    catch
-    {
-      author := "me@adammansfield.com"
-      if (!FileExist(filename))
-      {
-        FileAppend("[" section "]`n" key "=" author, filename)
-      }
-    }
-  }
-
-  return author
-}
 
 SendCodeTag(comment_char, mnemonic, subject = "", timestamp = "")
 {
@@ -108,21 +79,16 @@ SendCodeTag(comment_char, mnemonic, subject = "", timestamp = "")
     timestamp := "[" A_YYYY "-" A_MM "-" A_DD "]"
   }
 
-  Send(comment_char " " mnemonic "(" GetCodeTagAuthor() "): " subject " " timestamp)
+  Send(comment_char " " mnemonic ": " subject " " timestamp)
   if (subject = "")
   {
     Send("{Left 13}")
   }
 }
 
-SendCodeTagAuthor()
-{
-  Send(GetCodeTagAuthor())
-}
-
 SendCodeTagIdentifier(mnemonic)
 {
-  Send(mnemonic "(" GetCodeTagAuthor() "): ")
+  Send(mnemonic)
 }
 
 SendConsiderCodeTag(comment_char)
@@ -137,7 +103,7 @@ SendDocumentCodeTag(comment_char)
 
 SendDebugCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "code below is for debugging purposes")
+  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "for debugging")
 }
 
 SendDoingCodeTag(comment_char)
@@ -176,12 +142,12 @@ SendOpeningAndClosingCodeTags(comment_char, mnemonic, subject = "")
   timestamp := "[" A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec "]"
   SendCodeTag(comment_char, mnemonic, subject, timestamp)
   Send("{Enter}")
-  SendCodeTag(comment_char, "END" mnemonic, "", timestamp)
+  SendCodeTag(comment_char, "END" mnemonic, subject, timestamp)
 }
 
 SendOriginalCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "original code below")
+  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "original")
 }
 
 SendQuestionCodeTag(comment_char)
@@ -196,7 +162,7 @@ SendRefactorCodeTag(comment_char)
 
 SendRemoveCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "remove code below")
+  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "remove")
 }
 
 SendTodoCodeTag(comment_char)
