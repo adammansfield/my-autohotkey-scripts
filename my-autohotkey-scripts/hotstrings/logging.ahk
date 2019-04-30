@@ -78,12 +78,6 @@ SendLogMessageAndNewLine(message)
   Send("{Enter}")
 }
 
-SendSprintLogMessage()
-{
-  SendLogMessage("Sprint:")
-  SendOneNoteTodoList()
-}
-
 ;; Send commands to create an indented todo list on a new line.
 SendOneNoteTodoList()
 {
@@ -92,6 +86,15 @@ SendOneNoteTodoList()
   Send("{Tab}")
   Sleep(10) ; Ensure position is indented before applying Todo tag.
   Send("^1") ; OneNote Todo tag.
+}
+
+SendSprintLogMessage()
+{
+  Send("^!h") ; OneNote highlight.
+  SendLogMessage("Sprint:")
+  Send("^!h") ; OneNote unhighlight.
+  Send(" ") ; Add an unhighlighted space so that the next message is not highlighted.
+  SendOneNoteTodoList()
 }
 
 SendStretchLogMessage()
