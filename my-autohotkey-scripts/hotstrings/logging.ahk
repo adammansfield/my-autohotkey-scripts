@@ -10,6 +10,7 @@
 :*?cK10SEx:;logdid;::TaskMessage.LogDone()
 :*?cK10SEx:;logdoing;::TaskMessage.LogDoing()
 :*?cK10SEx:;logdone;::SendLogMessage("DONE: ")
+:*?cK10SEx:;logdraft;::SendLogMessage("Draft: ")
 :*?cK10SEx:;logfinish;::SendLogMessageAndNewLine("Finished work")
 :*?cK10SEx:;loggnucash;::TaskMessage.LogDoing("gnucash")
 :*?cK10SEx:;loglunch;::SendLogMessageAndNewLine("Lunch")
