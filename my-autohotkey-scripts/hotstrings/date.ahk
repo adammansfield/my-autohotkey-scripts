@@ -19,6 +19,7 @@
 :*?cx:;hm;::Send(A_Hour A_Min)
 :*?cx:;hm-;::Send(A_Hour ":" A_Min)
 :*?cx:;ts;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
+:*?cx:;ts-;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
 :*?cx:;ym;::Send(A_YYYY A_MM)
 :*?cx:;ym-;::Send(A_YYYY "-" A_MM)
 :*?cx:;ymd;::Send(A_YYYY A_MM A_DD)
