@@ -15,6 +15,7 @@
 :*?cK10SEx:;loggnucash;::TaskMessage.LogDoing("gnucash")
 :*?cK10SEx:;loglunch;::SendLogMessageAndNewLine("Lunch")
 :*?cK10SEx:;logmail;::TaskMessage.LogDoing("mail")
+:*?cK10SEx:;logmessage;::SendMessageLogMessage()
 :*?cK10SEx:;logmeeting;::SendLogMessage("Meeting")
 :*?cK10SEx:;logpause;::TaskMessage.LogPause()
 :*?cK10SEx:;logplanning;::SendLogMessageAndNewLine("Planning")
@@ -77,6 +78,21 @@ SendLogMessageAndNewLine(message)
 {
   SendLogMessage(message)
   Send("{Enter}")
+}
+
+SendMessageLogMessage()
+{
+  SendLogMessage("Message: ")
+  KeyWait("Enter", "D")
+  KeyWait("Enter")
+  Sleep(150) ; Sometimes it fails to indent if we do not wait.
+  Send("{Tab}")
+  Sleep(10) ; Ensure position is indented before pasting message.
+  Clipboard := Clipboard ; Remove formatting.
+  Send("^v")
+  Sleep(100) ; Ensure content is fully pasted.
+  Send("{Enter}")
+  Send("+{Tab}")
 }
 
 ;; Send commands to create an indented todo list on a new line.
