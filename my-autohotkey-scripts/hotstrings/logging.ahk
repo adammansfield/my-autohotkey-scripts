@@ -1,7 +1,5 @@
 :*?cx:;log;::SendLogMessage("")
 :*?cx:;logarrival;::SendLogMessageAndNewLine("Arrived at work")
-:*?cx:;logbathroom;::SendLogMessageAndNewLine("Bathroom")
-:*?cx:;logbreak;::SendLogMessageAndNewLine("Break")
 :*?cx:;logdemo;::SendLogMessageAndNewLine("Demo")
 :*?cx:;logdid;::GetTaskStack().LogDone()
 :*?cx:;logdoing;::GetTaskStack().LogDoing()
