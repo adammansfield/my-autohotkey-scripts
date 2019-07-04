@@ -1,76 +1,115 @@
-; NOTE(me@adammansfield.com): Using KnSE so entire hotstring is backspaced
-; Without this setting, a prefix ';' will be frequently leftover.
-; Kn will add a 'n' ms delay between keystrokes.
-; SE will use SendEvent so the keystrokes can be delayed. [2019-02-20]
-:*?cK10SEx:;log;::SendLogMessage("")
-:*?cK10SEx:;logarrival;::SendLogMessageAndNewLine("Arrived at work")
-:*?cK10SEx:;logbathroom;::SendLogMessageAndNewLine("Bathroom")
-:*?cK10SEx:;logbreak;::SendLogMessageAndNewLine("Break")
-:*?cK10SEx:;logdemo;::SendLogMessageAndNewLine("Demo")
-:*?cK10SEx:;logdid;::TaskMessage.LogDone()
-:*?cK10SEx:;logdoing;::TaskMessage.LogDoing()
-:*?cK10SEx:;logdone;::SendLogMessage("DONE: ")
-:*?cK10SEx:;logdraft;::SendLogMessage("Draft: ")
-:*?cK10SEx:;logfinish;::SendLogMessageAndNewLine("Finished work")
-:*?cK10SEx:;loggnucash;::TaskMessage.LogDoing("gnucash")
-:*?cK10SEx:;loglunch;::SendLogMessageAndNewLine("Lunch")
-:*?cK10SEx:;logmail;::TaskMessage.LogDoing("mail")
-:*?cK10SEx:;logmessage;::SendMessageLogMessage()
-:*?cK10SEx:;logmeeting;::SendLogMessage("Meeting")
-:*?cK10SEx:;logpause;::TaskMessage.LogPause()
-:*?cK10SEx:;logplanning;::SendLogMessageAndNewLine("Planning")
-:*?cK10SEx:;logresume;::TaskMessage.LogResume()
-:*?cK10SEx:;logretro;::SendLogMessageAndNewLine("Retrospective")
-:*?cK10SEx:;logscrum;::SendLogMessageAndNewLine("Scrum")
-:*?cK10SEx:;logsprint;::SendSprintLogMessage()
-:*?cK10SEx:;logstretch;::SendStretchLogMessage()
-:*?cK10SEx:;logtodo;::SendTodoLogMessage()
-:*?cK10SEx:;logtoodledo;::TaskMessage.LogDoing("toodledo")
-:*?cK10SEx:;logvpn;::SendLogMessageAndNewLine("Connected to work VPN")
-:*?cK10SEx:;log???;::SendLogMessage("???: ")
+:*?cx:;log;::SendLogMessage("")
+:*?cx:;logarrival;::SendLogMessageAndNewLine("Arrived at work")
+:*?cx:;logbathroom;::SendLogMessageAndNewLine("Bathroom")
+:*?cx:;logbreak;::SendLogMessageAndNewLine("Break")
+:*?cx:;logdemo;::SendLogMessageAndNewLine("Demo")
+:*?cx:;logdid;::GetTaskStack().LogDone()
+:*?cx:;logdoing;::GetTaskStack().LogDoing()
+:*?cx:;logdone;::SendLogMessage("DONE: ")
+:*?cx:;logdraft;::SendLogMessage("Draft: ")
+:*?cx:;logfinish;::SendLogMessageAndNewLine("Finished work")
+:*?cx:;loggnucash;::GetTaskStack().LogDoing("gnucash")
+:*?cx:;loglunch;::SendLogMessageAndNewLine("Lunch")
+:*?cx:;logmail;::GetTaskStack().LogDoing("mail")
+:*?cx:;logmessage;::SendMessageLogMessage()
+:*?cx:;logmeeting;::SendLogMessage("Meeting")
+:*?cx:;logpause;::GetTaskStack().LogPause()
+:*?cx:;logplanning;::SendLogMessageAndNewLine("Planning")
+:*?cx:;logresume;::GetTaskStack().LogResume()
+:*?cx:;logretro;::SendLogMessageAndNewLine("Retrospective")
+:*?cx:;logscrum;::SendLogMessageAndNewLine("Scrum")
+:*?cx:;logsprint;::SendSprintLogMessage()
+:*?cx:;logstretch;::SendStretchLogMessage()
+:*?cx:;logtodo;::SendTodoLogMessage()
+:*?cx:;logtoodledo;::GetTaskStack().LogDoing("toodledo")
+:*?cx:;logvpn;::SendLogMessageAndNewLine("Connected to work VPN")
+:*?cx:;log???;::SendLogMessage("???: ")
 
-;; Task log message (doing, done, pause) that remembers the last task.
-class TaskMessage
+class Stack
 {
-  static last_task := ""
+  s := Array()
+
+  Length()
+  {
+    return this.s.Length()
+  }
+
+  Push(value)
+  {
+    this.s.Push(value)
+  }
+
+  Pop()
+  {
+    return this.s.Pop()
+  }
+
+  Top()
+  {
+    return this.s[this.s.Length()]
+  }
+}
+
+;; Stack for tracking task log messages (doing, done, pause). Indents nested tasks.
+class TaskStack
+{
+  tasks := new Stack
+
+  BuildIndent()
+  {
+    indent := ""
+    Loop % (this.tasks.Length() - 1)
+    {
+      indent := indent "    "
+    }
+    return indent
+  }
 
   LogDoing(task = "")
   {
-    SendLogMessage("DOING: " task)
+    this.tasks.Push(task)
+    SendLogMessage(this.BuildIndent() "DOING: " task)
+
     if ("" == task)
     {
-      task := Input("V", "{Enter}")
+      this.tasks.Pop()
+      this.tasks.Push(Input("V", "{Enter}"))
     }
     else
     {
       Send("{Enter}")
     }
-    TaskMessage.last_task := task
   }
 
   LogDone()
   {
-    SendLogMessage("DONE: ")
-    Send(TaskMessage.last_task)
-    Send("{Enter}")
+    SendLogMessageAndNewLine(this.BuildIndent() "DONE: " this.tasks.Pop())
   }
 
   LogPause()
   {
-    SendLogMessage("PAUSE: ")
-    Send(TaskMessage.last_task)
-    Send("{Enter}")
+    SendLogMessageAndNewLine(this.BuildIndent() "PAUSE: " this.tasks.Top())
   }
 
   LogResume()
   {
-    TaskMessage.LogDoing(TaskMessage.last_task)
-    Send("{Enter}")
+    SendLogMessageAndNewLine(this.BuildIndent() "DOING: " this.tasks.Top())
   }
+}
+
+GetTaskStack()
+{
+  static s := new TaskStack
+  return s
 }
 
 SendLogMessage(message)
 {
+  ; BUG: hotstring backspacing sometimes fails in OneNote
+  ; Without this, a prefix ';' would be frequently leftover. [2019-07-04]
+  Send("{Home}+{End}{Del}")
+  Sleep(10) ; Sleep needed or else message below might be truncated
+
   Send(A_YYYY A_MM A_DD "T" A_Hour A_Min " " message)
 }
 
