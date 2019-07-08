@@ -106,7 +106,7 @@ SendLogMessage(message)
   ; BUG: hotstring backspacing sometimes fails in OneNote
   ; Without this, a prefix ';' would be frequently leftover. [2019-07-04]
   Send("{Home}+{End}{Del}")
-  Sleep(10) ; Sleep needed or else message below might be truncated
+  Sleep(25) ; Sleep needed or else message below might be truncated
 
   Send(A_YYYY A_MM A_DD "T" A_Hour A_Min " " message)
 }
