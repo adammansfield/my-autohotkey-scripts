@@ -1,4 +1,4 @@
-<!o::ToggleMicMute()
+<!m::ToggleMicMute()
 Volume_Down::SoundSet("-1")
 Volume_Up::SoundSet("+1")
 
