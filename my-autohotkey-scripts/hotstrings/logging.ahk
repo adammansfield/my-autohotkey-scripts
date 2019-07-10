@@ -1,6 +1,8 @@
 :*?b0cx:;log;::SendLogMessage("")
 :*?b0cx:;logarrival;::SendLogMessageAndNewLine("Arrived at work")
-:*?b0cx:;logdemo;::SendLogMessageAndNewLine("Demo")
+:*?b0cx:;logclear;::GetTaskStack().Clear(), Send("{Home}+{End}{Del}")
+:*?b0cx:;logchat;::SendLogMessage("Chat: ")
+:*?b0cx:;logdemo;::SendLogMessageAndNewLine("Meeting: demo")
 :*?b0cx:;logdid;::GetTaskStack().LogDone()
 :*?b0cx:;logdoing;::GetTaskStack().LogDoing()
 :*?b0cx:;logdone;::SendLogMessage("DONE: ")
@@ -10,68 +12,48 @@
 :*?b0cx:;loglunch;::SendLogMessageAndNewLine("Lunch")
 :*?b0cx:;logmail;::GetTaskStack().LogDoing("mail")
 :*?b0cx:;logmessage;::SendMessageLogMessage()
-:*?b0cx:;logmeeting;::SendLogMessage("Meeting")
+:*?b0cx:;logmeeting;::SendLogMessage("Meeting: ")
 :*?b0cx:;logpause;::GetTaskStack().LogPause()
-:*?b0cx:;logplanning;::SendLogMessageAndNewLine("Planning")
+:*?b0cx:;logplanning;::SendLogMessageAndNewLine("Meeting: planning")
+:*?b0cx:;logpop;::GetTaskStack().Pop(), Send("{Home}+{End}{Del}")
 :*?b0cx:;logresume;::GetTaskStack().LogResume()
-:*?b0cx:;logretro;::SendLogMessageAndNewLine("Retrospective")
+:*?b0cx:;logretro;::SendLogMessageAndNewLine("Meeting: retrospective")
 :*?b0cx:;logscrum;::SendLogMessageAndNewLine("Scrum")
 :*?b0cx:;logsprint;::SendSprintLogMessage()
-:*?b0cx:;logstretch;::SendStretchLogMessage()
 :*?b0cx:;logtodo;::SendTodoLogMessage()
 :*?b0cx:;logtoodledo;::GetTaskStack().LogDoing("toodledo")
 :*?b0cx:;logvpn;::SendLogMessageAndNewLine("Connected to work VPN")
 :*?b0cx:;log???;::SendLogMessage("???: ")
 
-class Stack
-{
-  s := Array()
-
-  Length()
-  {
-    return this.s.Length()
-  }
-
-  Push(value)
-  {
-    this.s.Push(value)
-  }
-
-  Pop()
-  {
-    return this.s.Pop()
-  }
-
-  Top()
-  {
-    return this.s[this.s.Length()]
-  }
-}
-
 ;; Stack for tracking task log messages (doing, done, pause). Indents nested tasks.
 class TaskStack
 {
-  tasks := new Stack
+  stack_ := Array()
 
-  BuildIndent()
+  buildIndent()
   {
     indent := ""
-    Loop % (this.tasks.Length() - 1)
+    Loop % (this.stack_.Length() - 1)
     {
       indent := indent "    "
     }
     return indent
   }
 
+  Clear()
+  {
+    this.stack_ := Array()
+  }
+
   LogDoing(task = "")
   {
-    this.tasks.Push(task)
-    SendLogMessage(this.BuildIndent() "DOING: " task)
+    this.Push(task)
+    SendLogMessage(this.buildIndent() "DOING: " this.Top())
 
     if ("" == task)
     {
-      this.tasks.Pop()
-      this.tasks.Push(Input("V", "{Enter}"))
+      this.Pop()
+      this.Push(Input("V", "{Enter}"))
     }
     else
     {
@@ -81,17 +63,32 @@ class TaskStack
 
   LogDone()
   {
-    SendLogMessageAndNewLine(this.BuildIndent() "DONE: " this.tasks.Pop())
+    SendLogMessageAndNewLine(this.buildIndent() "DONE: " this.Pop())
   }
 
   LogPause()
   {
-    SendLogMessageAndNewLine(this.BuildIndent() "PAUSE: " this.tasks.Top())
+    SendLogMessageAndNewLine(this.buildIndent() "PAUSE: " this.Top())
   }
 
   LogResume()
   {
-    SendLogMessageAndNewLine(this.BuildIndent() "DOING: " this.tasks.Top())
+    SendLogMessageAndNewLine(this.buildIndent() "DOING: " this.Top())
+  }
+
+  Pop()
+  {
+    return this.stack_.Pop()
+  }
+
+  Push(task)
+  {
+    this.stack_.Push(task)
+  }
+
+  Top()
+  {
+    return this.stack_[this.stack_.Length()]
   }
 }
 
