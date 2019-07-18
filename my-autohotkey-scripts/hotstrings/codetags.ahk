@@ -31,6 +31,7 @@
 :*?cx:#implement::SendImplementCodeTag("{#}")
 :*?cx:#note::SendNoteCodeTag("{#}")
 :*?cx:#original::SendOriginalCodeTag("{#}")
+:*?cx:#reference::SendReferenceCodeTag("{#}")
 :*?cx:#refactor::SendRefactorCodeTag("{#}")
 :*?cx:#remove::SendRemoveCodeTag("{#}")
 :*?cx:#todo::SendTodoCodeTag("{#}")
@@ -48,6 +49,7 @@
 :*?cx://note::SendNoteCodeTag("//")
 :*?cx://original::SendOriginalCodeTag("//")
 :*?cx://refactor::SendRefactorCodeTag("//")
+:*?cx://reference::SendReferenceCodeTag("//")
 :*?cx://remove::SendRemoveCodeTag("//")
 :*?cx://todo::SendTodoCodeTag("//")
 :*?cx://???::SendQuestionCodeTag("//")
@@ -64,6 +66,7 @@
 :*?cx:;;note::SendNoteCodeTag(";")
 :*?cx:;;original::SendOriginalCodeTag(";")
 :*?cx:;;refactor::SendRefactorCodeTag(";")
+:*?cx:;;reference::SendReferenceCodeTag(";")
 :*?cx:;;remove::SendRemoveCodeTag(";")
 :*?cx:;;todo::SendTodoCodeTag(";")
 :*?cx:;;???::SendQuestionCodeTag(";")
@@ -158,6 +161,11 @@ SendQuestionCodeTag(comment_char)
 SendRefactorCodeTag(comment_char)
 {
   SendCodeTag(comment_char, "REFACTOR")
+}
+
+SendReferenceCodeTag(comment_char)
+{
+  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "reference")
 }
 
 SendRemoveCodeTag(comment_char)
