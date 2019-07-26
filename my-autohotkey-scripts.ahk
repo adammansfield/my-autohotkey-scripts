@@ -13,5 +13,7 @@ SetTitleMatchMode RegEx ; Use regular expressions for WinTitle parameters.
 #include <ping>
 #include <speak>
 #include <vistaaudiocontrol>
+#include <winclip>
+#include <winclipapi>
 
 #include my-autohotkey-scripts/index.ahk

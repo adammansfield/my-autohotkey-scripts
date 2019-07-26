@@ -100,14 +100,25 @@ GetTaskStack()
   return s
 }
 
+SendColoredTimestamp()
+{
+  WinClip.Snap(clip)
+  WinClip.Clear()
+  WinClip.SetHTML("<span style='color:#3C87CD'>" A_YYYY A_MM A_DD "T" A_Hour A_Min "</span>")
+  Send("^v")
+  Sleep(200) ; Wait for pasting to finish.
+  WinClip.Restore(clip)
+}
+
 SendLogMessage(message)
 {
   ; BUG: hotstring backspacing sometimes fails in OneNote
   ; Without this, a prefix ';' would be frequently leftover. [2019-07-04]
   Send("{Home}+{End}{Del}")
-  Sleep(25) ; Sleep needed or else message below might be truncated
+  Sleep(25) ; Sleep or else message below might be truncated.
 
-  Send(A_YYYY A_MM A_DD "T" A_Hour A_Min " " message)
+  SendColoredTimestamp()
+  Send(message)
 }
 
 SendLogMessageAndNewLine(message)
@@ -143,24 +154,18 @@ SendOneNoteTodoList()
 
 SendSprintLogMessage()
 {
-  Send("^!h") ; OneNote highlight.
   SendLogMessage("Sprint:")
-  Send("^!h") ; OneNote unhighlight.
-  Send(" ") ; Add an unhighlighted space so that the next message is not highlighted.
-  SendOneNoteTodoList()
-}
-
-SendStretchLogMessage()
-{
-  SendLogMessage("Stretch:")
+  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
+  Sleep(100) ; Ensure that next space will be unhighlighted.
+  Send("{Space}") ; Add an unhighlighted space so that the next message is not highlighted.
   SendOneNoteTodoList()
 }
 
 SendTodoLogMessage()
 {
-  Send("^!h") ; OneNote highlight.
   SendLogMessage("TODO: ")
-  Send("^!h") ; OneNote unhighlight.
-  Send(" ") ; Add an unhighlighted space so that the next message is not highlighted.
+  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
+  Sleep(100) ; Ensure that next space will be unhighlighted.
+  Send("{Space}") ; Add an unhighlighted space so that the next message is not highlighted.
   Send("{Left}") ; Move cursor back to the highlighted portion to finish this message.
 }
