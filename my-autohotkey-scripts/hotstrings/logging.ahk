@@ -119,6 +119,14 @@ PopTaskStack()
   GetTaskStack().Pop()
 }
 
+ResetOneNoteFormatting()
+{
+  ; Highlight one character otherwise ^+n would reset formatting for entire line.
+  Send("+{Left}")
+  Send("^+n")
+  Send("{Right}")
+}
+
 SendAgendaLogMessage()
 {
   SendLogMessageAndNewLine("Agenda:")
@@ -132,7 +140,7 @@ SendColoredTimestamp(timestamp)
   WinClip.Clear()
   WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>")
   Send("^v")
-  Sleep(200) ; Wait for pasting to finish.
+  Sleep(250) ; Wait for pasting to finish.
   WinClip.Restore(clip)
 }
 
@@ -144,6 +152,7 @@ SendLogMessage(message)
   Sleep(25) ; Sleep or else message below might be truncated.
 
   SendColoredTimestamp(A_YYYY A_MM A_DD "T" A_Hour A_Min)
+  ResetOneNoteFormatting()
   Send(message)
 }
 
