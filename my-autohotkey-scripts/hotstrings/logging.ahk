@@ -1,6 +1,7 @@
 :*?b0cx:;log;::SendLogMessage("")
+:*?b0cx:;logagenda;::SendAgendaLogMessage()
 :*?b0cx:;logarrival;::SendLogMessageAndNewLine("Arrived at work")
-:*?b0cx:;logclear;::GetTaskStack().Clear(), Send("{Home}+{End}{Del}")
+:*?b0cx:;logclear;::ClearTaskStack()
 :*?b0cx:;logchat;::SendLogMessage("Chat: ")
 :*?b0cx:;logdemo;::SendLogMessageAndNewLine("Meeting: demo")
 :*?b0cx:;logdid;::GetTaskStack().LogDone()
@@ -15,9 +16,9 @@
 :*?b0cx:;logmeeting;::SendLogMessage("Meeting: ")
 :*?b0cx:;logmmt;::GetTaskStack().LogDoing("mail, messages, toodledo")
 :*?b0cx:;logpause;::GetTaskStack().LogPause()
-:*?b0cx:;logpausepop;::GetTaskStack().LogPause(), GetTaskStack().Pop()
+:*?b0cx:;logpausepop;::PausePopTaskStack()
 :*?b0cx:;logplanning;::SendLogMessageAndNewLine("Meeting: planning")
-:*?b0cx:;logpop;::GetTaskStack().Pop(), Send("{Home}+{End}{Del}")
+:*?b0cx:;logpop;::PopTaskStack()
 :*?b0cx:;logresume;::GetTaskStack().LogResume()
 :*?b0cx:;logretro;::SendLogMessageAndNewLine("Meeting: retrospective")
 :*?b0cx:;logscrum;::SendLogMessageAndNewLine("Scrum")
@@ -94,17 +95,42 @@ class TaskStack
   }
 }
 
+ClearTaskStack()
+{
+  Send("{Home}+{End}{Del}")
+  GetTaskStack().Clear()
+}
+
 GetTaskStack()
 {
   static s := new TaskStack
   return s
 }
 
-SendColoredTimestamp()
+PausePopTaskStack()
+{
+  GetTaskStack().LogPause()
+  GetTaskStack().Pop()
+}
+
+PopTaskStack()
+{
+  Send("{Home}+{End}{Del}")
+  GetTaskStack().Pop()
+}
+
+SendAgendaLogMessage()
+{
+  SendLogMessageAndNewLine("Agenda:")
+  Sleep(750) ; Sometimes it fails to indent if we do not wait.
+  Send("{Tab}")
+}
+
+SendColoredTimestamp(timestamp)
 {
   WinClip.Snap(clip)
   WinClip.Clear()
-  WinClip.SetHTML("<span style='color:#3C87CD'>" A_YYYY A_MM A_DD "T" A_Hour A_Min "</span>")
+  WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>")
   Send("^v")
   Sleep(200) ; Wait for pasting to finish.
   WinClip.Restore(clip)
@@ -117,7 +143,7 @@ SendLogMessage(message)
   Send("{Home}+{End}{Del}")
   Sleep(25) ; Sleep or else message below might be truncated.
 
-  SendColoredTimestamp()
+  SendColoredTimestamp(A_YYYY A_MM A_DD "T" A_Hour A_Min)
   Send(message)
 }
 
