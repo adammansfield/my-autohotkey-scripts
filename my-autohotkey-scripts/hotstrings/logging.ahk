@@ -124,6 +124,7 @@ ResetOneNoteFormatting()
   ; Highlight one character otherwise ^+n would reset formatting for entire line.
   Send("+{Left}")
   Send("^+n")
+  Sleep(25) ; Wait for format reset.
   Send("{Right}")
 }
 
