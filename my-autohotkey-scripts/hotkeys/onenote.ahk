@@ -1,21 +1,28 @@
 #if WinActive("- OneNote")
 {
+  ^+c::OneNoteCrossOffTask()
   ^+h::OneNoteHighlightLine()
   ^+-::OneNoteStrikeLine()
   ^+t::OneNoteSetTimestampColor()
 }
 #if
 
-HighlightLineThenSend(keys)
+SelectLineThenSend(keys)
 {
   Send("{Home}+{End}")
   Send(keys)
   Send("{End}")
 }
 
+OneNoteCrossOffTask()
+{
+  SelectLineThenSend("^-")
+  Send("^1")
+}
+
 OneNoteHighlightLine()
 {
-  HighlightLineThenSend("^!h")
+  SelectLineThenSend("^!h")
 }
 
 OneNoteSetTimestampColor()
@@ -30,5 +37,5 @@ OneNoteSetTimestampColor()
 
 OneNoteStrikeLine()
 {
-  HighlightLineThenSend("^-")
+  SelectLineThenSend("^-")
 }
