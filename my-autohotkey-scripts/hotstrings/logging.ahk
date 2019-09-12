@@ -124,7 +124,7 @@ ResetOneNoteFormatting()
   ; Highlight one character otherwise ^+n would reset formatting for entire line.
   Send("+{Left}")
   Send("^+n")
-  Sleep(25) ; Wait for format reset.
+  Sleep(100) ; Wait for format reset.
   Send("{Right}")
 }
 
@@ -141,7 +141,7 @@ SendColoredTimestamp(timestamp)
   WinClip.Clear()
   WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>")
   Send("^v")
-  Sleep(250) ; Wait for pasting to finish.
+  Sleep(500) ; Wait for pasting to finish.
   WinClip.Restore(clip)
 }
 
@@ -150,7 +150,7 @@ SendLogMessage(message)
   ; BUG: hotstring backspacing sometimes fails in OneNote
   ; Without this, a prefix ';' would be frequently leftover. [2019-07-04]
   Send("{Home}+{End}{Del}")
-  Sleep(25) ; Sleep or else message below might be truncated.
+  Sleep(50) ; Sleep or else message below might be truncated.
 
   SendColoredTimestamp(A_YYYY A_MM A_DD "T" A_Hour A_Min)
   ResetOneNoteFormatting()
@@ -192,7 +192,7 @@ SendSprintLogMessage()
 {
   SendLogMessage("Sprint:")
   Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
-  Sleep(100) ; Ensure that next space will be unhighlighted.
+  Sleep(125) ; Ensure that next space will be unhighlighted.
   Send("{Space}") ; Add an unhighlighted space so that the next message is not highlighted.
   SendOneNoteTodoList()
 }
