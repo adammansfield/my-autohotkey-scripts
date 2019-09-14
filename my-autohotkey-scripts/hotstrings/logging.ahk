@@ -141,7 +141,7 @@ SendColoredTimestamp(timestamp)
   WinClip.Clear()
   WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>")
   Send("^v")
-  Sleep(500) ; Wait for pasting to finish.
+  Sleep(750) ; Wait for pasting to finish.
   WinClip.Restore(clip)
 }
 
