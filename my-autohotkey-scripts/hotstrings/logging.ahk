@@ -144,20 +144,21 @@ SendClearLine()
   Sleep(50) ; Sleep or else input after this function might be truncated.
 }
 
-SendColoredTimestamp(timestamp)
+SendColoredString(color, timestamp)
 {
   WinClip.Snap(clip)
   WinClip.Clear()
-  WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>")
-  SendInput("+{Ins}")
-  Sleep(1000) ; Wait for pasting to finish.
+  WinClip.SetHTML("<span style='color:#" color "'>&nbsp;</span>")
+  WinClip.Paste()
+  Sleep(100) ; Wait for pasting to finish.
   WinClip.Restore(clip)
+  Send("{Backspace 2}" timestamp " ")
 }
 
 SendLogMessage(message)
 {
   SendClearLine()
-  SendColoredTimestamp(A_YYYY A_MM A_DD "T" A_Hour A_Min)
+  SendColoredString("3C87CD", A_YYYY A_MM A_DD "T" A_Hour A_Min)
   ResetOneNoteFormatting()
   Send(message)
 }
