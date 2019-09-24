@@ -30,8 +30,8 @@ OneNoteSetTimestampColor()
   WinClip.Snap(clip)
   Send("{Home}^+{Right}+{Left}^c")
   Sleep(100)
-  SendColoredTimestamp(clipboard)
-  Send("{Backspace}") ; SendColoredTimestamp sends an extra space.
+  SendColoredString("3C87CD", clipboard)
+  Send("{Backspace}") ; SendColoredString sends an extra space.
   WinClip.Restore(clip)
 }
 
