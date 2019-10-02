@@ -4,9 +4,8 @@
 :*?b0cx:;logclear;::ClearTaskStack()
 :*?b0cx:;logchat;::SendLogMessage("Chat: ")
 :*?b0cx:;logdemo;::SendLogMessageAndNewLine("Meeting: demo")
-:*?b0cx:;logdid;::GetTaskStack().LogDone()
 :*?b0cx:;logdoing;::GetTaskStack().LogDoing()
-:*?b0cx:;logdone;::SendLogMessage("DONE: ")
+:*?b0cx:;logdone;::GetTaskStack().LogDone()
 :*?b0cx:;logdraft;::SendLogMessage("Draft: ")
 :*?b0cx:;logfinish;::SendLogMessageAndNewLine("Finished work")
 :*?b0cx:;loggnucash;::GetTaskStack().LogDoing("gnucash")
@@ -66,12 +65,26 @@ class TaskStack
 
   LogDone()
   {
-    SendLogMessageAndNewLine(this.buildIndent() "DONE: " this.Pop())
+    if ("" == this.Top())
+    {
+      SendLogMessage("DONE: ")
+    }
+    else
+    {
+      SendLogMessageAndNewLine(this.buildIndent() "DONE: " this.Pop())
+    }
   }
 
   LogPause()
   {
-    SendLogMessageAndNewLine(this.buildIndent() "PAUSE: " this.Top())
+    if ("" == this.Top())
+    {
+      SendLogMessage("PAUSE: ")
+    }
+    else
+    {
+      SendLogMessageAndNewLine(this.buildIndent() "PAUSE: " this.Top())
+    }
   }
 
   LogResume()
@@ -150,9 +163,11 @@ SendColoredString(color, timestamp)
   WinClip.Clear()
   WinClip.SetHTML("<span style='color:#" color "'>&nbsp;</span>")
   WinClip.Paste()
-  Sleep(100) ; Wait for pasting to finish.
+  Sleep(250) ; Wait for pasting to finish.
   WinClip.Restore(clip)
-  Send("{Backspace 2}" timestamp " ")
+  Send("{Backspace 2}")
+  Sleep(50)
+  Send(timestamp " ")
 }
 
 SendLogMessage(message)
