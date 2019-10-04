@@ -165,8 +165,12 @@ SendColoredString(color, timestamp)
   WinClip.Paste()
   Sleep(250) ; Wait for pasting to finish.
   WinClip.Restore(clip)
-  Send("{Backspace 2}")
-  Sleep(50)
+  ; Sleep between each backspace to increase the reliability with both
+  ; keys completing their input in OneNote.
+  Send("{Backspace}")
+  Sleep(25)
+  Send("{Backspace}")
+  Sleep(25)
   Send(timestamp " ")
 }
 
