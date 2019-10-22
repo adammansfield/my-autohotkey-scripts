@@ -1,23 +1,21 @@
 ; Multi-language codetage comments inspired by https://www.python.org/dev/peps/pep-0350/
 ;
 ; Format
-;  # MNEMONIC: SUBJECT [YYYY-MM-DD]
+;  # MNEMONIC SUBJECT [YYYY-MM-DD]
 ;
 ; Mnemonics
-;  CONSIDER
+;  [DONTMERGE]
+;   Self reminder to DONTMERGE this comment or the code below.
+;  CONSIDER:
 ;   Reminder to CONSIDER something.
-;  DONTMERGE
-;   Self reminder to DONTMERGE this comemnt or the code below.
-;  FIXME
+;  FIXME:
 ;   The code below needs to be FIXed.
-;  NOTE
+;  NOTE:
 ;   A NOTE for others or the code below.
-;  REFACTOR
+;  REFACTOR:
 ;   The code below should be REFACTORed.
-;  TODO
+;  TODO:
 ;   The code below has a TODO.
-;  ???
-;   Question about the code below.
 
 #if !WinActive("Remote Desktop Connection")
 
@@ -26,54 +24,58 @@
 :*?cx:#debug::SendDebugCodeTag("{#}")
 :*?cx:#doing::SendDoingCodeTag("{#}")
 :*?cx:#dm::SendDontMergeCodeTag("{#}")
+:*?cx:#extractfunction::SendExtractFunctionCodeTag("{#}")
 :*?cx:#fixme::SendFixMeCodeTag("{#}")
-:*?cx:#hack::SendHackCodeTag("{#}")
-:*?cx:#implement::SendImplementCodeTag("{#}")
+:*?cx:#impl::SendImplementCodeTag("{#}")
 :*?cx:#note::SendNoteCodeTag("{#}")
 :*?cx:#original::SendOriginalCodeTag("{#}")
 :*?cx:#reference::SendReferenceCodeTag("{#}")
 :*?cx:#refactor::SendRefactorCodeTag("{#}")
 :*?cx:#remove::SendRemoveCodeTag("{#}")
 :*?cx:#todo::SendTodoCodeTag("{#}")
-:*?cx:#???::SendQuestionCodeTag("{#}")
 :*?cx:#uncomment::SendUncommentCodeTag("{#}")
+:*?cx:#?::SendQuestionCodeTag("{#}")
 
 :*?cx://consider::SendConsiderCodeTag("//")
 :*?cx://document::SendDocumentCodeTag("//")
 :*?cx://debug::SendDebugCodeTag("//")
 :*?cx://doing::SendDoingCodeTag("//")
 :*?cx://dm::SendDontMergeCodeTag("//")
+:*?cx://extractfunction::SendExtractFunctionCodeTag("//")
 :*?cx://fixme::SendFixMeCodeTag("//")
-:*?cx://hack::SendHackCodeTag("//")
-:*?cx://implement::SendImplementCodeTag("//")
+:*?cx://impl::SendImplementCodeTag("//")
 :*?cx://note::SendNoteCodeTag("//")
 :*?cx://original::SendOriginalCodeTag("//")
 :*?cx://refactor::SendRefactorCodeTag("//")
 :*?cx://reference::SendReferenceCodeTag("//")
 :*?cx://remove::SendRemoveCodeTag("//")
 :*?cx://todo::SendTodoCodeTag("//")
-:*?cx://???::SendQuestionCodeTag("//")
 :*?cx://uncomment::SendUncommentCodeTag("//")
+:*?cx://?::SendQuestionCodeTag("//")
 
 :*?cx:;;consider::SendConsiderCodeTag(";")
 :*?cx:;;document::SendDocumentCodeTag(";")
 :*?cx:;;debug::SendDebugCodeTag(";")
 :*?cx:;;doing::SendDoingCodeTag(";")
 :*?cx:;;dm::SendDontMergeCodeTag(";")
+:*?cx:;;extractfunction::SendExtractFunctionCodeTag(";;")
 :*?cx:;;fixme::SendFixMeCodeTag(";")
-:*?cx:;;hack::SendHackCodeTag(";")
-:*?cx:;;implement::SendImplementCodeTag(";")
+:*?cx:;;impl::SendImplementCodeTag(";")
 :*?cx:;;note::SendNoteCodeTag(";")
 :*?cx:;;original::SendOriginalCodeTag(";")
 :*?cx:;;refactor::SendRefactorCodeTag(";")
 :*?cx:;;reference::SendReferenceCodeTag(";")
 :*?cx:;;remove::SendRemoveCodeTag(";")
 :*?cx:;;todo::SendTodoCodeTag(";")
-:*?cx:;;???::SendQuestionCodeTag(";")
 :*?cx:;;uncomment::SendUncommentCodeTag(";")
+:*?cx:;;?::SendQuestionCodeTag(";")
 
-:*?cx:;dmct;::SendCodeTagIdentifier("DONTMERGE")
-:*?cx:;todoct;::SendCodeTagIdentifier("TODO")
+:*?cx:;considerct;::Send(Mnemonic.Consider)
+:*?cx:;dmct;::Send(Mnemonic.DontMerge)
+:*?cx:;fixmect;::Send(Mnemonic.FixMe)
+:*?cx:;notect;::Send(Mnemonic.Note)
+:*?cx:;refactorct;::Send(Mnemonic.Refactor)
+:*?cx:;todoct;::Send(Mnemonic.Todo)
 
 SendCodeTag(comment_char, mnemonic, subject = "", timestamp = "")
 {
@@ -82,105 +84,112 @@ SendCodeTag(comment_char, mnemonic, subject = "", timestamp = "")
     timestamp := "[" A_YYYY "-" A_MM "-" A_DD "]"
   }
 
-  Send(comment_char " " mnemonic ": " subject " " timestamp)
+  Send(comment_char " " mnemonic " " subject " " timestamp)
   if (subject = "")
   {
     Send("{Left 13}")
   }
 }
 
-SendCodeTagIdentifier(mnemonic)
-{
-  Send(mnemonic)
-}
-
 SendConsiderCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "CONSIDER")
+  SendCodeTag(comment_char, Mnemonic.Consider)
 }
 
 SendDocumentCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "TODO", "document")
+  SendCodeTag(comment_char, Mnemonic.Todo, "document")
 }
 
 SendDebugCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "for debugging")
+  SendDontMergeCodeBlock(comment_char, "for debugging")
 }
 
 SendDoingCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "DONTMERGE", "DOING: ")
-  Send("{Left 13}")
+  SendCodeTag(comment_char, Mnemonic.DontMerge, "DOING: ")
+  Send("{Left 15}")
+}
+
+SendDontMergeCodeBlock(comment_char, subject = "")
+{
+  timestamp := "[" A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec "]"
+
+  SendCodeTag(comment_char, "begin " Mnemonic.DontMerge, subject, timestamp)
+  Send("{Enter}")
+  SendCodeTag(comment_char, "end   " Mnemonic.DontMerge, subject, timestamp)
 }
 
 SendDontMergeCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "DONTMERGE")
+  SendCodeTag(comment_char, Mnemonic.DontMerge)
+}
+
+SendExtractFunctionCodeTag(comment_char)
+{
+  SendCodeTag(comment_char, Mnemonic.Refactor, "extract function")
 }
 
 SendFixMeCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "FIXME")
-}
-
-SendHackCodeTag(comment_char)
-{
-  SendCodeTag(comment_char, "HACK")
+  SendCodeTag(comment_char, Mnemonic.FixMe)
 }
 
 SendImplementCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "TODO", "implement")
+  SendCodeTag(comment_char, Mnemonic.DontMerge, Mnemonic.Todo " implement")
 }
 
 SendNoteCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "NOTE")
-}
-
-SendOpeningAndClosingCodeTags(comment_char, mnemonic, subject = "")
-{
-  timestamp := "[" A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec "]"
-  SendCodeTag(comment_char, mnemonic, subject, timestamp)
-  Send("{Enter}")
-  SendCodeTag(comment_char, "END" mnemonic, subject, timestamp)
+  SendCodeTag(comment_char, Mnemonic.Note)
 }
 
 SendOriginalCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "original")
+  SendDontMergeCodeBlock(comment_char, "original")
 }
 
 SendQuestionCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "???")
+  SendCodeTag(comment_char, Mnemonic.DontMerge, "???: ")
+  Send("{Left 13}")
 }
 
 SendRefactorCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "REFACTOR")
+  SendCodeTag(comment_char, Mnemonic.Refactor)
 }
 
 SendReferenceCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "reference")
+  SendDontMergeCodeBlock(comment_char, "reference")
 }
 
 SendRemoveCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "remove")
+  SendDontMergeCodeBlock(comment_char, "remove")
 }
 
 SendTodoCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, "TODO")
+  SendCodeTag(comment_char, Mnemonic.Todo)
 }
 
 SendUncommentCodeTag(comment_char)
 {
-  SendOpeningAndClosingCodeTags(comment_char, "DONTMERGE", "uncomment")
+  SendDontMergeCodeBlock(comment_char, "uncomment")
+}
+
+class Mnemonic
+{
+  static Consider := "CONSIDER:"
+  static DontMerge := "[DONTMERGE]"
+  static FixMe := "FIXME:"
+  static Note := "NOTE:"
+  static Refactor := "REFACTOR:"
+  static Todo := "TODO:"
 }
 
 #If
