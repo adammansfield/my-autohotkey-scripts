@@ -1,4 +1,5 @@
 :*?b0cx:;log;::SendLogMessage("")
+:*?b0cx:;logabort;::GetTaskStack().LogAbort()
 :*?b0cx:;logagenda;::SendAgendaLogMessage()
 :*?b0cx:;logarrival;::SendLogMessageAndNewLine("Arrived at work")
 :*?b0cx:;logclear;::ClearTaskStack()
@@ -15,7 +16,6 @@
 :*?b0cx:;logmeeting;::SendLogMessage("Meeting: ")
 :*?b0cx:;logmmt;::GetTaskStack().LogDoing("mail, messages, toodledo")
 :*?b0cx:;logpause;::GetTaskStack().LogPause()
-:*?b0cx:;logpausepop;::PausePopTaskStack()
 :*?b0cx:;logplanning;::SendLogMessageAndNewLine("Meeting: planning")
 :*?b0cx:;logpop;::PopTaskStack()
 :*?b0cx:;logresume;::GetTaskStack().LogResume()
@@ -27,6 +27,7 @@
 :*?b0cx:;logvpn;::SendLogMessageAndNewLine("Connected to work VPN")
 :*?b0cx:;log???;::SendLogMessage("???: ")
 
+; CONSIDER: move doing, done, pause, resume to standalone fuctions [2019-10-22]
 ;; Stack for tracking task log messages (doing, done, pause). Indents nested tasks.
 class TaskStack
 {
@@ -45,6 +46,18 @@ class TaskStack
   Clear()
   {
     this.stack_ := Array()
+  }
+
+  LogAbort()
+  {
+    if ("" == this.Top())
+    {
+      SendLogMessage("ABORT: ")
+    }
+    else
+    {
+      SendLogMessageAndNewLine(this.buildIndent() "ABORT: " this.Pop())
+    }
   }
 
   LogDoing(task = "")
@@ -120,12 +133,6 @@ GetTaskStack()
   return s
 }
 
-PausePopTaskStack()
-{
-  GetTaskStack().LogPause()
-  GetTaskStack().Pop()
-}
-
 PopTaskStack()
 {
   Send("{Home}+{End}{Del}")
@@ -137,9 +144,9 @@ ResetOneNoteFormatting()
   ; Highlight one character otherwise ^+n would reset formatting for entire line.
   Send("+{Left}")
   Send("^+n")
-  Sleep(75) ; Wait for format reset.
+  Sleep(100) ; Wait for format reset.
   Send("{Right}")
-  Sleep(25) ; Wait for cursor to move right in case input is sent instantly after this function.
+  Sleep(50) ; Wait for cursor to move right in case input is sent instantly after this function.
 }
 
 SendAgendaLogMessage()
