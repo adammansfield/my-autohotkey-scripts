@@ -22,6 +22,7 @@
 :*?b0cx:;logretro;::SendLogMessageAndNewLine("Meeting: retrospective")
 :*?b0cx:;logscrum;::SendLogMessageAndNewLine("Scrum")
 :*?b0cx:;logsprint;::SendSprintLogMessage()
+:*?b0cx:;logsup;::SendSupplementalLogMessage()
 :*?b0cx:;logtodo;::SendTodoLogMessage()
 :*?b0cx:;logtoodledo;::GetTaskStack().LogDoing("toodledo")
 :*?b0cx:;logvpn;::SendLogMessageAndNewLine("Connected to work VPN")
@@ -181,10 +182,15 @@ SendColoredString(color, timestamp)
   Send(timestamp " ")
 }
 
-SendLogMessage(message)
+SendLogMessage(message, timestamp = "")
 {
+  if (timestamp = "")
+  {
+    timestamp := A_YYYY A_MM A_DD "T" A_Hour A_Min
+  }
+
   SendClearLine()
-  SendColoredString("3C87CD", A_YYYY A_MM A_DD "T" A_Hour A_Min)
+  SendColoredString("3C87CD", timestamp)
   ResetOneNoteFormatting()
   Send(message)
 }
@@ -227,6 +233,11 @@ SendSprintLogMessage()
   Sleep(125) ; Ensure that next space will be unhighlighted.
   Send("{Space}") ; Add an unhighlighted space so that the next message is not highlighted.
   SendOneNoteTodoList()
+}
+
+SendSupplementalLogMessage()
+{
+  SendLogMessage("", A_Hour A_Min)
 }
 
 SendTodoLogMessage()
