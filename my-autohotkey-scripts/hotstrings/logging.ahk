@@ -34,14 +34,15 @@ class TaskStack
 {
   stack_ := Array()
 
-  buildIndent()
+  ;; Append '[N]: ' to mnemonic or just ': ' if single or no task on stack
+  BuildMnemonic(mnemonic)
   {
-    indent := ""
-    Loop % (this.stack_.Length() - 1)
+    if (this.stack_.Length() > 1)
     {
-      indent := indent "    "
+      mnemonic := mnemonic "[" this.stack_.Length() "]"
     }
-    return indent
+
+    return mnemonic ": "
   }
 
   Clear()
@@ -57,14 +58,14 @@ class TaskStack
     }
     else
     {
-      SendLogMessageAndNewLine(this.buildIndent() "ABORT: " this.Pop())
+      SendLogMessageAndNewLine(this.buildMnemonic("ABORT") this.Pop())
     }
   }
 
   LogDoing(task = "")
   {
     this.Push(task)
-    SendLogMessage(this.buildIndent() "DOING: " this.Top())
+    SendLogMessage(this.buildMnemonic("DOING") this.Top())
 
     if ("" == task)
     {
@@ -85,7 +86,7 @@ class TaskStack
     }
     else
     {
-      SendLogMessageAndNewLine(this.buildIndent() "DONE: " this.Pop())
+      SendLogMessageAndNewLine(this.buildMnemonic("DONE") this.Pop())
     }
   }
 
@@ -97,13 +98,20 @@ class TaskStack
     }
     else
     {
-      SendLogMessageAndNewLine(this.buildIndent() "PAUSE: " this.Top())
+      SendLogMessageAndNewLine(this.buildMnemonic("PAUSE") this.Top())
     }
   }
 
   LogResume()
   {
-    SendLogMessageAndNewLine(this.buildIndent() "DOING: " this.Top())
+    if ("" == this.Top())
+    {
+      SendLogMessage("RESUME: ")
+    }
+    else
+    {
+      SendLogMessageAndNewLine(this.buildMnemonic("RESUME") this.Top())
+    }
   }
 
   Pop()
@@ -176,9 +184,9 @@ SendColoredString(color, timestamp)
   ; Sleep between each backspace to increase the reliability with both
   ; keys completing their input in OneNote.
   Send("{Backspace}")
-  Sleep(25)
+  Sleep(50)
   Send("{Backspace}")
-  Sleep(25)
+  Sleep(50)
   Send(timestamp " ")
 }
 

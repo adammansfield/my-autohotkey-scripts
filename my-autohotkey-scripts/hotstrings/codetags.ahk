@@ -109,7 +109,7 @@ SendDebugCodeTag(comment_char)
 SendDoingCodeTag(comment_char)
 {
   SendCodeTag(comment_char, Mnemonic.DontMerge, "DOING: ")
-  Send("{Left 15}")
+  Send("{Left 13}")
 }
 
 SendDontMergeCodeBlock(comment_char, subject = "")
