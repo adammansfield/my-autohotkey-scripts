@@ -1,7 +1,6 @@
 :*?b0cx:;log;::SendLogMessage("")
 :*?b0cx:;logabort;::GetTaskStack().LogAbort()
 :*?b0cx:;logagenda;::SendAgendaLogMessage()
-:*?b0cx:;logarrival;::SendLogMessageAndNewLine("Arrived at work")
 :*?b0cx:;logclear;::ClearTaskStack()
 :*?b0cx:;logchat;::SendLogMessage("Chat: ")
 :*?b0cx:;logdemo;::SendLogMessageAndNewLine("Meeting: demo")
@@ -25,7 +24,8 @@
 :*?b0cx:;logsup;::SendSupplementalLogMessage()
 :*?b0cx:;logtodo;::SendTodoLogMessage()
 :*?b0cx:;logtoodledo;::GetTaskStack().LogDoing("toodledo")
-:*?b0cx:;logvpn;::SendLogMessageAndNewLine("Connected to work VPN")
+:*?b0cx:;logwfh;::SendLogMessageAndNewLine("WFH")
+:*?b0cx:;logwfo;::SendLogMessageAndNewLine("WFO")
 :*?b0cx:;log???;::SendLogMessage("???: ")
 
 ; CONSIDER: move doing, done, pause, resume to standalone fuctions [2019-10-22]
