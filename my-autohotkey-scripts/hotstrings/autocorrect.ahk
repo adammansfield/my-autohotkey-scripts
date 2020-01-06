@@ -1,4 +1,4 @@
-#if !WinActive(Cygwin.kXTerminalTitle) &&
+#if !WinActive("ahk_class VirtualConsoleClass") &&
     !WinActive("Microsoft Visual Studio") &&
     !WinActive("Ideone.com")
 
