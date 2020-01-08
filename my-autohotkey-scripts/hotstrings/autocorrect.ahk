@@ -279,7 +279,7 @@
   :?:; btu::; but
   :?:n;t::n't
   :?:;ll::'ll
-  :?:;re::'re
+  ;:?:;re::'re ; Commented out because of ;log; hotstring followed by re-
   :?:;ve::'ve
   ::sice::since  ; Must precede the following line!
   :?:sice::sive
