@@ -56,7 +56,8 @@
 ;; Paste after (vim key p).
 >!p::
 {
-  Clipboard := Clipboard ; Remove formatting.
+  text := Clipboard ; Remove formatting.
+  Clipboard := StringDedent(text)
   Vim.SendThenResetMode("^v")
   return
 }
