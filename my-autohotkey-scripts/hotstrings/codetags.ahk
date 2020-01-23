@@ -26,15 +26,16 @@
 :*?cx:#dm::SendDontMergeCodeTag("{#}")
 :*?cx:#extractfunction::SendExtractFunctionCodeTag("{#}")
 :*?cx:#fixme::SendFixMeCodeTag("{#}")
-:*?cx:#impl::SendImplementCodeTag("{#}")
+:*?cx:#implement::SendImplementCodeTag("{#}")
 :*?cx:#note::SendNoteCodeTag("{#}")
 :*?cx:#original::SendOriginalCodeTag("{#}")
 :*?cx:#reference::SendReferenceCodeTag("{#}")
 :*?cx:#refactor::SendRefactorCodeTag("{#}")
 :*?cx:#remove::SendRemoveCodeTag("{#}")
+:*?cx:#task::SendTaskCodeTag("{#}")
 :*?cx:#todo::SendTodoCodeTag("{#}")
 :*?cx:#uncomment::SendUncommentCodeTag("{#}")
-:*?cx:#?::SendQuestionCodeTag("{#}")
+:*?cx:#???::SendQuestionCodeTag("{#}")
 
 :*?cx://consider::SendConsiderCodeTag("//")
 :*?cx://document::SendDocumentCodeTag("//")
@@ -43,32 +44,34 @@
 :*?cx://dm::SendDontMergeCodeTag("//")
 :*?cx://extractfunction::SendExtractFunctionCodeTag("//")
 :*?cx://fixme::SendFixMeCodeTag("//")
-:*?cx://impl::SendImplementCodeTag("//")
+:*?cx://implement::SendImplementCodeTag("//")
 :*?cx://note::SendNoteCodeTag("//")
 :*?cx://original::SendOriginalCodeTag("//")
 :*?cx://refactor::SendRefactorCodeTag("//")
 :*?cx://reference::SendReferenceCodeTag("//")
 :*?cx://remove::SendRemoveCodeTag("//")
+:*?cx://task::SendTaskCodeTag("//")
 :*?cx://todo::SendTodoCodeTag("//")
 :*?cx://uncomment::SendUncommentCodeTag("//")
-:*?cx://?::SendQuestionCodeTag("//")
+:*?cx://???::SendQuestionCodeTag("//")
 
 :*?cx:;;consider::SendConsiderCodeTag(";")
 :*?cx:;;document::SendDocumentCodeTag(";")
 :*?cx:;;debug::SendDebugCodeTag(";")
 :*?cx:;;doing::SendDoingCodeTag(";")
 :*?cx:;;dm::SendDontMergeCodeTag(";")
-:*?cx:;;extractfunction::SendExtractFunctionCodeTag(";;")
+:*?cx:;;extractfunction::SendExtractFunctionCodeTag(";")
 :*?cx:;;fixme::SendFixMeCodeTag(";")
-:*?cx:;;impl::SendImplementCodeTag(";")
+:*?cx:;;implement::SendImplementCodeTag(";")
 :*?cx:;;note::SendNoteCodeTag(";")
 :*?cx:;;original::SendOriginalCodeTag(";")
 :*?cx:;;refactor::SendRefactorCodeTag(";")
 :*?cx:;;reference::SendReferenceCodeTag(";")
 :*?cx:;;remove::SendRemoveCodeTag(";")
+:*?cx:;;task::SendTaskCodeTag(";")
 :*?cx:;;todo::SendTodoCodeTag(";")
 :*?cx:;;uncomment::SendUncommentCodeTag(";")
-:*?cx:;;?::SendQuestionCodeTag(";")
+:*?cx:;;???::SendQuestionCodeTag(";")
 
 :*?cx:;considerct;::Send(Mnemonic.Consider)
 :*?cx:;dmct;::Send(Mnemonic.DontMerge)
@@ -98,7 +101,7 @@ SendConsiderCodeTag(comment_char)
 
 SendDocumentCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, Mnemonic.Todo, "document")
+  SendDontMergeCodeTag(comment_char, Mnemonic.Todo, "document")
 }
 
 SendDebugCodeTag(comment_char)
@@ -108,8 +111,7 @@ SendDebugCodeTag(comment_char)
 
 SendDoingCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, Mnemonic.DontMerge, "DOING: ")
-  Send("{Left 13}")
+  SendDontMergeCodeTag(comment_char, "DOING:")
 }
 
 SendDontMergeCodeBlock(comment_char, subject = "")
@@ -121,14 +123,19 @@ SendDontMergeCodeBlock(comment_char, subject = "")
   SendCodeTag(comment_char, "end   " Mnemonic.DontMerge, subject, timestamp)
 }
 
-SendDontMergeCodeTag(comment_char)
+SendDontMergeCodeTag(comment_char, sub_mnemonic = "", subject = "")
 {
-  SendCodeTag(comment_char, Mnemonic.DontMerge)
+  mnemonic := Mnemonic.DontMerge
+  if (sub_mnemonic != "")
+  {
+    mnemonic := mnemonic " " sub_mnemonic
+  }
+  SendCodeTag(comment_char, mnemonic, subject)
 }
 
 SendExtractFunctionCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, Mnemonic.Refactor, "extract function")
+  SendDontMergeCodeTag(comment_char, Mnemonic.Refactor, "extract function")
 }
 
 SendFixMeCodeTag(comment_char)
@@ -138,7 +145,7 @@ SendFixMeCodeTag(comment_char)
 
 SendImplementCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, Mnemonic.DontMerge, Mnemonic.Todo " implement")
+  SendDontMergeCodeTag(comment_char, Mnemonic.Todo, "implement")
 }
 
 SendNoteCodeTag(comment_char)
@@ -153,8 +160,7 @@ SendOriginalCodeTag(comment_char)
 
 SendQuestionCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, Mnemonic.DontMerge, "???: ")
-  Send("{Left 13}")
+  SendDontMergeCodeTag(comment_char, "???:")
 }
 
 SendRefactorCodeTag(comment_char)
@@ -170,6 +176,11 @@ SendReferenceCodeTag(comment_char)
 SendRemoveCodeTag(comment_char)
 {
   SendDontMergeCodeBlock(comment_char, "remove")
+}
+
+SendTaskCodeTag(comment_char)
+{
+  SendDontMergeCodeTag("{#}", Mnemonic.Todo)
 }
 
 SendTodoCodeTag(comment_char)
