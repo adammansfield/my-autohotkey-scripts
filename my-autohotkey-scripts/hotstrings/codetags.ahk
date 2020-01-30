@@ -73,12 +73,12 @@
 :*?cx:;;uncomment::SendUncommentCodeTag(";")
 :*?cx:;;???::SendQuestionCodeTag(";")
 
-:*?cx:;considerct;::Send(Mnemonic.Consider)
-:*?cx:;dmct;::Send(Mnemonic.DontMerge)
-:*?cx:;fixmect;::Send(Mnemonic.FixMe)
-:*?cx:;notect;::Send(Mnemonic.Note)
-:*?cx:;refactorct;::Send(Mnemonic.Refactor)
-:*?cx:;todoct;::Send(Mnemonic.Todo)
+:*?cx:;considerct;::Send(Mnemonics.Consider)
+:*?cx:;dmct;::Send(Mnemonics.DontMerge)
+:*?cx:;fixmect;::Send(Mnemonics.FixMe)
+:*?cx:;notect;::Send(Mnemonics.Note)
+:*?cx:;refactorct;::Send(Mnemonics.Refactor)
+:*?cx:;todoct;::Send(Mnemonics.Todo)
 
 SendCodeTag(comment_char, mnemonic, subject = "", timestamp = "")
 {
@@ -96,12 +96,12 @@ SendCodeTag(comment_char, mnemonic, subject = "", timestamp = "")
 
 SendConsiderCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, Mnemonic.Consider)
+  SendCodeTag(comment_char, Mnemonics.Consider)
 }
 
 SendDocumentCodeTag(comment_char)
 {
-  SendDontMergeCodeTag(comment_char, Mnemonic.Todo, "document")
+  SendDontMergeCodeTag(comment_char, Mnemonics.Todo, "document")
 }
 
 SendDebugCodeTag(comment_char)
@@ -118,14 +118,14 @@ SendDontMergeCodeBlock(comment_char, subject = "")
 {
   timestamp := "[" A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec "]"
 
-  SendCodeTag(comment_char, "begin " Mnemonic.DontMerge, subject, timestamp)
+  SendCodeTag(comment_char, "begin " Mnemonics.DontMerge, subject, timestamp)
   Send("{Enter}")
-  SendCodeTag(comment_char, "end   " Mnemonic.DontMerge, subject, timestamp)
+  SendCodeTag(comment_char, "end   " Mnemonics.DontMerge, subject, timestamp)
 }
 
 SendDontMergeCodeTag(comment_char, sub_mnemonic = "", subject = "")
 {
-  mnemonic := Mnemonic.DontMerge
+  mnemonic := Mnemonics.DontMerge
   if (sub_mnemonic != "")
   {
     mnemonic := mnemonic " " sub_mnemonic
@@ -135,22 +135,22 @@ SendDontMergeCodeTag(comment_char, sub_mnemonic = "", subject = "")
 
 SendExtractFunctionCodeTag(comment_char)
 {
-  SendDontMergeCodeTag(comment_char, Mnemonic.Refactor, "extract function")
+  SendDontMergeCodeTag(comment_char, Mnemonics.Refactor, "extract function")
 }
 
 SendFixMeCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, Mnemonic.FixMe)
+  SendCodeTag(comment_char, Mnemonics.FixMe)
 }
 
 SendImplementCodeTag(comment_char)
 {
-  SendDontMergeCodeTag(comment_char, Mnemonic.Todo, "implement")
+  SendDontMergeCodeTag(comment_char, Mnemonics.Todo, "implement")
 }
 
 SendNoteCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, Mnemonic.Note)
+  SendCodeTag(comment_char, Mnemonics.Note)
 }
 
 SendOriginalCodeTag(comment_char)
@@ -165,7 +165,7 @@ SendQuestionCodeTag(comment_char)
 
 SendRefactorCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, Mnemonic.Refactor)
+  SendCodeTag(comment_char, Mnemonics.Refactor)
 }
 
 SendReferenceCodeTag(comment_char)
@@ -180,12 +180,12 @@ SendRemoveCodeTag(comment_char)
 
 SendTaskCodeTag(comment_char)
 {
-  SendDontMergeCodeTag("{#}", Mnemonic.Todo)
+  SendDontMergeCodeTag(comment_char, Mnemonics.Todo)
 }
 
 SendTodoCodeTag(comment_char)
 {
-  SendCodeTag(comment_char, Mnemonic.Todo)
+  SendCodeTag(comment_char, Mnemonics.Todo)
 }
 
 SendUncommentCodeTag(comment_char)
@@ -193,7 +193,7 @@ SendUncommentCodeTag(comment_char)
   SendDontMergeCodeBlock(comment_char, "uncomment")
 }
 
-class Mnemonic
+class Mnemonics
 {
   static Consider := "CONSIDER:"
   static DontMerge := "[DONTMERGE]"
