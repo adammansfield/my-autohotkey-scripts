@@ -1,5 +1,8 @@
 <!t::ToggleAlwaysOnTop()
 
+;; Ctrl-Shift-Alt-v on QWERTY keyboard for Dvorak configuration
+^+!k::PasteImage()
+
 ArchiveSwarmReview()
 {
   Click(1869, 383)
@@ -36,6 +39,15 @@ CountMinIndent(Byref string)
     }
   }
   return min_indent
+}
+
+;; Convert clipboard image to a bitmap, and paste it
+PasteImage()
+{
+  bitmap := WinClip.GetBitmap()
+  WinClip.Clear()
+  WinClip.SetBitmap(bitmap)
+  WinClip.Paste()
 }
 
 StringDedent(Byref string)
