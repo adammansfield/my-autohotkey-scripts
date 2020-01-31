@@ -1,5 +1,4 @@
 :*?b0cx:;log;::SendLogMessage("")
-:*?b0cx:;logabort;::GetTaskStack().LogAbort()
 :*?b0cx:;logagenda;::SendAgendaLogMessage()
 :*?b0cx:;logcall;::SendLogMessage("Call: ")
 :*?b0cx:;logclear;::ClearTaskStack()
@@ -19,6 +18,7 @@
 :*?b0cx:;logpop;::PopTaskStack()
 :*?b0cx:;logresume;::GetTaskStack().LogResume()
 :*?b0cx:;logsprint;::SendSprintLogMessage()
+:*?b0cx:;logstop;::GetTaskStack().LogStop()
 :*?b0cx:;logsup;::SendSupplementalLogMessage()
 :*?b0cx:;logtodo;::SendTodoLogMessage()
 :*?b0cx:;logtoodledo;::GetTaskStack().LogDoing("toodledo")
@@ -46,18 +46,6 @@ class TaskStack
   Clear()
   {
     this.stack_ := Array()
-  }
-
-  LogAbort()
-  {
-    if ("" == this.Top())
-    {
-      SendLogMessage("ABORT: ")
-    }
-    else
-    {
-      SendLogMessageAndNewLine(this.buildMnemonic("ABORT") this.Pop())
-    }
   }
 
   LogDoing(task = "")
@@ -109,6 +97,18 @@ class TaskStack
     else
     {
       SendLogMessageAndNewLine(this.buildMnemonic("RESUME") this.Top())
+    }
+  }
+
+  LogStop()
+  {
+    if ("" == this.Top())
+    {
+      SendLogMessage("STOP: ")
+    }
+    else
+    {
+      SendLogMessageAndNewLine(this.buildMnemonic("STOP") this.Pop())
     }
   }
 
