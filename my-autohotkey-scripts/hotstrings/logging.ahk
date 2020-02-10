@@ -1,151 +1,22 @@
 :*?b0cx:;log;::SendLogMessage("")
 :*?b0cx:;logagenda;::SendAgendaLogMessage()
 :*?b0cx:;logcall;::SendLogMessage("Call: ")
-:*?b0cx:;logclear;::ClearTaskStack()
 :*?b0cx:;logchat;::SendLogMessage("Chat: ")
-:*?b0cx:;logdemo;::SendLogMessageAndNewLine("Meeting: demo")
-:*?b0cx:;logdoing;::GetTaskStack().LogDoing()
-:*?b0cx:;logdone;::GetTaskStack().LogDone()
+:*?b0cx:;logdoing;::SendLogMessage("DOING: ")
+:*?b0cx:;logdone;::SendLogMessage("DONE: ")
 :*?b0cx:;logdraft;::SendLogMessage("Draft: ")
 :*?b0cx:;logfinish;::SendLogMessageAndNewLine("Finished work")
-:*?b0cx:;loggnucash;::GetTaskStack().LogDoing("gnucash")
 :*?b0cx:;loglunch;::SendLogMessageAndNewLine("Lunch")
-:*?b0cx:;logmail;::GetTaskStack().LogDoing("mail")
 :*?b0cx:;logmessage;::SendMessageLogMessage()
 :*?b0cx:;logmeeting;::SendLogMessage("Meeting: ")
-:*?b0cx:;logmmt;::GetTaskStack().LogDoing("mail, messages, toodledo")
-:*?b0cx:;logpause;::GetTaskStack().LogPause()
-:*?b0cx:;logpop;::PopTaskStack()
-:*?b0cx:;logresume;::GetTaskStack().LogResume()
+:*?b0cx:;logmmt;::SendLogMessageAndNewLine("DOING: mail, messages, toodledo")
 :*?b0cx:;logsprint;::SendSprintLogMessage()
-:*?b0cx:;logstop;::GetTaskStack().LogStop()
-:*?b0cx:;logsup;::SendSupplementalLogMessage()
+:*?b0cx:;logtalk;::SendLogMessage("Talk: ")
 :*?b0cx:;logthemes;::SendThemesLogMessage()
 :*?b0cx:;logtodo;::SendTodoLogMessage()
-:*?b0cx:;logtoodledo;::GetTaskStack().LogDoing("toodledo")
 :*?b0cx:;logwfh;::SendLogMessageAndNewLine("WFH")
 :*?b0cx:;logwfo;::SendLogMessageAndNewLine("WFO")
 :*?b0cx:;log???;::SendLogMessage("???: ")
-
-; CONSIDER: move doing, done, pause, resume to standalone fuctions [2019-10-22]
-;; Stack for tracking task log messages (doing, done, pause). Indents nested tasks.
-class TaskStack
-{
-  stack_ := Array()
-
-  ;; Append '[N]: ' to mnemonic or just ': ' if single or no task on stack
-  BuildMnemonic(mnemonic)
-  {
-    if (this.stack_.Length() > 1)
-    {
-      mnemonic := mnemonic "[" this.stack_.Length() "]"
-    }
-
-    return mnemonic ": "
-  }
-
-  Clear()
-  {
-    this.stack_ := Array()
-  }
-
-  LogDoing(task = "")
-  {
-    this.Push(task)
-    SendLogMessage(this.buildMnemonic("DOING") this.Top())
-
-    if ("" == task)
-    {
-      this.Pop()
-      this.Push(Input("V", "{Enter}"))
-    }
-    else
-    {
-      Send("{Enter}")
-    }
-  }
-
-  LogDone()
-  {
-    if ("" == this.Top())
-    {
-      SendLogMessage("DONE: ")
-    }
-    else
-    {
-      SendLogMessageAndNewLine(this.buildMnemonic("DONE") this.Pop())
-    }
-  }
-
-  LogPause()
-  {
-    if ("" == this.Top())
-    {
-      SendLogMessage("PAUSE: ")
-    }
-    else
-    {
-      SendLogMessageAndNewLine(this.buildMnemonic("PAUSE") this.Top())
-    }
-  }
-
-  LogResume()
-  {
-    if ("" == this.Top())
-    {
-      SendLogMessage("RESUME: ")
-    }
-    else
-    {
-      SendLogMessageAndNewLine(this.buildMnemonic("RESUME") this.Top())
-    }
-  }
-
-  LogStop()
-  {
-    if ("" == this.Top())
-    {
-      SendLogMessage("STOP: ")
-    }
-    else
-    {
-      SendLogMessageAndNewLine(this.buildMnemonic("STOP") this.Pop())
-    }
-  }
-
-  Pop()
-  {
-    return this.stack_.Pop()
-  }
-
-  Push(task)
-  {
-    this.stack_.Push(task)
-  }
-
-  Top()
-  {
-    return this.stack_[this.stack_.Length()]
-  }
-}
-
-ClearTaskStack()
-{
-  Send("{Home}+{End}{Del}")
-  GetTaskStack().Clear()
-}
-
-GetTaskStack()
-{
-  static s := new TaskStack
-  return s
-}
-
-PopTaskStack()
-{
-  Send("{Home}+{End}{Del}")
-  GetTaskStack().Pop()
-}
 
 ResetOneNoteFormatting()
 {
@@ -240,11 +111,6 @@ SendSprintLogMessage()
   Sleep(125) ; Ensure that next space will be unhighlighted.
   Send("{Space}") ; Add an unhighlighted space so that the next message is not highlighted.
   SendOneNoteTodoList()
-}
-
-SendSupplementalLogMessage()
-{
-  SendLogMessage("", A_Hour A_Min)
 }
 
 SendThemesLogMessage()
