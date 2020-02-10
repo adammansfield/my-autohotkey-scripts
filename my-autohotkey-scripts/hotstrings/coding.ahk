@@ -2,6 +2,15 @@
 :*c?:;rb;::(){Left}
 :*c?:;sb;::[]{Left}
 
+:*c?:;constructors;::{#}region --[Constructors]------------------------------------------
+:*c?:;privateclasses;::{#}region --[Classes: Private]--------------------------------------
+:*c?:;privateconstants;::{#}region --[Constants: Private]------------------------------------
+:*c?:;privatefields;::{#}region --[Fields: Private]---------------------------------------
+:*c?:;privatemethods;::{#}region --[Methods: Private]--------------------------------------
+:*c?:;publicclasses;::{#}region --[Classes: Public]---------------------------------------
+:*c?:;publicmethods;::{#}region --[Methods: Public]---------------------------------------
+:*c?:;publicproperties;::{#}region --[Properties: Public]------------------------------------
+
 :*c?:;cppheader;::
 {
   text =
