@@ -30,13 +30,13 @@ OneNoteSetTimestampColor()
   WinClip.Snap(originalClip)
 
   Send("^x")
-  Sleep(50)
+  Sleep(100)
 
   ; Input log messages on a new un-indented line.
   Send("{Enter}")
   Sleep(50)
   Send("{Up}")
-  Sleep(25)
+  Sleep(50)
   Send("+{Tab 2}")
   Sleep(50)
 
