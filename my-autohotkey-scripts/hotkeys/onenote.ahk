@@ -27,16 +27,36 @@ OneNoteHighlightLine()
 
 OneNoteSetTimestampColor()
 {
-  WinClip.Snap(clip)
-  Send("{Home}^+{Right}+{Left}")
+  WinClip.Snap(originalClip)
+
+  Send("^x")
   Sleep(50)
-  Send("^c")
+
+  ; Input log messages on a new un-indented line.
+  Send("{Enter}")
   Sleep(50)
-  SendColoredString("3C87CD", A_YYYY A_MM A_DD "T" clipboard)
-  Send("{Backspace}") ; SendColoredString sends an extra space.
-  WinClip.Restore(clip)
+  Send("{Up}")
+  Sleep(25)
+  Send("+{Tab 2}")
   Sleep(50)
-  Send("{Down}")
+
+  yyyymmdd := InputBox("Timestamp Prefix",,, 200, 100,,,,, A_YYYY A_MM A_DD)
+
+  loop, Parse, clipboard, `n
+  {
+    if (A_LoopField == "")
+      continue
+
+    substrings := StrSplit(A_LoopField, " ", "`n", 2)
+    time := substrings[1]
+    message := substrings[2]
+
+    SendColoredString("3C87CD", yyyymmdd "T" time)
+    ResetOneNoteFormatting()
+    SendRaw(message)
+  }
+
+  WinClip.Restore(originalClip)
 }
 
 OneNoteStrikeLine()
