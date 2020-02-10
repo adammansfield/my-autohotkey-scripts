@@ -29,7 +29,7 @@
 :*?cx:;ymdhms;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec)
 :*?cx:;ymdhms-;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
 :*?cx:;yw;::Send(A_YYYY "W" GetWeekNumber())
-:*?cx:;yw;::Send(A_YYYY "-W" GetWeekNumber())
+:*?cx:;yw-;::Send(A_YYYY "-W" GetWeekNumber())
 
 GetWeekNumber()
 {
