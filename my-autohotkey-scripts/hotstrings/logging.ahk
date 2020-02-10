@@ -20,6 +20,7 @@
 :*?b0cx:;logsprint;::SendSprintLogMessage()
 :*?b0cx:;logstop;::GetTaskStack().LogStop()
 :*?b0cx:;logsup;::SendSupplementalLogMessage()
+:*?b0cx:;logthemes;::SendThemesLogMessage()
 :*?b0cx:;logtodo;::SendTodoLogMessage()
 :*?b0cx:;logtoodledo;::GetTaskStack().LogDoing("toodledo")
 :*?b0cx:;logwfh;::SendLogMessageAndNewLine("WFH")
@@ -244,6 +245,15 @@ SendSprintLogMessage()
 SendSupplementalLogMessage()
 {
   SendLogMessage("", A_Hour A_Min)
+}
+
+SendThemesLogMessage()
+{
+  SendLogMessage("W" GetWeekNumber() " Themes: ")
+  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
+  Sleep(125) ; Ensure that next space will be unhighlighted.
+  Send("{Space}") ; Add an unhighlighted space so that the next message is not highlighted.
+  SendOneNoteTodoList()
 }
 
 SendTodoLogMessage()
