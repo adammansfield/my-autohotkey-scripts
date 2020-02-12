@@ -1,9 +1,10 @@
 #if WinActive("- OneNote")
 {
-  ^+c::OneNoteCrossOffTask()
+  ^+c::OneNoteCompleteTask()
   ^+h::OneNoteHighlightLine()
   ^+-::OneNoteStrikeLine()
   ^+t::OneNoteSetTimestampColor()
+  ^+p::OneNotePostponeTask()
 }
 #if
 
@@ -14,10 +15,15 @@ SelectLineThenSend(keys)
   Send("{End}")
 }
 
-OneNoteCrossOffTask()
+OneNoteCompleteTask()
 {
-  SelectLineThenSend("^-")
+  SelectLineThenSend("^-^!h")
   Send("^1")
+}
+
+OneNotePostponeTask()
+{
+  SelectLineThenSend("^-^!h")
 }
 
 OneNoteHighlightLine()
