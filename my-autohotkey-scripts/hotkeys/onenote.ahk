@@ -66,7 +66,7 @@ OneNoteSetTimestampColor()
     ResetOneNoteFormatting()
     SendRaw(message)
     ; OneNote has a delay for input so we must wait in proportion to the length of the message.
-    Sleep(Max(150, 2 * StrLen(message)))
+    Sleep(Max(200, 3 * StrLen(message)))
   }
 
   WinClip.Restore(originalClip)
