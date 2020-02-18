@@ -46,7 +46,7 @@ SendColoredString(color, timestamp)
   WinClip.Clear()
   WinClip.SetHTML("<span style='color:#" color "'>&nbsp;</span>")
   WinClip.Paste()
-  Sleep(300) ; Wait for pasting to finish.
+  Sleep(500) ; Wait for pasting to finish.
   WinClip.Restore(clip)
   ; Sleep between each backspace to increase the reliability with both
   ; keys completing their input in OneNote.
