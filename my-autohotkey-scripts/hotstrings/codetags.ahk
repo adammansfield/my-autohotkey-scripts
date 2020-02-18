@@ -24,11 +24,15 @@
 :*?cx:#debug::SendDebugCodeTag("{#}")
 :*?cx:#doing::SendDoingCodeTag("{#}")
 :*?cx:#dm::SendDontMergeCodeTag("{#}")
+:*?cx:#error::SendErrorCodeTag("{#}")
 :*?cx:#extractfunction::SendExtractFunctionCodeTag("{#}")
+:*?cx:#extractmethod::SendExtractMethodCodeTag("{#}")
+:*?cx:#failed::SendFailedCodeTag("{#}")
 :*?cx:#fixme::SendFixMeCodeTag("{#}")
 :*?cx:#implement::SendImplementCodeTag("{#}")
 :*?cx:#note::SendNoteCodeTag("{#}")
 :*?cx:#original::SendOriginalCodeTag("{#}")
+:*?cx:#passed::SendPassedCodeTag("{#}")
 :*?cx:#reference::SendReferenceCodeTag("{#}")
 :*?cx:#refactor::SendRefactorCodeTag("{#}")
 :*?cx:#remove::SendRemoveCodeTag("{#}")
@@ -42,11 +46,15 @@
 :*?cx://debug::SendDebugCodeTag("//")
 :*?cx://doing::SendDoingCodeTag("//")
 :*?cx://dm::SendDontMergeCodeTag("//")
+:*?cx://error::SendErrorCodeTag("//")
 :*?cx://extractfunction::SendExtractFunctionCodeTag("//")
+:*?cx://extractmethod::SendExtractMethodCodeTag("//")
+:*?cx://failed::SendFailedCodeTag("//")
 :*?cx://fixme::SendFixMeCodeTag("//")
 :*?cx://implement::SendImplementCodeTag("//")
 :*?cx://note::SendNoteCodeTag("//")
 :*?cx://original::SendOriginalCodeTag("//")
+:*?cx://passed::SendPassedCodeTag("//")
 :*?cx://refactor::SendRefactorCodeTag("//")
 :*?cx://reference::SendReferenceCodeTag("//")
 :*?cx://remove::SendRemoveCodeTag("//")
@@ -120,6 +128,21 @@ SendExtractFunctionCodeTag(comment_char)
   SendDontMergeCodeTag(comment_char, Mnemonics.Refactor, "extract function")
 }
 
+SendExtractMethodCodeTag(comment_char)
+{
+  SendDontMergeCodeTag(comment_char, Mnemonics.Refactor, "extract method")
+}
+
+SendErrorCodeTag(comment_char)
+{
+  SendDontMergeCodeTag(comment_char, "ERROR:")
+}
+
+SendFailedCodeTag(comment_char)
+{
+  SendDontMergeCodeTag(comment_char, Mnemonics.Test, "failed")
+}
+
 SendFixMeCodeTag(comment_char)
 {
   SendCodeTag(comment_char, Mnemonics.FixMe)
@@ -138,6 +161,11 @@ SendNoteCodeTag(comment_char)
 SendOriginalCodeTag(comment_char)
 {
   SendDontMergeCodeBlock(comment_char, "original")
+}
+
+SendPassedCodeTag(comment_char)
+{
+  SendDontMergeCodeTag(comment_char, Mnemonics.Test, "passed")
 }
 
 SendQuestionCodeTag(comment_char)
@@ -182,6 +210,7 @@ class Mnemonics
   static FixMe := "FIXME:"
   static Note := "NOTE:"
   static Refactor := "REFACTOR:"
+  static Test := "TEST:"
   static Todo := "TODO:"
 }
 
