@@ -10,8 +10,9 @@
 ;   Reminder to CONSIDER something.
 ;  FIXME:
 ;   The code below needs to be FIXed.
-;  NOTE:
+;  NOTE (NB):
 ;   A NOTE for others or the code below.
+;   NB is short for the Latin phrase "Nota bene" meaning "note well".
 ;  REFACTOR:
 ;   The code below should be REFACTORed.
 ;  TODO:
@@ -31,6 +32,7 @@
 :*?cx:#fixme::SendFixMeCodeTag("{#}")
 :*?cx:#implement::SendImplementCodeTag("{#}")
 :*?cx:#note::SendNoteCodeTag("{#}")
+:*?cx:#nb::SendNBCodeTag("{#}")
 :*?cx:#original::SendOriginalCodeTag("{#}")
 :*?cx:#passed::SendPassedCodeTag("{#}")
 :*?cx:#reference::SendReferenceCodeTag("{#}")
@@ -52,6 +54,7 @@
 :*?cx://failed::SendFailedCodeTag("//")
 :*?cx://fixme::SendFixMeCodeTag("//")
 :*?cx://implement::SendImplementCodeTag("//")
+:*?cx://nb::SendNBCodeTag("//")
 :*?cx://note::SendNoteCodeTag("//")
 :*?cx://original::SendOriginalCodeTag("//")
 :*?cx://passed::SendPassedCodeTag("//")
@@ -153,6 +156,11 @@ SendImplementCodeTag(comment_char)
   SendDontMergeCodeTag(comment_char, Mnemonics.Todo, "implement")
 }
 
+SendNBCodeTag(comment_char)
+{
+  SendCodeTag(comment_char, Mnemonics.NB)
+}
+
 SendNoteCodeTag(comment_char)
 {
   SendCodeTag(comment_char, Mnemonics.Note)
@@ -208,6 +216,7 @@ class Mnemonics
   static Consider := "CONSIDER:"
   static DontMerge := "[DONTMERGE]"
   static FixMe := "FIXME:"
+  static NB := "NB:"
   static Note := "NOTE:"
   static Refactor := "REFACTOR:"
   static Test := "TEST:"
