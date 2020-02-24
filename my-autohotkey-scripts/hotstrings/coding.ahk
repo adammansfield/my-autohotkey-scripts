@@ -10,6 +10,7 @@
 :*c?:;privatefields;::{#}region --[Fields: Private]---------------------------------------
 :*c?:;privatemethods;::{#}region --[Methods: Private]--------------------------------------
 :*c?:;publicclasses;::{#}region --[Classes: Public]---------------------------------------
+:*c?:;publicconstants;::{#}region --[Constants: Public]-------------------------------------
 :*c?:;publicfields;::{#}region --[Fields: Public]----------------------------------------
 :*c?:;publicmethods;::{#}region --[Methods: Public]---------------------------------------
 :*c?:;publicproperties;::{#}region --[Properties: Public]------------------------------------
