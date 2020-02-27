@@ -1,5 +1,6 @@
 :*?b0cx:;log;::SendLogMessage("")
 :*?b0cx:;logagenda;::SendAgendaLogMessage()
+:*?b0cx:;logbreak;::SendLogMessageAndNewLine("Break")
 :*?b0cx:;logcall;::SendLogMessage("Call: ")
 :*?b0cx:;logchat;::SendLogMessage("Chat: ")
 :*?b0cx:;logdraft;::SendLogMessage("Draft: ")
