@@ -21,6 +21,7 @@
 #if !WinActive("Remote Desktop Connection")
 
 :*?cx:#consider::SendConsiderCodeTag("{#}")
+:*?cx:#csdebugger::SendCSharpDebuggerCodeTag("{#}")
 :*?cx:#document::SendDocumentCodeTag("{#}")
 :*?cx:#debug::SendDebugCodeTag("{#}")
 :*?cx:#doing::SendDoingCodeTag("{#}")
@@ -44,6 +45,7 @@
 :*?cx:#???::SendQuestionCodeTag("{#}")
 
 :*?cx://consider::SendConsiderCodeTag("//")
+:*?cx://csdebugger::SendCSharpDebuggerCodeTag("//")
 :*?cx://document::SendDocumentCodeTag("//")
 :*?cx://debug::SendDebugCodeTag("//")
 :*?cx://doing::SendDoingCodeTag("//")
@@ -90,6 +92,23 @@ SendCodeTag(comment_char, mnemonic, subject = "", timestamp = "")
 SendConsiderCodeTag(comment_char)
 {
   SendCodeTag(comment_char, Mnemonics.Consider)
+}
+
+SendCSharpDebuggerCodeTag(comment_char)
+{
+  timestamp := "[" A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec "]"
+  subject := "wait for debugger to attach"
+  waitForDebuggerCode =
+  (
+while (System.IO.File.Exists("debug") && !System.Diagnostics.Debugger.IsAttached)
+System.Threading.Thread.Sleep(250);
+  )
+
+  SendCodeTag(comment_char, "begin " Mnemonics.DontMerge, subject, timestamp)
+  Send("{Enter}")
+  SendRaw(waitForDebuggerCode)
+  Send("{Enter}")
+  SendCodeTag(comment_char, "end   " Mnemonics.DontMerge, subject, timestamp)
 }
 
 SendDocumentCodeTag(comment_char)
