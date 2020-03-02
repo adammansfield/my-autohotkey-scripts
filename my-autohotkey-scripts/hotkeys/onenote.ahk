@@ -31,23 +31,9 @@ OneNoteHighlightLine()
   SelectLineThenSend("^!h")
 }
 
+;; Send properly formatted log messages with input from the clipboard in the form of "HHmm message"
 OneNoteSetTimestampColor()
 {
-  WinClip.Snap(originalClip)
-
-  WinClip.Clear()
-  Send("^x")
-  Sleep(100)
-  ClipWait(1)
-
-  ; Send log messages on a new un-indented line.
-  Send("{Enter}")
-  Sleep(100)
-  Send("{Up}")
-  Sleep(100)
-  Send("+{Tab 2}")
-  Sleep(100)
-
   yyyymmdd := InputBox("Timestamp Prefix",,, 200, 100,,,,, A_YYYY A_MM A_DD)
   WinWaitActive("- OneNote")
 
@@ -68,8 +54,6 @@ OneNoteSetTimestampColor()
     ; OneNote has a delay for input so we must wait in proportion to the length of the message.
     Sleep(Max(200, 3 * StrLen(message)))
   }
-
-  WinClip.Restore(originalClip)
 }
 
 OneNoteStrikeLine()
