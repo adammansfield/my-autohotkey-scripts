@@ -1,6 +1,6 @@
-#NoEnv  ; Avoids checking empty variables to see if they are environment variables.
 #InstallKeybdHook ; Install keyboard hook to capture keys not supported by RegisterHotkey.
 #MaxHotkeysPerInterval 200 ; Display warning if activations go over this value.
+#NoEnv  ; Avoids checking empty variables to see if they are environment variables.
 #SingleInstance force ; Skip prompt and replace old instance automatically.
 #UseHook On ; Use keyboard hook (same as $ prefix on every hotkey).
 
