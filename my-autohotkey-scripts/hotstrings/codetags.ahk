@@ -20,6 +20,7 @@
 
 #if !WinActive("Remote Desktop Connection")
 
+:*?cx:#bdm::SendDontMergeBlockCodeTag("{#}")
 :*?cx:#consider::SendConsiderCodeTag("{#}")
 :*?cx:#csdebugger::SendCSharpDebuggerCodeTag("{#}")
 :*?cx:#document::SendDocumentCodeTag("{#}")
@@ -44,6 +45,7 @@
 :*?cx:#uncomment::SendUncommentCodeTag("{#}")
 :*?cx:#???::SendQuestionCodeTag("{#}")
 
+:*?cx://bdm::SendDontMergeBlockCodeTag("//")
 :*?cx://consider::SendConsiderCodeTag("//")
 :*?cx://csdebugger::SendCSharpDebuggerCodeTag("//")
 :*?cx://document::SendDocumentCodeTag("//")
@@ -118,7 +120,7 @@ SendDocumentCodeTag(comment_char)
 
 SendDebugCodeTag(comment_char)
 {
-  SendDontMergeCodeBlock(comment_char, "for debugging")
+  SendDontMergeBlockCodeTag(comment_char, "for debugging")
 }
 
 SendDoingCodeTag(comment_char)
@@ -126,7 +128,7 @@ SendDoingCodeTag(comment_char)
   SendDontMergeCodeTag(comment_char, "DOING:")
 }
 
-SendDontMergeCodeBlock(comment_char, subject = "")
+SendDontMergeBlockCodeTag(comment_char, subject = " ")
 {
   timestamp := "[" A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec "]"
 
@@ -187,7 +189,7 @@ SendNoteCodeTag(comment_char)
 
 SendOriginalCodeTag(comment_char)
 {
-  SendDontMergeCodeBlock(comment_char, "original")
+  SendDontMergeBlockCodeTag(comment_char, "original")
 }
 
 SendPassedCodeTag(comment_char)
@@ -207,12 +209,12 @@ SendRefactorCodeTag(comment_char)
 
 SendReferenceCodeTag(comment_char)
 {
-  SendDontMergeCodeBlock(comment_char, "reference")
+  SendDontMergeBlockCodeTag(comment_char, "reference")
 }
 
 SendRemoveCodeTag(comment_char)
 {
-  SendDontMergeCodeBlock(comment_char, "remove")
+  SendDontMergeBlockCodeTag(comment_char, "remove")
 }
 
 SendTaskCodeTag(comment_char)
@@ -227,7 +229,7 @@ SendTodoCodeTag(comment_char)
 
 SendUncommentCodeTag(comment_char)
 {
-  SendDontMergeCodeBlock(comment_char, "uncomment")
+  SendDontMergeBlockCodeTag(comment_char, "uncomment")
 }
 
 class Mnemonics
