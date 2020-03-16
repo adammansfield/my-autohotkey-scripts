@@ -276,15 +276,20 @@
   :?:bilty::bility
   :?:blity::bility
   :?:, btu::, but ; Not just replacing "btu", as that is a unit of heat.
-  :?:; btu::; but
   :?:n;t::n't
-  :?:;ll::'ll
-  ;:?:;re::'re ; Commented out because of ;log; hotstring followed by re-
-  :?:;ve::'ve
   ::sice::since  ; Must precede the following line!
   :?:sice::sive
   :?:t eh:: the
   :?:t hem:: them
+
+;; NOTE: Commented out hotstrings mistaking `,` for `;`
+;;   This mistake is because `,` and `;` are nearby on QWERTY, but this is very
+;;   unlikely on the Dvorak keyboard.
+;; [2020-03-14]
+;; :?:; btu::; but
+;; :?:;ll::'ll
+;; ;:?:;re::'re
+;; :?:;ve::'ve
 }
 
 ; Word middles.
