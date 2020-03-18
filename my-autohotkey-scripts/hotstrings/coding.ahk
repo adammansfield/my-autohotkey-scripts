@@ -9,6 +9,7 @@
 :*c?:;privateconstants;::{#}region --[Constants: Private]------------------------------------
 :*c?:;privatefields;::{#}region --[Fields: Private]---------------------------------------
 :*c?:;privatemethods;::{#}region --[Methods: Private]--------------------------------------
+:*c?:;protectedmethods;::{#}region --[Methods: Protected]------------------------------------
 :*c?:;publicclasses;::{#}region --[Classes: Public]---------------------------------------
 :*c?:;publicconstants;::{#}region --[Constants: Public]-------------------------------------
 :*c?:;publicfields;::{#}region --[Fields: Public]----------------------------------------

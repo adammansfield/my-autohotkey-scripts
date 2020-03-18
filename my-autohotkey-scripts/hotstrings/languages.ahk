@@ -15,9 +15,9 @@ BackspaceThenSend(keys, backspaces)
   ;;   Backspacing is more reliable when backspacing with minor sleeps before and after.
   ;; [2020-03-14]
   loop %backspaces% {
-    Sleep(1)
+    Sleep(2)
     Send("{Backspace}")
-    Sleep(1)
+    Sleep(2)
   }
 
   Send(keys)
