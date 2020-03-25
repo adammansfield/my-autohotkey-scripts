@@ -132,9 +132,9 @@ SendDontMergeBlockCodeTag(comment_char, subject = " ")
 {
   timestamp := "[" A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec "]"
 
-  SendCodeTag(comment_char, "begin " Mnemonics.DontMerge, subject, timestamp)
+  SendCodeTag(comment_char, "-- begin " Mnemonics.DontMerge, subject, timestamp)
   Send("{Enter}")
-  SendCodeTag(comment_char, "end   " Mnemonics.DontMerge, subject, timestamp)
+  SendCodeTag(comment_char, "-- end   " Mnemonics.DontMerge, subject, timestamp)
 }
 
 SendDontMergeCodeTag(comment_char, sub_mnemonic = "", subject = "")
