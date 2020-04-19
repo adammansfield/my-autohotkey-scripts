@@ -5,6 +5,21 @@
 :*c?:;psgrep;::Get-ChildItem . | Select-String -Pattern{Space}
 :*c?:;psrgrep;::Get-ChildItem -Recurse . | Select-String -Pattern{Space}
 
+;; Backspace then send for use with hotstrings with manual backspacing.
+BackspaceThenSend(keys, backspaces)
+{
+  ;; NOTE: Using hotstrings in OneNote often leaves part of the hotstring
+  ;;   Backspacing is more reliable when backspacing with minor sleeps before and after.
+  ;; [2020-03-14]
+  loop %backspaces% {
+    Sleep(2)
+    Send("{Backspace}")
+    Sleep(2)
+  }
+
+  Send(keys)
+}
+
 SendNumberMinUntilHour(targetHour)
 {
   if (A_Hour >= targetHour)
