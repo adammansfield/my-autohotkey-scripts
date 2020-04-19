@@ -1,5 +1,8 @@
 ; Bullet Point
-:*c:;bp;::{AltDown}{Numpad7}{AltUp}
+:*b0cx:;bp;::BackspaceThenSend("{U+2022}", strlen(";bp;"))
+
+; Check marks
+:*b0cx:;cm;::BackspaceThenSend("{U+2611}", strlen(";cm;"))
 
 ; Dashes
 :*c:;mdash;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad1}{AltUp}
