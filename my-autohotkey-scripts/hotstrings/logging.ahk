@@ -1,6 +1,6 @@
 :*?b0cx:;log;::SendLogMessage("")
 :*?b0cx:;logagenda;::SendAgendaLogMessage()
-:*?b0cx:;logbreak;::SendLogMessageAndNewLine("Break")
+:*?b0cx:;logarbeitssprint;::SendSprintLogMessage("Arbeitssprint")
 :*?b0cx:;logcall;::SendLogMessage("Call: ")
 :*?b0cx:;logchat;::SendLogMessage("Chat: ")
 :*?b0cx:;logdraft;::SendLogMessage("Draft: ")
@@ -11,6 +11,8 @@
 :*?b0cx:;logmeeting;::SendLogMessage("Meeting: ")
 :*?b0cx:;logmmt;::SendLogMessageAndNewLine("Mail, messages, tasks")
 :*?b0cx:;logpassed;::SendLogMessage("Passed: ")
+:*?b0cx:;logpause;::SendLogMessageAndNewLine("Pause")
+:*?b0cx:;logpersonensprint;::SendSprintLogMessage("Personensprint")
 :*?b0cx:;logsprint;::SendSprintLogMessage()
 :*?b0cx:;logtalk;::SendLogMessage("Talk: ")
 :*?b0cx:;logthemes;::SendThemesLogMessage()
@@ -89,9 +91,9 @@ SendOneNoteTodoList()
   Send("^1") ; OneNote Todo tag.
 }
 
-SendSprintLogMessage()
+SendSprintLogMessage(mnemonic = "Sprint")
 {
-  SendLogMessage("Sprint:")
+  SendLogMessage(mnemonic ":")
   Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
   SendOneNoteTodoList()
 }
