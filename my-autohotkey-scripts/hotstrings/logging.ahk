@@ -6,7 +6,7 @@
 :*?b0cx:;logdraft;::SendLogMessage("Draft: ")
 :*?b0cx:;logfailed;::SendLogMessage("Failed: ")
 :*?b0cx:;logfinish;::SendLogMessageAndNewLine("Finished work")
-:*?b0cx:;loglunch;::SendLogMessageAndNewLine("Lunch")
+:*?b0cx:;logmittagessen;::SendLogMessageAndNewLine("Mittagessen")
 :*?b0cx:;logmessage;::SendLogMessage("Message: ")
 :*?b0cx:;logmeeting;::SendLogMessage("Meeting: ")
 :*?b0cx:;logmmt;::SendLogMessageAndNewLine("Mail, messages, tasks")
