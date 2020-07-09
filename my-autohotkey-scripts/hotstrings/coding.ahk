@@ -52,7 +52,18 @@ private:
 {
   text =
   (
-System.IO.File.AppendAllText($"[DONTMERGE]-{System.Diagnostic.Process.GetCurrentProcess().StartTime:yyyyMMddTHHmmss}.log", $"{DateTime.Now:yyyyMMddTHHmmss} " +
+System.IO.File.AppendAllText($"[DONTMERGE]-{System.Diagnostics.Process.GetCurrentProcess().StartTime:yyyyMMddTHHmmss}.log", $"{DateTime.Now:yyyyMMddTHHmmss} {System.Reflection.MethodBase.GetCurrentMethod ().DeclaringType}) " +
+  )
+  WinClip.Snap(clip)
+  WinClip.Clear()
+  WinClip.SetText(text)
+  WinClip.Paste()
+  Sleep(500) ; Wait for pasting to finish.
+  WinClip.Restore(clip)
+
+  text =
+  (
+
 $""
 + Environment.NewLine) ;
   )
