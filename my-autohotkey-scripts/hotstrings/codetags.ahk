@@ -27,6 +27,7 @@
 :*?cx:#debug::SendDebugCodeTag("{#}")
 :*?cx:#doing::SendDoingCodeTag("{#}")
 :*?cx:#dm::SendDontMergeCodeTag("{#}")
+:*?cx:#drefactor::SendDontMergeCodeTag("{#}", Mnemonics.Refactor)
 :*?cx:#error::SendErrorCodeTag("{#}")
 :*?cx:#extractfunction::SendExtractFunctionCodeTag("{#}")
 :*?cx:#extractmethod::SendExtractMethodCodeTag("{#}")
@@ -52,6 +53,7 @@
 :*?cx://debug::SendDebugCodeTag("//")
 :*?cx://doing::SendDoingCodeTag("//")
 :*?cx://dm::SendDontMergeCodeTag("//")
+:*?cx://drefactor::SendDontMergeCodeTag("//", Mnemonics.Refactor)
 :*?cx://error::SendErrorCodeTag("//")
 :*?cx://extractfunction::SendExtractFunctionCodeTag("//")
 :*?cx://extractmethod::SendExtractMethodCodeTag("//")
@@ -71,7 +73,7 @@
 :*?cx://???::SendQuestionCodeTag("//")
 
 :*?cx:;considerct;::Send(Mnemonics.Consider)
-:*?cx:;dmct;::Send(Mnemonics.DontMerge)
+:*?cx:;dm;::Send(Mnemonics.DontMergeText)
 :*?cx:;fixmect;::Send(Mnemonics.FixMe)
 :*?cx:;notect;::Send(Mnemonics.Note)
 :*?cx:;refactorct;::Send(Mnemonics.Refactor)
@@ -236,6 +238,7 @@ class Mnemonics
 {
   static Consider := "CONSIDER:"
   static DontMerge := "[DONTMERGE]"
+  static DontMergeText := "DONTMERGE"
   static FixMe := "FIXME:"
   static NB := "NB:"
   static Note := "NOTE:"
