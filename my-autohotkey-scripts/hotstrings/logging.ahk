@@ -1,19 +1,22 @@
 :*?b0cx:;log;::SendLogMessage("")
 :*?b0cx:;logagenda;::SendAgendaLogMessage()
-:*?b0cx:;logarbeitssprint;::SendSprintLogMessage("Arbeitssprint")
+:*?b0cx:;logarbeitssprint;::SendHighligthedTodoList("Arbeitssprint")
 :*?b0cx:;logcall;::SendLogMessage("Call: ")
 :*?b0cx:;logchat;::SendLogMessage("Chat: ")
 :*?b0cx:;logdraft;::SendLogMessage("Draft: ")
 :*?b0cx:;logfailed;::SendLogMessage("Failed: ")
 :*?b0cx:;logfinish;::SendLogMessageAndNewLine("Finished work")
+:*?b0cx:;logfinanzen;::SendLogMessageAndNewLine("Finanzen")
 :*?b0cx:;logmittagessen;::SendLogMessageAndNewLine("Mittagessen")
 :*?b0cx:;logmessage;::SendLogMessage("Message: ")
 :*?b0cx:;logmeeting;::SendLogMessage("Meeting: ")
+:*?b0cx:;logmorgen;::SendLogMessageAndNewLine("Morgen")
 :*?b0cx:;logmmt;::SendLogMessageAndNewLine("Mail, messages, tasks")
 :*?b0cx:;logpassed;::SendLogMessage("Passed: ")
 :*?b0cx:;logpause;::SendLogMessageAndNewLine("Pause")
-:*?b0cx:;logpersonensprint;::SendSprintLogMessage("Personensprint")
-:*?b0cx:;logsprint;::SendSprintLogMessage()
+:*?b0cx:;logpersonensprint;::SendHighligthedTodoList("Personensprint")
+:*?b0cx:;logsprint;::SendHighligthedTodoList("Sprint")
+:*?b0cx:;logstandup;::SendLogMessageAndNewLine("Standup")
 :*?b0cx:;logtalk;::SendLogMessage("Talk: ")
 :*?b0cx:;logthemes;::SendThemesLogMessage()
 :*?b0cx:;logtodo;::SendTodoLogMessage()
@@ -62,6 +65,13 @@ SendColoredString(color, timestamp)
   Send(timestamp " ")
 }
 
+SendHighligthedTodoList(mnemonic)
+{
+  SendLogMessage(mnemonic ":")
+  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
+  SendOneNoteTodoList()
+}
+
 SendLogMessage(message, timestamp = "")
 {
   if (timestamp = "")
@@ -89,13 +99,6 @@ SendOneNoteTodoList()
   Send("{Tab}")
   Sleep(10) ; Ensure position is indented before applying Todo tag.
   Send("^1") ; OneNote Todo tag.
-}
-
-SendSprintLogMessage(mnemonic = "Sprint")
-{
-  SendLogMessage(mnemonic ":")
-  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
-  SendOneNoteTodoList()
 }
 
 SendThemesLogMessage()
