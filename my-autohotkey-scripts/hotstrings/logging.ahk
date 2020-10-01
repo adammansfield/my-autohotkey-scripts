@@ -5,16 +5,18 @@
 :*?b0cx:;logchat;::SendLogMessage("Chat: ")
 :*?b0cx:;logdraft;::SendLogMessage("Draft: ")
 :*?b0cx:;logfailed;::SendLogMessage("Failed: ")
-:*?b0cx:;logfinish;::SendLogMessageAndNewLine("Finished work")
+:*?b0cx:;logfertig;::SendLogMessageAndNewLine("fertig arbeiten")
 :*?b0cx:;logfinanzen;::SendLogMessageAndNewLine("Finanzen")
-:*?b0cx:;logmittagessen;::SendLogMessageAndNewLine("Mittagessen")
-:*?b0cx:;logmessage;::SendLogMessage("Message: ")
+:*?b0cx:;logka;::SendLogMessageAndNewLine("Korrespondenz, Aufgaben")
 :*?b0cx:;logmeeting;::SendLogMessage("Meeting: ")
+:*?b0cx:;logmessage;::SendLogMessage("Message: ")
+:*?b0cx:;logmittagessen;::SendLogMessageAndNewLine("Mittagessen")
 :*?b0cx:;logmorgen;::SendLogMessageAndNewLine("Morgen")
-:*?b0cx:;logmmt;::SendLogMessageAndNewLine("Mail, messages, tasks")
+:*?b0cx:;logp;::SendLogMessageWithPrefix(true)
 :*?b0cx:;logpassed;::SendLogMessage("Passed: ")
 :*?b0cx:;logpause;::SendLogMessageAndNewLine("Pause")
 :*?b0cx:;logpersonensprint;::SendHighligthedTodoList("Personensprint")
+:*?b0cx:;logprefix;::SendLogMessageWithPrefix(false)
 :*?b0cx:;logsprint;::SendHighligthedTodoList("Sprint")
 :*?b0cx:;logstandup;::SendLogMessageAndNewLine("Standup")
 :*?b0cx:;logtalk;::SendLogMessage("Talk: ")
@@ -89,6 +91,18 @@ SendLogMessageAndNewLine(message)
 {
   SendLogMessage(message)
   Send("{Enter}")
+}
+
+SendLogMessageWithPrefix(useCache)
+{
+  static prefix := ""
+  if (!useCache || prefix = "")
+  {
+    prefix := InputBox("Log Prefix",,, 200, 100)
+    WinWaitActive("- OneNote")
+  }
+
+  SendLogMessage(prefix " ")
 }
 
 ;; Send commands to create an indented todo list on a new line.
