@@ -25,16 +25,6 @@
 :*?b0cx:;logwfh;::SendLogMessageAndNewLine("WFH")
 :*?b0cx:;logwfo;::SendLogMessageAndNewLine("WFO")
 
-ResetOneNoteFormatting()
-{
-  ; Highlight one character otherwise ^+n would reset formatting for entire line.
-  Send("+{Left}")
-  Send("^+n")
-  Sleep(100) ; Wait for format reset.
-  Send("{Right}")
-  Sleep(100) ; Wait for cursor to move right in case input is sent instantly after this function.
-}
-
 SendAgendaLogMessage()
 {
   SendLogMessageAndNewLine("Agenda:")
@@ -47,24 +37,7 @@ SendClearLine()
   ; BUG: hotstring backspacing sometimes fails in OneNote
   ; Without this, a prefix ';' would be frequently leftover. [2019-07-04]
   Send("{Home}+{End}{Del}")
-  Sleep(100) ; Sleep or else input after this function might be truncated.
-}
-
-SendColoredString(color, timestamp)
-{
-  WinClip.Snap(clip)
-  WinClip.Clear()
-  WinClip.SetHTML("<span style='color:#" color "'>&nbsp;</span>")
-  WinClip.Paste()
-  Sleep(500) ; Wait for pasting to finish.
-  WinClip.Restore(clip)
-  ; Sleep between each backspace to increase the reliability with both
-  ; keys completing their input in OneNote.
-  Send("{Backspace}")
-  Sleep(100)
-  Send("{Backspace}")
-  Sleep(100)
-  Send(timestamp " ")
+  Sleep(150) ; Sleep or else input after this function might be truncated.
 }
 
 SendHighligthedTodoList(mnemonic)
@@ -82,14 +55,18 @@ SendLogMessage(message, timestamp = "")
   }
 
   SendClearLine()
-  SendColoredString("3C87CD", timestamp)
-  ResetOneNoteFormatting()
-  Send(message)
+
+  WinClip.Snap(clip)
+  WinClip.Clear()
+  WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>" " " message)
+  WinClip.Paste()
+  Sleep(500) ; Wait for pasting to finish.
+  WinClip.Restore(clip)
 }
 
-SendLogMessageAndNewLine(message)
+SendLogMessageAndNewLine(message, timestamp = "")
 {
-  SendLogMessage(message)
+  SendLogMessage(message, timestamp)
   Send("{Enter}")
 }
 
