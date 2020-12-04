@@ -6,7 +6,6 @@
 :*?b0cx:;logdraft;::SendLogMessage("Draft: ")
 :*?b0cx:;logfertig;::SendLogMessageAndNewLine("fertig arbeiten")
 :*?b0cx:;logfinanzen;::SendLogMessageAndNewLine("Finanzen")
-:*?b0cx:;logka;::SendLogMessageAndNewLine("Korrespondenz, Aufgaben")
 :*?b0cx:;logmeeting;::SendLogMessage("Meeting: ")
 :*?b0cx:;logmessage;::SendLogMessage("Message: ")
 :*?b0cx:;logmittagessen;::SendLogMessageAndNewLine("Mittagessen")
@@ -14,11 +13,12 @@
 :*?b0cx:;logp;::SendLogMessageWithPrefix(true)
 :*?b0cx:;logpause;::SendLogMessageAndNewLine("Pause")
 :*?b0cx:;logpersonensprint;::SendHighligthedTodoList("Personensprint")
+:*?b0cx:;logplanearbeit;::SendLogMessageAndNewLine("Korrespondenz, Aufgaben, schreibe Standup")
 :*?b0cx:;logprefix;::SendLogMessageWithPrefix(false)
 :*?b0cx:;logschreibe;::SendLogMessage("schreibe ")
 :*?b0cx:;logscrum;::SendLogMessageAndNewLine("Scrum")
 :*?b0cx:;logsprint;::SendHighligthedTodoList("Sprint")
-:*?b0cx:;logstandup;::SendLogMessageAndNewLine("schreibe Standup")
+:*?b0cx:;logstandup;::SendStandupTemplate()
 :*?b0cx:;logtalk;::SendLogMessage("Talk: ")
 :*?b0cx:;logtodo;::SendTodoLogMessage()
 :*?b0cx:;logwfh;::SendLogMessageAndNewLine("WFH")
@@ -78,7 +78,7 @@ SendLogMessage(message = "", timestamp = "")
   WinClip.Paste()
   Sleep(300) ; Wait for paste
   WinClip.Restore(clip)
-  Sleep(100)
+  Sleep(200)
 
   ; Remove the appended non-breaking space that was used to retain styling
   if (message = "&nbsp;")
@@ -88,7 +88,7 @@ SendLogMessage(message = "", timestamp = "")
   }
 }
 
-SendLogMessageAndNewLine(message, timestamp = "")
+SendLogMessageAndNewLine(message = "", timestamp = "")
 {
   SendLogMessage(message, timestamp)
   Send("{Enter}")
@@ -101,7 +101,7 @@ SendLogMessageWithPrefix(useCache)
   {
     prefix := InputBox("Log Prefix",,, 200, 100)
     WinWaitActive("- OneNote")
-    Sleep(10)
+    Sleep(100)
   }
 
   SendLogMessage(prefix " ")
@@ -115,6 +115,19 @@ SendOneNoteTodoList()
   Send("{Tab}")
   Sleep(10) ; Ensure position is indented before applying Todo tag.
   Send("^1") ; OneNote Todo tag.
+}
+
+SendStandupTemplate()
+{
+  SendLogMessageAndNewLine()
+  Sleep(200)
+  Send("Yesterday:{Enter}")
+  Sleep(200)
+  Send("*- nnnn* ``category`` msg{Enter}")
+  Sleep(200)
+  Send("Today:{Enter}")
+  Sleep(200)
+  Send("*- nnnn* ``category`` msg{Enter}")
 }
 
 SendTodoLogMessage()
