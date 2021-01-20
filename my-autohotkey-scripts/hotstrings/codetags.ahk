@@ -20,31 +20,31 @@
 
 #if !WinActive("Remote Desktop Connection")
 
-:*?cx:#bdm::SendDontMergeBlockCodeTag("{#}")
-:*?cx:#consider::SendConsiderCodeTag("{#}")
-:*?cx:#csdebugger::SendCSharpDebuggerCodeTag("{#}")
-:*?cx:#document::SendDocumentCodeTag("{#}")
-:*?cx:#debug::SendDebugCodeTag("{#}")
-:*?cx:#doing::SendDoingCodeTag("{#}")
-:*?cx:#dm::SendDontMergeCodeTag("{#}")
-:*?cx:#drefactor::SendDontMergeCodeTag("{#}", Mnemonics.Refactor)
-:*?cx:#error::SendErrorCodeTag("{#}")
-:*?cx:#extractfunction::SendExtractFunctionCodeTag("{#}")
-:*?cx:#extractmethod::SendExtractMethodCodeTag("{#}")
-:*?cx:#failed::SendFailedCodeTag("{#}")
-:*?cx:#fixme::SendFixMeCodeTag("{#}")
-:*?cx:#implement::SendImplementCodeTag("{#}")
-:*?cx:#note::SendNoteCodeTag("{#}")
-:*?cx:#nb::SendNBCodeTag("{#}")
-:*?cx:#original::SendOriginalCodeTag("{#}")
-:*?cx:#passed::SendPassedCodeTag("{#}")
-:*?cx:#reference::SendReferenceCodeTag("{#}")
-:*?cx:#refactor::SendRefactorCodeTag("{#}")
-:*?cx:#remove::SendRemoveCodeTag("{#}")
-:*?cx:#task::SendTaskCodeTag("{#}")
-:*?cx:#todo::SendTodoCodeTag("{#}")
-:*?cx:#uncomment::SendUncommentCodeTag("{#}")
-:*?cx:#???::SendQuestionCodeTag("{#}")
+:*?cx:#bdm::SendDontMergeBlockCodeTag("#")
+:*?cx:#consider::SendConsiderCodeTag("#")
+:*?cx:#csdebugger::SendCSharpDebuggerCodeTag("#")
+:*?cx:#document::SendDocumentCodeTag("#")
+:*?cx:#debug::SendDebugCodeTag("#")
+:*?cx:#doing::SendDoingCodeTag("#")
+:*?cx:#dm::SendDontMergeCodeTag("#")
+:*?cx:#drefactor::SendDontMergeCodeTag("#", Mnemonics.Refactor)
+:*?cx:#error::SendErrorCodeTag("#")
+:*?cx:#extractfunction::SendExtractFunctionCodeTag("#")
+:*?cx:#extractmethod::SendExtractMethodCodeTag("#")
+:*?cx:#failed::SendFailedCodeTag("#")
+:*?cx:#fixme::SendFixMeCodeTag("#")
+:*?cx:#implement::SendImplementCodeTag("#")
+:*?cx:#note::SendNoteCodeTag("#")
+:*?cx:#nb::SendNBCodeTag("#")
+:*?cx:#original::SendOriginalCodeTag("#")
+:*?cx:#passed::SendPassedCodeTag("#")
+:*?cx:#reference::SendReferenceCodeTag("#")
+:*?cx:#refactor::SendRefactorCodeTag("#")
+:*?cx:#remove::SendRemoveCodeTag("#")
+:*?cx:#task::SendTaskCodeTag("#")
+:*?cx:#todo::SendTodoCodeTag("#")
+:*?cx:#uncomment::SendUncommentCodeTag("#")
+:*?cx:#???::SendQuestionCodeTag("#")
 
 :*?cx://bdm::SendDontMergeBlockCodeTag("//")
 :*?cx://consider::SendConsiderCodeTag("//")
@@ -86,7 +86,19 @@ SendCodeTag(comment_char, mnemonic, subject = "", timestamp = "")
     timestamp := "[" A_YYYY "-" A_MM "-" A_DD "]"
   }
 
-  Send(comment_char " " mnemonic " " subject " " timestamp)
+  Sleep(100)
+
+  ; Paste instead of send to improve performance by avoiding autocompletion
+  WinClip.Snap(clip)
+  WinClip.Clear()
+  Sleep(100) ; Wait for clear
+  WinClip.SetText(comment_char " " mnemonic " " subject " " timestamp)
+  Sleep(100) ; Wait for copy
+  WinClip.Paste()
+  Sleep(100) ; Wait for paste
+  WinClip.Restore(clip)
+  Sleep(100) ; Wait for restore
+
   if (subject = "")
   {
     Send("{Left 13}")
