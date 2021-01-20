@@ -9,13 +9,12 @@
 ;; Backspace then send for use with hotstrings with manual backspacing.
 BackspaceThenSend(keys, backspaces)
 {
-  ;; NOTE: Using hotstrings in OneNote often leaves part of the hotstring
-  ;;   Backspacing is more reliable when backspacing with minor sleeps before and after.
-  ;; [2020-03-14]
+  ;; NOTE: Using hotstrings in OneNote often leaves part of the hotstring [2020-03-14]
+  ;; Backspacing is more reliable when backspacing with minor sleeps before and after.
   loop %backspaces% {
-    Sleep(2)
+    Sleep(5)
     Send("{Backspace}")
-    Sleep(2)
+    Sleep(5)
   }
 
   Send(keys)
