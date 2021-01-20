@@ -1,3 +1,4 @@
+<!p::PasteAsSend()
 <!t::ToggleAlwaysOnTop()
 
 ;; Ctrl-Shift-Alt-v on QWERTY keyboard for Dvorak configuration
@@ -39,6 +40,11 @@ CountMinIndent(Byref string)
     }
   }
   return min_indent
+}
+
+PasteAsSend()
+{
+  SendRaw(clipboard)
 }
 
 ;; Convert clipboard image to a bitmap, and paste it
