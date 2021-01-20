@@ -48,7 +48,7 @@ OneNoteSetTimestampColor()
 
     ; TODO: If message starts with whitespace, then do not send a timestamp
     ;   Allows selection of log messages with supplemental indented notes. [2020-02-11]
-    SendLogMessageAndNewLine(message, yyyymmdd "T" time)
+    OneNoteLogLine(message, yyyymmdd "T" time)
     ; OneNote has a delay for input so we must wait in proportion to the length of the message.
     Sleep(Max(200, 3 * StrLen(message)))
   }
