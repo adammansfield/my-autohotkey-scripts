@@ -20,6 +20,7 @@
 :*?cx:;hm-;::Send(A_Hour ":" A_Min)
 :*?cx:;ts;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
 :*?cx:;ts-;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
+:*?cx:;utsv;::SendUtcVersionDate()
 :*?cx:;ym;::Send(A_YYYY A_MM)
 :*?cx:;ym-;::Send(A_YYYY "-" A_MM)
 :*?cx:;ymd;::Send(A_YYYY A_MM A_DD)
@@ -34,4 +35,10 @@
 GetWeekNumber()
 {
   return StringRight(A_YWeek, 2)
+}
+
+SendUtcVersionDate()
+{
+  FormatTime, version, %A_NowUTC%, yyyy.MM.dd.HHmm
+  SendRaw(version)
 }
