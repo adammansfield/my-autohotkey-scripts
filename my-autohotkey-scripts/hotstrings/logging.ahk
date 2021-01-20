@@ -1,35 +1,20 @@
-:*?b0cx:;log;::SendLogMessage()
-:*?b0cx:;logagenda;::SendAgendaLogMessage()
-:*?b0cx:;logarbeitssprint;::SendHighligthedTodoList("Arbeitssprint")
-:*?b0cx:;logcall;::SendLogMessage("Call: ")
-:*?b0cx:;logchat;::SendLogMessage("Chat: ")
-:*?b0cx:;logdraft;::SendLogMessage("Draft: ")
-:*?b0cx:;logfertig;::SendLogMessageAndNewLine("fertig arbeiten")
-:*?b0cx:;logfinanzen;::SendLogMessageAndNewLine("Finanzen")
-:*?b0cx:;logmeeting;::SendLogMessage("Meeting: ")
-:*?b0cx:;logmessage;::SendLogMessage("Message: ")
-:*?b0cx:;logmittagessen;::SendLogMessageAndNewLine("Mittagessen")
-:*?b0cx:;logmorgen;::SendLogMessageAndNewLine("Morgen")
-:*?b0cx:;logp;::SendLogMessageWithPrefix(true)
-:*?b0cx:;logpause;::SendLogMessageAndNewLine("Pause")
-:*?b0cx:;logpersonensprint;::SendHighligthedTodoList("Personensprint")
-:*?b0cx:;logplanearbeit;::SendLogMessageAndNewLine("Korrespondenz, Aufgaben, schreibe Standup")
-:*?b0cx:;logprefix;::SendLogMessageWithPrefix(false)
-:*?b0cx:;logschreibe;::SendLogMessage("schreibe ")
-:*?b0cx:;logscrum;::SendLogMessageAndNewLine("Scrum")
-:*?b0cx:;logsprint;::SendHighligthedTodoList("Sprint")
-:*?b0cx:;logstandup;::SendStandupTemplate()
-:*?b0cx:;logtalk;::SendLogMessage("Talk: ")
-:*?b0cx:;logtodo;::SendTodoLogMessage()
-:*?b0cx:;logwfh;::SendLogMessageAndNewLine("WFH")
-:*?b0cx:;logwfo;::SendLogMessageAndNewLine("WFO")
-
-SendAgendaLogMessage()
-{
-  SendLogMessageAndNewLine("Agenda:")
-  Sleep(200) ; Wait before indenting
-  Send("{Tab}")
-}
+:*?b0cx:;log;::OneNoteLog()
+:*?b0cx:;logfertig;::OneNoteLogLine("fertig arbeiten")
+:*?b0cx:;logfinanzen;::OneNoteLogLine("Finanzen")
+:*?b0cx:;logmits;::OneNotLogTodoList("MITs")
+:*?b0cx:;logmittagessen;::OneNoteLogLine("Mittagessen")
+:*?b0cx:;logmorgen;::OneNoteLogLine("Morgen")
+:*?b0cx:;logp;::OneNoteLogWithPrefix(true)
+:*?b0cx:;logpause;::OneNoteLogLine("Pause")
+:*?b0cx:;logplanearbeit;::OneNoteLogLine("Korrespondenz, Aufgaben, schreibe Standup")
+:*?b0cx:;logprefix;::OneNoteLogWithPrefix(false)
+:*?b0cx:;logschreibe;::OneNoteLog("schreibe ")
+:*?b0cx:;logscrum;::OneNoteLogLine("Scrum")
+:*?b0cx:;logsprint;::OneNotLogTodoList("Sprint")
+:*?b0cx:;logstandup;::OneNoteLogStandup()
+:*?b0cx:;logtodo;::OneNoteLogTodo()
+:*?b0cx:;logwfh;::OneNoteLogLine("WFH")
+:*?b0cx:;logwfo;::OneNoteLogLine("WFO")
 
 SendClearLine()
 {
@@ -43,15 +28,25 @@ SendClearLine()
   Sleep(20)      ; Wait for deletion
 }
 
-SendHighligthedTodoList(mnemonic)
+;; Send commands to create an indented, highlighted todo list on a new line.
+OneNotLogTodoList(mnemonic, highlight = true)
 {
-  SendLogMessage(mnemonic ":")
-  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
-  Sleep(100)
-  SendOneNoteTodoList()
+  OneNoteLog(mnemonic ":")
+  Sleep(200)
+  Send("{Enter}")
+  Sleep(200) ; Sometimes it fails to indent if we do not wait.
+  Send("{Tab}")
+  Sleep(100) ; Ensure position is indented before applying Todo tag.
+  Send("^1") ; OneNote Todo tag.
+
+  if (highlight)
+  {
+    Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
+    Sleep(100)
+  }
 }
 
-SendLogMessage(message = "", timestamp = "")
+OneNoteLog(message = "", timestamp = "")
 {
   if (timestamp = "")
   {
@@ -83,18 +78,18 @@ SendLogMessage(message = "", timestamp = "")
   ; Remove the appended non-breaking space that was used to retain styling
   if (message = "&nbsp;")
   {
-    Sleep(100)
     Send("{Backspace}")
+    Sleep(100)
   }
 }
 
-SendLogMessageAndNewLine(message = "", timestamp = "")
+OneNoteLogLine(message = "", timestamp = "")
 {
-  SendLogMessage(message, timestamp)
+  OneNoteLog(message, timestamp)
   Send("{Enter}")
 }
 
-SendLogMessageWithPrefix(useCache)
+OneNoteLogWithPrefix(useCache)
 {
   static prefix := ""
   if (!useCache || prefix = "")
@@ -104,35 +99,27 @@ SendLogMessageWithPrefix(useCache)
     Sleep(100)
   }
 
-  SendLogMessage(prefix " ")
+  OneNoteLog(prefix " ")
 }
 
-;; Send commands to create an indented todo list on a new line.
-SendOneNoteTodoList()
+OneNoteLogStandup()
 {
-  Send("{Enter}")
-  Sleep(100) ; Sometimes it fails to indent if we do not wait.
-  Send("{Tab}")
-  Sleep(10) ; Ensure position is indented before applying Todo tag.
-  Send("^1") ; OneNote Todo tag.
-}
-
-SendStandupTemplate()
-{
-  SendLogMessageAndNewLine()
+  OneNoteLogLine()
   Sleep(200)
   Send("Yesterday:{Enter}")
   Sleep(200)
   Send("*- nnnn* ``category`` msg{Enter}")
+  Sleep(200)
+  Send("{Enter}")
   Sleep(200)
   Send("Today:{Enter}")
   Sleep(200)
   Send("*- nnnn* ``category`` msg{Enter}")
 }
 
-SendTodoLogMessage()
+OneNoteLogTodo()
 {
-  SendLogMessage("TODO: ")
+  OneNoteLog("TODO ")
   Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
   Sleep(100) ; Ensure that next space will be unhighlighted.
   Send("{Space}") ; Add an unhighlighted space so that the next message is not highlighted.
