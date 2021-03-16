@@ -4,7 +4,6 @@
 :*?b0cx:;logmits;::OneNotLogTodoList("MITs")
 :*?b0cx:;logmittagessen;::OneNoteLogLine("Mittagessen")
 :*?b0cx:;logmorgen;::OneNoteLogLine("Morgen")
-:*?b0cx:;logp;::OneNoteLogWithPrefix(true)
 :*?b0cx:;logpause;::OneNoteLogLine("Pause")
 :*?b0cx:;logplanearbeit;::OneNoteLogLine("Korrespondenz, Aufgaben, schreibe Standup")
 :*?b0cx:;logprefix;::OneNoteLogWithPrefix(false)
@@ -13,8 +12,13 @@
 :*?b0cx:;logsprint;::OneNotLogTodoList("Sprint")
 :*?b0cx:;logstandup;::OneNoteLogStandup()
 :*?b0cx:;logtodo;::OneNoteLogTodo()
+:*?b0cx:;loguntersuchen;::OneNoteLog("untersuchen ")
 :*?b0cx:;logwfh;::OneNoteLogLine("WFH")
 :*?b0cx:;logwfo;::OneNoteLogLine("WFO")
+
+; TODO: add ;logp{action}; hotstring to be surrounded with prefix [2021-03-16]
+; e..g :*?b0cx:;logptodo;::OneNoteLogWithPrefix(true) would send `{timestamp} {prefix} TODO: `
+:*?b0cx:;logp;::OneNoteLogWithPrefix(true)
 
 SendClearLine()
 {
