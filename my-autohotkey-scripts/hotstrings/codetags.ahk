@@ -40,6 +40,7 @@
 :*?cx:#passed::SendPassedCodeTag("#")
 :*?cx:#reference::SendReferenceCodeTag("#")
 :*?cx:#refactor::SendRefactorCodeTag("#")
+; TODO: define remove and bremove where bremove is a block (begin/end) [2021-03-05]
 :*?cx:#remove::SendRemoveCodeTag("#")
 :*?cx:#task::SendTaskCodeTag("#")
 :*?cx:#todo::SendTodoCodeTag("#")
@@ -85,6 +86,8 @@ SendCodeTag(comment_char, mnemonic, subject = "", timestamp = "")
   {
     timestamp := "[" A_YYYY "-" A_MM "-" A_DD "]"
   }
+
+  ; TODO: If window is OneNote then use Paste(), otherwise, use Send() [2021-03-16]
 
   Sleep(100)
 

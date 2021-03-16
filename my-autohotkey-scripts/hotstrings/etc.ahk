@@ -4,7 +4,8 @@
 :*c?:;mklink;::mklink /D name target
 :*c?:;psgrep;::Get-ChildItem . | Select-String -Pattern{Space}
 :*c?:;psrgrep;::Get-ChildItem -Recurse . | Select-String -Pattern{Space}
-:*cx?:;devlog;::Send("^bDeveloper's Log^b{Enter}")
+:*cx?:;wifix;::Send("^bProblem:^b {Enter}^bFix:^b {Enter}^bVerify:^b {Up 2}{End}")
+:*cx?:;wilog;::Send("^bDeveloper's Log^b{Enter}")
 
 ;; Backspace then send for use with hotstrings with manual backspacing.
 BackspaceThenSend(keys, backspaces)
