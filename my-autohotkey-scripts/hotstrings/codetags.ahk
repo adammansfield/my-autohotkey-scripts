@@ -21,6 +21,7 @@
 #if !WinActive("Remote Desktop Connection")
 
 :*?cx:#bdm::SendDontMergeBlockCodeTag("#")
+:*?cx:#comment::SendCommentCodeTag("#")
 :*?cx:#consider::SendConsiderCodeTag("#")
 :*?cx:#csdebugger::SendCSharpDebuggerCodeTag("#")
 :*?cx:#document::SendDocumentCodeTag("#")
@@ -48,6 +49,7 @@
 :*?cx:#???::SendQuestionCodeTag("#")
 
 :*?cx://bdm::SendDontMergeBlockCodeTag("//")
+:*?cx://comment::SendCommentCodeTag("//")
 :*?cx://consider::SendConsiderCodeTag("//")
 :*?cx://csdebugger::SendCSharpDebuggerCodeTag("//")
 :*?cx://document::SendDocumentCodeTag("//")
@@ -106,6 +108,11 @@ SendCodeTag(comment_char, mnemonic, subject = "", timestamp = "")
   {
     Send("{Left 13}")
   }
+}
+
+SendCommentCodeTag(comment_char)
+{
+  SendDontMergeCodeTag(comment_char, Mnemonics.Todo, "comment")
 }
 
 SendConsiderCodeTag(comment_char)
