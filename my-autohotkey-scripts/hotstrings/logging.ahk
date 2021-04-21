@@ -54,7 +54,14 @@ OneNoteLog(message = "", timestamp = "")
 {
   if (timestamp = "")
   {
-    timestamp := A_YYYY A_MM A_DD "T" A_Hour A_Min
+    ; Round to the nearest 5min with 1 second resolution (e.g. 00:02:30 rounded to 00:05:00)
+    now := A_Now
+    remainder := Mod(60 * A_Min + A_Sec, 60 * 5)
+    if (remainder >= 60 * 5 / 2)
+      now := DateAdd(now, 60 * 5 - remainder, "Seconds")
+    else
+      now := DateAdd(now, -remainder, "Seconds")
+    timestamp := FormatTime(now, "yyyyMMddTHHmm") ; unrounded: A_YYYY A_MM A_DD "T" A_Hour A_Min
   }
 
   if (message = "")
@@ -75,9 +82,9 @@ OneNoteLog(message = "", timestamp = "")
   WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>" message)
   Sleep(50) ; Wait for copy
   WinClip.Paste()
-  Sleep(300) ; Wait for paste
+  Sleep(500) ; Wait for paste
   WinClip.Restore(clip)
-  Sleep(200)
+  Sleep(200) ; Wait for restore
 
   ; Remove the appended non-breaking space that was used to retain styling
   if (message = "&nbsp;")
@@ -108,7 +115,7 @@ OneNoteLogWithPrefix(useCache)
 
 OneNoteLogStandup()
 {
-  OneNoteLogLine()
+  OneNoteLogLine("", A_YYYY A_MM A_DD "T1000")
   Sleep(200)
   Send("Yesterday:{Enter}")
   Sleep(200)
@@ -117,6 +124,11 @@ OneNoteLogStandup()
   Send("{Enter}")
   Sleep(200)
   Send("Today:{Enter}")
+  Sleep(200)
+  Send("*- nnnn* ``category`` msg{Enter}")
+  Send("{Enter}")
+  Sleep(200)
+  Send("Stretch:{Enter}")
   Sleep(200)
   Send("*- nnnn* ``category`` msg{Enter}")
 }
