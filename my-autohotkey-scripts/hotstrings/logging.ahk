@@ -82,13 +82,14 @@ OneNoteLog(message = "", timestamp = "")
   WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>" message)
   Sleep(50) ; Wait for copy
   WinClip.Paste()
-  Sleep(500) ; Wait for paste
+  Sleep(300) ; Wait for paste
   WinClip.Restore(clip)
   Sleep(200) ; Wait for restore
 
   ; Remove the appended non-breaking space that was used to retain styling
   if (message = "&nbsp;")
   {
+    Sleep(300) ; Extra wait for pop-up paste window to appear
     Send("{Backspace}")
     Sleep(100)
   }
