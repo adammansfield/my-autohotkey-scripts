@@ -1,4 +1,5 @@
 :*?b0cx:;log;::OneNoteLog()
+:*?b0cx:;logaufgaben;::OneNotLogTodoList("Aufgaben")
 :*?b0cx:;logfertig;::OneNoteLogLine("fertig arbeiten")
 :*?b0cx:;logfinanzen;::OneNoteLogLine("Finanzen")
 :*?b0cx:;logmits;::OneNotLogTodoList("MITs")
@@ -9,7 +10,6 @@
 :*?b0cx:;logprefix;::OneNoteLogWithPrefix(false)
 :*?b0cx:;logschreibe;::OneNoteLog("schreibe ")
 :*?b0cx:;logscrum;::OneNoteLogLine("Scrum")
-:*?b0cx:;logsprint;::OneNotLogTodoList("Sprint")
 :*?b0cx:;logstandup;::OneNoteLogStandup()
 :*?b0cx:;logtodo;::OneNoteLogTodo()
 :*?b0cx:;loguntersuchen;::OneNoteLog("untersuchen ")
@@ -78,18 +78,18 @@ OneNoteLog(message = "", timestamp = "")
 
   WinClip.Snap(clip)
   WinClip.Clear()
-  Sleep(50) ; Wait for clear
+  Sleep(1) ; Wait for clear
   WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>" message)
-  Sleep(50) ; Wait for copy
+  Sleep(1) ; Wait for copy
   WinClip.Paste()
-  Sleep(300) ; Wait for paste
+  Sleep(500) ; Wait for paste
   WinClip.Restore(clip)
-  Sleep(200) ; Wait for restore
+  Sleep(1) ; Wait for restore
 
   ; Remove the appended non-breaking space that was used to retain styling
   if (message = "&nbsp;")
   {
-    Sleep(300) ; Extra wait for pop-up paste window to appear
+    Sleep(100) ; Extra wait for pop-up paste window to appear
     Send("{Backspace}")
     Sleep(100)
   }
