@@ -3592,6 +3592,7 @@
   ::pucini::Puccini
   ::puertorrican::Puerto Rican
   ::puertorricans::Puerto Ricans
+  ::pules::pulse
   ::pumkin::pumpkin
   ::puchasing::purchasing
   ::puritannical::puritanical
