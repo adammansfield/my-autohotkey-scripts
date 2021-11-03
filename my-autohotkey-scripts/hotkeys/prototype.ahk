@@ -22,6 +22,33 @@ DumpBytesToFile(data, len, filename)
   }
 }
 
+SplitSideMonitorWindows()
+{
+  ; Hardcoded for top or bottom half of left monitor in portrait orientation
+  currentWindow := "A"
+  pos := WinGetPos(currentWindow)
+  if (pos.x == -1207 && pos.y == 523)
+  {
+    y := -418
+  }
+  else
+  {
+    y := 523
+  }
+
+  x := -1207
+  width := 1212
+  height := 949
+  WinMove(currentWindow, "", x, y, width, height)
+
+  ;XVirtualScreenLeft := SysGet(76) ; Left side of virtual screen
+	;YVirtualScreenTop  := SysGet(77)  ; Top side of virtual screen
+	;SysGet, VirtualScreenWidth, 78
+	;SysGet, VirtualScreenHeight, 79
+	;Msgbox("VirtualScreenWidth: " VirtualScreenWidth " VirtualScreenHeight: " VirtualScreenHeight)
+	;Msgbox("XVirtualScreenLeft: " XVirtualScreenLeft " YVirtualScreenTop: " YVirtualScreenTop)
+}
+
 ;; Function used for prototyping.
 PrototypeFunction()
 {

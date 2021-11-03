@@ -1,8 +1,6 @@
 <!p::PasteAsSend()
 <!t::ToggleAlwaysOnTop()
-
-;; Ctrl-Shift-Alt-v on QWERTY keyboard for Dvorak configuration
-^+!k::PasteImage()
+^+!k::PasteImage() ;; Ctrl-Shift-Alt-v on QWERTY keyboard for Dvorak configuration
 
 ArchiveSwarmReview()
 {
