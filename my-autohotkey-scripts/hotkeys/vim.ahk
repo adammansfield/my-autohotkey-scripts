@@ -62,6 +62,25 @@
   return
 }
 
+;; Paste after as code (vim key p).
+>!<!p::
+{
+  ; Set lang=gsw-FR (Alsatian France) to bypass OneNote spell checking while maintaining latin characters 
+  html := "<span style='font-family:Consolas' lang=gsw-FR>" StringDedent(Clipboard) "</span>"
+
+  WinClip.Snap(clip)
+  WinClip.Clear()
+  Sleep(10) ; Wait for clear
+  WinClip.SetHTML(html)
+  Sleep(10) ; Wait for copy
+  Vim.SendThenResetMode("^v") ; Wait for paste
+  WinClip._waitClipReady(3000)
+  WinClip.Restore(clip)
+  Sleep(10) ; Wait for restore
+
+  return
+}
+
 ;; Paste before (vim key P).
 >!+p::
 {
