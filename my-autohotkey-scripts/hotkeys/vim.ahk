@@ -65,8 +65,19 @@
 ;; Paste after as code (vim key p).
 >!<!p::
 {
-  ; Set lang=gsw-FR (Alsatian France) to bypass OneNote spell checking while maintaining latin characters 
-  html := "<span style='font-family:Consolas' lang=gsw-FR>" StringDedent(Clipboard) "</span>"
+  html := ""
+  dedented := StringDedent(Clipboard)
+  if (InStr(dedented, "`n"))
+  {
+    Loop, parse, dedented, `n
+    {
+      html := html "<p style='font-family:Consolas' lang=gsw-FR>" A_LoopField "</p>"
+    }
+  }
+  else
+  {
+    html := html "<span style='font-family:Consolas' lang=gsw-FR>" dedented "</span>"
+  }
 
   WinClip.Snap(clip)
   WinClip.Clear()
