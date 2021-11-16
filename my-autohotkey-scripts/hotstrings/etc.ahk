@@ -6,6 +6,7 @@
 :*c?:;psrgrep;::Get-ChildItem -Recurse . | Select-String -Pattern{Space}
 :*cx?:;wibug;::Send("^bProblem:^b {Enter}^bFix:^b {Enter}^bVerify:^b {Enter}^bLog:^b {Up 3}{End}")
 :*cx?:;wilog;::Send("^bDeveloper's Log^b{Enter}")
+:*cx?:;winotes;::Send("^bDeveloper's Notes^b{Enter}")
 :*cx?:;wistory;::Send("^bChange:^b {Enter}^bVerify:^b {Enter}^bLog:^b {Up 2}{End}")
 
 ;; Backspace then send for use with hotstrings with manual backspacing.
