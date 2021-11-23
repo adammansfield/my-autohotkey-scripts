@@ -130,7 +130,7 @@ OneNoteLogStandup()
 {
   OneNoteLogLine("", A_YYYY A_MM A_DD "T1000")
   Logging.Delay(40)
-  if (A_DDD == "Tue") {
+  if (A_DDD == "Mon") {
     Send("_Friday:_")
   } else {
     Send("_Yesterday:_")
