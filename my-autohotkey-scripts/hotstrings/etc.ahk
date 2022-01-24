@@ -15,9 +15,9 @@ BackspaceThenSend(keys, backspaces)
   ;; NOTE: Using hotstrings in OneNote often leaves part of the hotstring [2020-03-14]
   ;; Backspacing is more reliable when backspacing with minor sleeps before and after.
   loop %backspaces% {
-    Sleep(5)
+    Sleep(1)
     Send("{Backspace}")
-    Sleep(5)
+    Sleep(1)
   }
 
   Send(keys)

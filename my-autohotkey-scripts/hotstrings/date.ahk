@@ -16,29 +16,27 @@
 ; A_NowUTC    The current Coordinated Universal Time (UTC) in YYYYMMDDHH24MISS format.
 ; A_TickCount The number of milliseconds since the computer was rebooted.
 
-:*?cx:;hm;::Send(A_Hour A_Min)
-:*?cx:;hm-;::Send(A_Hour ":" A_Min)
-:*?cx:;ts;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
-:*?cx:;ts-;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
-:*?cx:;utsv;::SendUtcVersionDate()
-:*?cx:;ym;::Send(A_YYYY A_MM)
-:*?cx:;ym-;::Send(A_YYYY "-" A_MM)
-:*?cx:;ymd;::Send(A_YYYY A_MM A_DD)
-:*?cx:;ymd-;::Send(A_YYYY "-" A_MM "-" A_DD)
-:*?cx:;ymdhm;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min)
-:*?cx:;ymdhm-;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min)
-:*?cx:;ymdhms;::Send(A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec)
-:*?cx:;ymdhms-;::Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
-:*?cx:;yw;::Send(A_YYYY "W" GetWeekNumber())
-:*?cx:;yw-;::Send(A_YYYY "-W" GetWeekNumber())
+:*?b0cx:;ts-;::BackspaceThenSend(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min, strlen(";ts-;"))
+:*?b0cx:;ts;::BackspaceThenSend(A_YYYY A_MM A_DD "T" A_Hour A_Min, strlen(";ts;"))
+
+:*?b0cx:;hm-;::BackspaceThenSend(A_Hour ":" A_Min, strlen(";hm-;"))
+:*?b0cx:;hm;::BackspaceThenSend(A_Hour A_Min, strlen(";hm;"))
+:*?b0cx:;ym-;::BackspaceThenSend(A_YYYY "-" A_MM, strlen(";ym-;"))
+:*?b0cx:;ym;::BackspaceThenSend(A_YYYY A_MM, strlen(";ym;"))
+:*?b0cx:;ymd-;::BackspaceThenSend(A_YYYY "-" A_MM "-" A_DD, strlen(";ymd-;"))
+:*?b0cx:;ymd;::BackspaceThenSend(A_YYYY A_MM A_DD, strlen(";ymd;"))
+:*?b0cx:;ymdhm-;::BackspaceThenSend(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min, strlen(";ymdhm-;"))
+:*?b0cx:;ymdhm;::BackspaceThenSend(A_YYYY A_MM A_DD "T" A_Hour A_Min, strlen(";ymdhm;"))
+:*?b0cx:;ymdhms-;::BackspaceThenSend(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec, strlen(";ymdhms-;"))
+:*?b0cx:;ymdhms;::BackspaceThenSend(A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec, strlen(";ymdhms;"))
+:*?b0cx:;yw-;::BackspaceThenSend(A_YYYY "-W" GetWeekNumber(), strlen(";yw-;"))
+:*?b0cx:;yw;::BackspaceThenSend(A_YYYY "W" GetWeekNumber(), strlen(";yw;"))
+
+:*?b0cx:;uts-;::BackspaceThenSend(FormatTime(A_NowUTC, "yyyy-MM-ddTHH:mmZ"), strlen(";uts-;"))
+:*?b0cx:;uts;::BackspaceThenSend(FormatTime(A_NowUTC, "yyyyMMddTHHmmZ"), strlen(";uts;"))
+:*?b0cx:;utsv;::BackspaceThenSend(FormatTime(A_NowUTC, "yyyy.MM.dd.HHmm"), strlen(";utsv;"))
 
 GetWeekNumber()
 {
   return StringRight(A_YWeek, 2)
-}
-
-SendUtcVersionDate()
-{
-  FormatTime, version, %A_NowUTC%, yyyy.MM.dd.HHmm
-  SendRaw(version)
 }
