@@ -57,7 +57,8 @@
 >!p::
 {
   text := Clipboard ; Remove formatting.
-  Clipboard := StringDedent(text)
+  dedented := StringDedent(text)
+  Clipboard := StringUnescapeNewLine(dedented)
   Vim.SendThenResetMode("^v")
   return
 }
@@ -105,7 +106,7 @@
   if (Vim.IsVisualMode())
   {
     Send("^x")
-    Sleep(10)
+    Sleep(50)
     text := StringLower(Clipboard)
     text := StringReplace(text, "`n", "", "all")
     SendRaw(text)
@@ -124,7 +125,7 @@
   if (Vim.IsVisualMode())
   {
     Send("^x")
-    Sleep(10)
+    Sleep(50)
     text := StringUpper(Clipboard)
     text := StringReplace(text, "`n", "", "all")
     SendRaw(text)
