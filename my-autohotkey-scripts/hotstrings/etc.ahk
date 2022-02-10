@@ -4,10 +4,10 @@
 :*c?:;mklink;::mklink /D name target
 :*c?:;psgrep;::Get-ChildItem . | Select-String -Pattern{Space}
 :*c?:;psrgrep;::Get-ChildItem -Recurse . | Select-String -Pattern{Space}
-:*cx?:;wibug;::Send("^bProblem:^b {Enter}^bFix:^b {Enter}^bVerify:^b {Enter}^bLog:^b {Up 3}{End}")
+:*cx?:;wibug;::Send("^bProblem:^b {Enter}^bFix:^b {Enter}^bTests:^b {Enter}^bVerify:^b {Enter}^bBranch:^b {Enter}^bLogs:^b {Up 5}{End}")
 :*cx?:;wilog;::Send("^bDeveloper's Log^b{Enter}")
 :*cx?:;winotes;::Send("^bDeveloper's Notes^b{Enter}")
-:*cx?:;wistory;::Send("^bChange:^b {Enter}^bVerify:^b {Enter}^bLog:^b {Up 2}{End}")
+:*cx?:;wistory;::Send("^bChange:^b {Enter}^bTested:^b {Enter}^bVerify:^b {Enter}^bBranch:^b {Enter}^bLogs:^b {Up 4}{End}")
 
 ;; Backspace then send for use with hotstrings with manual backspacing.
 BackspaceThenSend(keys, backspaces)
