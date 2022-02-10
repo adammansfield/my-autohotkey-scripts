@@ -54,6 +54,7 @@ PasteImage()
   WinClip.Paste()
 }
 
+;; Dedent string so no extra whitespace indentation.
 StringDedent(Byref string)
 {
   min_indent := CountMinIndent(string)
@@ -69,6 +70,21 @@ StringDedent(Byref string)
   }
 
   return dedented
+}
+
+;; Replace escaped new-lines "\n" with a real new-line "`n".
+StringUnescapeNewLine(Byref string)
+{
+  result := ""
+  Loop, parse, string, `n, `r
+  {
+    if (A_Index > 1)
+    {
+      result := result "`n"
+    }
+    result := result StrReplace(A_LoopField, "\n", "`n")
+  }
+  return result
 }
 
 ;; Toggle always-on-top property for the current window.
