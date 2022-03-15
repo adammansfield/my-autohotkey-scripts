@@ -58,7 +58,10 @@
 {
   text := Clipboard ; Remove formatting.
   dedented := StringDedent(text)
-  Clipboard := StringUnescapeNewLine(dedented)
+  result := StringUnescapeNewLine(dedented)
+  WinClip.Clear()
+  WinClip.SetText(result)
+  Sleep(10) ; Wait for set
   Vim.SendThenResetMode("^v")
   return
 }
@@ -84,7 +87,7 @@
   WinClip.Clear()
   Sleep(10) ; Wait for clear
   WinClip.SetHTML(html)
-  Sleep(10) ; Wait for copy
+  Sleep(10) ; Wait for set
   Vim.SendThenResetMode("^v") ; Wait for paste
   WinClip._waitClipReady(3000)
   WinClip.Restore(clip)

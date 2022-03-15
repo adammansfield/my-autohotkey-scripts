@@ -1,3 +1,8 @@
+#if !WinActive("ahk_class ConsoleWindowClass") &&
+    !WinActive("ahk_class VirtualConsoleClass") &&
+    !WinActive("ahk_exe devenv.exe") &&
+    !WinActive("ahk_exe WindowsTerminal.exe")
+
 ; Deutsch
 :*?b0cx:aee::BackspaceThenSend("{U+00E4}", strlen("aee"))
 :*?b0cx:AEE::BackspaceThenSend("{U+00C4}", strlen("AEE"))
@@ -7,3 +12,5 @@
 :*?b0cx:SSS::BackspaceThenSend("{U+1E9E}", strlen("SSS"))
 :*?b0cx:uee::BackspaceThenSend("{U+00FC}", strlen("uee"))
 :*?b0cx:UEE::BackspaceThenSend("{U+00DC}", strlen("UEE"))
+
+#if

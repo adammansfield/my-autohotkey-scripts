@@ -1,6 +1,7 @@
-#if !WinActive("ahk_class VirtualConsoleClass") &&
-    !WinActive("Microsoft Visual Studio") &&
-    !WinActive("Ideone.com")
+#if !WinActive("ahk_class ConsoleWindowClass") &&
+    !WinActive("ahk_class VirtualConsoleClass") &&
+    !WinActive("ahk_exe devenv.exe") &&
+    !WinActive("ahk_exe WindowsTerminal.exe")
 
 ; Fix for -ign instead of -ing.
 {
@@ -4825,4 +4826,4 @@
   ::sionists::Zionists
 }
 
-#If
+#if
