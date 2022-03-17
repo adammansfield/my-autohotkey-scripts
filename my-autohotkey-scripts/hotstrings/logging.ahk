@@ -1,18 +1,17 @@
+:*?b0cx:;l;::OneNoteLog("", "", "HHmm")
 :*?b0cx:;log;::OneNoteLog()
 :*?b0cx:;logaufgaben;::OneNotLogTodoList("Aufgaben")
 :*?b0cx:;logfertig;::OneNoteLogLine("fertig arbeiten")
-:*?b0cx:;logfinanzen;::OneNoteLogLine("Finanzen")
-:*?b0cx:;logmits;::OneNotLogTodoList("MITs")
 :*?b0cx:;logmittagessen;::OneNoteLogLine("Mittagessen")
 :*?b0cx:;logmorgen;::OneNoteLogLine("Morgen")
 :*?b0cx:;logpause;::OneNoteLogLine("Pause")
-:*?b0cx:;logplanearbeit;::OneNoteLogLine("Korrespondenz, Aufgaben, schreibe Standup")
 :*?b0cx:;logprefix;::OneNoteLogWithPrefix(false)
+:*?b0cx:;logrede;::OneNoteLog("rede ")
 :*?b0cx:;logschreibe;::OneNoteLog("schreibe ")
 :*?b0cx:;logscrum;::OneNoteLogLine("Scrum")
 :*?b0cx:;logstandup;::OneNoteLogStandup()
 :*?b0cx:;logtodo;::OneNoteLogTodo()
-:*?b0cx:;loguntersuchen;::OneNoteLog("untersuchen ")
+:*?b0cx:;loguntersuche;::OneNoteLog("untersuche ")
 :*?b0cx:;logwfh;::OneNoteLogLine("WFH")
 :*?b0cx:;logwfo;::OneNoteLogLine("WFO")
 
@@ -61,7 +60,7 @@ OneNotLogTodoList(mnemonic, highlight = true)
   }
 }
 
-OneNoteLog(message = "", timestamp = "")
+OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm")
 {
   if (timestamp = "")
   {
@@ -73,7 +72,7 @@ OneNoteLog(message = "", timestamp = "")
       now := DateAdd(now, 60 * roundTo - remainder, "Seconds")
     else
       now := DateAdd(now, -remainder, "Seconds")
-    timestamp := FormatTime(now, "yyyyMMddTHHmm") ; unrounded: A_YYYY A_MM A_DD "T" A_Hour A_Min
+    timestamp := FormatTime(now, timeformat) ; unrounded: A_YYYY A_MM A_DD "T" A_Hour A_Min
   }
 
   if (message = "")
