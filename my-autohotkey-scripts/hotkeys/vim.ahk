@@ -58,6 +58,7 @@
 {
   text := Clipboard ; Remove formatting.
   dedented := StringDedent(text)
+  ; TODO: check text if it makes sense to unescape newline [2022-03-23]
   result := StringUnescapeNewLine(dedented)
   WinClip.Clear()
   WinClip.SetText(result)
@@ -75,7 +76,13 @@
   {
     Loop, parse, dedented, `n
     {
-      html := html "<p style='font-family:Consolas' lang=gsw-FR>" A_LoopField "</p>"
+      line := StrReplace(A_LoopField, " ", "&nbsp;") ; Replace with non-breaking space so that lines will still be indented
+      if (StrLen(line) == 0)
+      {
+        ; Set line as non-breaking space to preserve an empty line
+        line := "&nbsp;"
+      }
+      html := html "<p style='font-family:Consolas;mso-spacerun:yes' lang=gsw-FR>" line "</p>"
     }
   }
   else
