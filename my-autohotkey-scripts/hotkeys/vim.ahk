@@ -57,9 +57,11 @@
 >!p::
 {
   text := Clipboard ; Remove formatting.
-  dedented := StringDedent(text)
-  ; TODO: check text if it makes sense to unescape newline [2022-03-23]
-  result := StringUnescapeNewLine(dedented)
+  result := StringDedent(text)
+  ; NB: Avoid unintentionally unescaping \n (e.g. Windows paths often have \n) [2022-03-23]
+  if (InStr(text, "stackTraceLines")) {
+    result := StringUnescapeNewLine(result)
+  }
   WinClip.Clear()
   WinClip.SetText(result)
   Sleep(10) ; Wait for set
