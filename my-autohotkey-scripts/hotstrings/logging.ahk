@@ -58,12 +58,11 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
 
   if (isBullet)
   {
-    Send("{Home}")
-    Logging.Delay()
-    Send("*{Space}")
-    Logging.Delay()
-    Send("{End}")
-    Logging.Delay()
+    ; We add and then re-add the bullet to ensure it has the same color as the Date part of the log
+    Send("{Home}*{Space}") ; Add bullet to ensure line has bulleted list formatting
+    Send("^.")             ; Remove bulleted list formatting
+    Send("*{Space}")       ; Add new bullet to ensure 
+    Send("{End}")          ; Reset position to end of the line
   }
 
   ; Remove the appended non-breaking space that was used to retain styling
