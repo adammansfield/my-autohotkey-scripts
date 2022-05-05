@@ -1,27 +1,27 @@
 ; Bullet Point
-:*b0cx?:;bp;::BackspaceThenSend("{U+2022}", strlen(";bp;"))
+:*?b0cx:;bp;::BackspaceThenSend("{U+2022}", strlen(";bp;"))
 
 ; Check marks
-:*b0cx?:;cm;::BackspaceThenSend("{U+2611}", strlen(";cm;"))
-:*b0cx?:;ucm;::BackspaceThenSend("{U+2610}", strlen(";ucm;"))
+:*?b0cx:;cm;::BackspaceThenSend("{U+2611}", strlen(";cm;"))
+:*?b0cx:;ucm;::BackspaceThenSend("{U+2610}", strlen(";ucm;"))
 
 ; Dashes
-:*c?:;mdash;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad1}{AltUp}
-:*c?:;ndash;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad0}{AltUp}
+:*?c:;mdash;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad1}{AltUp}
+:*?c:;ndash;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad0}{AltUp}
 
 ; Degree
-:*c?:;deg;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
+:*?c:;deg;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
 
 ; Fractions
-:*cx?:;fiveeighths;::SendSpecialChar("", "215D")
-:*cx?:;oneeighth;::SendSpecialChar("", "215B")
-:*cx?:;onehalf;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad8}{Numpad9}", "00BD")
-:*cx?:;onequarter;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad8}{Numpad8}", "00BC")
-:*cx?:;onethird;::SendSpecialChar("", "2153")
-:*cx?:;seveneighths;::SendSpecialChar("", "215E")
-:*cx?:;threequarters;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad9}{Numpad0}", "00BE")
-:*cx?:;threeeighths;::SendSpecialChar("", "215C")
-:*cx?:;twothirds;::SendSpecialChar("", "2154")
+:*?cx:;fiveeighths;::SendSpecialChar("", "215D")
+:*?cx:;oneeighth;::SendSpecialChar("", "215B")
+:*?cx:;onehalf;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad8}{Numpad9}", "00BD")
+:*?cx:;onequarter;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad8}{Numpad8}", "00BC")
+:*?cx:;onethird;::SendSpecialChar("", "2153")
+:*?cx:;seveneighths;::SendSpecialChar("", "215E")
+:*?cx:;threequarters;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad9}{Numpad0}", "00BE")
+:*?cx:;threeeighths;::SendSpecialChar("", "215C")
+:*?cx:;twothirds;::SendSpecialChar("", "2154")
 
 ; Greek characters
 ; First character determines case e.g. phi=lowercase, Phi=UPPERCASE

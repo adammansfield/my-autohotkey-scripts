@@ -10,6 +10,7 @@
 :*cx?:;wistory;::Send("^bChange:^b {Enter}^bTested:^b {Enter}^bVerify:^b {Enter}^bBranch:^b {Enter}^bLogs:^b {Up 4}{End}")
 
 ;; Backspace then send for use with hotstrings with manual backspacing.
+;; Example: :*?b0cx:;bp;::BackspaceThenSend("{U+2022}", strlen(";bp;"))
 BackspaceThenSend(keys, backspaces)
 {
   ;; NOTE: Using hotstrings in OneNote often leaves part of the hotstring [2020-03-14]
