@@ -7,6 +7,7 @@
 :*?b0cx:;logprefix;::OneNoteLogWithPrefix(false)
 :*?b0cx:;logstandup;::OneNoteLogStandup()
 :*?b0cx:;logtodo;::OneNoteLogTodo()
+:*b0cx?:;debug;::BackspaceThenSend("[^!hdebug^!h]", strlen(";debug;"))
 
 class Logging
 {
@@ -60,9 +61,13 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
   {
     ; We add and then re-add the bullet to ensure it has the same color as the Date part of the log
     Send("{Home}*{Space}") ; Add bullet to ensure line has bulleted list formatting
+    Logging.Delay()
     Send("^.")             ; Remove bulleted list formatting
+    Logging.Delay()
     Send("*{Space}")       ; Add new bullet to ensure 
+    Logging.Delay()
     Send("{End}")          ; Reset position to end of the line
+    Logging.Delay()
   }
 
   ; Remove the appended non-breaking space that was used to retain styling
