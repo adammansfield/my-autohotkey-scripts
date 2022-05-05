@@ -1,6 +1,7 @@
-:*c?:;cb;::{{}{}}{Left}
-:*c?:;rb;::(){Left}
-:*c?:;sb;::[]{Left}
+:*b0cx?:;cb;::BackspaceThenSend("{{}{}}{Left}", strlen(";cb;"))
+:*b0cx?:;rb;::BackspaceThenSend("(){Left}", strlen(";rb;"))
+:*b0cx?:;sb;::BackspaceThenSend("[]{Left}", strlen(";sb;"))
+:*b0cx?:;wip;::BackspaceThenSend("[WIP]{Space}", strlen(";wip;"))
 
 :*c?:;copyright;::{#}region --[Copyright]-----------------------------------------------------
 :*c?:;constructors;::{#}region --[Constructors]------------------------------------------
