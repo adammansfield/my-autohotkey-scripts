@@ -134,7 +134,7 @@ OneNoteLogTodo()
 ;; Send commands to create the daily todo lists.
 OneNoteAufgaben()
 {
-  OneNoteLog() ; TODO: handle unicode characters
+  OneNoteLog("", "", "yyyyMMdd") ; TODO: handle unicode characters
   Send("t{U+00E4}gliche kritisch wichtige Aufgaben:") ; WORKAROUND: manually send a with umlaut
   Logging.Delay(20)
   Send("{Enter}")
@@ -154,7 +154,7 @@ OneNoteAufgaben()
   Send("{Backspace} ") ; Send extra space here because OneNoteLog() will backspace too much otherwise
   Logging.Delay(10)
 
-  OneNoteLog("Aufgaben:")
+  OneNoteLog("Aufgaben:", "", "yyyyMMdd")
   Logging.Delay(20)
   Send("{Enter}")
   Logging.Delay(20) ; Sometimes it fails to indent if we do not wait.
