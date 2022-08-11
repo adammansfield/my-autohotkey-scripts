@@ -1,6 +1,6 @@
 :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true)
 :*?b0cx:;log;::OneNoteLog()
-:*?b0cx:;logaufgaben;::OneNotLogTodoList("Aufgaben")
+:*?b0cx:;logaufgaben;::OneNoteAufgaben()
 ; TODO: add ;logp{action}; hotstring to be surrounded with prefix [2021-03-16]
 ; e..g :*?b0cx:;logptodo;::OneNoteLogWithPrefix(true) would send `{timestamp} {prefix} TODO: `
 :*?b0cx:;logp;::OneNoteLogWithPrefix(true)
@@ -131,22 +131,38 @@ OneNoteLogTodo()
   Send("{Left}") ; Move cursor back to the highlighted portion to finish this message.
 }
 
-;; Send commands to create an indented, highlighted todo list on a new line.
-OneNotLogTodoList(mnemonic, highlight = true)
+;; Send commands to create the daily todo lists.
+OneNoteAufgaben()
 {
-  OneNoteLog(mnemonic ":")
+  OneNoteLog() ; TODO: handle unicode characters
+  Send("t{U+00E4}gliche kritisch wichtige Aufgaben:") ; WORKAROUND: manually send a with umlaut
   Logging.Delay(20)
   Send("{Enter}")
   Logging.Delay(20) ; Sometimes it fails to indent if we do not wait.
   Send("{Tab}")
   Logging.Delay(10) ; Ensure position is indented before applying Todo tag.
   Send("^1") ; OneNote Todo tag.
+  Send("{#}")
+  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
+  Logging.Delay(20)
 
-  if (highlight)
-  {
-    Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
-    Logging.Delay(10)
-  }
+  ; Go to new line with no indentation
+  Send("{Enter}")
+  Logging.Delay(10)
+  Send("{Backspace}")
+  Logging.Delay(10)
+  Send("{Backspace} ") ; Send extra space here because OneNoteLog() will backspace too much otherwise
+  Logging.Delay(10)
+
+  OneNoteLog("Aufgaben:")
+  Logging.Delay(20)
+  Send("{Enter}")
+  Logging.Delay(20) ; Sometimes it fails to indent if we do not wait.
+  Send("{Tab}")
+  Logging.Delay(10) ; Ensure position is indented before applying Todo tag.
+  Send("^1") ; OneNote Todo tag.
+  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
+  Logging.Delay(10)
 }
 
 OneNoteLogWithPrefix(useCache)
