@@ -1,5 +1,6 @@
 #if WinActive("- OneNote")
 {
+  ^+b::OneNoteBoldLine()
   ^+c::OneNoteCompleteTask()
   ^+h::OneNoteHighlightLine()
   ^+-::OneNoteStrikeLine()
@@ -13,6 +14,11 @@ SelectLineThenSend(keys)
   Send("{Home}+{End}")
   Send(keys)
   Send("{End}")
+}
+
+OneNoteBoldLine()
+{
+  SelectLineThenSend("^b")
 }
 
 OneNoteCompleteTask()
