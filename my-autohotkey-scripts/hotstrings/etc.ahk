@@ -5,11 +5,6 @@
 :*c?:;psgrep;::Get-ChildItem . | Select-String -Pattern{Space}
 :*c?:;psrgrep;::Get-ChildItem -Recurse . | Select-String -Pattern{Space}
 
-:*cx?:;wibug;::Send("^bProblem:^b {Enter}^bFix:^b {Enter}^bTests:^b OneIQ.Fusion.Targets.{{}Target{}}.Tests PASSED {{}address: , user: {}}{Enter}^bLogs:^b {Enter}^bBranch:^b {{}master, milestone/awesome{}} for {{}Pulse, DW{}}{Enter}^bQA:^b {Up 5}{End}")
-:*cx?:;wilog;::Send("^bDeveloper's Log^b{Enter}")
-:*cx?:;winotes;::Send("^bDeveloper's Notes^b{Enter}")
-:*cx?:;wistory;::Send("^bChange:^b {Enter}^bTests:^b OneIQ.Fusion.Targets.{{}Target{}}.Tests PASSED {{}address: , user: {}}{Enter}^bLogs:^b {Enter}^bBranch:^b {{}master, milestone/awesome{}} for {{}Pulse, DW{}}{Enter}^bQA:^b {Up 4}{End}")
-
 ;; Backspace then send for use with hotstrings with manual backspacing.
 ;; Example: :*?b0cx:;bp;::BackspaceThenSend("{U+2022}", strlen(";bp;"))
 BackspaceThenSend(keys, backspaces)
