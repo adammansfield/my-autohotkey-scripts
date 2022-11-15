@@ -19,6 +19,7 @@
 :*?cx:;onequarter;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad8}{Numpad8}", "00BC")
 :*?cx:;onethird;::SendSpecialChar("", "2153")
 :*?cx:;seveneighths;::SendSpecialChar("", "215E")
+:*?cx:;threefourths;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad9}{Numpad0}", "00BE")
 :*?cx:;threequarters;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad9}{Numpad0}", "00BE")
 :*?cx:;threeeighths;::SendSpecialChar("", "215C")
 :*?cx:;twothirds;::SendSpecialChar("", "2154")
