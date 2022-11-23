@@ -13,4 +13,10 @@
 :*?b0cx:uee::BackspaceThenSend("{U+00FC}", strlen("uee"))
 :*?b0cx:UEE::BackspaceThenSend("{U+00DC}", strlen("UEE"))
 
+:*?b0cx:;u";::   BackspaceThenSend("{U+201E}", strlen(";u"";"))
+:*?b0cx:untere"::BackspaceThenSend("{U+201E}", strlen("untere"""))
+
+:*?b0cx:;r";::   BackspaceThenSend("{U+201D}", strlen(";r"";"))
+:*?b0cx:rechts"::BackspaceThenSend("{U+201D}", strlen("rechts"""))
+
 #if
