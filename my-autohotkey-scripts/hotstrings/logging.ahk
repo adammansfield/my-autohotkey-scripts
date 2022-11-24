@@ -136,7 +136,6 @@ OneNoteLogStandup()
   Logging.Delay(20)
   Send("  - *nnnn* ``category`` msg")
   Logging.Delay(20)
-  Send("{Enter}")
 }
 
 OneNoteLogTodo()
