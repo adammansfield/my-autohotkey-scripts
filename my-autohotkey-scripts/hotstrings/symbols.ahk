@@ -29,6 +29,7 @@
 :*c?:;alpha;::{AltDown}{Numpad2}{Numpad2}{Numpad4}{AltUp}
 :*c?:;beta;::{AltDown}{Numpad2}{Numpad2}{Numpad5}{AltUp}
 :*c?:;delta;::{AltDown}{Numpad2}{Numpad3}{Numpad5}{AltUp}
+:*?b0cx:;Delta;::BackspaceThenSend("{U+0394}", strlen(";Delta;"))
 :*c?:;epsilon;::{AltDown}{Numpad2}{Numpad3}{Numpad8}{AltUp}
 :*c?:;gamma;::{AltDown}{Numpad2}{Numpad2}{Numpad6}{AltUp}
 :*c?:;omega;::{AltDown}{Numpad2}{Numpad3}{Numpad4}{AltUp}
