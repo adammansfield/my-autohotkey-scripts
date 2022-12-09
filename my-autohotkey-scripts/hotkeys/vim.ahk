@@ -84,12 +84,12 @@
         ; Set line as non-breaking space to preserve an empty line
         line := "&nbsp;"
       }
-      html := html "<p style='font-family:Consolas;mso-spacerun:yes' lang=gsw-FR>" line "</p>"
+      html := html "<p style='font-family:Consolas;font-size:9.0pt;mso-spacerun:yes' lang=gsw-FR>" line "</p>"
     }
   }
   else
   {
-    html := html "<span style='font-family:Consolas' lang=gsw-FR>" dedented "</span>"
+    html := html "<span style='font-family:Consolas;font-size:9.0pt;color:#E8912D' lang=gsw-FR>" dedented "</span>"
   }
 
   WinClip.Snap(clip)
