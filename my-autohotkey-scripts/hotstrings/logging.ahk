@@ -1,13 +1,18 @@
-:*?b0cx:;l;::OneNoteLog("", "", "HHmm", true)
-:*?b0cx:;log;::OneNoteLog()
-:*?b0cx:;logaufgaben;::OneNoteAufgaben()
-; TODO: add ;logp{action}; hotstring to be surrounded with prefix [2021-03-16]
-; e..g :*?b0cx:;logptodo;::OneNoteLogWithPrefix(true) would send `{timestamp} {prefix} TODO: `
-:*?b0cx:;logp;::OneNoteLogWithPrefix(true)
-:*?b0cx:;logprefix;::OneNoteLogWithPrefix(false)
-:*?b0cx:;logstandup;::OneNoteLogStandup()
-:*?b0cx:;logtodo;::OneNoteLogTodo()
-:*b0cx?:;debug;::BackspaceThenSend("[^!hdebug^!h]", strlen(";debug;"))
+#if WinActive("- OneNote")
+{
+  :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true)
+  :*?b0cx:;log;::OneNoteLog()
+  :*?b0cx:;logaufgaben;::OneNoteAufgaben()
+  ; TODO: add ;logp{action}; hotstring to be surrounded with prefix [2021-03-16]
+  ; e..g :*?b0cx:;logptodo;::OneNoteLogWithPrefix(true) would send `{timestamp} {prefix} TODO: `
+  :*?b0cx:;logp;::OneNoteLogWithPrefix(true)
+  :*?b0cx:;logprefix;::OneNoteLogWithPrefix(false)
+  :*?b0cx:;logstandup;::OneNoteLogStandup()
+  :*?b0cx:;logtodo;::OneNoteLogTodo()
+  :*?b0cx:;debug;::BackspaceThenSend("[^!hdebug^!h]", strlen(";debug;"))
+  :b0cx:``::OneNoteInlineCode()
+}
+#if
 
 class Logging
 {
@@ -18,6 +23,25 @@ class Logging
   {
     Sleep(multiple * Logging.kWait)
   }
+}
+
+OneNoteInlineCode()
+{
+  Send("{Backspace 3}")
+  Sleep(10)
+
+  WinClip.Snap(clip)
+  WinClip.Clear()
+  Sleep(10) ; Wait for clear
+  WinClip.SetHTML("<span style='font-family:Consolas;font-size:9.0pt;color:#E8912D' lang=gsw-FR>````</span>&nbsp;")
+  Sleep(10) ; Wait for set
+  Send("^v") ; Wait for paste
+  WinClip._waitClipReady(3000)
+  WinClip.Restore(clip)
+  Sleep(10) ; Wait for restore
+
+  Sleep(100)
+  Send("{Left 3}")
 }
 
 OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false)
