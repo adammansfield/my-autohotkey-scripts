@@ -27,21 +27,33 @@ class Logging
 
 OneNoteInlineCode()
 {
-  Send("{Backspace 3}")
-  Sleep(10)
+  Send("{Backspace}")
+  Logging.Delay(4)
+  Send("{Backspace}")
+  Logging.Delay(4)
+  Send("{Backspace}")
+  Logging.Delay(4)
+  Send("{Backspace}")
+  Logging.Delay(4)
+  Send("{Space}")
+  Logging.Delay(4)
 
   WinClip.Snap(clip)
   WinClip.Clear()
-  Sleep(10) ; Wait for clear
-  WinClip.SetHTML("<span style='font-family:Consolas;font-size:9.0pt;color:#E8912D' lang=gsw-FR>````</span>&nbsp;")
-  Sleep(10) ; Wait for set
-  Send("^v") ; Wait for paste
-  WinClip._waitClipReady(3000)
+  Logging.Delay() ; Wait for clear
+  WinClip.SetHTML("<span style='font-family:Consolas;font-size:9.0pt;color:#E8912D' lang=gsw-FR> </span>&nbsp;") ; nbsp to retain original formatting after code
+  Logging.Delay() ; Wait for copy
+  WinClip.Paste()
+  Logging.Delay(50) ; Wait for paste
   WinClip.Restore(clip)
-  Sleep(10) ; Wait for restore
+  Logging.Delay() ; Wait for restore
 
-  Sleep(100)
-  Send("{Left 3}")
+  Send("{Left}")
+  Logging.Delay(4)
+  Send("{Backspace}")
+  Logging.Delay(4)
+  Send("{Backspace}")
+  Logging.Delay(4)
 }
 
 OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false)
