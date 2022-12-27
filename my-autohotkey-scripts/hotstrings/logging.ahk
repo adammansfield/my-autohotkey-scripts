@@ -123,15 +123,17 @@ OneNoteLogLine(message = "", timestamp = "")
 
 OneNoteLogStandup()
 {
-  up      := "{U+25B2}"  ; ▲  Black up-pointing triangle
-  down    := "{U+25BC}"  ; ▼  Black down-pointing triangle
-  working := "{U+2699}"  ; ⚙  Gear
-  done    := "{U+2705}"  ; ✅ White heavy check mark
-  neu     := "{U+1F195}" ; 🆕 New Button
-  defer   := "{U+1F554}" ; 🕔 Clock Face Five Oclock
-  blocker := "{U+1F6A7}" ; 🚧 Construction Sign
-  pad     := "{U+2009}"  ;    Thin Space (for padding)
-  codepad := "{U+FFA0}"  ;    Halfwidth hangul filler (for padding inside code ``)
+  up       := "{U+25B2}"         ; ▲  Black up-pointing triangle
+  down     := "{U+25BC}"         ; ▼  Black down-pointing triangle
+  working  := "{U+2699}"         ; ⚙  Gear
+  done     := "{U+2705}"         ; ✅ White heavy check mark
+  removed  := "{U+23CF}{U+FE0F}" ; ⏏️  Eject Button
+  neu      := "{U+1F195}"        ; 🆕 New Button
+  defer    := "{U+1F554}"        ; 🕔 Clock Face Five Oclock
+  blocker  := "{U+1F6A7}"        ; 🚧 Construction Sign
+  infinity := "{U+221E}"         ; ∞  Infinity
+  pad      := "{U+2009}"         ;    Thin Space (for padding)
+  codepad  := "{U+FFA0}"         ;    Halfwidth hangul filler (for padding inside code ``)
 
   paddedFeature := "``feature" codepad "``"
 
@@ -150,15 +152,11 @@ OneNoteLogStandup()
   Logging.Delay(25)
   Send("{Enter}")
   Logging.Delay(25)
-  Send("_Estimate:_    00 days   00 items   MMMDD-DD({+}1-5)")
+  Send("_Estimate:_    " infinity "00 days   00 items   MMMDD-DD({+}1-5)")
   Logging.Delay(25)
   Send("{Enter}")
   Logging.Delay(25)
-  Send("_Velocity:_     " down " 0.0      " pad neu " 0.0     " pad done " 0.0")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
-  Send("_Yesterday:_  " up down " 0         " pad neu " 0         " done " 0")
+  Send("_Velocity:_     " up down " 0.0      " pad neu " 0.0     " pad done " 0.0")
   Logging.Delay(25)
   Send("{Enter}")
   Logging.Delay(25)
@@ -169,7 +167,7 @@ OneNoteLogStandup()
   Logging.Delay(25)
   Send("{Enter}")
   Logging.Delay(25)
-  Send(neu done defer working " *nnnn* " paddedFeature " item")
+  Send(neu removed working defer done " *nnnn* " paddedFeature " item")
   Logging.Delay(25)
   Send("{Enter}")
   Logging.Delay(25)
