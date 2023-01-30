@@ -40,3 +40,17 @@ GetWeekNumber()
 {
   return StringRight(A_YWeek, 2)
 }
+
+ToDeutschDay(day)
+{
+  switch day
+  {
+    case "Monday":    return "Montag"
+    case "Tuesday":   return "Dienstag"
+    case "Wednesday": return "Mittwoch"
+    case "Thursday":  return "Donnerstag"
+    case "Friday":    return "Freitag"
+    case "Saturday":  return "Samstag"
+    case "Sunday":    return "Sonntag"
+  }
+}
