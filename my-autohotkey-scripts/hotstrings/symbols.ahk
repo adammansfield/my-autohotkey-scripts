@@ -2,33 +2,34 @@
 :*?b0cx:;bp;::BackspaceThenSend("{U+2022}", strlen(";bp;"))
 
 ; Check marks
-:*?b0cx:;cm;::BackspaceThenSend("{U+2611}", strlen(";cm;"))
+:*?b0cx:;cm;:: BackspaceThenSend("{U+2611}", strlen(";cm;"))
 :*?b0cx:;ucm;::BackspaceThenSend("{U+2610}", strlen(";ucm;"))
 
 ; Dashes
-:*?c:;mdash;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad1}{AltUp}
-:*?c:;ndash;::{AltDown}{Numpad0}{Numpad1}{Numpad5}{Numpad0}{AltUp}
+:*?b0cx:;mdash;::BackspaceThenSend("{U+2014}", strlen(";mdash;"))
+:*?b0cx:;ndash;::BackspaceThenSend("{U+2013}", strlen(";ndash;"))
 
 ; Degree
-:*?c:;deg;::{AltDown}{Numpad0}{Numpad1}{Numpad7}{Numpad6}{AltUp}
+:*?b0cx:;degree;::BackspaceThenSend("{U+00B0}", strlen(";degree;"))
 
 ; Fractions
-:*?cx:;fiveeighths;::SendSpecialChar("", "215D")
-:*?cx:;oneeighth;::SendSpecialChar("", "215B")
-:*?cx:;onehalf;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad8}{Numpad9}", "00BD")
-:*?cx:;onequarter;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad8}{Numpad8}", "00BC")
-:*?cx:;onethird;::SendSpecialChar("", "2153")
-:*?cx:;seveneighths;::SendSpecialChar("", "215E")
-:*?cx:;threefourths;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad9}{Numpad0}", "00BE")
-:*?cx:;threequarters;::SendSpecialChar("{Numpad0}{Numpad1}{Numpad9}{Numpad0}", "00BE")
-:*?cx:;threeeighths;::SendSpecialChar("", "215C")
-:*?cx:;twothirds;::SendSpecialChar("", "2154")
+:*?b0cx:;fiveeighths;::  BackspaceThenSend("{U+215D}", strlen(";fiveeighths;"))
+:*?b0cx:;oneeighth;::    BackspaceThenSend("{U+215B}", strlen(";oneeighth;"))
+:*?b0cx:;onehalf;::      BackspaceThenSend("{U+00BD}", strlen(";onehalf;"))
+:*?b0cx:;onequarter;::   BackspaceThenSend("{U+00BC}", strlen(";onequarter;"))
+:*?b0cx:;onethird;::     BackspaceThenSend("{U+2153}", strlen(";onethird;"))
+:*?b0cx:;seveneighths;:: BackspaceThenSend("{U+215E}", strlen(";seveneighths;"))
+:*?b0cx:;threefourths;:: BackspaceThenSend("{U+00BE}", strlen(";threefourths;"))
+:*?b0cx:;threequarters;::BackspaceThenSend("{U+00BE}", strlen(";threequarters;"))
+:*?b0cx:;threeeighths;:: BackspaceThenSend("{U+215C}", strlen(";threeeighths;"))
+:*?b0cx:;twothirds;::    BackspaceThenSend("{U+2154}", strlen(";twothirds;"))
 
+;TODO: use {U+xxxx} instead of {AltDown}
 ; Greek characters
 ; First character determines case e.g. phi=lowercase, Phi=UPPERCASE
 :*c?:;alpha;::{AltDown}{Numpad2}{Numpad2}{Numpad4}{AltUp}
 :*c?:;beta;::{AltDown}{Numpad2}{Numpad2}{Numpad5}{AltUp}
-:*c?:;delta;::{AltDown}{Numpad2}{Numpad3}{Numpad5}{AltUp}
+:*?b0cx:;delta;::BackspaceThenSend("{U+03B4}", strlen(";delta;"))
 :*?b0cx:;Delta;::BackspaceThenSend("{U+0394}", strlen(";Delta;"))
 :*c?:;epsilon;::{AltDown}{Numpad2}{Numpad3}{Numpad8}{AltUp}
 :*c?:;gamma;::{AltDown}{Numpad2}{Numpad2}{Numpad6}{AltUp}
@@ -42,44 +43,17 @@
 :*c?:;theta;::{AltDown}{Numpad2}{Numpad3}{Numpad3}{AltUp}
 
 ; Non-breaking space
-:*cx?:;nbsp;::SendNonBreakingSpace(1)
-:*cx?:;2nbsp;::SendNonBreakingSpace(2)
-:*cx?:;4nbsp;::SendNonBreakingSpace(4)
-:*cx?:;8nbsp;::SendNonBreakingSpace(8)
-:*cx?:;16nbsp;::SendNonBreakingSpace(16)
+:*cx?:;nbsp;::SendNoBreakSpaces(1)
+:*cx?:;2nbsp;::SendNoBreakSpaces(2)
+:*cx?:;4nbsp;::SendNoBreakSpaces(4)
+:*cx?:;8nbsp;::SendNoBreakSpaces(8)
+:*cx?:;16nbsp;::SendNoBreakSpaces(16)
 
-SendAsciiChar(code)
-{
-  Send("{AltDown}" code "{AltUp}")
-}
-
-SendNonBreakingSpace(count)
+SendNoBreakSpaces(count)
 {
   Loop %count%
   {
-    Send("{AltDown}{Numpad0}{Numpad1}{Numpad6}{Numpad0}{AltUp}")
+    Send("{U+00A0}") ; Alternative: Send("{AltDown}{Numpad0}{Numpad1}{Numpad6}{Numpad0}{AltUp}")
+    Sleep(1)
   }
-}
-
-SendSpecialChar(asciiCode, unicodeCode)
-{
-  if (unicodeCode && WinActive("OneNote"))
-  {
-    SendUnicodeChar(unicodeCode)
-  }
-  else if (asciiCode && !WinActive("OneNote"))
-  {
-    SendAsciiChar(asciiCode)
-  }
-  else
-  {
-    MsgBox("ERROR: do not know how to send special character")
-  }
-}
-
-SendUnicodeChar(code)
-{
-  Send(code)
-  Sleep(100) ; Wait until entire code is sent before sending Alt-x 
-  Send("!x")
 }
