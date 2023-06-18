@@ -9,7 +9,7 @@
   :*?b0cx:;logprefix;::OneNoteLogWithPrefix(false)
   :*?b0cx:;logstandup;::OneNoteLogStandup()
   :*?b0cx:;logtodo;::OneNoteLogTodo()
-  :*?b0cx:;debug;::BackspaceThenSend("[^!hdebug^!h]", strlen(";debug;"))
+  :*?b0cx:;debug;::BackspaceThenSend("[debug]", strlen(";debug;"))
   :b0cx:``::OneNoteInlineCode()
 }
 #if
