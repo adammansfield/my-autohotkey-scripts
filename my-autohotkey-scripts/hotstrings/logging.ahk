@@ -3,6 +3,7 @@
   :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true)
   :*?b0cx:;log;::OneNoteLog()
   :*?b0cx:;logaufgaben;::OneNoteAufgaben()
+  :*?b0cx:;logmonat;::OneNoteLogMonat()
   ; TODO: add ;logp{action}; hotstring to be surrounded with prefix [2021-03-16]
   ; e..g :*?b0cx:;logptodo;::OneNoteLogWithPrefix(true) would send `{timestamp} {prefix} TODO: `
   :*?b0cx:;logp;::OneNoteLogWithPrefix(true)
@@ -10,7 +11,8 @@
   :*?b0cx:;logstandup;::OneNoteLogStandup()
   :*?b0cx:;logtodo;::OneNoteLogTodo()
   :*?b0cx:;debug;::BackspaceThenSend("[debug]", strlen(";debug;"))
-  :b0cx:``::OneNoteInlineCode()
+ ;:b0cx:``::OneNoteInlineCode()
+>>>>>>> Stashed changes
 }
 #if
 
@@ -56,7 +58,7 @@ OneNoteInlineCode()
   Logging.Delay(4)
 }
 
-OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false)
+OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false, clearLine = true)
 {
   if (timestamp = "")
   {
@@ -81,7 +83,10 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
     message := "&nbsp;" message
   }
 
-  SendClearLine()
+  if (clearLine)
+  {
+    SendClearLine()
+  }
 
   WinClip.Snap(clip)
   WinClip.Clear()
@@ -115,10 +120,69 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
   }
 }
 
-OneNoteLogLine(message = "", timestamp = "")
+OneNoteLogLine(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false, clearLine = true)
 {
-  OneNoteLog(message, timestamp)
+  OneNoteLog(message, timestamp, timeformat, isBullet, clearLine)
   Send("{Enter}")
+}
+
+OneNoteLogMonat()
+{
+  ; Desired output: 
+  ; ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+  ; 2023041 d 😁 🙂 😐 ☹️ 😢dankbar: , effort/resilience: 
+  ; # 
+  ; 
+  ; ~ 
+  ; 2023041T0800 Pillen, Meditation, Gesicht,
+  ; 2023041T0 
+
+  grin    := "{U+1F601}" ; 😁
+  smile   := "{U+1F642}" ; 🙂
+  netural := "{U+1F610}" ; 😐
+  sad     := "{U+2639}"  ; ☹️
+  crying  := "{U+1F622}" ; 😢
+
+  SendClearLine()
+  Logging.Delay(32)
+
+  Loop, 31
+  {
+    day := A_Index < 10 ? "0" A_Index : A_Index
+    date := A_YYYY A_MM day
+    longDay := FormatTime(date, "dddd")
+    if (longDay = "") {
+      break ; Invalid date
+    }
+
+    ; TODO: Send green '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+    OneNoteLog(ToDeutschDay(longDay), date, "yyyyMMddTHHmm", false, false)
+    Logging.Delay(64)
+    Send(grin " " smile " " neutral " " sad " " crying "dankbar: , effort/resilience: ")
+    Logging.Delay(32)
+    Send("{Enter}")
+    Logging.Delay(32)
+
+    Send("{Tab}")
+    Logging.Delay(16) ; Ensure position is indented before applying Todo tag.
+    Send("^1") ; OneNote Todo tag.
+    Send("{#}")
+    Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
+    Logging.Delay(32)
+    Send("{Enter}")
+    Logging.Delay(16)
+    Send("^1^1") ; Undo OneNote Todo tag.
+    Logging.Delay(16)
+    Send("+{Tab}")
+    Logging.Delay(32)
+
+    OneNoteLogLine("Pillen, Meditation, Gesicht, ", date "T0", "yyyyMMddTHHmm", false, false)
+    Logging.Delay(64)
+
+    OneNoteLogLine("", date "T0", "yyyyMMddTHHmm", false, false)
+    Logging.Delay(64)
+  }
 }
 
 OneNoteLogStandup()
