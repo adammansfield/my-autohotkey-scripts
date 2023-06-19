@@ -12,6 +12,10 @@
 ; Degree
 :*?b0cx:;degree;::BackspaceThenSend("{U+00B0}", strlen(";degree;"))
 
+; Emoji
+:*?b0cx:;speech;::BackspaceThenSend("{U+1F4AC}", strlen(";speech;")) ; Speech Balloon 💬
+:*?b0cx:;sozial;::BackspaceThenSend("{U+1F4AC}", strlen(";sozial;")) ; Speech Balloon 💬
+
 ; Fractions
 :*?b0cx:;fiveeighths;::  BackspaceThenSend("{U+215D}", strlen(";fiveeighths;"))
 :*?b0cx:;oneeighth;::    BackspaceThenSend("{U+215B}", strlen(";oneeighth;"))
@@ -41,6 +45,10 @@
 :*c?:;Sigma;::{AltDown}{Numpad2}{Numpad2}{Numpad8}{AltUp}
 :*c?:;tau;::{AltDown}{Numpad2}{Numpad3}{Numpad1}{AltUp}
 :*c?:;theta;::{AltDown}{Numpad2}{Numpad3}{Numpad3}{AltUp}
+
+; Infinity
+:*?b0cx:;inf;::     BackspaceThenSend("{U+221E}", strlen(";inf;"))
+:*?b0cx:;infinity;::BackspaceThenSend("{U+221E}", strlen(";infinity;"))
 
 ; Non-breaking space
 :*cx?:;nbsp;::SendNoBreakSpaces(1)
