@@ -1,6 +1,12 @@
 ; https://arxiv.org/pdf/2305.02897.pdf: Zhou: An enhanced version created through automated prompt engineering, "Answer: Let’s work this out in a step by step way to be sure we have the right answer."
 :*c?:;cot;::Answer: Let's work this out in a step by step way to be sure we have the right answer.
 
+:*ct?:;tobairisch;::Hier ist eine Übersetzung ins Bairisch:
+:*ct?:;tobavarian::Hier ist eine Übersetzung ins Bairisch:
+:*ct?:;tobayerisch::Hier ist eine Übersetzung ins Bairisch:
+:*ct?:;todeutsch;::Hier ist eine Übersetzung ins Hochdeutsch:
+:*ct?:;tohochdeutsch;::Hier ist eine Übersetzung ins Hochdeutsch:
+
 :*c?x:;smartgpt;::SmartGPT()
 :*c?x:;smartgpt1;::SmartGPT()
 :*c?x:;smartgpt2;::SmartGPT2()
