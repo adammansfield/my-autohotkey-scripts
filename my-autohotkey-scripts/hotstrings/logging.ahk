@@ -43,15 +43,19 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
   WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>" message)
   Sleep(1) ; Wait for copy
   WinClip.Paste()
-  WinWait, PopupHost ahk_exe onenoteim.exe,, 5 ; Wait for paste pop-up
+  WinWait, PopupHost ahk_exe onenoteim.exe,, 10 ; Wait for paste pop-up
   WinClip.Restore(clip)
   Sleep(1) ; Wait for restore of snap
 
   if (isBullet)
   {
-    ; We add and then re-add the bullet to ensure it has the same color as the timestamp of the log
-    DelayedSend("^.") ; Add bulleted list formatting
-    DelayedSend("^.") ; Remove bulleted list formatting
+    ; Add, remove, and then re-add the bullet point to ensure it is the same color as the timestamp
+    DelayedSend("{Home}")  ; Add or overwrite bullet point (to ensure line has a bullet point)
+    DelayedSend("*")
+    DelayedSend("{Space}")
+    DelayedSend("^.")      ; Remove bullet point
+    DelayedSend("^.")      ; Re-add bullet point
+    DelayedSend("{End}")   ; Reset position to end of the line
   }
 
   ; Remove the pre-pended non-breaking space that was used to retain `message` styling
