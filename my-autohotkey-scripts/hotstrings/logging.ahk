@@ -24,17 +24,7 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
     SendClearLine()
   }
 
-  WinClip.Snap(clip)
-  Sleep(1) ; Wait for snap
-  WinClip.Clear()
-  Sleep(1) ; Wait for clear
-  WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>" message)
-  Sleep(1) ; Wait for copy
-  WinClip.Paste()
-  Sleep(1) ; Wait for paste
-  WinWait, PopupHost ahk_exe onenoteim.exe,, 2 ; Wait for paste pop-up
-  WinClip.Restore(clip)
-  Sleep(1) ; Wait for restore of snap
+  OneNotePaste("<span style='color:#3C87CD'>" timestamp "</span>" message)
 
   ; Clear paste pop-up and remove the pre-pended non-breaking space (that was used to retain `message` styling)
   DelayedSend("{Backspace}") ;
@@ -67,53 +57,117 @@ OneNoteLogMonat()
 {
   ; Example output: 
   ; ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-  ; 20230401 d 😁 🙂 😐 ☹️ 😢dankbar: , Tagebuch: 
+  ; 20230401 Montag 😁 🙂 😐 ☹️ 😢Tagebuch: (dankbar: )
   ;   [ ] # 
   ;   [ ] 
   ;   [ ] ~ 
-  ; 20230401T0800 Pillen, Meditation, Gesicht, plane,
+  ; 20230401T0 Pillen, Meditation, Gesicht, plane, 
   ; 20230401T0 
 
   grin    := "{U+1F601}" ; 😁
   smile   := "{U+1F642}" ; 🙂
-  netural := "{U+1F610}" ; 😐
+  neutral := "{U+1F610}" ; 😐
   sad     := "{U+2639}"  ; ☹️
   crying  := "{U+1F622}" ; 😢
+  moods   := grin " " smile " " neutral " " sad " " crying
+
+  dankbar := "{U+1F64F}" ; 🙏 Person with Folded Hands
+
+  lineExt := "{U+23AF}"  ; ⎯ Horizontal Line Extension
+  daySep  := lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt
+
+  formatDelay     := 20  ; Delay for formatting
+  textDelay       := 10  ; Delay for sending text
+  whitespaceDelay := 250 ; Delay for sending new lines or tabs
 
   SendClearLine()
-  Sleep(320)
 
-  ;Loop, 31 ; uncomment
-  Loop, 3   ; temporary for testing
+  yyyymmdd  := InputBox("Enter start date in format of yyyy-mm-dd",,, 200, 100,,,,, A_YYYY "-" A_MM "-" A_DD)
+  yyyy      := StrSplit(yyyymmdd, "-")[1]
+  mm        := StrSplit(yyyymmdd, "-")[2]
+  dd        := StrSplit(yyyymmdd, "-")[3]
+  days      := 31 - dd + 1
+  dayOffset := dd - 1
+  WinWaitActive("- OneNote")
+
+  Tooltip("Schreiben der Monatlich Vorlage für die Protokolle")
+
+  WinClip.Snap(clip)
+  Sleep(1) ; Wait for snap
+
+  Loop, %days%
   {
-    day := A_Index < 10 ? "0" A_Index : A_Index
-    date := A_YYYY A_MM day
+    i := A_Index + dayOffset
+    day := i < 10 ? "0" i : i
+    date := yyyy mm day
     longDay := FormatTime(date, "dddd")
     if (longDay = "") {
-      break ; Invalid date
+      break ; Invalid date e.g. Feb 30th
     }
 
-    ; TODO: Send green '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+    if (longDay = "Monday")
+    {
+      OneNotePaste("<span style='color:#538135' />", false)
+      DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
+      DelayedSend(daySep, textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      OneNoteLog("Aufgaben:", date, "yyyyW00", false, false)
+      DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      DelayedSend("{Tab}", whitespaceDelay) ; Still highlighted from above
+      DelayedSend("^1", formatDelay) ; OneNote Todo tag
+      DelayedSend("{#}", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      DelayedSend("^1^1", formatDelay) ; Undo OneNote Todo tag
+      DelayedSend("+{Tab}", whitespaceDelay)
+    }
+
+    OneNotePaste("<span style='color:#538135' />", false)
+    DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
+    DelayedSend(daySep, textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
 
     OneNoteLog(ToDeutschDay(longDay), date, "yyyyMMddTHHmm", false, false)
-    Sleep(640)
-    DelayedSend(grin " " smile " " neutral " " sad " " crying "dankbar: , effort/resilience: ", 160)
-    DelayedSend("{Enter}", 160)
+    DelayedSend(" " moods, textDelay)
+    DelayedSend(" TAGEBUCHE", textDelay)
+    DelayedSend(" " dankbar, textDelay)
+    DelayedSend(" DANKBAR", textDelay)
+    DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
+    DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend("{Tab}", 80) ; Ensure position is indented before applying Todo tag.
-    DelayedSend("^1", 80) ; OneNote Todo tag.
-    DelayedSend("{#}")
-    DelayedSend("{Home}+{End}^!h{End}") ; OneNote highlight line.
-    DelayedSend("{Enter}", 160)
-    DelayedSend("^1^1", 160) ; Undo OneNote Todo tag.
-    DelayedSend("+{Tab}", 160)
+    DelayedSend("{Tab}", whitespaceDelay) ; Still highlighted from above
+    DelayedSend("^1", formatDelay) ; OneNote Todo tag
+    DelayedSend("{#}", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog("Pillen, Meditation, Gesicht, ", date "T0", "yyyyMMddTHHmm", false, false)
-    DelayedSend("{Enter}", 320)
+    DelayedSend(" ", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+
+    DelayedSend("~", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+
+    DelayedSend("^1^1", formatDelay) ; Undo OneNote Todo tag
+    DelayedSend("+{Tab}", whitespaceDelay)
+    OneNoteLog("", date "T0", "yyyyMMddTHHmm", false, false)
+    DelayedSend("^!hPillen^!h, "    , textDelay) ; Highlight words separately for an easy check-off by unhighlighting
+    DelayedSend("^!hMeditation^!h, ", textDelay)
+    DelayedSend("^!hGesicht^!h, "   , textDelay)
+    DelayedSend("^!hplane^!h, "     , textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
 
     OneNoteLog("", date "T0", "yyyyMMddTHHmm", false, false)
-    DelayedSend("{Enter}", 320)
+    DelayedSend("{Enter}", whitespaceDelay)
   }
+
+  WinClip.Restore(clip)
+  Sleep(1) ; Wait for restore of snap
+
+  Tooltip("fertig geschrieben")
+  Sleep(2000)
+  Tooltip()
 }
 
 OneNoteLogStandup()
@@ -126,49 +180,50 @@ OneNoteLogStandup()
   neu      := "{U+1F195}"        ; 🆕 New Button
   defer    := "{U+1F554}"        ; 🕔 Clock Face Five Oclock
   blocker  := "{U+1F6A7}"        ; 🚧 Construction Sign
-  infinity := "{U+221E}"         ; ∞  Infinity
   pad      := "{U+2009}"         ;    Thin Space (for padding)
+
+  newlineDelay := 100 ; Delay for sending new lines
+  textDelay    := 250 ; Delay for sending text
 
   Tooltip("Writing standup template...")
 
   OneNoteLog(ToDeutschDay(A_DDDD), A_YYYY A_MM A_DD "T1030")
-  DelayedSend("{Enter}", 100)
-  DelayedSend("{Enter}", 100)
+  DelayedSend("{Enter}", newlineDelay)
+  DelayedSend("{Enter}", newlineDelay)
 
-  DelayedSend("//_Blockers:_    " pad "none", 125)
-  DelayedSend("{Enter}", 125)
+  DelayedSend("//_Blockers:_    " pad "none", textDelay)
+  DelayedSend("{Enter}", newlineDelay)
+  DelayedSend("//" blocker " *nnnn* ``feature`` item", textDelay)
+  DelayedSend("{Enter}", newlineDelay)
+  DelayedSend("//_Estimate:_    " infiniry "00 days   00 items   MMMDD-DD({+}20{%})", textDelay)
+  DelayedSend("{Enter}", newlineDelay)
+  DelayedSend("//_Velocity:_     " up down " 0.0      " pad neu " 0.0     " pad done " 0.0", textDelay)
+  DelayedSend("{Enter}", newlineDelay)
+  DelayedSend("{Enter}", newlineDelay)
 
-  DelayedSend("//" blocker " *nnnn* ``feature`` item", 125)
-  DelayedSend("{Enter}", 125)
-  DelayedSend("//_Estimate:_    " infinity "00 days   00 items   MMMDD-DD({+}20{%})", 125)
-  DelayedSend("{Enter}", 125)
-  DelayedSend("//_Velocity:_     " up down " 0.0      " pad neu " 0.0     " pad done " 0.0", 125)
-  DelayedSend("{Enter}", 125)
-  DelayedSend("{Enter}", 125)
+  DelayedSend("_Yesterday:_", textDelay)
+  DelayedSend("{Enter}", newlineDelay)
+  DelayedSend(neu removed working defer done " *nnnn* ``feature`` item", textDelay)
+  DelayedSend("{Enter}", newlineDelay)
+  DelayedSend("{Enter}", newlineDelay)
 
-  DelayedSend("_Yesterday:_", 125)
-  DelayedSend("{Enter}", 125)
-  DelayedSend(neu removed working defer done " *nnnn* ``feature`` item", 125)
-  DelayedSend("{Enter}", 125)
-  DelayedSend("{Enter}", 125)
+  DelayedSend("_Today:_", textDelay)
+  DelayedSend("{Enter}", newlineDelay)
+  DelayedSend(working " *nnnn* ``feature`` item", textDelay)
+  DelayedSend("{Enter}", newlineDelay)
+  DelayedSend("{Enter}", newlineDelay)
 
-  DelayedSend("_Today:_", 125)
-  DelayedSend("{Enter}", 125)
-  DelayedSend(working " *nnnn* ``feature`` item", 125)
-  DelayedSend("{Enter}", 125)
-  DelayedSend("{Enter}", 125)
-
-  DelayedSend("//_Stretch:_", 125)
-  DelayedSend("{Enter}", 125)
-  DelayedSend("//" working " *nnnn* ``feature`` item", 125)
+  DelayedSend("//_Stretch:_", textDelay)
+  DelayedSend("{Enter}", newlineDelay)
+  DelayedSend("//" working " *nnnn* ``feature`` item", textDelay)
 
   Tooltip("Finished writing standup template")
-  Sleep(1500)
+  Sleep(2000)
   Tooltip()
 }
 
 ; Delay before and after sending 
-; Useful for OneNote as there is seems to be an input delay probably to record and sync action with backend.
+; Useful for OneNote as there seems to be an input delay probably to record and sync input with backend.
 DelayedSend(keys, before = 1, after = "")
 {
   if (after = "")
@@ -177,6 +232,28 @@ DelayedSend(keys, before = 1, after = "")
   Sleep, %before%
   Send, %keys%
   Sleep, %after%
+}
+
+OneNotePaste(html, preserveClipboard = true)
+{
+  if (preserveClipboard)
+  {
+    WinClip.Snap(clip)
+    Sleep(1) ; Wait for snap
+  }
+
+  WinClip.SetHTML(html)
+  Sleep(1) ; Wait for copy
+
+  WinClip.Paste()
+  Sleep(1) ; Wait for paste
+  WinWait, PopupHost ahk_exe onenoteim.exe,, 2 ; Wait for paste pop-up
+
+  if (preserveClipboard)
+  {
+    WinClip.Restore(clip)
+    Sleep(1) ; Wait for restore of snap
+  }
 }
 
 RoundMin(timestamp, multiple = 10, timeformat = "yyyyMMddTHHmm")
@@ -191,11 +268,11 @@ RoundMin(timestamp, multiple = 10, timeformat = "yyyyMMddTHHmm")
   return FormatTime(timestamp, timeformat)
 }
 
-SendClearLine()
+SendClearLine(delay = 1)
 {
   ; BUG: Hotstring backspacing sometimes fails in OneNote [2019-07-04]
   ; Without this, a prefix ';' would be frequently leftover.
-  DelayedSend("{Home}") ; Move to beginning of the line (wait for cursor movement)
-  DelayedSend("+{End}") ; Highlight to end of the line (wait for highlight)
-  DelayedSend("{Del}")  ; Delete line (wait for deletion)
+  DelayedSend("{Home}", delay) ; Move to beginning of the line (wait for cursor movement)
+  DelayedSend("+{End}", delay) ; Highlight to end of the line (wait for highlight)
+  DelayedSend("{Del}", delay)  ; Delete line (wait for deletion)
 }
