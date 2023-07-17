@@ -9,18 +9,6 @@
 }
 #if
 
-RoundMin(timestamp, multiple = 10, timeformat = "yyyyMMddTHHmm")
-{
-  ; Round to the nearest minute mutiple with 1 second resolution (e.g. multiple=10 then 00:05:00 rounded to 00:10:00)
-  remainder := Mod(60 * A_Min + A_Sec, 60 * multiple)
-  if (remainder >= 60 * multiple / 2)
-    timestamp := DateAdd(timestamp, 60 * multiple - remainder, "Seconds")
-  else
-    timestamp := DateAdd(timestamp, -remainder, "Seconds")
-
-  return FormatTime(timestamp, timeformat)
-}
-
 OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false, clearLine = true)
 {
   ; Prepend a non-breaking space to retain `message` styling
@@ -43,9 +31,14 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
   WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>" message)
   Sleep(1) ; Wait for copy
   WinClip.Paste()
-  WinWait, PopupHost ahk_exe onenoteim.exe,, 10 ; Wait for paste pop-up
+  Sleep(1) ; Wait for paste
+  WinWait, PopupHost ahk_exe onenoteim.exe,, 2 ; Wait for paste pop-up
   WinClip.Restore(clip)
   Sleep(1) ; Wait for restore of snap
+
+  ; Clear paste pop-up and remove the pre-pended non-breaking space (that was used to retain `message` styling)
+  DelayedSend("{Backspace}") ;
+  WinWaitClose, PopupHost ahk_exe onenoteim.exe,, 1 ; Wait for paste pop-up to clear
 
   if (isBullet)
   {
@@ -57,24 +50,17 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
     DelayedSend("^.")      ; Re-add bullet point
     DelayedSend("{End}")   ; Reset position to end of the line
   }
-
-  ; Remove the pre-pended non-breaking space that was used to retain `message` styling
-  if (message = "&nbsp;")
-  {
-    DelayedSend("{Backspace}")
-  }
 }
 
 OneNoteLogDebug()
 {
   OneNoteLog(" [debug]")
-  DelayedSend("{Enter}", 20)
-  DelayedSend("{Tab}", 20)
-  OneNoteLog("", "", "HHmm", true)
-  DelayedSend("{Backspace}", 20) ; Erase extra space
-  DelayedSend("{Up}", 20)
-  DelayedSend("{End}", 20)
-  DelayedSend("{Left 9}", 20)
+  DelayedSend("{Enter}", 1, 200)
+  OneNoteLog("", "", "HHmm", true, false)
+  DelayedSend("{Up}")
+  DelayedSend("{End}")
+  DelayedSend("^{Left 3}")
+  DelayedSend("{Left}")
 }
 
 OneNoteLogMonat()
@@ -181,11 +167,28 @@ OneNoteLogStandup()
   Tooltip()
 }
 
-DelayedSend(keys, delay = 1)
+; Delay before and after sending 
+; Useful for OneNote as there is seems to be an input delay probably to record and sync action with backend.
+DelayedSend(keys, before = 1, after = "")
 {
-  Sleep, %delay%
+  if (after = "")
+    after := before
+
+  Sleep, %before%
   Send, %keys%
-  Sleep, %delay%
+  Sleep, %after%
+}
+
+RoundMin(timestamp, multiple = 10, timeformat = "yyyyMMddTHHmm")
+{
+  ; Round to the nearest minute mutiple with 1 second resolution (e.g. multiple=10 then 00:05:00 rounded to 00:10:00)
+  remainder := Mod(60 * A_Min + A_Sec, 60 * multiple)
+  if (remainder >= 60 * multiple / 2)
+    timestamp := DateAdd(timestamp, 60 * multiple - remainder, "Seconds")
+  else
+    timestamp := DateAdd(timestamp, -remainder, "Seconds")
+
+  return FormatTime(timestamp, timeformat)
 }
 
 SendClearLine()
