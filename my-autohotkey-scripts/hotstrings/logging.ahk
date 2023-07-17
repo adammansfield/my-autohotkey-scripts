@@ -97,6 +97,8 @@ OneNoteLogMonat()
 
   Loop, %days%
   {
+    WinWaitActive("- OneNote") ; Ensure sending to OneNote window
+
     i := A_Index + dayOffset
     day := i < 10 ? "0" i : i
     date := yyyy mm day
@@ -105,14 +107,16 @@ OneNoteLogMonat()
       break ; Invalid date e.g. Feb 30th
     }
 
-    if (longDay = "Monday")
+    if (i = 1 || longDay = "Monday")
     {
       OneNotePaste("<span style='color:#538135' />", false)
       DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
       DelayedSend(daySep, textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
 
-      OneNoteLog("Aufgaben:", date, "yyyyW00", false, false)
+      yyyyw := FormatTime(date, "YWeek")
+      yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 4, 2)
+      OneNoteLog("Aufgaben:", yyyyw, "", false, false)
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
@@ -130,7 +134,7 @@ OneNoteLogMonat()
     DelayedSend(daySep, textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), date, "yyyyMMddTHHmm", false, false)
+    OneNoteLog(ToDeutschDay(longDay), date, "", false, false)
     DelayedSend(" " moods, textDelay)
     DelayedSend(" TAGEBUCHE", textDelay)
     DelayedSend(" " dankbar, textDelay)
@@ -151,14 +155,14 @@ OneNoteLogMonat()
 
     DelayedSend("^1^1", formatDelay) ; Undo OneNote Todo tag
     DelayedSend("+{Tab}", whitespaceDelay)
-    OneNoteLog("", date "T0", "yyyyMMddTHHmm", false, false)
+    OneNoteLog("", date "T0", "", false, false)
     DelayedSend("^!hPillen^!h, "    , textDelay) ; Highlight words separately for an easy check-off by unhighlighting
     DelayedSend("^!hMeditation^!h, ", textDelay)
     DelayedSend("^!hGesicht^!h, "   , textDelay)
     DelayedSend("^!hplane^!h, "     , textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog("", date "T0", "yyyyMMddTHHmm", false, false)
+    OneNoteLog("", date "T0", "", false, false)
     DelayedSend("{Enter}", whitespaceDelay)
   }
 
