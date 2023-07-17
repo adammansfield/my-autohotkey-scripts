@@ -2,85 +2,33 @@
 {
   :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true)
   :*?b0cx:;log;::OneNoteLog()
-  :*?b0cx:;logaufgaben;::OneNoteAufgaben()
+  :*?b0cx:;logdebug;::OneNoteLogDebug()
   :*?b0cx:;logmonat;::OneNoteLogMonat()
-  ; TODO: add ;logp{action}; hotstring to be surrounded with prefix [2021-03-16]
-  ; e..g :*?b0cx:;logptodo;::OneNoteLogWithPrefix(true) would send `{timestamp} {prefix} TODO: `
-  :*?b0cx:;logp;::OneNoteLogWithPrefix(true)
-  :*?b0cx:;logprefix;::OneNoteLogWithPrefix(false)
   :*?b0cx:;logstandup;::OneNoteLogStandup()
-  :*?b0cx:;logtodo;::OneNoteLogTodo()
   :*?b0cx:;debug;::BackspaceThenSend("[debug]", strlen(";debug;"))
- ;:b0cx:``::OneNoteInlineCode()
->>>>>>> Stashed changes
 }
 #if
 
-class Logging
+RoundMin(timestamp, multiple = 10, timeformat = "yyyyMMddTHHmm")
 {
-  ; Base wait for OneNote operations
-  static kWait := 10
+  ; Round to the nearest minute mutiple with 1 second resolution (e.g. multiple=10 then 00:05:00 rounded to 00:10:00)
+  remainder := Mod(60 * A_Min + A_Sec, 60 * multiple)
+  if (remainder >= 60 * multiple / 2)
+    timestamp := DateAdd(timestamp, 60 * multiple - remainder, "Seconds")
+  else
+    timestamp := DateAdd(timestamp, -remainder, "Seconds")
 
-  Delay(multiple=1)
-  {
-    Sleep(multiple * Logging.kWait)
-  }
-}
-
-OneNoteInlineCode()
-{
-  Send("{Backspace}")
-  Logging.Delay(4)
-  Send("{Backspace}")
-  Logging.Delay(4)
-  Send("{Backspace}")
-  Logging.Delay(4)
-  Send("{Backspace}")
-  Logging.Delay(4)
-  Send("{Space}")
-  Logging.Delay(4)
-
-  WinClip.Snap(clip)
-  WinClip.Clear()
-  Logging.Delay() ; Wait for clear
-  WinClip.SetHTML("<span style='font-family:Consolas;font-size:9.0pt;color:#E8912D' lang=gsw-FR> </span>&nbsp;") ; nbsp to retain original formatting after code
-  Logging.Delay() ; Wait for copy
-  WinClip.Paste()
-  Logging.Delay(50) ; Wait for paste
-  WinClip.Restore(clip)
-  Logging.Delay() ; Wait for restore
-
-  Send("{Left}")
-  Logging.Delay(4)
-  Send("{Backspace}")
-  Logging.Delay(4)
-  Send("{Backspace}")
-  Logging.Delay(4)
+  return FormatTime(timestamp, timeformat)
 }
 
 OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false, clearLine = true)
 {
+  ; Prepend a non-breaking space to retain `message` styling
+  message := "&nbsp;" message
+
   if (timestamp = "")
   {
-    ; Round to the nearest 10min with 1 second resolution (e.g. 00:05:00 rounded to 00:10:00)
-    roundTo := 10
-    now := A_Now
-    remainder := Mod(60 * A_Min + A_Sec, 60 * roundTo)
-    if (remainder >= 60 * roundTo / 2)
-      now := DateAdd(now, 60 * roundTo - remainder, "Seconds")
-    else
-      now := DateAdd(now, -remainder, "Seconds")
-    timestamp := FormatTime(now, timeformat) ; unrounded: A_YYYY A_MM A_DD "T" A_Hour A_Min
-  }
-
-  if (message = "")
-  {
-    ; Append a non-breaking space to retain styling
-    message := "&nbsp;"
-  }
-  else
-  {
-    message := "&nbsp;" message
+    timestamp := RoundMin(A_Now, 10, timeformat) ; Round to the nearest 10min
   }
 
   if (clearLine)
@@ -89,53 +37,52 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
   }
 
   WinClip.Snap(clip)
+  Sleep(1) ; Wait for snap
   WinClip.Clear()
-  Logging.Delay() ; Wait for clear
+  Sleep(1) ; Wait for clear
   WinClip.SetHTML("<span style='color:#3C87CD'>" timestamp "</span>" message)
-  Logging.Delay() ; Wait for copy
+  Sleep(1) ; Wait for copy
   WinClip.Paste()
-  Logging.Delay(50) ; Wait for paste
+  WinWait, PopupHost ahk_exe onenoteim.exe,, 5 ; Wait for paste pop-up
   WinClip.Restore(clip)
-  Logging.Delay() ; Wait for restore
+  Sleep(1) ; Wait for restore of snap
 
   if (isBullet)
   {
-    ; We add and then re-add the bullet to ensure it has the same color as the Date part of the log
-    Send("{Home}*{Space}") ; Add bullet to ensure line has bulleted list formatting
-    Logging.Delay()
-    Send("^.")             ; Remove bulleted list formatting
-    Logging.Delay()
-    Send("*{Space}")       ; Add new bullet to ensure 
-    Logging.Delay()
-    Send("{End}")          ; Reset position to end of the line
-    Logging.Delay()
+    ; We add and then re-add the bullet to ensure it has the same color as the timestamp of the log
+    DelayedSend("^.") ; Add bulleted list formatting
+    DelayedSend("^.") ; Remove bulleted list formatting
   }
 
-  ; Remove the appended non-breaking space that was used to retain styling
+  ; Remove the pre-pended non-breaking space that was used to retain `message` styling
   if (message = "&nbsp;")
   {
-    Logging.Delay(10) ; Extra wait for pop-up paste window to appear
-    Send("{Left}")
-    Logging.Delay(10)
+    DelayedSend("{Backspace}")
   }
 }
 
-OneNoteLogLine(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false, clearLine = true)
+OneNoteLogDebug()
 {
-  OneNoteLog(message, timestamp, timeformat, isBullet, clearLine)
-  Send("{Enter}")
+  OneNoteLog(" [debug]")
+  DelayedSend("{Enter}", 20)
+  DelayedSend("{Tab}", 20)
+  OneNoteLog("", "", "HHmm", true)
+  DelayedSend("{Backspace}", 20) ; Erase extra space
+  DelayedSend("{Up}", 20)
+  DelayedSend("{End}", 20)
+  DelayedSend("{Left 9}", 20)
 }
 
 OneNoteLogMonat()
 {
-  ; Desired output: 
+  ; Example output: 
   ; ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-  ; 2023041 d 😁 🙂 😐 ☹️ 😢dankbar: , effort/resilience: 
-  ; # 
-  ; 
-  ; ~ 
-  ; 2023041T0800 Pillen, Meditation, Gesicht,
-  ; 2023041T0 
+  ; 20230401 d 😁 🙂 😐 ☹️ 😢dankbar: , Tagebuch: 
+  ;   [ ] # 
+  ;   [ ] 
+  ;   [ ] ~ 
+  ; 20230401T0800 Pillen, Meditation, Gesicht, plane,
+  ; 20230401T0 
 
   grin    := "{U+1F601}" ; 😁
   smile   := "{U+1F642}" ; 🙂
@@ -144,9 +91,10 @@ OneNoteLogMonat()
   crying  := "{U+1F622}" ; 😢
 
   SendClearLine()
-  Logging.Delay(32)
+  Sleep(320)
 
-  Loop, 31
+  ;Loop, 31 ; uncomment
+  Loop, 3   ; temporary for testing
   {
     day := A_Index < 10 ? "0" A_Index : A_Index
     date := A_YYYY A_MM day
@@ -158,30 +106,23 @@ OneNoteLogMonat()
     ; TODO: Send green '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
 
     OneNoteLog(ToDeutschDay(longDay), date, "yyyyMMddTHHmm", false, false)
-    Logging.Delay(64)
-    Send(grin " " smile " " neutral " " sad " " crying "dankbar: , effort/resilience: ")
-    Logging.Delay(32)
-    Send("{Enter}")
-    Logging.Delay(32)
+    Sleep(640)
+    DelayedSend(grin " " smile " " neutral " " sad " " crying "dankbar: , effort/resilience: ", 160)
+    DelayedSend("{Enter}", 160)
 
-    Send("{Tab}")
-    Logging.Delay(16) ; Ensure position is indented before applying Todo tag.
-    Send("^1") ; OneNote Todo tag.
-    Send("{#}")
-    Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
-    Logging.Delay(32)
-    Send("{Enter}")
-    Logging.Delay(16)
-    Send("^1^1") ; Undo OneNote Todo tag.
-    Logging.Delay(16)
-    Send("+{Tab}")
-    Logging.Delay(32)
+    DelayedSend("{Tab}", 80) ; Ensure position is indented before applying Todo tag.
+    DelayedSend("^1", 80) ; OneNote Todo tag.
+    DelayedSend("{#}")
+    DelayedSend("{Home}+{End}^!h{End}") ; OneNote highlight line.
+    DelayedSend("{Enter}", 160)
+    DelayedSend("^1^1", 160) ; Undo OneNote Todo tag.
+    DelayedSend("+{Tab}", 160)
 
-    OneNoteLogLine("Pillen, Meditation, Gesicht, ", date "T0", "yyyyMMddTHHmm", false, false)
-    Logging.Delay(64)
+    OneNoteLog("Pillen, Meditation, Gesicht, ", date "T0", "yyyyMMddTHHmm", false, false)
+    DelayedSend("{Enter}", 320)
 
-    OneNoteLogLine("", date "T0", "yyyyMMddTHHmm", false, false)
-    Logging.Delay(64)
+    OneNoteLog("", date "T0", "yyyyMMddTHHmm", false, false)
+    DelayedSend("{Enter}", 320)
   }
 }
 
@@ -197,135 +138,57 @@ OneNoteLogStandup()
   blocker  := "{U+1F6A7}"        ; 🚧 Construction Sign
   infinity := "{U+221E}"         ; ∞  Infinity
   pad      := "{U+2009}"         ;    Thin Space (for padding)
-  codepad  := "{U+FFA0}"         ;    Halfwidth hangul filler (for padding inside code ``)
-
-  paddedFeature := "``feature" codepad "``"
 
   Tooltip("Writing standup template...")
 
-  OneNoteLogLine(ToDeutschDay(A_DDDD), A_YYYY A_MM A_DD "T1030")
-  Logging.Delay(40)
-  Send("{Enter}")
-  Logging.Delay(25)
+  OneNoteLog(ToDeutschDay(A_DDDD), A_YYYY A_MM A_DD "T1030")
+  DelayedSend("{Enter}", 100)
+  DelayedSend("{Enter}", 100)
 
-  Send("//_Blockers:_    " pad "none")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
+  DelayedSend("//_Blockers:_    " pad "none", 125)
+  DelayedSend("{Enter}", 125)
 
-  Send("//" blocker " *nnnn* " paddedFeature " item")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
-  Send("//_Estimate:_    " infinity "00 days   00 items   MMMDD-DD({+}20{%})")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
-  Send("//_Velocity:_     " up down " 0.0      " pad neu " 0.0     " pad done " 0.0")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
+  DelayedSend("//" blocker " *nnnn* ``feature`` item", 125)
+  DelayedSend("{Enter}", 125)
+  DelayedSend("//_Estimate:_    " infinity "00 days   00 items   MMMDD-DD({+}20{%})", 125)
+  DelayedSend("{Enter}", 125)
+  DelayedSend("//_Velocity:_     " up down " 0.0      " pad neu " 0.0     " pad done " 0.0", 125)
+  DelayedSend("{Enter}", 125)
+  DelayedSend("{Enter}", 125)
 
-  Send("_Yesterday:_")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
-  Send(neu removed working defer done " *nnnn* " paddedFeature " item")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
+  DelayedSend("_Yesterday:_", 125)
+  DelayedSend("{Enter}", 125)
+  DelayedSend(neu removed working defer done " *nnnn* ``feature`` item", 125)
+  DelayedSend("{Enter}", 125)
+  DelayedSend("{Enter}", 125)
 
-  Send("_Today:_")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
-  Send(working " *nnnn* " paddedFeature " item")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
+  DelayedSend("_Today:_", 125)
+  DelayedSend("{Enter}", 125)
+  DelayedSend(working " *nnnn* ``feature`` item", 125)
+  DelayedSend("{Enter}", 125)
+  DelayedSend("{Enter}", 125)
 
-  Send("//_Stretch:_")
-  Logging.Delay(25)
-  Send("{Enter}")
-  Logging.Delay(25)
-  Send("//" working " *nnnn* " paddedFeature " item")
-  Logging.Delay(25)
+  DelayedSend("//_Stretch:_", 125)
+  DelayedSend("{Enter}", 125)
+  DelayedSend("//" working " *nnnn* ``feature`` item", 125)
 
   Tooltip("Finished writing standup template")
   Sleep(1500)
   Tooltip()
 }
 
-OneNoteLogTodo()
+DelayedSend(keys, delay = 1)
 {
-  OneNoteLog("TODO ")
-  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
-  Logging.Delay(10) ; Ensure that next space will be unhighlighted.
-  Send("{Space}") ; Add an unhighlighted space so that the next message is not highlighted.
-  Send("{Left}") ; Move cursor back to the highlighted portion to finish this message.
-}
-
-;; Send commands to create the daily todo lists.
-OneNoteAufgaben()
-{
-  OneNoteLog("", "", "yyyyMMdd") ; TODO: handle unicode characters
-  Send("t{U+00E4}gliche kritisch wichtige Aufgaben:") ; WORKAROUND: manually send a with umlaut
-  Logging.Delay(20)
-  Send("{Enter}")
-  Logging.Delay(20) ; Sometimes it fails to indent if we do not wait.
-  Send("{Tab}")
-  Logging.Delay(10) ; Ensure position is indented before applying Todo tag.
-  Send("^1") ; OneNote Todo tag.
-  Send("{#}")
-  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
-  Logging.Delay(20)
-
-  ; Go to new line with no indentation
-  Send("{Enter}")
-  Logging.Delay(10)
-  Send("{Backspace}")
-  Logging.Delay(10)
-  Send("{Backspace} ") ; Send extra space here because OneNoteLog() will backspace too much otherwise
-  Logging.Delay(10)
-
-  OneNoteLog("Aufgaben:", "", "yyyyMMdd")
-  Logging.Delay(20)
-  Send("{Enter}")
-  Logging.Delay(20) ; Sometimes it fails to indent if we do not wait.
-  Send("{Tab}")
-  Logging.Delay(10) ; Ensure position is indented before applying Todo tag.
-  Send("^1") ; OneNote Todo tag.
-  Send("{Home}+{End}^!h{End}") ; OneNote highlight line.
-  Logging.Delay(10)
-}
-
-OneNoteLogWithPrefix(useCache)
-{
-  static prefix := ""
-  if (!useCache || prefix = "")
-  {
-    prefix := InputBox("Log Prefix",,, 200, 100)
-    WinWaitActive("- OneNote")
-    Logging.Delay(10)
-  }
-
-  OneNoteLog(prefix " ")
+  Sleep, %delay%
+  Send, %keys%
+  Sleep, %delay%
 }
 
 SendClearLine()
 {
-  ; BUG: hotstring backspacing sometimes fails in OneNote
-  ; Without this, a prefix ';' would be frequently leftover. [2019-07-04]
-  Send("{Home}")   ; Move to beginning of the line
-  Logging.Delay(2) ; Wait for cursor movement
-  Send("+{End}")   ; Highlight to end of the line
-  Logging.Delay(2) ; Wait for highlight
-  Send("{Del}")    ; Delete line
-  Logging.Delay(2) ; Wait for deletion
+  ; BUG: Hotstring backspacing sometimes fails in OneNote [2019-07-04]
+  ; Without this, a prefix ';' would be frequently leftover.
+  DelayedSend("{Home}") ; Move to beginning of the line (wait for cursor movement)
+  DelayedSend("+{End}") ; Highlight to end of the line (wait for highlight)
+  DelayedSend("{Del}")  ; Delete line (wait for deletion)
 }
