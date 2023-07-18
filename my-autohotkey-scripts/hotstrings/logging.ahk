@@ -246,6 +246,9 @@ OneNotePaste(html, preserveClipboard = true)
     Sleep(1) ; Wait for snap
   }
 
+  WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
+  Sleep(1) ; Wait for clear
+
   WinClip.SetHTML(html)
   Sleep(1) ; Wait for copy
 
