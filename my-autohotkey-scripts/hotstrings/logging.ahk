@@ -122,7 +122,9 @@ OneNoteLogMonat()
 
       DelayedSend("{Tab}", whitespaceDelay) ; Still highlighted from above
       DelayedSend("^1", formatDelay) ; OneNote Todo tag
-      DelayedSend("{#}", textDelay)
+      DelayedSend("^b", formatDelay)
+      DelayedSend("{#} ", textDelay)
+      DelayedSend("^b", formatDelay)
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend("^1^1", formatDelay) ; Undo OneNote Todo tag
@@ -144,13 +146,15 @@ OneNoteLogMonat()
 
     DelayedSend("{Tab}", whitespaceDelay) ; Still highlighted from above
     DelayedSend("^1", formatDelay) ; OneNote Todo tag
-    DelayedSend("{#}", textDelay)
+    DelayedSend("^b", formatDelay)
+    DelayedSend("{#} ", textDelay)
+    DelayedSend("^b", formatDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     DelayedSend(" ", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend("~", textDelay)
+    DelayedSend("~ ", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     DelayedSend("^1^1", formatDelay) ; Undo OneNote Todo tag
