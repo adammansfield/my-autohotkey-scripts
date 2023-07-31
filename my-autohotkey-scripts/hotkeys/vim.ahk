@@ -93,14 +93,20 @@
   }
 
   WinClip.Snap(clip)
+  Sleep(1) ; Wait for clip
+
   WinClip.Clear()
-  Sleep(10) ; Wait for clear
+  Sleep(1) ; Wait for clear
+
   WinClip.SetHTML(html)
-  Sleep(10) ; Wait for set
-  Vim.SendThenResetMode("^v") ; Wait for paste
-  WinClip._waitClipReady(3000)
+  Sleep(1) ; Wait for set
+
+  Vim.SendThenResetMode("^v")
+  WinClip._waitClipReady(3000) ; WinClip.Paste calls this after pasting
+  Sleep(100) ; Wait for paste
+
   WinClip.Restore(clip)
-  Sleep(10) ; Wait for restore
+  Sleep(1) ; Wait for restore
 
   return
 }
