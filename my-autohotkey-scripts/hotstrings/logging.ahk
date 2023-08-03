@@ -82,6 +82,35 @@ OneNoteLogMonat()
 
   SendClearLine()
 
+  ; TODO: add configurable scheduled Tasks [2023-08-03]
+  ;   For example, given scheduledtasks.txt:
+  ;     ```
+  ;     Fr Scan
+  ;     MoWe Autohotkey
+  ;     ``` 
+  ;   then on Fridays add to the daily tasks: 
+	;   [ ] ~ Scan [Fr]
+  ;   and then on Mondays and Wednesdays add to the daily tasks:
+  ;   [ ] ~ Autohotkey [MoWe]
+
+  ; TODO: add configurable daily log entries [2023-08-03]
+  ;  For example, given dailyentries.txt:
+  ;    ```
+  ;    Pillen, Meditation, Gesicht, plane,
+  ;    Pimsleur
+  ;    Grammar, Anki
+  ;    ``` 
+  ;  then for each day output on new line:
+  ;  yyyyMMddT0 Pillen, Meditation, Gesicht, plane,
+  ;  yyyyMMddT0 Pimsleur
+  ;  yyyyMMddT0 Grammar, Anki
+  ;  e.g.
+  ;  20230807T0 Pillen, Meditation, Gesicht, plane,
+  ;  20230804T0 Pimsleur
+  ;  20230804T0 Grammar, Anki
+
+  ; TODO: show daily log entries in a textbox to allow custom modificiations [2023-08-03]
+
   yyyymmdd  := InputBox("Enter start date in format of yyyy-mm-dd",,, 200, 100,,,,, A_YYYY "-" A_MM "-" A_DD)
   yyyy      := StrSplit(yyyymmdd, "-")[1]
   mm        := StrSplit(yyyymmdd, "-")[2]
