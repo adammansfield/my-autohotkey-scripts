@@ -5,6 +5,7 @@
   :*?b0cx:;logdebug;::OneNoteLogDebug()
   :*?b0cx:;logmonat;::OneNoteLogMonat()
   :*?b0cx:;logstandup;::OneNoteLogStandup()
+  :*?b0cx:;logteoten;::OneNoteLogTeoten()
   :*?b0cx:;debug;::BackspaceThenSend("[debug]", strlen(";debug;"))
 }
 #if
@@ -60,7 +61,6 @@ OneNoteLogMonat()
   ; 20230401 Montag 😁 🙂 😐 ☹️ 😢Tagebuch: (dankbar: )
   ;   [ ] # 
   ;   [ ] 
-  ;   [ ] ~ 
   ; 20230401T0 Pillen, Meditation, Gesicht, plane, 
   ; 20230401T0 
 
@@ -144,7 +144,7 @@ OneNoteLogMonat()
       DelayedSend("{Enter}", whitespaceDelay)
 
       yyyyw := FormatTime(date, "YWeek")
-      yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 4, 2)
+      yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
       OneNoteLog("Aufgaben:", yyyyw, "", false, false)
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
@@ -183,16 +183,13 @@ OneNoteLogMonat()
     DelayedSend(" ", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend("~ ", textDelay)
-    DelayedSend("{Enter}", whitespaceDelay)
-
     DelayedSend("^1^1", formatDelay) ; Undo OneNote Todo tag
     DelayedSend("+{Tab}", whitespaceDelay)
     OneNoteLog("", date "T0", "", false, false)
-    DelayedSend("^!hPillen^!h, "    , textDelay) ; Highlight words separately for an easy check-off by unhighlighting
-    DelayedSend("^!hMeditation^!h, ", textDelay)
-    DelayedSend("^!hGesicht^!h, "   , textDelay)
-    DelayedSend("^!hplane^!h, "     , textDelay)
+    DelayedSend("^!uPillen^!u, "    , textDelay) ; Underline words separately for an easy check-off removing underline
+    DelayedSend("^!uMeditation^!u, ", textDelay)
+    DelayedSend("^!uGesicht^!u, "   , textDelay)
+    DelayedSend("^!uplane^!u, "     , textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     OneNoteLog("", date "T0", "", false, false)
@@ -257,6 +254,20 @@ OneNoteLogStandup()
   Tooltip("Finished writing standup template")
   Sleep(2000)
   Tooltip()
+}
+
+OneNoteLogTeoten()
+{
+  bis := InputBox("Geben Sie die Endzeit ein (e.g. 1830)",,, 200, 100,,,,, (A_Hour + 2) "00")
+  WinWaitActive("- OneNote")
+  Sleep(100)
+
+  OneNoteLog("TEOTEN beggint bis " bis " Uhr (tu es oder tu es nicht)")
+  DelayedSend("{Enter}", 200)
+  DelayedSend("{Enter}", 100)
+
+  OneNoteLog("TEOTEN endet um " bis " Uhr (tu es oder tu es nicht)", A_YYYY A_MM A_DD "T" bis)
+  DelayedSend("{Enter}", 200)
 }
 
 ; Delay before and after sending 
