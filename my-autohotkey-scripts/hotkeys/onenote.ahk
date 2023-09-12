@@ -1,11 +1,12 @@
 #if WinActive("- OneNote")
 {
+  ^+-::OneNoteStrikeLine()
   ^+b::OneNoteBoldLine()
   ^+c::OneNoteCompleteTask()
   ^+h::OneNoteHighlightLine()
-  ^+-::OneNoteStrikeLine()
-  ^+t::OneNoteSetTimestampColor()
   ^+p::OneNotePostponeTask()
+  ^+t::OneNoteSetTimestampColor()
+  ^+u::OneNoteUnderlineLine()
 }
 #if
 
@@ -64,4 +65,9 @@ OneNoteSetTimestampColor()
 OneNoteStrikeLine()
 {
   SelectLineThenSend("^-")
+}
+
+OneNoteUnderlineLine()
+{
+  SelectLineThenSend("^u")
 }
