@@ -76,6 +76,7 @@ OneNoteLogMonat()
   lineExt := "{U+23AF}"  ; ⎯ Horizontal Line Extension
   daySep  := lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt
 
+  daySepDelay     := 50  ; Delay before and after sending `daySep`
   formatDelay     := 20  ; Delay for formatting
   textDelay       := 10  ; Delay for sending text
   whitespaceDelay := 250 ; Delay for sending new lines or tabs
@@ -140,7 +141,7 @@ OneNoteLogMonat()
     {
       OneNotePaste("<span style='color:#538135' />", false)
       DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-      DelayedSend(daySep, textDelay)
+      DelayedSend(daySep, daySepDelay)
       DelayedSend("{Enter}", whitespaceDelay)
 
       yyyyw := FormatTime(date, "YWeek")
@@ -162,7 +163,7 @@ OneNoteLogMonat()
 
     OneNotePaste("<span style='color:#538135' />", false)
     DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-    DelayedSend(daySep, textDelay)
+    DelayedSend(daySep, daySepDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     OneNoteLog(ToDeutschDay(longDay), date, "", false, false)
@@ -287,23 +288,23 @@ OneNotePaste(html, preserveClipboard = true)
   if (preserveClipboard)
   {
     WinClip.Snap(clip)
-    Sleep(1) ; Wait for snap
+    Sleep(2) ; Wait for snap
   }
 
   WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
-  Sleep(1) ; Wait for clear
+  Sleep(2) ; Wait for clear
 
   WinClip.SetHTML(html)
-  Sleep(1) ; Wait for copy
+  Sleep(2) ; Wait for copy
 
   WinClip.Paste()
-  Sleep(1) ; Wait for paste
+  Sleep(2) ; Wait for paste
   WinWait, PopupHost ahk_exe onenoteim.exe,, 2 ; Wait for paste pop-up
 
   if (preserveClipboard)
   {
     WinClip.Restore(clip)
-    Sleep(1) ; Wait for restore of snap
+    Sleep(2) ; Wait for restore of snap
   }
 }
 
