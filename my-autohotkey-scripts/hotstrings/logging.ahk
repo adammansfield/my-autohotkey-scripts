@@ -263,12 +263,12 @@ OneNoteLogTeoten()
   WinWaitActive("- OneNote")
   Sleep(100)
 
-  OneNoteLog("TEOTEN beggint bis " bis " Uhr (tu es oder tu es nicht)")
-  DelayedSend("{Enter}", 200)
+  OneNoteLog("TEOTEN beggint bis " bis " Uhr (tu es oder tu es nicht)", "", "yyyyMMddTHHmm {")
+  DelayedSend("{Enter}", 100)
   DelayedSend("{Enter}", 100)
 
-  OneNoteLog("TEOTEN endet um " bis " Uhr (tu es oder tu es nicht)", A_YYYY A_MM A_DD "T" bis)
-  DelayedSend("{Enter}", 200)
+  OneNoteLog("TEOTEN endet um " bis " Uhr (tu es oder tu es nicht)", A_YYYY A_MM A_DD "T" bis " }",,, false)
+  DelayedSend("{Enter}", 100)
 }
 
 ; Delay before and after sending 
