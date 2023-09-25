@@ -4,7 +4,7 @@
   :*?b0cx:;log;::OneNoteLog()
   :*?b0cx:;logdebug;::OneNoteLogDebug()
   :*?b0cx:;logmonat;::OneNoteLogMonat()
-  :*?b0cx:;logstandup;::OneNoteLogStandup()
+  :*?b0cx:;logstandups;::OneNoteLogStandups()
   :*?b0cx:;logteoten;::OneNoteLogTeoten()
   :*?b0cx:;debug;::BackspaceThenSend("[debug]", strlen(";debug;"))
 }
@@ -205,8 +205,16 @@ OneNoteLogMonat()
   Tooltip()
 }
 
-OneNoteLogStandup()
+OneNoteLogStandups()
 {
+  ; Example output: 
+  ; ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+  ; 20230401T1030 Montag
+  ; _Yesterday:_
+  ; 🆕⏏️⚙🕔👉🏻✅ *nnnn* `featureﾠ` item
+  ; _Today:_
+  ; ⚙ *nnnn* `featureﾠ` item
+
   up       := "{U+25B2}"         ; ▲  Black up-pointing triangle
   down     := "{U+25BC}"         ; ▼  Black down-pointing triangle
   working  := "{U+2699}"         ; ⚙  Gear
@@ -220,39 +228,90 @@ OneNoteLogStandup()
   newlineDelay := 100 ; Delay for sending new lines
   textDelay    := 250 ; Delay for sending text
 
-  Tooltip("Writing standup template...")
+  lineExt := "{U+23AF}"  ; ⎯ Horizontal Line Extension
+  daySep  := lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt
 
-  OneNoteLog(ToDeutschDay(A_DDDD), A_YYYY A_MM A_DD "T1030")
-  DelayedSend("{Enter}", newlineDelay)
-  DelayedSend("{Enter}", newlineDelay)
+  daySepDelay     := 50  ; Delay before and after sending `daySep`
+  formatDelay     := 20  ; Delay for formatting
+  textDelay       := 10  ; Delay for sending text
+  whitespaceDelay := 250 ; Delay for sending new lines or tabs
 
-  DelayedSend("//_Blockers:_    " pad "none", textDelay)
-  DelayedSend("{Enter}", newlineDelay)
-  DelayedSend("//" blocker " *nnnn* ``feature`` item", textDelay)
-  DelayedSend("{Enter}", newlineDelay)
-  DelayedSend("//_Estimate:_    " infiniry "00 days   00 items   MMMDD-DD({+}20{%})", textDelay)
-  DelayedSend("{Enter}", newlineDelay)
-  DelayedSend("//_Velocity:_     " up down " 0.0      " pad neu " 0.0     " pad done " 0.0", textDelay)
-  DelayedSend("{Enter}", newlineDelay)
-  DelayedSend("{Enter}", newlineDelay)
+  SendClearLine()
 
-  DelayedSend("_Yesterday:_", textDelay)
-  DelayedSend("{Enter}", newlineDelay)
-  DelayedSend(neu removed working defer done " *nnnn* ``feature`` item", textDelay)
-  DelayedSend("{Enter}", newlineDelay)
-  DelayedSend("{Enter}", newlineDelay)
+  yyyymmdd  := InputBox("Enter start date in format of yyyy-mm-dd",,, 200, 100,,,,, A_YYYY "-" A_MM "-" A_DD)
+  yyyy      := StrSplit(yyyymmdd, "-")[1]
+  mm        := StrSplit(yyyymmdd, "-")[2]
+  dd        := StrSplit(yyyymmdd, "-")[3]
+  days      := 31 - dd + 1
+  dayOffset := dd - 1
+  WinWaitActive("- OneNote")
 
-  DelayedSend("_Today:_", textDelay)
-  DelayedSend("{Enter}", newlineDelay)
-  DelayedSend(working " *nnnn* ``feature`` item", textDelay)
-  DelayedSend("{Enter}", newlineDelay)
-  DelayedSend("{Enter}", newlineDelay)
+  Tooltip("Schreiben der Monatlich Vorlage für die Standups")
 
-  DelayedSend("//_Stretch:_", textDelay)
-  DelayedSend("{Enter}", newlineDelay)
-  DelayedSend("//" working " *nnnn* ``feature`` item", textDelay)
+  WinClip.Snap(clip)
+  Sleep(1) ; Wait for snap
 
-  Tooltip("Finished writing standup template")
+  Loop, %days%
+  {
+    WinWaitActive("- OneNote") ; Ensure sending to OneNote window
+
+    i := A_Index + dayOffset
+    day := i < 10 ? "0" i : i
+    date := yyyy mm day
+    longDay := FormatTime(date, "dddd")
+    if (longDay = "") {
+      break ; Invalid date e.g. Feb 30th
+    }
+    if (longDay = "Saturday" || longDay = "Sunday") {
+      continue ; Standups only on weekdays
+    }
+
+    OneNotePaste("<span style='color:#538135' />", false)
+    DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
+    DelayedSend(daySep, daySepDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+
+    OneNoteLog(ToDeutschDay(longDay), date "T1030")
+    DelayedSend("{Enter}", whitespaceDelay)
+
+    ;DelayedSend("{Enter}", whitespaceDelay)
+    ;DelayedSend("//_Blockers:_    " pad "none", textDelay)
+    ;DelayedSend("{Enter}", whitespaceDelay)
+    ;DelayedSend("//" blocker " *nnnn* ``feature`` item", textDelay)
+    ;DelayedSend("{Enter}", whitespaceDelay)
+    ;DelayedSend("//_Estimate:_    " infiniry "00 days   00 items   MMMDD-DD({+}20{%})", textDelay)
+    ;DelayedSend("{Enter}", whitespaceDelay)
+    ;DelayedSend("//_Velocity:_     " up down " 0.0      " pad neu " 0.0     " pad done " 0.0", textDelay)
+    ;DelayedSend("{Enter}", whitespaceDelay)
+    ;DelayedSend("{Enter}", whitespaceDelay)
+
+    if (longDay = "Monday") {
+      DelayedSend("_Friday:_", textDelay)
+    } else {
+      DelayedSend("_Yesterday:_", textDelay)
+    }
+
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend(neu removed working defer done " *nnnn* ``feature`` item", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+
+    DelayedSend("_Today:_", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend(working " *nnnn* ``feature`` item", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+
+    DelayedSend("//_Stretch:_", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("//" working " *nnnn* ``feature`` item", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+  }
+
+  WinClip.Restore(clip)
+  Sleep(1) ; Wait for restore of snap
+
+  Tooltip("fertig geschrieben")
   Sleep(2000)
   Tooltip()
 }
