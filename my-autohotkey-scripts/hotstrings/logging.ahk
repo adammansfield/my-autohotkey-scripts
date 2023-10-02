@@ -187,10 +187,10 @@ OneNoteLogMonat()
     DelayedSend("^1^1", formatDelay) ; Undo OneNote Todo tag
     DelayedSend("+{Tab}", whitespaceDelay)
     OneNoteLog("", date "T0", "", false, false)
-    DelayedSend("^!uPillen^!u, "    , textDelay) ; Underline words separately for an easy check-off removing underline
-    DelayedSend("^!uMeditation^!u, ", textDelay)
-    DelayedSend("^!uGesicht^!u, "   , textDelay)
-    DelayedSend("^!uplane^!u, "     , textDelay)
+    DelayedSend("^^uPillen^^u, "    , textDelay) ; Underline words separately for an easy check-off removing underline
+    DelayedSend("^^uMeditation^^u, ", textDelay)
+    DelayedSend("^^uGesicht^^u, "   , textDelay)
+    DelayedSend("^^uplane^^u, "     , textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     OneNoteLog("", date "T0", "", false, false)
