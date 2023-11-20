@@ -2,8 +2,13 @@
 :*?b0cx:;bp;::BackspaceThenSend("{U+2022}", strlen(";bp;"))
 
 ; Check marks
-:*?b0cx:;cm;:: BackspaceThenSend("{U+2611}", strlen(";cm;"))
-:*?b0cx:;ucm;::BackspaceThenSend("{U+2610}", strlen(";ucm;"))
+:*?b0cx:;bcm;:: BackspaceThenSend("{U+2611}", strlen(";bcm;"))             ; ☑
+:*?b0cx:;check;:: BackspaceThenSend("{U+2714}", strlen(";check;"))         ; ✔️
+:*?b0cx:;checkmark;:: BackspaceThenSend("{U+2714}", strlen(";checkmark;")) ; ✔️
+:*?b0cx:;cm;:: BackspaceThenSend("{U+2705}", strlen(";cm;"))               ; ✅
+:*?b0cx:;cross;::BackspaceThenSend("{U+274C}", strlen(";cross;"))          ; ❌
+:*?b0cx:;crossmark;::BackspaceThenSend("{U+274C}", strlen(";crossmark;"))  ; ❌
+:*?b0cx:;ucm;::BackspaceThenSend("{U+2610}", strlen(";ucm;"))              ; ☐
 
 ; Dashes
 :*?b0cx:;mdash;::BackspaceThenSend("{U+2014}", strlen(";mdash;"))
