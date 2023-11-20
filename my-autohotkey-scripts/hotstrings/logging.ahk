@@ -79,7 +79,7 @@ OneNoteLogMonat()
   daySepDelay     := 50  ; Delay before and after sending `daySep`
   formatDelay     := 20  ; Delay for formatting
   textDelay       := 10  ; Delay for sending text
-  whitespaceDelay := 250 ; Delay for sending new lines or tabs
+  whitespaceDelay := 275 ; Delay for sending new lines or tabs
 
   SendClearLine()
 
@@ -184,14 +184,25 @@ OneNoteLogMonat()
     DelayedSend(" ", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend("^1^1", formatDelay) ; Undo OneNote Todo tag
+    DelayedSend("^1", formatDelay) ; Check OneNote Todo tag
+    DelayedSend("^1", formatDelay) ; Remove OneNote Todo tag
     DelayedSend("+{Tab}", whitespaceDelay)
     OneNoteLog("", date "T0", "", false, false)
-    DelayedSend("^^uPillen^^u, "    , textDelay) ; Underline words separately for an easy check-off removing underline
-    DelayedSend("^^uMeditation^^u, ", textDelay)
-    DelayedSend("^^uGesicht^^u, "   , textDelay)
-    DelayedSend("^^uplane^^u, "     , textDelay)
+    DelayedSend("^^uPillen^^u, "     , textDelay) ; Underline words separately for an easy check-off removing underline
+    DelayedSend("^^uMeditation^^u, " , textDelay)
+    DelayedSend("^^uKatzenstreu^^u, ", textDelay)
+    DelayedSend("^^uGesicht^^u, "    , textDelay)
+    DelayedSend("^^uGeschirr^^u, "   , textDelay)
+    DelayedSend("^^uSeedlang^^u, "   , textDelay)
+    DelayedSend("^^uplane^^u, "      , textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
+
+    if (longDay != "Friday" && longDay != "Saturday")
+    {
+      OneNoteLog("", date "T0", "", false, false)
+      DelayedSend("^^uPimsleur^^u"  , textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+    }
 
     OneNoteLog("", date "T0", "", false, false)
     DelayedSend("{Enter}", whitespaceDelay)
@@ -271,7 +282,7 @@ OneNoteLogStandups()
     DelayedSend(daySep, daySepDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), date "T1030")
+    OneNoteLog(ToDeutschDay(longDay), date "T1100")
     DelayedSend("{Enter}", whitespaceDelay)
 
     ;DelayedSend("{Enter}", whitespaceDelay)
