@@ -8,7 +8,7 @@
 :*?b0cx:;cm;:: BackspaceThenSend("{U+2705}", strlen(";cm;"))               ; ✅
 :*?b0cx:;cross;::BackspaceThenSend("{U+274C}", strlen(";cross;"))          ; ❌
 :*?b0cx:;crossmark;::BackspaceThenSend("{U+274C}", strlen(";crossmark;"))  ; ❌
-:*?b0cx:;ucm;::BackspaceThenSend("{U+2610}", strlen(";ucm;"))              ; ☐
+:*?b0cx:;ucm;::BackspaceThenSend("{U+2B1C}", strlen(";ucm;"))              ; ⬜
 
 ; Dashes
 :*?b0cx:;mdash;::BackspaceThenSend("{U+2014}", strlen(";mdash;"))
