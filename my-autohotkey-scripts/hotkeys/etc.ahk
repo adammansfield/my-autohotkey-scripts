@@ -1,3 +1,4 @@
+<!h::Send(Round(clipboard / 2, 2))
 <!p::PasteAsSend()
 <!t::ToggleAlwaysOnTop()
 ^+!k::PasteImage() ;; Ctrl-Shift-Alt-v on QWERTY keyboard for Dvorak configuration
