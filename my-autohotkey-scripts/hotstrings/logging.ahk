@@ -221,10 +221,10 @@ OneNoteLogStandups()
   ; Example output: 
   ; ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
   ; 20230401T1030 Montag
-  ; _Yesterday:_
   ; 🆕⏏️⚙🕔👉🏻✅ *nnnn* `featureﾠ` item
-  ; _Today:_
-  ; ⚙ *nnnn* `featureﾠ` item
+  ; 
+  ; //_Stretch_:
+  ; //🆕⏏️⚙🕔👉🏻✅ *nnnn* `featureﾠ` item
 
   up       := "{U+25B2}"         ; ▲  Black up-pointing triangle
   down     := "{U+25BC}"         ; ▼  Black down-pointing triangle
@@ -257,7 +257,7 @@ OneNoteLogStandups()
   dayOffset := dd - 1
   WinWaitActive("- OneNote")
 
-  Tooltip("Schreiben der Monatlich Vorlage für die Standups")
+  Tooltip("Schreiben der Monatlich Vorlage fuer die Standups")
 
   WinClip.Snap(clip)
   Sleep(1) ; Wait for snap
@@ -296,22 +296,22 @@ OneNoteLogStandups()
     ;DelayedSend("{Enter}", whitespaceDelay)
     ;DelayedSend("{Enter}", whitespaceDelay)
 
-    if (longDay = "Monday") {
-      DelayedSend("_Friday:_", textDelay)
-    } else {
-      DelayedSend("_Yesterday:_", textDelay)
-    }
+    ;if (longDay = "Monday") {
+    ;  DelayedSend("_Friday:_", textDelay)
+    ;} else {
+    ;  DelayedSend("_Yesterday:_", textDelay)
+    ;}
 
-    DelayedSend("{Enter}", whitespaceDelay)
+    ;DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend(neu removed working defer done " *nnnn* ``feature`` item", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend("_Today:_", textDelay)
-    DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend(working " *nnnn* ``feature`` item", textDelay)
-    DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend("{Enter}", whitespaceDelay)
+    ;DelayedSend("_Today:_", textDelay)
+    ;DelayedSend("{Enter}", whitespaceDelay)
+    ;DelayedSend(working " *nnnn* ``feature`` item", textDelay)
+    ;DelayedSend("{Enter}", whitespaceDelay)
+    ;DelayedSend("{Enter}", whitespaceDelay)
 
     DelayedSend("//_Stretch:_", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
