@@ -277,6 +277,33 @@ OneNoteLogStandups()
       continue ; Standups only on weekdays
     }
 
+    if (i = 1 || longDay = "Monday")
+    {
+      OneNotePaste("<span style='color:#538135' />", false)
+      DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
+      DelayedSend(daySep, daySepDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      yyyyw := FormatTime(date, "YWeek")
+      yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
+      OneNoteLog(" ", yyyyw, "", false, false)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      DelayedSend("// _Priorities:_", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend("// 1.  ", textDelay)
+      OneNotePaste("<span style='color:#538135'>// </span>", false)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
+      Sleep(2) ; Wait for clear
+      WinClip.SetText("// 2. ") ; Set text to clear green color formatting
+      Sleep(2) ; Wait for copy
+      WinClip.Paste()
+      Sleep(2) ; Wait for paste
+      DelayedSend("{Enter}", whitespaceDelay)
+    }
+
     OneNotePaste("<span style='color:#538135' />", false)
     DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
     DelayedSend(daySep, daySepDelay)
@@ -303,7 +330,7 @@ OneNoteLogStandups()
     ;}
 
     ;DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend(neu removed working defer done " *nnnn* ``feature`` item", textDelay)
+    DelayedSend(neu working done removed defer " *nnnn* ``feature`` item", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
@@ -315,7 +342,7 @@ OneNoteLogStandups()
 
     DelayedSend("//_Stretch:_", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend("//" working " *nnnn* ``feature`` item", textDelay)
+    DelayedSend("// *nnnn* ``feature`` item", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
   }
 
@@ -329,16 +356,19 @@ OneNoteLogStandups()
 
 OneNoteLogTeoten()
 {
-  bis := InputBox("Geben Sie die Endzeit ein (e.g. 1830)",,, 200, 100,,,,, (A_Hour + 2) "00")
+  bis := InputBox("Gib die Endzeit an (e.g. 1830)",,, 240, 100,,,,, (A_Hour + 2) "00")
   WinWaitActive("- OneNote")
   Sleep(100)
 
-  OneNoteLog("TEOTEN beggint bis " bis " Uhr (tu es oder tu es nicht)", "", "yyyyMMddTHHmm {")
+  OneNoteLog("TEOTEN beggint bis " bis " Uhr (tu es oder tu es nicht)")
   DelayedSend("{Enter}", 100)
   DelayedSend("{Enter}", 100)
 
-  OneNoteLog("TEOTEN endet um " bis " Uhr (tu es oder tu es nicht)", A_YYYY A_MM A_DD "T" bis " }",,, false)
+  OneNoteLog("TEOTEN endet um " bis " Uhr (tu es oder tu es nicht)", A_YYYY A_MM A_DD "T" bis,,, false)
   DelayedSend("{Enter}", 100)
+
+  DelayedSend("{Up}", 10)
+  DelayedSend("{Up}", 10)
 }
 
 ; Delay before and after sending 
