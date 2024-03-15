@@ -1,6 +1,6 @@
 #if WinActive("- OneNote")
 {
-  :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true)
+  :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true, true, 5)
   :*?b0cx:;log;::OneNoteLog()
   :*?b0cx:;logdebug;::OneNoteLogDebug()
   :*?b0cx:;logmonat;::OneNoteLogMonat()
@@ -10,14 +10,14 @@
 }
 #if
 
-OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false, clearLine = true)
+OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false, clearLine = true, roundToMin = 10)
 {
   ; Prepend a non-breaking space to retain `message` styling
   message := "&nbsp;" message
 
   if (timestamp = "")
   {
-    timestamp := RoundMin(A_Now, 10, timeformat) ; Round to the nearest 10min
+    timestamp := RoundMin(A_Now, roundToMin, timeformat) ; Round to the nearest given minutes
   }
 
   if (clearLine)
@@ -221,10 +221,10 @@ OneNoteLogStandups()
   ; Example output: 
   ; ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
   ; 20230401T1030 Montag
-  ; 🆕⏏️⚙🕔👉🏻✅ *nnnn* `featureﾠ` item
+  ; 🆕⏏️⚙🕔👉🏻✅ *wid* `featureﾠ` item
   ; 
   ; //_Stretch_:
-  ; //🆕⏏️⚙🕔👉🏻✅ *nnnn* `featureﾠ` item
+  ; //🆕⏏️⚙🕔👉🏻✅ *wid* `featureﾠ` item
 
   up       := "{U+25B2}"         ; ▲  Black up-pointing triangle
   down     := "{U+25BC}"         ; ▼  Black down-pointing triangle
@@ -277,6 +277,7 @@ OneNoteLogStandups()
       continue ; Standups only on weekdays
     }
 
+    ; Weekly entry
     if (i = 1 || longDay = "Monday")
     {
       OneNotePaste("<span style='color:#538135' />", false)
@@ -289,18 +290,13 @@ OneNoteLogStandups()
       OneNoteLog(" ", yyyyw, "", false, false)
       DelayedSend("{Enter}", whitespaceDelay)
 
-      DelayedSend("// _Priorities:_", textDelay)
+      DelayedSend("// _Last Week:_  // Max 3 Summaries", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend("// 1.  ", textDelay)
-      OneNotePaste("<span style='color:#538135'>// </span>", false)
+      DelayedSend("// 1. ``features`` summary *(wid,wid)*", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-
-      WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
-      Sleep(2) ; Wait for clear
-      WinClip.SetText("// 2. ") ; Set text to clear green color formatting
-      Sleep(2) ; Wait for copy
-      WinClip.Paste()
-      Sleep(2) ; Wait for paste
+      DelayedSend("// 2. ``features`` summary *(wid,wid)*", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend("// 3. ``features`` summary *(wid,wid)*", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
     }
 
@@ -315,7 +311,7 @@ OneNoteLogStandups()
     ;DelayedSend("{Enter}", whitespaceDelay)
     ;DelayedSend("//_Blockers:_    " pad "none", textDelay)
     ;DelayedSend("{Enter}", whitespaceDelay)
-    ;DelayedSend("//" blocker " *nnnn* ``feature`` item", textDelay)
+    ;DelayedSend("//" blocker " *wid* ``feature`` item", textDelay)
     ;DelayedSend("{Enter}", whitespaceDelay)
     ;DelayedSend("//_Estimate:_    " infiniry "00 days   00 items   MMMDD-DD({+}20{%})", textDelay)
     ;DelayedSend("{Enter}", whitespaceDelay)
@@ -330,19 +326,55 @@ OneNoteLogStandups()
     ;}
 
     ;DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend(neu working done removed defer " *nnnn* ``feature`` item", textDelay)
+    DelayedSend(neu working done removed defer " *wid* ``feature`` item", textDelay) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     ;DelayedSend("_Today:_", textDelay)
     ;DelayedSend("{Enter}", whitespaceDelay)
-    ;DelayedSend(working " *nnnn* ``feature`` item", textDelay)
+    ;DelayedSend(working " *wid* ``feature`` item", textDelay)
     ;DelayedSend("{Enter}", whitespaceDelay)
     ;DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend("//_Stretch:_", textDelay)
+    ; Monday specific entry
+    if (i = 1 || longDay = "Monday")
+    {
+      DelayedSend("_Priorities:_", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend(" 1.  ", textDelay)
+      OneNotePaste("<span style='color:#538135'>_//_</span>", false)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      ; Clear formating
+      WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
+      Sleep(2) ; Wait for clear
+      WinClip.SetText(" 2. ") ; Set text to clear green color formatting
+      Sleep(2) ; Wait for copy
+      WinClip.Paste()
+      Sleep(2) ; Wait for paste
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      DelayedSend(" 3. ", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      OneNotePaste("<span style='color:#7F7F7F'> 4.  </span>", false)
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend(" 5. ", whitespaceDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      ; Clear formating
+      WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
+      Sleep(2) ; Wait for clear
+      WinClip.SetText(" ") ; Set text to clear green color formatting
+      Sleep(2) ; Wait for copy
+      WinClip.Paste()
+      Sleep(2) ; Wait for paste
+      DelayedSend("{Enter}", whitespaceDelay)
+    }
+
+    DelayedSend("// _Stretch:_", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend("// *nnnn* ``feature`` item", textDelay)
+    DelayedSend("// *wid* ``feature`` item", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
   }
 
