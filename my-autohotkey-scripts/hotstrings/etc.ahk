@@ -5,12 +5,29 @@
 :*c?:;psgrep;::Get-ChildItem . | Select-String -Pattern{Space}
 :*c?:;psrgrep;::Get-ChildItem -Recurse . | Select-String -Pattern{Space}
 
+;; Ctrl-Backspace then send for use with hotstrings with manual control-backspacing.
+;; Example: :*?b0cx:bp::  BackspaceThenSend("{U+2022}", 1) ; Requires 1 Ctrl-Backspace bp
+;; Example: :*?b0cx:;bp:: BackspaceThenSend("{U+2022}", 2) ; Requires 2 Ctrl-Backspace to erase ;bp
+;; Example: :*?b0cx:;bp;::BackspaceThenSend("{U+2022}", 3) ; Requires 3 Ctrl-Backspace to erase ;bp;
+CtrlBackspaceThenSend(keys, ctrlBackspaces)
+{
+  ; NB: Using hotstrings in OneNote or Slack often leaves part of the hotstring [2024-03-22]
+  ; Ctrl-Backspacing is more reliable with minor sleeps before and after.
+  loop %ctrlBackspaces% {
+    Sleep(1)
+    Send("^{Backspace}")
+    Sleep(1)
+  }
+
+  Send(keys)
+}
+
 ;; Backspace then send for use with hotstrings with manual backspacing.
 ;; Example: :*?b0cx:;bp;::BackspaceThenSend("{U+2022}", strlen(";bp;"))
 BackspaceThenSend(keys, backspaces)
 {
-  ;; NOTE: Using hotstrings in OneNote often leaves part of the hotstring [2020-03-14]
-  ;; Backspacing is more reliable when backspacing with minor sleeps before and after.
+  ; NB: Using hotstrings in OneNote or Slack often leaves part of the hotstring [2024-03-22]
+  ; Backspacing is more reliable with minor sleeps before and after.
   loop %backspaces% {
     Sleep(1)
     Send("{Backspace}")
