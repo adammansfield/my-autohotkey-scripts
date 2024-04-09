@@ -1,5 +1,6 @@
 #if WinActive("- OneNote")
 {
+  :*?b0cx:;d;::OneNoteLogDebugWithReference()
   :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true, true, 5)
   :*?b0cx:;log;::OneNoteLog()
   :*?b0cx:;logdebug;::OneNoteLogDebug()
@@ -52,6 +53,12 @@ OneNoteLogDebug()
   DelayedSend("{End}")
   DelayedSend("^{Left 3}")
   DelayedSend("{Left}")
+}
+
+OneNoteLogDebugWithReference()
+{
+  OneNoteLog(" [debug@]")
+  DelayedSend("{Left}", 1, 200)
 }
 
 OneNoteLogMonat()
@@ -197,12 +204,19 @@ OneNoteLogMonat()
     DelayedSend("^^uplane^^u, "      , textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    if (longDay != "Friday" && longDay != "Saturday")
-    {
-      OneNoteLog("", date "T0", "", false, false)
-      DelayedSend("^^uPimsleur^^u"  , textDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-    }
+    ; TODO: remove after 2024-11-01 [2024-04-09]
+    OneNoteLog("", date "T0", "", false, false)
+    OneNotePaste("<span style='font-family:Consolas;font-size:9.0pt;color:#E8912D' lang=gsw-FR>haus</span>&nbsp;", false)
+    DelayedSend("{Backspace}", textDelay) ; Remove extra space from HTML formatting
+    DelayedSend("{Enter}", whitespaceDelay)
+
+    ; TODO: uncomment after 2024-11-01 [2024-04-09]
+    ;if (longDay != "Friday" && longDay != "Saturday")
+    ;{
+    ;  OneNoteLog("", date "T0", "", false, false)
+    ;  DelayedSend("^^uPimsleur^^u"  , textDelay)
+    ;  DelayedSend("{Enter}", whitespaceDelay)
+    ;}
 
     OneNoteLog("", date "T0", "", false, false)
     DelayedSend("{Enter}", whitespaceDelay)
