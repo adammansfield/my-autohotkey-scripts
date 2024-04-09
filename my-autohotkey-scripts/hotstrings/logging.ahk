@@ -340,7 +340,7 @@ OneNoteLogStandups()
     ;}
 
     ;DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend(neu working done removed defer " *wid* ``feature`` item", textDelay) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+    DelayedSend(neu working done removed defer " [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", textDelay) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
