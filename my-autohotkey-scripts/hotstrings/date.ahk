@@ -19,6 +19,12 @@
 :*?b0cx:;ts-;::BackspaceThenSend(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min, strlen(";ts-;"))
 :*?b0cx:;ts;::BackspaceThenSend(A_YYYY A_MM A_DD "T" A_Hour A_Min, strlen(";ts;"))
 
+:*?b0cx:;tss;::BackspaceThenSend(A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec, strlen(";tss;"))
+:*?b0cx:;tss-;::BackspaceThenSend(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec, strlen(";tss-;"))
+
+:*?b0cx:;uts-;::BackspaceThenSend(FormatTime(A_NowUTC, "yyyy-MM-ddTHH:mmZ"), strlen(";uts-;"))
+:*?b0cx:;uts;::BackspaceThenSend(FormatTime(A_NowUTC, "yyyyMMddTHHmmZ"), strlen(";uts;"))
+
 :*?b0cx:;hm-;::BackspaceThenSend(A_Hour ":" A_Min, strlen(";hm-;"))
 :*?b0cx:;hm;::BackspaceThenSend(A_Hour A_Min, strlen(";hm;"))
 :*?b0cx:;ym-;::BackspaceThenSend(A_YYYY "-" A_MM, strlen(";ym-;"))
@@ -31,10 +37,6 @@
 :*?b0cx:;ymdhms;::BackspaceThenSend(A_YYYY A_MM A_DD "T" A_Hour A_Min A_Sec, strlen(";ymdhms;"))
 :*?b0cx:;yw-;::BackspaceThenSend(A_YYYY "-W" GetWeekNumber(), strlen(";yw-;"))
 :*?b0cx:;yw;::BackspaceThenSend(A_YYYY "W" GetWeekNumber(), strlen(";yw;"))
-
-:*?b0cx:;uts-;::BackspaceThenSend(FormatTime(A_NowUTC, "yyyy-MM-ddTHH:mmZ"), strlen(";uts-;"))
-:*?b0cx:;uts;::BackspaceThenSend(FormatTime(A_NowUTC, "yyyyMMddTHHmmZ"), strlen(";uts;"))
-:*?b0cx:;utsv;::BackspaceThenSend(FormatTime(A_NowUTC, "yyyy.MM.dd.HHmm"), strlen(";utsv;"))
 
 GetWeekNumber()
 {
