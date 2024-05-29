@@ -197,11 +197,11 @@ OneNoteLogMonat()
     OneNoteLog("", date "T0", "", false, false)
     DelayedSend("^^uPillen^^u, "     , textDelay) ; Underline words separately for an easy check-off removing underline
     DelayedSend("^^uMeditation^^u, " , textDelay)
+    DelayedSend("^^uplane^^u, "      , textDelay)
     DelayedSend("^^uKatzenstreu^^u, ", textDelay)
     DelayedSend("^^uGesicht^^u, "    , textDelay)
     DelayedSend("^^uGeschirr^^u, "   , textDelay)
     DelayedSend("^^uSeedlang^^u, "   , textDelay)
-    DelayedSend("^^uplane^^u, "      , textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     ; TODO: remove after 2024-11-01 [2024-04-09]
@@ -388,7 +388,7 @@ OneNoteLogStandups()
 
     DelayedSend("// _Stretch:_", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend("// *wid* ``feature`` item", textDelay)
+    DelayedSend(neu working " [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", textDelay) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
     DelayedSend("{Enter}", whitespaceDelay)
   }
 
