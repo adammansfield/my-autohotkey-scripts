@@ -64,7 +64,7 @@ OneNoteLogDebugWithReference()
 OneNoteLogMonat()
 {
   ; Example output: 
-  ; ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+  ; ---------------------------------------------------------------
   ; 20230401 Montag 😁 🙂 😐 ☹️ 😢Tagebuch: (dankbar: )
   ;   [ ] # 
   ;   [ ] 
@@ -79,9 +79,7 @@ OneNoteLogMonat()
   moods   := grin " " smile " " neutral " " sad " " crying
 
   dankbar := "{U+1F64F}" ; 🙏 Person with Folded Hands
-
-  lineExt := "{U+23AF}"  ; ⎯ Horizontal Line Extension
-  daySep  := lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt
+  daySep  := "---------------------------------------------------------------"
 
   daySepDelay     := 50  ; Delay before and after sending `daySep`
   formatDelay     := 20  ; Delay for formatting
@@ -173,7 +171,7 @@ OneNoteLogMonat()
     DelayedSend(daySep, daySepDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), date, "", false, false)
+    OneNoteLog(ToDeutschDay(longDay), "# " date, "", false, false)
     DelayedSend(" " moods, textDelay)
     DelayedSend(" TAGEBUCHE", textDelay)
     DelayedSend(" " dankbar, textDelay)
@@ -233,12 +231,12 @@ OneNoteLogMonat()
 OneNoteLogStandups()
 {
   ; Example output: 
-  ; ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-  ; 20230401T1030 Montag
-  ; 🆕⏏️⚙🕔👉🏻✅ *wid* `featureﾠ` item
+  ; ---------------------------------------------------------------
+  ; # 20230401T1030 Montag
+  ; 🆕⚙✅⏏️🕔 [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
   ; 
   ; //_Stretch_:
-  ; //🆕⏏️⚙🕔👉🏻✅ *wid* `featureﾠ` item
+  ; 🆕⚙ [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
 
   up       := "{U+25B2}"         ; ▲  Black up-pointing triangle
   down     := "{U+25BC}"         ; ▼  Black down-pointing triangle
@@ -249,13 +247,10 @@ OneNoteLogStandups()
   defer    := "{U+1F554}"        ; 🕔 Clock Face Five Oclock
   blocker  := "{U+1F6A7}"        ; 🚧 Construction Sign
   pad      := "{U+2009}"         ;    Thin Space (for padding)
+  daySep   := "---------------------------------------------------------------"
 
-  newlineDelay := 100 ; Delay for sending new lines
-  textDelay    := 250 ; Delay for sending text
-
-  lineExt := "{U+23AF}"  ; ⎯ Horizontal Line Extension
-  daySep  := lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt lineExt
-
+  newlineDelay    := 100 ; Delay for sending new lines
+  textDelay       := 250 ; Delay for sending text
   daySepDelay     := 50  ; Delay before and after sending `daySep`
   formatDelay     := 20  ; Delay for formatting
   textDelay       := 10  ; Delay for sending text
@@ -319,7 +314,7 @@ OneNoteLogStandups()
     DelayedSend(daySep, daySepDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), date "T1100")
+    OneNoteLog(ToDeutschDay(longDay), "# " date "T1100")
     DelayedSend("{Enter}", whitespaceDelay)
 
     ;DelayedSend("{Enter}", whitespaceDelay)

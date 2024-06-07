@@ -38,6 +38,10 @@
 :*?b0cx:;yw-;::BackspaceThenSend(A_YYYY "-W" GetWeekNumber(), strlen(";yw-;"))
 :*?b0cx:;yw;::BackspaceThenSend(A_YYYY "W" GetWeekNumber(), strlen(";yw;"))
 
+; Hotstrings to quickly record start and end time in format of "{start}{tab}{end}" so that line is pasteable into two adjacent spreadsheet cells
+:*?b0cx:;s;::BackspaceThenSend(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min "{U+0009}", strlen(";s;"))
+:*?b0cx:;e;::BackspaceThenSend(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min, strlen(";e;"))
+
 GetWeekNumber()
 {
   return StringRight(A_YWeek, 2)
