@@ -220,7 +220,18 @@
 ^+q::Send("^x")
 
 ;; Remap Ctrl-Shift-z to Ctrl-c for same as QWERTY copy.
-^+j::Send("^c")
+^+j::
+{
+  if (WinActive("Problems - Google Chrome") or WinActive("LeetCode - Google Chrome"))
+  {
+    Send("^{Insert}") ; Ctrl-C does not work if Web Editor is in Vim mode
+  }
+  else
+  {
+    Send("^c")
+  }
+  return
+}
 
 ;; Remap Ctrl-Shift-z to Ctrl-v for same as QWERTY paste.
 ^+k::Send("^v")
