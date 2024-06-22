@@ -38,13 +38,38 @@
 :*?b0cx:;yw-;::BackspaceThenSend(A_YYYY "-W" GetWeekNumber(), strlen(";yw-;"))
 :*?b0cx:;yw;::BackspaceThenSend(A_YYYY "W" GetWeekNumber(), strlen(";yw;"))
 
-; Hotstrings to quickly record start and end time in format of "{start}{tab}{end}" so that line is pasteable into two adjacent spreadsheet cells
-:*?b0cx:;s;::BackspaceThenSend(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec "{U+0009}", strlen(";s;"))
-:*?b0cx:;e;::BackspaceThenSend(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec, strlen(";e;"))
+:*?cx:;s;::SendStopWatch()
 
 GetWeekNumber()
 {
   return StringRight(A_YWeek, 2)
+}
+
+; Record either the start or end time in format of "{start}{tab}{end}".
+; The tab in the middle allows the line to be pasteable into two adjacent spreadsheet cells.
+; Tab will be sent if the current line already contains the start time.
+SendStopWatch()
+{
+  WinClip.Snap(clip)
+  Sleep(2) ; Wait for snap
+  WinClip.Clear()
+  Sleep(2) ; Wait for clear
+
+  Send("{Home}+{End}")
+  Send("^{Insert}") ; Copy
+  ClipWait(1)
+  Send("{End}")
+
+  lineHasStart := RegexMatch(clipboard, "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}")
+
+  WinClip.Restore(clip)
+  Sleep(2) ; Wait for restore of snap
+
+  if (lineHasStart)
+  {
+    Send("{U+0009}") ; Tab
+  }
+  Send(A_YYYY "-" A_MM "-" A_DD "T" A_Hour ":" A_Min ":" A_Sec)
 }
 
 ToDeutschDay(day)
