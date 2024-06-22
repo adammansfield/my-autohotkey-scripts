@@ -216,7 +216,7 @@ OneNoteLogMonat()
     ;  DelayedSend("{Enter}", whitespaceDelay)
     ;}
 
-    OneNoteLog("", date "T0", "", false, false)
+    OneNoteLog("", date "T10", "", false, false)
     DelayedSend("{Enter}", whitespaceDelay)
   }
 
