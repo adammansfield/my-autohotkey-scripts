@@ -63,13 +63,14 @@ OneNoteLogDebugWithReference()
 
 OneNoteLogMonat()
 {
-  ; Example output: 
+  ; Example output:
+  ;
   ; ---------------------------------------------------------------
-  ; 20230401 Montag 😁 🙂 😐 ☹️ 😢Tagebuch: (dankbar: )
-  ;   [ ] # 
-  ;   [ ] 
-  ; 20230401T0 Pillen, Meditation, Gesicht, plane, 
-  ; 20230401T0 
+  ; # 20230401 Montag 😁 🙂 😐 ☹️  😢 TAGEBUCH 🙏 DANKBAR
+  ;  - [ ] #
+  ;  - [ ]
+  ; 20230401T0 {alltägliche}, {Aufgaben},
+  ; 20230401T10
 
   grin    := "{U+1F601}" ; 😁
   smile   := "{U+1F642}" ; 🙂
@@ -79,12 +80,14 @@ OneNoteLogMonat()
   moods   := grin " " smile " " neutral " " sad " " crying
 
   dankbar := "{U+1F64F}" ; 🙏 Person with Folded Hands
-  daySep  := "---------------------------------------------------------------"
 
-  daySepDelay     := 50  ; Delay before and after sending `daySep`
-  formatDelay     := 20  ; Delay for formatting
-  textDelay       := 10  ; Delay for sending text
-  whitespaceDelay := 275 ; Delay for sending new lines or tabs
+  markdownBar  := "---------------------------------------------------------------" ; Requires preceding new line
+  markdownTask := " - [ ] " ; Space before '-' so that OneNote does not automatically format it as a list
+
+  markdownBarDelay := 50  ; Delay before and after sending `markdownBar`
+  formatDelay      := 20  ; Delay for formatting
+  textDelay        := 15  ; Delay for sending text
+  whitespaceDelay  := 275 ; Delay for sending new lines or tabs
 
   SendClearLine()
 
@@ -93,8 +96,8 @@ OneNoteLogMonat()
   ;     ```
   ;     Fr Scan
   ;     MoWe Autohotkey
-  ;     ``` 
-  ;   then on Fridays add to the daily tasks: 
+  ;     ```
+  ;   then on Fridays add to the daily tasks:
 	;   [ ] ~ Scan [Fr]
   ;   and then on Mondays and Wednesdays add to the daily tasks:
   ;   [ ] ~ Autohotkey [MoWe]
@@ -105,7 +108,7 @@ OneNoteLogMonat()
   ;    Pillen, Meditation, Gesicht, plane,
   ;    Pimsleur
   ;    Grammar, Anki
-  ;    ``` 
+  ;    ```
   ;  then for each day output on new line:
   ;  yyyyMMddT0 Pillen, Meditation, Gesicht, plane,
   ;  yyyyMMddT0 Pimsleur
@@ -144,34 +147,32 @@ OneNoteLogMonat()
 
     if (i = 1 || longDay = "Monday")
     {
+      DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
       OneNotePaste("<span style='color:#538135' />", false)
       DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-      DelayedSend(daySep, daySepDelay)
+      DelayedSend(markdownBar, markdownBarDelay)
       DelayedSend("{Enter}", whitespaceDelay)
 
       yyyyw := FormatTime(date, "YWeek")
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
-      OneNoteLog("Aufgaben:", yyyyw, "", false, false)
+      OneNoteLog(" ", "# " yyyyw, "", false, false)
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
-      DelayedSend("{Tab}", whitespaceDelay) ; Still highlighted from above
-      DelayedSend("^1", formatDelay) ; OneNote Todo tag
       DelayedSend("^b", formatDelay)
+      DelayedSend(markdownTask, textDelay) ; Still highlighted from above
       DelayedSend("{#} ", textDelay)
       DelayedSend("^b", formatDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-
-      DelayedSend("^1^1", formatDelay) ; Undo OneNote Todo tag
-      DelayedSend("+{Tab}", whitespaceDelay)
     }
 
+    DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
     OneNotePaste("<span style='color:#538135' />", false)
     DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-    DelayedSend(daySep, daySepDelay)
+    DelayedSend(markdownBar, markdownBarDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "# " date, "", false, false)
+    OneNoteLog(ToDeutschDay(longDay), "## " date, "", false, false)
     DelayedSend(" " moods, textDelay)
     DelayedSend(" TAGEBUCHE", textDelay)
     DelayedSend(" " dankbar, textDelay)
@@ -179,31 +180,27 @@ OneNoteLogMonat()
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
     DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend("{Tab}", whitespaceDelay) ; Still highlighted from above
-    DelayedSend("^1", formatDelay) ; OneNote Todo tag
     DelayedSend("^b", formatDelay)
+    DelayedSend(markdownTask, textDelay) ; Still highlighted from above
     DelayedSend("{#} ", textDelay)
     DelayedSend("^b", formatDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend(" ", textDelay)
+    DelayedSend(markdownTask, textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend("^1", formatDelay) ; Check OneNote Todo tag
-    DelayedSend("^1", formatDelay) ; Remove OneNote Todo tag
-    DelayedSend("+{Tab}", whitespaceDelay)
     OneNoteLog("", date "T0", "", false, false)
     DelayedSend("^^uPillen^^u, "     , textDelay) ; Underline words separately for an easy check-off removing underline
     DelayedSend("^^uMeditation^^u, " , textDelay)
-    DelayedSend("^^uplane^^u, "      , textDelay)
     DelayedSend("^^uKatzenstreu^^u, ", textDelay)
     DelayedSend("^^uGesicht^^u, "    , textDelay)
     DelayedSend("^^uGeschirr^^u, "   , textDelay)
     DelayedSend("^^uSeedlang^^u, "   , textDelay)
+    DelayedSend("^^uplane^^u, "      , textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     ; TODO: remove after 2024-11-01 [2024-04-09]
-    OneNoteLog("", date "T0", "", false, false)
+    OneNoteLog("", date "T10", "", false, false)
     OneNotePaste("<span style='font-family:Consolas;font-size:9.0pt;color:#E8912D' lang=gsw-FR>haus</span>&nbsp;", false)
     DelayedSend("{Backspace}", textDelay) ; Remove extra space from HTML formatting
     DelayedSend("{Enter}", whitespaceDelay)
@@ -230,11 +227,11 @@ OneNoteLogMonat()
 
 OneNoteLogStandups()
 {
-  ; Example output: 
+  ; Example output:
   ; ---------------------------------------------------------------
   ; # 20230401T1030 Montag
   ; 🆕⚙✅⏏️🕔 [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
-  ; 
+  ;
   ; //_Stretch_:
   ; 🆕⚙ [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
 
@@ -247,14 +244,15 @@ OneNoteLogStandups()
   defer    := "{U+1F554}"        ; 🕔 Clock Face Five Oclock
   blocker  := "{U+1F6A7}"        ; 🚧 Construction Sign
   pad      := "{U+2009}"         ;    Thin Space (for padding)
-  daySep   := "---------------------------------------------------------------"
 
-  newlineDelay    := 100 ; Delay for sending new lines
-  textDelay       := 250 ; Delay for sending text
-  daySepDelay     := 50  ; Delay before and after sending `daySep`
-  formatDelay     := 20  ; Delay for formatting
-  textDelay       := 10  ; Delay for sending text
-  whitespaceDelay := 250 ; Delay for sending new lines or tabs
+  markdownBar := "---------------------------------------------------------------"
+
+  newlineDelay     := 100 ; Delay for sending new lines
+  textDelay        := 250 ; Delay for sending text
+  markdownBarDelay := 50  ; Delay before and after sending `markdownBar`
+  formatDelay      := 20  ; Delay for formatting
+  textDelay        := 10  ; Delay for sending text
+  whitespaceDelay  := 250 ; Delay for sending new lines or tabs
 
   SendClearLine()
 
@@ -289,29 +287,31 @@ OneNoteLogStandups()
     ; Weekly entry
     if (i = 1 || longDay = "Monday")
     {
+      DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
       OneNotePaste("<span style='color:#538135' />", false)
       DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-      DelayedSend(daySep, daySepDelay)
+      DelayedSend(markdownBar, markdownBarDelay)
       DelayedSend("{Enter}", whitespaceDelay)
 
       yyyyw := FormatTime(date, "YWeek")
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
-      OneNoteLog(" ", yyyyw, "", false, false)
+      OneNoteLog(" ", "# " yyyyw, "", false, false)
       DelayedSend("{Enter}", whitespaceDelay)
 
-      DelayedSend("// _Last Week:_  // Max 3 Summaries", textDelay)
+      DelayedSend("_Last Week Summaries (max 3):_", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend("// 1. ``features`` summary *(wid,wid)*", textDelay)
+      DelayedSend(" 1. ``features`` summary *(wid,wid)*", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend("// 2. ``features`` summary *(wid,wid)*", textDelay)
+      DelayedSend(" 2. ``features`` summary *(wid,wid)*", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend("// 3. ``features`` summary *(wid,wid)*", textDelay)
+      DelayedSend(" 3. ``features`` summary *(wid,wid)*", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
     }
 
+    DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
     OneNotePaste("<span style='color:#538135' />", false)
     DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-    DelayedSend(daySep, daySepDelay)
+    DelayedSend(markdownBar, markdownBarDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     OneNoteLog(ToDeutschDay(longDay), "# " date "T1100")
@@ -412,7 +412,7 @@ OneNoteLogTeoten()
   DelayedSend("{Up}", 10)
 }
 
-; Delay before and after sending 
+; Delay before and after sending
 ; Useful for OneNote as there seems to be an input delay probably to record and sync input with backend.
 DelayedSend(keys, before = 1, after = "")
 {
