@@ -34,7 +34,9 @@ OneNoteCompleteMarkdownTask()
   ; `    - [x] `
   ; `        - [ ] `
   ; `        - [x] `
-  Send("{Home}^{Right 2}{Right}")
+  DelayedSend("{Home}", 1)
+  DelayedSend("^{Right 2}", 1)
+  DelayedSend("{Right}", 1)
   DelayedSend("{Delete}", 1)
   DelayedSend("x", 1)
 
