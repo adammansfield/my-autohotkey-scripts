@@ -7,7 +7,12 @@
   :*?b0cx:;logmonat;::OneNoteLogMonat()
   :*?b0cx:;logstandups;::OneNoteLogStandups()
   :*?b0cx:;logteoten;::OneNoteLogTeoten()
+
   :*?b0cx:;debug;::BackspaceThenSend("[debug]", strlen(";debug;"))
+  :*?b0cx:;t;::BackspaceThenSend(" - [ ] ", strlen(";t;"))
+  :*?b0cx:;tt;::BackspaceThenSend("    - [ ] ", strlen(";tt;"))
+  :*?b0cx:;ttt;::BackspaceThenSend("        - [ ] ", strlen(";ttt;"))
+
 }
 #if
 
@@ -86,7 +91,7 @@ OneNoteLogMonat()
 
   markdownBarDelay := 50  ; Delay before and after sending `markdownBar`
   formatDelay      := 20  ; Delay for formatting
-  textDelay        := 15  ; Delay for sending text
+  textDelay        := 10  ; Delay for sending text
   whitespaceDelay  := 275 ; Delay for sending new lines or tabs
 
   SendClearLine()
@@ -145,6 +150,26 @@ OneNoteLogMonat()
       break ; Invalid date e.g. Feb 30th
     }
 
+    if (i = 1)
+    {
+      DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
+      OneNotePaste("<span style='color:#538135' />", false)
+      DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
+      DelayedSend(markdownBar, markdownBarDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      yyyymm := FormatTime(date, "yyyyMM")
+      OneNoteLog(" ", "# " yyyymm, "", false, false)
+      DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      DelayedSend("^b", formatDelay)
+      DelayedSend(markdownTask, textDelay) ; Still highlighted from above
+      DelayedSend("{#} ", textDelay)
+      DelayedSend("^b", formatDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+    }
+
     if (i = 1 || longDay = "Monday")
     {
       DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
@@ -190,13 +215,13 @@ OneNoteLogMonat()
     DelayedSend("{Enter}", whitespaceDelay)
 
     OneNoteLog("", date "T0", "", false, false)
-    DelayedSend("^^uPillen^^u, "     , textDelay) ; Underline words separately for an easy check-off removing underline
-    DelayedSend("^^uMeditation^^u, " , textDelay)
-    DelayedSend("^^uKatzenstreu^^u, ", textDelay)
-    DelayedSend("^^uGesicht^^u, "    , textDelay)
-    DelayedSend("^^uGeschirr^^u, "   , textDelay)
-    DelayedSend("^^uSeedlang^^u, "   , textDelay)
-    DelayedSend("^^uplane^^u, "      , textDelay)
+    DelayedSend("^^uPillen^^u, "     , formatDelay) ; Underline words separately for an easy check-off removing underline
+    DelayedSend("^^uMeditation^^u, " , formatDelay)
+    DelayedSend("^^uKatzenstreu^^u, ", formatDelay)
+    DelayedSend("^^uGesicht^^u, "    , formatDelay)
+    DelayedSend("^^uGeschirr^^u, "   , formatDelay)
+    DelayedSend("^^uSeedlang^^u, "   , formatDelay)
+    DelayedSend("^^uplane^^u, "      , formatDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     ; TODO: remove after 2024-11-01 [2024-04-09]

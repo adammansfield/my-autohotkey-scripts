@@ -2,7 +2,7 @@
 {
   ^+-::OneNoteStrikeLine()
   ^+b::OneNoteBoldLine()
-  ^+c::OneNoteCompleteTask()
+  ^+c::OneNoteCompleteMarkdownTask()
   ^+h::OneNoteHighlightLine()
   ^+p::OneNotePostponeTask()
   ^+t::OneNoteSetTimestampColor()
@@ -22,12 +22,26 @@ OneNoteBoldLine()
   SelectLineThenSend("^b")
 }
 
-OneNoteCompleteTask()
+OneNoteCompleteMarkdownTask()
 {
-  SelectLineThenSend("^-^!h")
-  Send("^1")
+  ; Completes a Markdown task (assuming the line starts with a Markdown task)
+  ; Equivalent Vim Substitute Command: s/^ - [ ]/ - [x]/
+
+  ; ^{Right 2}{Right} works for incomplete/complete and indented tasks
+  ; ` - [ ] `
+  ; ` - [x] `
+  ; `    - [ ] `
+  ; `    - [x] `
+  ; `        - [ ] `
+  ; `        - [x] `
+  Send("{Home}^{Right 2}{Right}")
+  DelayedSend("{Delete}", 1)
+  DelayedSend("x", 1)
+
+  SelectLineThenSend("^-^!h") ; Strikethrough and unhighlight
 }
 
+; Strikethrough and unhighlight line
 OneNotePostponeTask()
 {
   SelectLineThenSend("^-^!h")
