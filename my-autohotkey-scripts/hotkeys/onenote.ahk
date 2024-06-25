@@ -4,6 +4,7 @@
   ^+b::OneNoteBoldLine()
   ^+c::OneNoteCompleteMarkdownTask()
   ^+h::OneNoteHighlightLine()
+  ^+i::OneNoteIncompleteMarkdownTask()
   ^+p::OneNotePostponeTask()
   ^+t::OneNoteSetTimestampColor()
   ^+u::OneNoteUnderlineLine()
@@ -12,9 +13,9 @@
 
 SelectLineThenSend(keys)
 {
-  Send("{Home}+{End}")
-  Send(keys)
-  Send("{End}")
+  DelayedSend("{Home}+{End}", 1)
+  DelayedSend(keys, 1)
+  DelayedSend("{End}", 1)
 }
 
 OneNoteBoldLine()
@@ -25,7 +26,7 @@ OneNoteBoldLine()
 OneNoteCompleteMarkdownTask()
 {
   ; Completes a Markdown task (assuming the line starts with a Markdown task)
-  ; Equivalent Vim Substitute Command: s/^ - [ ]/ - [x]/
+  ; Equivalent Vim Substitute Command: s/^ - [.]/ - [x]/
 
   ; ^{Right 2}{Right} works for incomplete/complete and indented tasks
   ; ` - [ ] `
@@ -34,13 +35,30 @@ OneNoteCompleteMarkdownTask()
   ; `    - [x] `
   ; `        - [ ] `
   ; `        - [x] `
-  DelayedSend("{Home}", 1)
-  DelayedSend("^{Right 2}", 1)
-  DelayedSend("{Right}", 1)
-  DelayedSend("{Delete}", 1)
-  DelayedSend("x", 1)
+  DelayedSend("{Home}^{Right 2}{Right}", 1) ; Slight delay for movement
+  DelayedSend("{Delete}", 2) ; Extra delay for editting as OneNote has custom input for syncing changes
+  DelayedSend("x", 2)
 
   SelectLineThenSend("^-^!h") ; Strikethrough and unhighlight
+}
+
+OneNoteIncompleteMarkdownTask()
+{
+  ; Incompletes a Markdown task (assuming the line starts with a Markdown task)
+  ; Equivalent Vim Substitute Command: s/^ - [.]/ - [ ]/
+
+  ; ^{Right 2}{Right} works for incomplete/complete and indented tasks
+  ; ` - [ ] `
+  ; ` - [x] `
+  ; `    - [ ] `
+  ; `    - [x] `
+  ; `        - [ ] `
+  ; `        - [x] `
+  DelayedSend("{Home}^{Right 2}{Right}", 1) ; Slight delay for movement
+  DelayedSend("{Delete}", 2) ; Extra delay for editting as OneNote has custom input for syncing changes
+  DelayedSend(" ", 2)
+
+  SelectLineThenSend("^-^!h") ; Unstrikethrough and highlight
 }
 
 ; Strikethrough and unhighlight line
