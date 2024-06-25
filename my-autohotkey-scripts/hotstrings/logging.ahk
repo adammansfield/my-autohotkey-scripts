@@ -69,7 +69,7 @@ OneNoteLogMonat()
   ;
   ; ---------------------------------------------------------------
   ; # 20230401 Montag 😁 🙂 😐 ☹️  😢 TAGEBUCH 🙏 DANKBAR
-  ;  - [ ] #
+  ;  - [ ] !
   ;  - [ ]
   ; 20230401T0 {alltägliche}, {Aufgaben},
   ; 20230401T10
@@ -160,10 +160,8 @@ OneNoteLogMonat()
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
-      DelayedSend("^b", formatDelay)
       DelayedSend(markdownTask, textDelay) ; Still highlighted from above
-      DelayedSend("{#} ", textDelay)
-      DelayedSend("^b", formatDelay)
+      DelayedSend("{!} ", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
     }
 
@@ -181,10 +179,8 @@ OneNoteLogMonat()
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
-      DelayedSend("^b", formatDelay)
       DelayedSend(markdownTask, textDelay) ; Still highlighted from above
-      DelayedSend("{#} ", textDelay)
-      DelayedSend("^b", formatDelay)
+      DelayedSend("{!} ", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
     }
 
@@ -202,10 +198,8 @@ OneNoteLogMonat()
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
     DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend("^b", formatDelay)
     DelayedSend(markdownTask, textDelay) ; Still highlighted from above
-    DelayedSend("{#} ", textDelay)
-    DelayedSend("^b", formatDelay)
+    DelayedSend("{!} ", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     DelayedSend(markdownTask, textDelay)
