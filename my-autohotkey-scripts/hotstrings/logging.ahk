@@ -9,10 +9,11 @@
   :*?b0cx:;logteoten;::OneNoteLogTeoten()
 
   :*?b0cx:;debug;::BackspaceThenSend("[debug]", strlen(";debug;"))
-  :*?b0cx:;t;::BackspaceThenSend(" - [ ] ", strlen(";t;"))
-  :*?b0cx:;tt;::BackspaceThenSend("    - [ ] ", strlen(";tt;"))
-  :*?b0cx:;ttt;::BackspaceThenSend("        - [ ] ", strlen(";ttt;"))
-
+  :*?b0cx:;b;::BackspaceThenSend(" - ", strlen(";b;")) ; Markdown bullet point
+  :*?b0cx:;q;::BackspaceThenSend(" > ", strlen(";q;")) ; Markdown quote
+  :*?b0cx:;t;::BackspaceThenSend(" - [ ] ", strlen(";t;")) ; Markdown task (with space indent so OneNote does not automatically format as a list)
+  :*?b0cx:;tt;::BackspaceThenSend("    - [ ] ", strlen(";tt;")) ; Markdown indented task
+  :*?b0cx:;ttt;::BackspaceThenSend("        - [ ] ", strlen(";ttt;")) ; Markdown double-indented task
 }
 #if
 
@@ -39,13 +40,9 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
 
   if (isBullet)
   {
-    ; Add, remove, and then re-add the bullet point to ensure it is the same color as the timestamp
-    DelayedSend("{Home}")  ; Add or overwrite bullet point (to ensure line has a bullet point)
-    DelayedSend("*")
-    DelayedSend("{Space}")
-    DelayedSend("^.")      ; Remove bullet point
-    DelayedSend("^.")      ; Re-add bullet point
-    DelayedSend("{End}")   ; Reset position to end of the line
+    DelayedSend("{Home}")
+    DelayedSend(" - ") ; Markdown list item (with space indent so OneNote does not automatically format as a list)
+    DelayedSend("{End}")
   }
 }
 
