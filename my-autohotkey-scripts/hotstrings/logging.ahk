@@ -1,7 +1,7 @@
 #if WinActive("- OneNote")
 {
   :*?b0cx:;d;::OneNoteLogDebugWithReference()
-  :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true, true, 5)
+  :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true, true, "#3cb1cd", 5)
   :*?b0cx:;log;::OneNoteLog()
   :*?b0cx:;logdebug;::OneNoteLogDebug()
   :*?b0cx:;logmonat;::OneNoteLogMonat()
@@ -10,6 +10,8 @@
 
   :*?b0cx:;debug;::BackspaceThenSend("[debug]", strlen(";debug;"))
   :*?b0cx:;b;::BackspaceThenSend(" - ", strlen(";b;")) ; Markdown bullet point
+  :*?b0cx:;bb;::BackspaceThenSend("    - ", strlen(";bb;")) ; Markdown indented bullet point
+  :*?b0cx:;bbb;::BackspaceThenSend("        - ", strlen(";bbb;")) ; Markdown double-indented bullet point
   :*?b0cx:;q;::BackspaceThenSend(" > ", strlen(";q;")) ; Markdown quote
   :*?b0cx:;t;::BackspaceThenSend(" - [ ] ", strlen(";t;")) ; Markdown task (with space indent so OneNote does not automatically format as a list)
   :*?b0cx:;tt;::BackspaceThenSend("    - [ ] ", strlen(";tt;")) ; Markdown indented task
@@ -17,7 +19,7 @@
 }
 #if
 
-OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false, clearLine = true, roundToMin = 10)
+OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false, clearLine = true, timecolor = "#3C87CD", roundToMin = 10)
 {
   ; Prepend a non-breaking space to retain `message` styling
   message := "&nbsp;" message
@@ -27,23 +29,21 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
     timestamp := RoundMin(A_Now, roundToMin, timeformat) ; Round to the nearest given minutes
   }
 
+  if (isBullet)
+  {
+    timestamp := " - " timestamp ; Markdown list item (with space indent so OneNote does not automatically format as a list)
+  }
+
   if (clearLine)
   {
     SendClearLine()
   }
 
-  OneNotePaste("<span style='color:#3C87CD'>" timestamp "</span>" message)
+  OneNotePaste("<span style='color:" timecolor "'>" timestamp "</span>" message)
 
   ; Clear paste pop-up and remove the pre-pended non-breaking space (that was used to retain `message` styling)
   DelayedSend("{Backspace}") ;
   WinWaitClose, PopupHost ahk_exe onenoteim.exe,, 1 ; Wait for paste pop-up to clear
-
-  if (isBullet)
-  {
-    DelayedSend("{Home}")
-    DelayedSend(" - ") ; Markdown list item (with space indent so OneNote does not automatically format as a list)
-    DelayedSend("{End}")
-  }
 }
 
 OneNoteLogDebug()
@@ -330,8 +330,10 @@ OneNoteLogStandups()
     DelayedSend(markdownBar, markdownBarDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "# " date "T1100")
+    OneNoteLog(ToDeutschDay(longDay), "# " date "T1120")
+    DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
     DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
 
     ;DelayedSend("{Enter}", whitespaceDelay)
     ;DelayedSend("//_Blockers:_    " pad "none", textDelay)
