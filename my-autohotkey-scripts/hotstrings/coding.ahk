@@ -3,22 +3,22 @@
 :*b0cx?:;sb;::BackspaceThenSend("[]{Left}", strlen(";sb;"))
 :*b0cx?:;wip;::BackspaceThenSend("[WIP]{Space}", strlen(";wip;"))
 
-:*c?:;copyright;::{#}region --[Copyright]-----------------------------------------------------
-:*c?:;constructors;::{#}region --[Constructors]------------------------------------------
-:*c?:;namespaces;::{#}region --[Namespaces]----------------------------------------------------
-:*c?:;privateclasses;::{#}region --[Classes: Private]--------------------------------------
-:*c?:;privateconstants;::{#}region --[Constants: Private]------------------------------------
-:*c?:;privatefields;::{#}region --[Fields: Private]---------------------------------------
-:*c?:;privatemethods;::{#}region --[Methods: Private]--------------------------------------
-:*c?:;privateproperties;::{#}region --[Properties: Private]-----------------------------------
-:*c?:;internalmethods;::{#}region --[Methods: Internal]-------------------------------------
-:*c?:;protectedmethods;::{#}region --[Methods: Protected]------------------------------------
-:*c?:;publicclasses;::{#}region --[Classes: Public]---------------------------------------
-:*c?:;publicconstants;::{#}region --[Constants: Public]-------------------------------------
-:*c?:;publicfields;::{#}region --[Fields: Public]----------------------------------------
-:*c?:;publicmethods;::{#}region --[Methods: Public]---------------------------------------
-:*c?:;publicproperties;::{#}region --[Properties: Public]------------------------------------
-:*c?:;tests;::{#}region --[Tests]-------------------------------------------------
+:*c?:;copyright;::{#}region --[Copyright]---------------------------------------------------------
+:*c?:;constructors;::{#}region --[Constructors]----------------------------------------------
+:*c?:;namespaces;::{#}region --[Namespaces]--------------------------------------------------------
+:*c?:;privateclasses;::{#}region --[Classes: Private]------------------------------------------
+:*c?:;privateconstants;::{#}region --[Constants: Private]----------------------------------------
+:*c?:;privatefields;::{#}region --[Fields: Private]-------------------------------------------
+:*c?:;privatemethods;::{#}region --[Methods: Private]------------------------------------------
+:*c?:;privateproperties;::{#}region --[Properties: Private]---------------------------------------
+:*c?:;internalmethods;::{#}region --[Methods: Internal]-----------------------------------------
+:*c?:;protectedmethods;::{#}region --[Methods: Protected]----------------------------------------
+:*c?:;publicclasses;::{#}region --[Classes: Public]-------------------------------------------
+:*c?:;publicconstants;::{#}region --[Constants: Public]-----------------------------------------
+:*c?:;publicfields;::{#}region --[Fields: Public]--------------------------------------------
+:*c?:;publicmethods;::{#}region --[Methods: Public]-------------------------------------------
+:*c?:;publicproperties;::{#}region --[Properties: Public]----------------------------------------
+:*c?:;tests;::{#}region --[Tests]-----------------------------------------------------
 
 :*c?:;cppheader;::
 {

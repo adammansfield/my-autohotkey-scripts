@@ -54,30 +54,30 @@
 :*?cx:rnein;::       CtrlBackspaceThenSend("{U+043D}{U+0435}{U+0442}"                                                                                         , 2) ; нет
 
 ; Serbisch
-:*?b0cx:sbitte;::             CtrlBackspaceThenSend("{U+041C}{U+043E}{U+043B}{U+0438}{U+043C}"                                                  , 2) ; Молим
-:*?b0cx:sdanke;::             CtrlBackspaceThenSend("{U+0425}{U+0432}{U+0430}{U+043B}{U+0430}"                                                  , 2) ; Хвала
-:*?b0cx:sdashatfunktioniert;::CtrlBackspaceThenSend("{U+0422}{U+043E} {U+0458}{U+0435} {U+0443}{U+043F}{U+0430}{U+043B}{U+0438}{U+043B}{U+043E}", 2) ; То је упалило
-:*?b0cx:sentschuldigung;::    CtrlBackspaceThenSend("{U+0418}{U+0437}{U+0432}{U+0438}{U+045A}{U+0435}{U+045A}{U+0435}"                          , 2) ; Извињење
-:*?b0cx:sesgehtmirgut;::      CtrlBackspaceThenSend("{U+0414}{U+043E}{U+0431}{U+0440}{U+0435} {U+0441}{U+044A}{U+043C}"                         , 2) ; Добре съм
-:*?b0cx:sfertig;::            CtrlBackspaceThenSend("{U+0433}{U+043E}{U+0442}{U+043E}{U+0432}"                                                  , 2) ; готов
-:*?b0cx:sgerne;::             CtrlBackspaceThenSend("{U+0432}{U+0440}{U+043B}{U+043E} {U+0440}{U+0430}{U+0434}{U+043E}"                         , 2) ; врло радо
-:*?b0cx:sgerngeschehen;::     CtrlBackspaceThenSend("{U+041D}{U+0435}{U+043C}{U+0430} {U+043D}{U+0430} {U+0447}{U+0435}{U+043C}{U+0443}"        , 2) ; нема на чему
-:*?b0cx:sgut;::               CtrlBackspaceThenSend("{U+0434}{U+043E}{U+0431}{U+0440}{U+043E}"                                                  , 2) ; добро
-:*?b0cx:sgutenmorgen;::       CtrlBackspaceThenSend("{U+0434}{U+043E}{U+0431}{U+0440}{U+043E} {U+0458}{U+0443}{U+0442}{U+0440}{U+043E}"         , 2) ; добро јутро
-:*?b0cx:shallo;::             CtrlBackspaceThenSend("{U+0417}{U+0434}{U+0440}{U+0430}{U+0432}{U+043E}"                                          , 2) ; Здраво
-:*?b0cx:sjederzeit;::         CtrlBackspaceThenSend("{U+0423} {U+0441}{U+0432}{U+0430}{U+043A}{U+043E} {U+0434}{U+043E}{U+0431}{U+0430}"        , 2) ; У свако доба
-:*?b0cx:sichweissesnicht;::   CtrlBackspaceThenSend("{U+043D}{U+0435} {U+0437}{U+043D}{U+0430}{U+043C}"                                         , 2) ; не знам
-:*?b0cx:sinordnung;::         CtrlBackspaceThenSend("{U+0423} {U+0440}{U+0435}{U+0434}{U+0443}"                                                 , 2) ; У реду
-:*?b0cx:sja;::                CtrlBackspaceThenSend("{U+0434}{U+0430}"                                                                          , 2) ; да
-:*?b0cx:skeinproblem;::       CtrlBackspaceThenSend("{U+041D}{U+0438}{U+0458}{U+0435} {U+043F}{U+0440}{U+043E}{U+0431}{U+043B}{U+0435}{U+043C}" , 2) ; Није проблем
-:*?b0cx:snatuerlich;::        CtrlBackspaceThenSend("{U+043F}{U+0440}{U+0438}{U+0440}{U+043E}{U+0434}{U+043D}{U+043E}"                          , 2) ; природно
-:*?b0cx:snein;::              CtrlBackspaceThenSend("{U+043D}{U+0435}"                                                                          , 2) ; не
-:*?b0cx:sokay;::              CtrlBackspaceThenSend("{U+041E}{U+043A}{U+0435}{U+0458}"                                                          , 2) ; Океј
-:*?b0cx:srichtig;::           CtrlBackspaceThenSend("{U+0423} {U+043F}{U+0440}{U+0430}{U+0432}{U+0443} {U+0441}{U+0438}"                        , 2) ; У праву си
-:*?b0cx:sstimmt;::            CtrlBackspaceThenSend("{U+0442}{U+0430}{U+0447}{U+043D}{U+043E}"                                                  , 2) ; тачно
-:*?b0cx:svielendank;::        CtrlBackspaceThenSend("{U+0425}{U+0432}{U+0430}{U+043B}{U+0430} {U+043C}{U+043D}{U+043E}{U+0433}{U+043E}"         , 2) ; Хвала много
-:*?b0cx:swiegehts?::          CtrlBackspaceThenSend("{U+041A}{U+0430}{U+043A} {U+0441}{U+0438}?"                                                , 2) ; Как си?
-:*?b0cx:swunderbar;::         CtrlBackspaceThenSend("{U+043F}{U+0440}{U+0435}{U+0434}{U+0438}{U+0432}{U+043D}{U+0430}"                          , 2) ; предивна
+:*?b0cx:sbitte;::             CtrlBackspaceThenSend("{U+041C}{U+043E}{U+043B}{U+0438}{U+043C}"                                                                 , 2) ; Молим
+:*?b0cx:sdanke;::             CtrlBackspaceThenSend("{U+0425}{U+0432}{U+0430}{U+043B}{U+0430}"                                                                 , 2) ; Хвала
+:*?b0cx:sdashatfunktioniert;::CtrlBackspaceThenSend("{U+0422}{U+043E} {U+0458}{U+0435} {U+0443}{U+043F}{U+0430}{U+043B}{U+0438}{U+043B}{U+043E}"               , 2) ; То је упалило
+:*?b0cx:sentschuldigung;::    CtrlBackspaceThenSend("{U+0418}{U+0437}{U+0432}{U+0438}{U+045A}{U+0435}{U+045A}{U+0435}"                                         , 2) ; Извињење
+:*?b0cx:sesgehtmirgut;::      CtrlBackspaceThenSend("{U+0414}{U+043E}{U+0431}{U+0440}{U+0435} {U+0441}{U+044A}{U+043C}"                                        , 2) ; Добре съм
+:*?b0cx:sfertig;::            CtrlBackspaceThenSend("{U+0433}{U+043E}{U+0442}{U+043E}{U+0432}"                                                                 , 2) ; готов
+:*?b0cx:sgerne;::             CtrlBackspaceThenSend("{U+0432}{U+0440}{U+043B}{U+043E} {U+0440}{U+0430}{U+0434}{U+043E}"                                        , 2) ; врло радо
+:*?b0cx:sgerngeschehen;::     CtrlBackspaceThenSend("{U+041D}{U+0435}{U+043C}{U+0430} {U+043D}{U+0430} {U+0447}{U+0435}{U+043C}{U+0443}"                       , 2) ; нема на чему
+:*?b0cx:sgut;::               CtrlBackspaceThenSend("{U+0434}{U+043E}{U+0431}{U+0440}{U+043E}"                                                                 , 2) ; добро
+:*?b0cx:sgutenmorgen;::       CtrlBackspaceThenSend("{U+0434}{U+043E}{U+0431}{U+0440}{U+043E} {U+0458}{U+0443}{U+0442}{U+0440}{U+043E}"                        , 2) ; добро јутро
+:*?b0cx:shallo;::             CtrlBackspaceThenSend("{U+0417}{U+0434}{U+0440}{U+0430}{U+0432}{U+043E}"                                                         , 2) ; Здраво
+:*?b0cx:sjederzeit;::         CtrlBackspaceThenSend("{U+0423} {U+0441}{U+0432}{U+0430}{U+043A}{U+043E} {U+0434}{U+043E}{U+0431}{U+0430}"                       , 2) ; У свако доба
+:*?b0cx:sichweissesnicht;::   CtrlBackspaceThenSend("{U+043D}{U+0435} {U+0437}{U+043D}{U+0430}{U+043C}"                                                        , 2) ; не знам
+:*?b0cx:sinordnung;::         CtrlBackspaceThenSend("{U+0423} {U+0440}{U+0435}{U+0434}{U+0443}"                                                                , 2) ; У реду
+:*?b0cx:sja;::                CtrlBackspaceThenSend("{U+0434}{U+0430}"                                                                                         , 2) ; да
+:*?b0cx:skeinproblem;::       CtrlBackspaceThenSend("{U+041D}{U+0438}{U+0458}{U+0435} {U+043F}{U+0440}{U+043E}{U+0431}{U+043B}{U+0435}{U+043C}"                , 2) ; Није проблем
+:*?b0cx:snatuerlich;::        CtrlBackspaceThenSend("{U+043F}{U+0440}{U+0438}{U+0440}{U+043E}{U+0434}{U+043D}{U+043E}"                                         , 2) ; природно
+:*?b0cx:snein;::              CtrlBackspaceThenSend("{U+043D}{U+0435}"                                                                                         , 2) ; не
+:*?b0cx:sokay;::              CtrlBackspaceThenSend("{U+041E}{U+043A}{U+0435}{U+0458}"                                                                         , 2) ; Океј
+:*?b0cx:srichtig;::           CtrlBackspaceThenSend("{U+0423} {U+043F}{U+0440}{U+0430}{U+0432}{U+0443} {U+0441}{U+0438}"                                       , 2) ; У праву си
+:*?b0cx:sstimmt;::            CtrlBackspaceThenSend("{U+0442}{U+0430}{U+0447}{U+043D}{U+043E}"                                                                 , 2) ; тачно
+:*?b0cx:svielendank;::        CtrlBackspaceThenSend("{U+0425}{U+0432}{U+0430}{U+043B}{U+0430} {U+043D}{U+0430}{U+0458}{U+043B}{U+0435}{U+043F}{U+0448}{U+0435}", 2) ; Хвала најлепше
+:*?b0cx:swiegehts?::          CtrlBackspaceThenSend("{U+041A}{U+0430}{U+043A} {U+0441}{U+0438}?"                                                               , 2) ; Как си?
+:*?b0cx:swunderbar;::         CtrlBackspaceThenSend("{U+043F}{U+0440}{U+0435}{U+0434}{U+0438}{U+0432}{U+043D}{U+0430}"                                         , 2) ; предивна
 
 ; Ukrainisch
 :*?cx:udanke;::      CtrlBackspaceThenSend("{U+0434}{U+044F}{U+043A}{U+0443}{U+044E}"                                                                 , 2) ; дякую

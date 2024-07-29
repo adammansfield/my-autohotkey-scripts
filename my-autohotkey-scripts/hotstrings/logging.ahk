@@ -206,19 +206,21 @@ OneNoteLogMonat()
     DelayedSend("{Enter}", whitespaceDelay)
 
     OneNoteLog("", date "T0", "", false, false)
-    DelayedSend("^^uPillen^^u, "     , formatDelay) ; Underline words separately for an easy check-off removing underline
-    DelayedSend("^^uMeditation^^u, " , formatDelay)
-    DelayedSend("^^uKatzenstreu^^u, ", formatDelay)
-    DelayedSend("^^uGesicht^^u, "    , formatDelay)
-    DelayedSend("^^uGeschirr^^u, "   , formatDelay)
-    DelayedSend("^^uSeedlang^^u, "   , formatDelay)
-    DelayedSend("^^uplane^^u, "      , formatDelay)
-    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("^^uPillen^^u"     , formatDelay) ; Underline words separately for an easy check-off removing underline
+    DelayedSend(", "               , textDelay  )
+    DelayedSend("^^uMeditation^^u" , formatDelay)
+    DelayedSend(", "               , textDelay  )
+    DelayedSend("^^uKatzenstreu^^u", formatDelay)
+    DelayedSend(", "               , textDelay  )
+    DelayedSend("^^uGesicht^^u"    , formatDelay)
+    DelayedSend(", "               , textDelay  )
+    DelayedSend("^^uGeschirr^^u"   , formatDelay)
+    DelayedSend(", "               , textDelay  )
+    DelayedSend("^^uSeedlang^^u"   , formatDelay)
+    DelayedSend(", "               , textDelay  )
+    DelayedSend("^^uplane^^u"      , formatDelay)
+    DelayedSend(", "               , textDelay  )
 
-    ; TODO: remove after 2024-11-01 [2024-04-09]
-    OneNoteLog("", date "T10", "", false, false)
-    OneNotePaste("<span style='font-family:Consolas;font-size:9.0pt;color:#E8912D' lang=gsw-FR>haus</span>&nbsp;", false)
-    DelayedSend("{Backspace}", textDelay) ; Remove extra space from HTML formatting
     DelayedSend("{Enter}", whitespaceDelay)
 
     ; TODO: uncomment after 2024-11-01 [2024-04-09]
@@ -263,12 +265,10 @@ OneNoteLogStandups()
 
   markdownBar := "---------------------------------------------------------------"
 
-  newlineDelay     := 100 ; Delay for sending new lines
-  textDelay        := 250 ; Delay for sending text
   markdownBarDelay := 50  ; Delay before and after sending `markdownBar`
   formatDelay      := 20  ; Delay for formatting
   textDelay        := 10  ; Delay for sending text
-  whitespaceDelay  := 250 ; Delay for sending new lines or tabs
+  whitespaceDelay  := 275 ; Delay for sending new lines or tabs
 
   SendClearLine()
 
