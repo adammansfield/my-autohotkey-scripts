@@ -1,3 +1,4 @@
+:*cx?b0:;h;::BackspaceThenSend("``haus`` ", strlen(";h;"))
 :*c?:;ln;::ln -s target name
 :*cx?:;minto1200;::SendNumberMinUntilHour(12)
 :*cx?:;minto1700;::SendNumberMinUntilHour(17)
