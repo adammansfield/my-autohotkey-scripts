@@ -50,7 +50,7 @@ OneNoteLogDebug()
 {
   OneNoteLog(" [debug]")
   DelayedSend("{Enter}", 1, 200)
-  OneNoteLog("", "", "HHmm", true, false)
+  OneNoteLog("", "", "HHmm", true, true, "#3cb1cd", 5)
   DelayedSend("{Up}")
   DelayedSend("{End}")
   DelayedSend("^{Left 3}")
@@ -210,11 +210,11 @@ OneNoteLogMonat()
     DelayedSend(", "               , textDelay  )
     DelayedSend("^^uMeditation^^u" , formatDelay)
     DelayedSend(", "               , textDelay  )
-    DelayedSend("^^uKatzenstreu^^u", formatDelay)
-    DelayedSend(", "               , textDelay  )
     DelayedSend("^^uGesicht^^u"    , formatDelay)
     DelayedSend(", "               , textDelay  )
     DelayedSend("^^uGeschirr^^u"   , formatDelay)
+    DelayedSend(", "               , textDelay  )
+    DelayedSend("^^uKatzenstreu^^u", formatDelay)
     DelayedSend(", "               , textDelay  )
     DelayedSend("^^uSeedlang^^u"   , formatDelay)
     DelayedSend(", "               , textDelay  )
@@ -265,7 +265,7 @@ OneNoteLogStandups()
 
   markdownBar := "---------------------------------------------------------------"
 
-  markdownBarDelay := 50  ; Delay before and after sending `markdownBar`
+  markdownBarDelay := 100 ; Delay before and after sending `markdownBar`
   formatDelay      := 20  ; Delay for formatting
   textDelay        := 10  ; Delay for sending text
   whitespaceDelay  := 275 ; Delay for sending new lines or tabs
@@ -451,10 +451,10 @@ OneNotePaste(html, preserveClipboard = true)
   }
 
   WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
-  Sleep(2) ; Wait for clear
+  Sleep(4) ; Wait for clear
 
   WinClip.SetHTML(html)
-  Sleep(2) ; Wait for copy
+  Sleep(4) ; Wait for copy
 
   WinClip.Paste()
   Sleep(2) ; Wait for paste
