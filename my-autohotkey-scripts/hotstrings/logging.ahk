@@ -19,7 +19,7 @@
 }
 #if
 
-OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet = false, clearLine = true, timecolor = "#3C87CD", roundToMin = 10)
+OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, clearLine = true, timecolor = "#3C87CD", roundToMin = 10)
 {
   ; Prepend a non-breaking space to retain `message` styling
   message := "&nbsp;" message
@@ -48,7 +48,7 @@ OneNoteLog(message = "", timestamp = "", timeformat = "yyyyMMddTHHmm", isBullet 
 
 OneNoteLogDebug()
 {
-  OneNoteLog(" [debug]")
+  OneNoteLog(" [debug]", "", "yyyyMMddTHHmm")
   DelayedSend("{Enter}", 1, 200)
   OneNoteLog("", "", "HHmm", true, true, "#3cb1cd", 5)
   DelayedSend("{Up}")
