@@ -72,27 +72,24 @@ OneNoteHighlightLine()
   SelectLineThenSend("^!h")
 }
 
-;; Send properly formatted log messages with input from the clipboard in the form of "HHmm message"
+;; Format the OneNote timestamp color of the lines in the clipboard
+;; For example, if the clipboard is below, then re-output the clipboard with colored timestamps.
+;; 0800 Morgen
+;; 0810 Kaffee
 OneNoteSetTimestampColor()
 {
-  yyyymmdd := InputBox("Timestamp Prefix",,, 200, 100,,,,, A_YYYY A_MM A_DD)
-  WinWaitActive("- OneNote")
-
   loop, Parse, clipboard, `n
   {
-    if (A_LoopField == "")
-      continue
-
-    substrings := StrSplit(A_LoopField, " ", "`n", 2)
-    time := substrings[1]
-    message := substrings[2]
-
-    ; TODO: If message starts with whitespace, then do not send a timestamp
-    ;   Allows selection of log messages with supplemental indented notes. [2020-02-11]
-    OneNoteLog(message, yyyymmdd "T" time)
-    Sleep(Max(200, 3 * StrLen(message))) ; OneNote has a delay for input so we must wait in proportion to the length of the message.
-
-    DelayedSend("{Enter}", 100)
+    if (RegExMatch(A_LoopField, "^(\d\d\d\d) (.+)$", Matches) > 0) {
+      time := Matches1
+      message := Matches2
+      OneNoteLog(message, time, , , false)
+      DelayedSend("{Enter}", 100)
+    } else {
+      Sleep(100)
+      SendRaw(A_LoopField)
+      Sleep(100)
+    }
   }
 }
 
