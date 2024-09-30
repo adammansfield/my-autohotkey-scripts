@@ -1,6 +1,7 @@
 #if WinActive("- OneNote")
 {
   :*?b0cx:;d;::OneNoteLogDebugWithReference()
+  :*?b0cx:;debug;::OneNoteConvertToDebug()
   :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true, true, "#3cb1cd", 5)
   :*?b0cx:;log;::OneNoteLog()
   :*?b0cx:;logdebug;::OneNoteLogDebug()
@@ -8,14 +9,16 @@
   :*?b0cx:;logstandups;::OneNoteLogStandups()
   :*?b0cx:;logteoten;::OneNoteLogTeoten()
 
-  :*?b0cx:;debug;::BackspaceThenSend("[debug]", strlen(";debug;"))
-  :*?b0cx:;b;::BackspaceThenSend(" - ", strlen(";b;")) ; Markdown bullet point
-  :*?b0cx:;bb;::BackspaceThenSend("    - ", strlen(";bb;")) ; Markdown indented bullet point
-  :*?b0cx:;bbb;::BackspaceThenSend("        - ", strlen(";bbb;")) ; Markdown double-indented bullet point
-  :*?b0cx:;q;::BackspaceThenSend(" > ", strlen(";q;")) ; Markdown quote
-  :*?b0cx:;t;::BackspaceThenSend(" - [ ] ", strlen(";t;")) ; Markdown task (with space indent so OneNote does not automatically format as a list)
-  :*?b0cx:;tt;::BackspaceThenSend("    - [ ] ", strlen(";tt;")) ; Markdown indented task
-  :*?b0cx:;ttt;::BackspaceThenSend("        - [ ] ", strlen(";ttt;")) ; Markdown double-indented task
+  :*?b0cx:;b;::CtrlBackspaceThenSend(" - ", 3) ; Markdown bullet point
+  :*?b0cx:;bb;::CtrlBackspaceThenSend("    - ", 3) ; Markdown indented bullet point
+  :*?b0cx:;bbb;::CtrlBackspaceThenSend("        - ", 3) ; Markdown double-indented bullet point
+  :*?b0cx:;q;::CtrlBackspaceThenSend(" > ", 3) ; Markdown quote
+  :*?b0cx:;t;::CtrlBackspaceThenSend(" - [ ] ", 3) ; Markdown task (with space indent so OneNote does not automatically format as a list)
+  :*?b0cx:;ti;::CtrlBackspaceThenSend(" - [ ] {!} ", 3) ; Markdown task with ! prefix to denote priority
+  :*?b0cx:;ti;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} ", 3) ; Markdown task !!! prefix to denote priority and urgency 
+  :*?b0cx:;tii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} ", 3) ; Markdown task !!! prefix to denote priority and urgency 
+  :*?b0cx:;tt;::CtrlBackspaceThenSend("    - [ ] ", 3) ; Markdown indented task
+  :*?b0cx:;ttt;::CtrlBackspaceThenSend("        - [ ] ", 3) ; Markdown double-indented task
 }
 #if
 
@@ -46,6 +49,26 @@ OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, 
   WinWaitClose, PopupHost ahk_exe onenoteim.exe,, 1 ; Wait for paste pop-up to clear
 }
 
+OneNoteConvertToDebug()
+{
+  ; Backspace hotstring (;debug;) as no backspacing (B0) is used because it is unreliable in OneNote
+  Send("^{Backspace}")
+  Sleep(1)
+  Send("^{Backspace}")
+  Sleep(1)
+  Send("^{Backspace}")
+  Sleep(1)
+
+  Send("[debug]")
+  Sleep(1)
+  Send("{Home}")
+  Sleep(1)
+  Send(A_YYYY A_MM A_DD "T")
+  Sleep(1)
+  Send("{End}")
+  Sleep(1)
+}
+
 OneNoteLogDebug()
 {
   OneNoteLog(" [debug]", "", "yyyyMMddTHHmm")
@@ -68,11 +91,11 @@ OneNoteLogMonat()
   ; Example output:
   ;
   ; ---------------------------------------------------------------
-  ; # 20230401 Montag 😁 🙂 😐 ☹️  😢 TAGEBUCH 🙏 DANKBAR
+  ; ## 20230401 Montag 😁 🙂 😐 ☹️  😢 TAGEBUCH 🙏 DANKBAR
   ;  - [ ] !
   ;  - [ ]
-  ; 20230401T0 {alltägliche}, {Aufgaben},
-  ; 20230401T10
+  ; 00 {alltägliche}, {Aufgaben},
+  ; 10
 
   grin    := "{U+1F601}" ; 😁
   smile   := "{U+1F642}" ; 🙂
@@ -205,7 +228,7 @@ OneNoteLogMonat()
     DelayedSend(markdownTask, textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog("", date "T0", "", false, false)
+    OneNoteLog("", "00", "", false, false)
     DelayedSend("^^uPillen^^u"     , formatDelay) ; Underline words separately for an easy check-off removing underline
     DelayedSend(", "               , textDelay  )
     DelayedSend("^^uMeditation^^u" , formatDelay)
@@ -226,13 +249,15 @@ OneNoteLogMonat()
     ; TODO: uncomment after 2024-11-01 [2024-04-09]
     ;if (longDay != "Friday" && longDay != "Saturday")
     ;{
-    ;  OneNoteLog("", date "T0", "", false, false)
+    ;  OneNoteLog("", "T0", "", false, false)
     ;  DelayedSend("^^uPimsleur^^u"  , textDelay)
     ;  DelayedSend("{Enter}", whitespaceDelay)
     ;}
 
-    OneNoteLog("", date "T10", "", false, false)
-    DelayedSend("{Enter}", whitespaceDelay)
+    Loop 2 {
+      OneNoteLog("", "10", "", false, false)
+      DelayedSend("{Enter}", whitespaceDelay)
+    }
   }
 
   WinClip.Restore(clip)
@@ -250,7 +275,7 @@ OneNoteLogStandups()
   ; # 20230401T1030 Montag
   ; 🆕⚙✅⏏️🕔 [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
   ;
-  ; //_Stretch_:
+  ; _Stretch_:
   ; 🆕⚙ [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
 
   up       := "{U+25B2}"         ; ▲  Black up-pointing triangle
@@ -399,7 +424,7 @@ OneNoteLogStandups()
       DelayedSend("{Enter}", whitespaceDelay)
     }
 
-    DelayedSend("// _Stretch:_", textDelay)
+    DelayedSend("_Stretch:_", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend(neu working " [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", textDelay) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
     DelayedSend("{Enter}", whitespaceDelay)
