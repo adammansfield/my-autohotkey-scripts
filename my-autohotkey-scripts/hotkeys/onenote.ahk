@@ -78,6 +78,12 @@ OneNoteHighlightLine()
 ;; 0810 Kaffee
 OneNoteSetTimestampColor()
 {
+  WinClip.Snap(clip)
+  Sleep(10) ; Wait for snap
+
+  Send("^x")
+  Sleep(100) ; Wait for cut
+
   loop, Parse, clipboard, `n
   {
     if (RegExMatch(A_LoopField, "^(\d\d\d\d) (.+)$", Matches) > 0) {
@@ -91,6 +97,9 @@ OneNoteSetTimestampColor()
       Sleep(100)
     }
   }
+
+  WinClip.Restore(clip)
+  Sleep(10) ; Wait for restore of snap
 }
 
 OneNoteStrikeLine()
