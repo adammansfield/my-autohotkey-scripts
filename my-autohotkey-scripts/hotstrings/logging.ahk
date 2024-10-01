@@ -272,7 +272,7 @@ OneNoteLogStandups()
 {
   ; Example output:
   ; ---------------------------------------------------------------
-  ; # 20230401T1030 Montag
+  ; ## 20230401T1030 Montag
   ; 🆕⚙✅⏏️🕔 [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
   ;
   ; _Stretch_:
@@ -355,7 +355,7 @@ OneNoteLogStandups()
     DelayedSend(markdownBar, markdownBarDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "# " date "T1120")
+    OneNoteLog(ToDeutschDay(longDay), "## " date "T1120")
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
