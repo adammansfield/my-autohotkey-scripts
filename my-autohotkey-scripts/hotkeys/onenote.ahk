@@ -86,7 +86,8 @@ OneNoteSetTimestampColor()
 
   loop, Parse, clipboard, `n
   {
-    if (RegExMatch(A_LoopField, "^(\d\d\d\d) (.+)$", Matches) > 0) {
+    ;if (RegExMatch(A_LoopField, "^(\d\d\d\d|\d\d\d\d\d\d\d\dT\d\d\d\d) (.+)$", Matches) > 0) {
+    if (RegExMatch(A_LoopField, "^(\d{4,4}|\d{8,8}T\d{4,4}) (.+)$", Matches) > 0) {
       time := Matches1
       message := Matches2
       OneNoteLog(message, time, , , false)
