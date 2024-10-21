@@ -15,11 +15,12 @@ CtrlBackspaceThenSend(keys, ctrlBackspaces)
   ; NB: Using hotstrings in OneNote or Slack often leaves part of the hotstring [2024-03-22]
   ; Ctrl-Backspacing is more reliable with minor sleeps before and after.
   loop %ctrlBackspaces% {
-    Sleep(1)
+    Sleep(2)
     Send("^{Backspace}")
-    Sleep(1)
+    Sleep(2)
   }
 
+  Sleep(4)
   Send(keys)
 }
 
