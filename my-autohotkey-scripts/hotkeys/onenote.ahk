@@ -8,6 +8,7 @@
   ^+p::OneNotePostponeTask()
   ^+t::OneNoteSetTimestampColor()
   ^+u::OneNoteUnderlineLine()
+  ^+r::Send("11000 - " clipboard " = ")
 }
 #if
 
