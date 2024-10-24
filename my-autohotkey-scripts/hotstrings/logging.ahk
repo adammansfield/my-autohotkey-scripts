@@ -19,7 +19,7 @@
   :*?b0cx:;t;::CtrlBackspaceThenSend(" - [ ] ", 3) ; Markdown task (with space indent so OneNote does not automatically format as a list)
   :*?b0cx:;ti;::CtrlBackspaceThenSend(" - [ ] {!} ", 3) ; Markdown task with ! prefix to denote priority
   :*?b0cx:;tii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} ", 3) ; Markdown task !!! prefix to denote priority and urgency 
-  :*?b0cx:;ta;::CtrlBackspaceThenSend(" - [ ] {U+2699}  ", 3) ; Arbeitsaufgabe
+  :*?b0cx:;ta;::CtrlBackspaceThenSend(" - [ ] {U+2699} ", 3) ; Arbeitsaufgabe
   :*?b0cx:;tai;::CtrlBackspaceThenSend(" - [ ] {U+2699} {!} ", 3) ; Priority Arbeitsaufgabe
   :*?b0cx:;taii;::CtrlBackspaceThenSend(" - [ ] {U+2699} {!}{!}{!} ", 3) ; Urgent Priority Arbeitsaufgabe
   :*?b0cx:;tk;::CtrlBackspaceThenSend(" - [ ] {U+1F49E} ", 3) ; Kellnermann (Shared) Task
