@@ -1,5 +1,6 @@
 #if WinActive("- OneNote")
 {
+  ; Logeinträge
   :*?b0cx:;d;::OneNoteLogDebugWithReference()
   :*?b0cx:;debug;::OneNoteConvertToDebug()
   :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true, true, "#3cb1cd", 5)
@@ -9,16 +10,25 @@
   :*?b0cx:;logstandups;::OneNoteLogStandups()
   :*?b0cx:;logteoten;::OneNoteLogTeoten()
 
+  ; Bullet Points
   :*?b0cx:;b;::CtrlBackspaceThenSend(" - ", 3) ; Markdown bullet point
   :*?b0cx:;bb;::CtrlBackspaceThenSend("    - ", 3) ; Markdown indented bullet point
   :*?b0cx:;bbb;::CtrlBackspaceThenSend("        - ", 3) ; Markdown double-indented bullet point
-  :*?b0cx:;q;::CtrlBackspaceThenSend(" > ", 3) ; Markdown quote
+
+  ; Tasks
   :*?b0cx:;t;::CtrlBackspaceThenSend(" - [ ] ", 3) ; Markdown task (with space indent so OneNote does not automatically format as a list)
   :*?b0cx:;ti;::CtrlBackspaceThenSend(" - [ ] {!} ", 3) ; Markdown task with ! prefix to denote priority
-  :*?b0cx:;ti;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} ", 3) ; Markdown task !!! prefix to denote priority and urgency 
   :*?b0cx:;tii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} ", 3) ; Markdown task !!! prefix to denote priority and urgency 
-  :*?b0cx:;tt;::CtrlBackspaceThenSend("    - [ ] ", 3) ; Markdown indented task
-  :*?b0cx:;ttt;::CtrlBackspaceThenSend("        - [ ] ", 3) ; Markdown double-indented task
+  :*?b0cx:;ta;::CtrlBackspaceThenSend(" - [ ] {U+2699}  ", 3) ; Arbeitsaufgabe
+  :*?b0cx:;tai;::CtrlBackspaceThenSend(" - [ ] {U+2699} {!} ", 3) ; Priority Arbeitsaufgabe
+  :*?b0cx:;taii;::CtrlBackspaceThenSend(" - [ ] {U+2699} {!}{!}{!} ", 3) ; Urgent Priority Arbeitsaufgabe
+  :*?b0cx:;tk;::CtrlBackspaceThenSend(" - [ ] {U+1F49E} ", 3) ; Kellnermann (Shared) Task
+  :*?b0cx:;tki;::CtrlBackspaceThenSend(" - [ ] {!} {U+1F49E} ", 3) ; Priority Kellnermann (Shared) Task
+  :*?b0cx:;tkii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} {U+1F49E} ", 3) ; Urgent Priority Kellnermann (Shared) Task
+
+  ; Subtasks
+  :*?b0cx:;tt;::CtrlBackspaceThenSend("    - [ ] ", 3) ; Markdown indented task (subtask)
+  :*?b0cx:;ttt;::CtrlBackspaceThenSend("        - [ ] ", 3) ; Markdown double-indented task (subsubtask)
 }
 #if
 
@@ -105,6 +115,7 @@ OneNoteLogMonat()
   moods   := grin " " smile " " neutral " " sad " " crying
 
   dankbar := "{U+1F64F}" ; 🙏 Person with Folded Hands
+  gear    := "{U+2699}"  ; ⚙  Gear
 
   markdownBar  := "---------------------------------------------------------------" ; Requires preceding new line
   markdownTask := " - [ ] " ; Space before '-' so that OneNote does not automatically format it as a list
@@ -226,38 +237,52 @@ OneNoteLogMonat()
     DelayedSend("{Enter}", whitespaceDelay)
 
     DelayedSend(markdownTask, textDelay)
+    if (longDay = "Monday" || longDay = "Tuesday" || longDay = "Wednesday" || longDay = "Thursday" || longDay = "Friday")
+    {
+      DelayedSend(gear " ", whitespaceDelay)
+    }
     DelayedSend("{Enter}", whitespaceDelay)
 
     OneNoteLog("", "00", "", false, false)
-    DelayedSend("^^uPillen^^u"      , formatDelay) ; Underline words separately for an easy check-off removing underline
-    DelayedSend(", "                , textDelay  )
-    DelayedSend("^^uMeditation^^u"  , formatDelay)
-    DelayedSend(", "                , textDelay  )
-    DelayedSend("^^uGesicht^^u"     , formatDelay)
-    DelayedSend(", "                , textDelay  )
-    DelayedSend("^^uK{U+00FC}che^^u", formatDelay)
-    DelayedSend(", "                , textDelay  )
-    DelayedSend("^^uKatzenstreu^^u" , formatDelay)
-    DelayedSend(", "                , textDelay  )
-    DelayedSend("^^uSeedlang^^u"    , formatDelay)
-    DelayedSend(", "                , textDelay  )
-    DelayedSend("^^uplane^^u"       , formatDelay)
-    DelayedSend(", "                , textDelay  )
-
+    DelayedSend("^^u"         , formatDelay) ; Underline words separately for an easy check-off by removing underline
+    DelayedSend("Pillen"      , textDelay  )
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend(", "          , textDelay  )
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend("Meditation"  , textDelay)
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend(", "          , textDelay  )
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend("Gesicht"     , textDelay)
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend(", "          , textDelay  )
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend("K{U+00FC}che", textDelay)
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend(", "          , textDelay  )
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend("Katzenstreu" , textDelay)
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend(", "          , textDelay  )
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend("Seedlang"    , textDelay)
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend(", "          , textDelay  )
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend("plane"       , textDelay)
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend(", "          , textDelay  )
     DelayedSend("{Enter}", whitespaceDelay)
 
-    ; TODO: uncomment after 2024-11-01 [2024-04-09]
-    ;if (longDay != "Friday" && longDay != "Saturday")
-    ;{
-    ;  OneNoteLog("", "T0", "", false, false)
-    ;  DelayedSend("^^uPimsleur^^u"  , textDelay)
-    ;  DelayedSend("{Enter}", whitespaceDelay)
-    ;}
-
-    Loop 2 {
-      OneNoteLog("", "10", "", false, false)
+    if (longDay = "Monday" && longDay = "Thursday")
+    {
+      OneNoteLog("", "T0", "", false, false)
+      DelayedSend("^^uPimsleur^^u"  , textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
     }
+
+    OneNoteLog("", "10", "", false, false)
+    DelayedSend("{Enter}", whitespaceDelay)
   }
 
   WinClip.Restore(clip)

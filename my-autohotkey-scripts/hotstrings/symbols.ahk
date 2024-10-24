@@ -1,37 +1,40 @@
 ; Bullet Point
-:*?b0cx:;bp;::BackspaceThenSend("{U+2022}", strlen(";bp;"))
+:*?b0cx:;bp;::CtrlBackspaceThenSend("{U+2022}", 3)
 
 ; Check marks
-:*?b0cx:;bcm;:: BackspaceThenSend("{U+2611}", strlen(";bcm;"))             ; ☑
-:*?b0cx:;check;:: BackspaceThenSend("{U+2714}", strlen(";check;"))         ; ✔️
-:*?b0cx:;checkmark;:: BackspaceThenSend("{U+2714}", strlen(";checkmark;")) ; ✔️
-:*?b0cx:;cm;:: BackspaceThenSend("{U+2705}", strlen(";cm;"))               ; ✅
-:*?b0cx:;cross;::BackspaceThenSend("{U+274C}", strlen(";cross;"))          ; ❌
-:*?b0cx:;crossmark;::BackspaceThenSend("{U+274C}", strlen(";crossmark;"))  ; ❌
-:*?b0cx:;ucm;::BackspaceThenSend("{U+2B1C}", strlen(";ucm;"))              ; ⬜
+:*?b0cx:;bcm;::        CtrlBackspaceThenSend("{U+2611}", 3)  ; ☑
+:*?b0cx:;check;::      CtrlBackspaceThenSend("{U+2714}", 3)  ; ✔️
+:*?b0cx:;checkmark;::  CtrlBackspaceThenSend("{U+2714}", 3)  ; ✔️
+:*?b0cx:;cm;::         CtrlBackspaceThenSend("{U+2705}", 3)  ; ✅
+:*?b0cx:;cross;::      CtrlBackspaceThenSend("{U+274C}", 3)  ; ❌
+:*?b0cx:;crossmark;::  CtrlBackspaceThenSend("{U+274C}", 3)  ; ❌
+:*?b0cx:;ucm;::        CtrlBackspaceThenSend("{U+2B1C}", 3)  ; ⬜
 
 ; Dashes
-:*?b0cx:;mdash;::BackspaceThenSend("{U+2014}", strlen(";mdash;"))
-:*?b0cx:;ndash;::BackspaceThenSend("{U+2013}", strlen(";ndash;"))
+:*?b0cx:;mdash;::CtrlBackspaceThenSend("{U+2014}", 3) ; —
+:*?b0cx:;ndash;::CtrlBackspaceThenSend("{U+2013}", 3) ; –
 
 ; Degree
-:*?b0cx:;degree;::BackspaceThenSend("{U+00B0}", strlen(";degree;"))
+:*?b0cx:;degree;::CtrlBackspaceThenSend("{U+00B0}", 3) ; °
 
 ; Emoji
-:*?b0cx:;speech;::BackspaceThenSend("{U+1F4AC}", strlen(";speech;")) ; Speech Balloon 💬
-:*?b0cx:;sozial;::BackspaceThenSend("{U+1F4AC}", strlen(";sozial;")) ; Speech Balloon 💬
+:*?b0cx:;gear;::       CtrlBackspaceThenSend("{U+2699} " , 3) ; ⚙  
+:*?b0cx:;k;::          CtrlBackspaceThenSend("{U+1F49E} ", 3) ; 💞
+:*?b0cx:;kellnermann;::CtrlBackspaceThenSend("{U+1F49E} ", 3) ; 💞
+:*?b0cx:;social;::     CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
+:*?b0cx:;sozial;::     CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
 
 ; Fractions
-:*?b0cx:;fiveeighths;::  BackspaceThenSend("{U+215D}", strlen(";fiveeighths;"))
-:*?b0cx:;oneeighth;::    BackspaceThenSend("{U+215B}", strlen(";oneeighth;"))
-:*?b0cx:;onehalf;::      BackspaceThenSend("{U+00BD}", strlen(";onehalf;"))
-:*?b0cx:;onequarter;::   BackspaceThenSend("{U+00BC}", strlen(";onequarter;"))
-:*?b0cx:;onethird;::     BackspaceThenSend("{U+2153}", strlen(";onethird;"))
-:*?b0cx:;seveneighths;:: BackspaceThenSend("{U+215E}", strlen(";seveneighths;"))
-:*?b0cx:;threefourths;:: BackspaceThenSend("{U+00BE}", strlen(";threefourths;"))
-:*?b0cx:;threequarters;::BackspaceThenSend("{U+00BE}", strlen(";threequarters;"))
-:*?b0cx:;threeeighths;:: BackspaceThenSend("{U+215C}", strlen(";threeeighths;"))
-:*?b0cx:;twothirds;::    BackspaceThenSend("{U+2154}", strlen(";twothirds;"))
+:*?b0cx:;fiveeighths;::  CtrlBackspaceThenSend("{U+215D}", 3)
+:*?b0cx:;oneeighth;::    CtrlBackspaceThenSend("{U+215B}", 3)
+:*?b0cx:;onehalf;::      CtrlBackspaceThenSend("{U+00BD}", 3)
+:*?b0cx:;onequarter;::   CtrlBackspaceThenSend("{U+00BC}", 3)
+:*?b0cx:;onethird;::     CtrlBackspaceThenSend("{U+2153}", 3)
+:*?b0cx:;seveneighths;:: CtrlBackspaceThenSend("{U+215E}", 3)
+:*?b0cx:;threefourths;:: CtrlBackspaceThenSend("{U+00BE}", 3)
+:*?b0cx:;threequarters;::CtrlBackspaceThenSend("{U+00BE}", 3)
+:*?b0cx:;threeeighths;:: CtrlBackspaceThenSend("{U+215C}", 3)
+:*?b0cx:;twothirds;::    CtrlBackspaceThenSend("{U+2154}", 3)
 
 ;TODO: use {U+xxxx} instead of {AltDown}
 ; Greek characters
@@ -52,8 +55,8 @@
 :*c?:;theta;::{AltDown}{Numpad2}{Numpad3}{Numpad3}{AltUp}
 
 ; Infinity
-:*?b0cx:;inf;::     BackspaceThenSend("{U+221E}", strlen(";inf;"))
-:*?b0cx:;infinity;::BackspaceThenSend("{U+221E}", strlen(";infinity;"))
+:*?b0cx:;inf;::     CtrlBackspaceThenSend("{U+221E}", 3)
+:*?b0cx:;infinity;::CtrlBackspaceThenSend("{U+221E}", 3)
 
 ; Non-breaking space
 :*cx?:;nbsp;::SendNoBreakSpaces(1)
