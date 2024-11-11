@@ -2,13 +2,14 @@
 {
   ^+-::OneNoteStrikeLine()
   ^+b::OneNoteBoldLine()
-  ^+c::OneNoteCompleteMarkdownTask()
   ^+h::OneNoteHighlightLine()
   ^+i::OneNoteIncompleteMarkdownTask()
+  ^+o::OneNoteCompleteMarkdownTask("o")
   ^+p::OneNotePostponeTask()
+  ^+r::Send("11000 - " clipboard " = ")
   ^+t::OneNoteSetTimestampColor()
   ^+u::OneNoteUnderlineLine()
-  ^+r::Send("11000 - " clipboard " = ")
+  ^+x::OneNoteCompleteMarkdownTask("x")
 }
 #if
 
@@ -24,7 +25,7 @@ OneNoteBoldLine()
   SelectLineThenSend("^b")
 }
 
-OneNoteCompleteMarkdownTask()
+OneNoteCompleteMarkdownTask(charInBrackets)
 {
   ; Completes a Markdown task (assuming the line starts with a Markdown task)
   ; Equivalent Vim Substitute Command: s/^ - [.]/ - [x]/
@@ -38,7 +39,7 @@ OneNoteCompleteMarkdownTask()
   ; `        - [x] `
   DelayedSend("{Home}^{Right 2}{Right}", 1) ; Slight delay for movement
   DelayedSend("{Delete}", 2) ; Extra delay for editting as OneNote has custom input for syncing changes
-  DelayedSend("x", 2)
+  DelayedSend(charInBrackets, 2)
 
   SelectLineThenSend("^-^!h") ; Strikethrough and unhighlight
 }
