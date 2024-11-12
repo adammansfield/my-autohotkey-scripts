@@ -2,6 +2,7 @@
 {
   ^+-::OneNoteStrikeLine()
   ^+b::OneNoteBoldLine()
+  ^+c::OneNoteCompleteMarkdownTask("x")
   ^+h::OneNoteHighlightLine()
   ^+i::OneNoteIncompleteMarkdownTask()
   ^+o::OneNoteCompleteMarkdownTask("o")
