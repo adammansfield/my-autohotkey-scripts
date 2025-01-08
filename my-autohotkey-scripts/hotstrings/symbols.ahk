@@ -1,3 +1,9 @@
+; NB: Prefer CtrlBackspaceThenSend over BackspaceThenSend when applicable
+; If the hotstring is likely to be its own word--separated by spaces--then use
+; CtrlBackspaceThenSend for efficiency (e.g. ;checkmark;).
+; If the hostring is likely to be part of a word--not separated by spaces-- then use
+; BackspaceThenSend as CtrlBackspaceThenSend may delete more than intended.
+
 ; Bullet Point
 :*?b0cx:;bp;::CtrlBackspaceThenSend("{U+2022}", 3)
 
@@ -11,8 +17,11 @@
 :*?b0cx:;ucm;::        CtrlBackspaceThenSend("{U+2B1C}", 3)  ; ⬜
 
 ; Dashes
-:*?b0cx:;mdash;::CtrlBackspaceThenSend("{U+2014}", 3) ; —
-:*?b0cx:;ndash;::CtrlBackspaceThenSend("{U+2013}", 3) ; –
+:*?b0cx:;em;::   BackspaceThenSend("{U+2014}", strlen(";em;"   )) ; —
+:*?b0cx:;mdash;::BackspaceThenSend("{U+2014}", strlen(";mdash;")) ; —
+
+:*?b0cx:;en;::   BackspaceThenSend("{U+2013}", strlen(";en;"   )) ; –
+:*?b0cx:;ndash;::BackspaceThenSend("{U+2013}", strlen(";ndash;")) ; –
 
 ; Degree
 :*?b0cx:;degree;::CtrlBackspaceThenSend("{U+00B0}", 3) ; °
@@ -23,6 +32,10 @@
 :*?b0cx:;kellnermann;::CtrlBackspaceThenSend("{U+1F49E} ", 3) ; 💞
 :*?b0cx:;social;::     CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
 :*?b0cx:;sozial;::     CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
+
+; Etc
+:*?b0cx:;neu;::CtrlBackspaceThenSend("{U+1F195}", 3) ; 🆕
+:*?b0cx:;new;::CtrlBackspaceThenSend("{U+1F195}", 3) ; 🆕
 
 ; Fractions
 :*?b0cx:;fiveeighths;::  CtrlBackspaceThenSend("{U+215D}", 3)
