@@ -70,6 +70,7 @@
 :*?b0cx:sinordnung;::         CtrlBackspaceThenSend("{U+0423} {U+0440}{U+0435}{U+0434}{U+0443}"                                                                , 2) ; У реду
 :*?b0cx:sja;::                CtrlBackspaceThenSend("{U+0434}{U+0430}"                                                                                         , 2) ; да
 :*?b0cx:skeinproblem;::       CtrlBackspaceThenSend("{U+041D}{U+0438}{U+0458}{U+0435} {U+043F}{U+0440}{U+043E}{U+0431}{U+043B}{U+0435}{U+043C}"                , 2) ; Није проблем
+:*?b0cx:slena;::              CtrlBackspaceThenSend("{U+043B}{U+0435}{U+043D}{U+0430}"                                                                         , 2) ; лена
 :*?b0cx:snatuerlich;::        CtrlBackspaceThenSend("{U+043F}{U+0440}{U+0438}{U+0440}{U+043E}{U+0434}{U+043D}{U+043E}"                                         , 2) ; природно
 :*?b0cx:snein;::              CtrlBackspaceThenSend("{U+043D}{U+0435}"                                                                                         , 2) ; не
 :*?b0cx:sokay;::              CtrlBackspaceThenSend("{U+041E}{U+043A}{U+0435}{U+0458}"                                                                         , 2) ; Океј

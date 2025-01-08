@@ -93,3 +93,23 @@ ToggleAlwaysOnTop()
 {
   WinSet, AlwaysOnTop, Off, A
 }
+
+
+#if WinActive("ChatGPT")
+{
+  ; Quick archive conversation
+  MButton::
+  {
+    Send("{Click}")
+    Sleep(128)
+    Send("{Down}")
+    Sleep(32)
+    Send("{Down}")
+    Sleep(32)
+    Send("{Down}")
+    Sleep(64)
+    Send("{Enter}")
+    return
+  }
+}
+#if
