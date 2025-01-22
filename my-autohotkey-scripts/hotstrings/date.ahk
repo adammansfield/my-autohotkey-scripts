@@ -57,7 +57,7 @@ SendStopWatch()
 
   Send("{Home}+{End}")
   Send("^{Insert}") ; Copy
-  ClipWait(1)
+  Sleep(200)
   Send("{End}")
 
   lineHasStart := RegexMatch(clipboard, "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}")
