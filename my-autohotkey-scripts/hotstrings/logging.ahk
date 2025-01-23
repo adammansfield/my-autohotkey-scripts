@@ -303,15 +303,16 @@ OneNoteLogStandups()
   ; _Stretch_:
   ; 🆕⚙ [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
 
-  up       := "{U+25B2}"         ; ▲  Black up-pointing triangle
-  down     := "{U+25BC}"         ; ▼  Black down-pointing triangle
-  working  := "{U+2699}"         ; ⚙  Gear
-  done     := "{U+2705}"         ; ✅ White heavy check mark
-  removed  := "{U+23CF}{U+FE0F}" ; ⏏️  Eject Button
-  neu      := "{U+1F195}"        ; 🆕 New Button
-  defer    := "{U+1F554}"        ; 🕔 Clock Face Five Oclock
+  again    := "{U+1F501}"        ; 🔁 Clockwise Rightwards and Leftwards Open Circle Arrows
   blocker  := "{U+1F6A7}"        ; 🚧 Construction Sign
+  defer    := "{U+1F554}"        ; 🕔 Clock Face Five Oclock
+  done     := "{U+2705}"         ; ✅ White heavy check mark
+  down     := "{U+25BC}"         ; ▼  Black down-pointing triangle
+  neu      := "{U+1F195}"        ; 🆕 New Button
   pad      := "{U+2009}"         ;    Thin Space (for padding)
+  removed  := "{U+23CF}{U+FE0F}" ; ⏏️  Eject Button
+  up       := "{U+25B2}"         ; ▲  Black up-pointing triangle
+  working  := "{U+2699}"         ; ⚙  Gear
 
   markdownBar := "---------------------------------------------------------------"
 
@@ -403,7 +404,7 @@ OneNoteLogStandups()
     ;}
 
     ;DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend(neu working done removed defer " [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", textDelay) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+    DelayedSend(neu working done removed again defer " [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", textDelay) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
@@ -504,11 +505,15 @@ OneNotePaste(html, preserveClipboard = true)
   Sleep(4) ; Wait for clear
 
   WinClip.SetHTML(html)
-  Sleep(4) ; Wait for copy
+  Sleep(32) ; Wait for copy
 
   WinClip.Paste()
   Sleep(2) ; Wait for paste
-  WinWait, PopupHost ahk_exe onenoteim.exe,, 2 ; Wait for paste pop-up
+
+  if (WinActive("OneNote for Windows 10"))
+  {
+    WinWait, PopupHost ahk_exe onenoteim.exe,, 2 ; Wait for paste pop-up
+  }
 
   if (preserveClipboard)
   {

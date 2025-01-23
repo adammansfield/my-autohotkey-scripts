@@ -44,10 +44,17 @@
 ;; Navigate/Highlight left depending on mode (vim key h).
 >!h::Vim.ModeDependentSend("{Left}")
 
-;; Navigate/Highlight down depending on mode (vim key j).
+;; Navigate/Highlight up or down depending on mode (vim key j and k).
+#if WinActive("ahk_exe ONENOTE.EXE")
+; WORKAROUND: Send("{Up}") and Send("{Down}") does not work in OneNote [2025-01-23](https://stackoverflow.com/questions/44170454/up-down-key-not-working-in-onenote-2016-for-autohotkey)
+; 1. C:\Program Files\AutoHotkey\UX\install.ahk
+; 2. Launch settings
+; 3. Enable UI Access
+; 4. SendPlay("{Up}") and SendPlay("{Down}") should now work in OneNote with AHK UI Access enabled
+>!j::Vim.ModeDependentSendPlay("{Down}")
+>!k::Vim.ModeDependentSendPlay("{Up}")
+#if
 >!j::Vim.ModeDependentSend("{Down}")
-
-;; Navigate/Highlight up depending on mode (vim key k).
 >!k::Vim.ModeDependentSend("{Up}")
 
 ;; Navigate/Highlight right depending on mode (vim key l).
@@ -251,6 +258,20 @@ class Vim
   IsVisualMode()
   {
     return Vim.kVisualMode_ == Vim.mode_
+  }
+
+  ;; SendPlay the input command with or without a shift depending on the mode.
+  ;; @param command The command to send.
+  ModeDependentSendPlay(command)
+  {
+    if (Vim.IsVisualMode())
+    {
+      SendPlay("+" . command)
+    }
+    else
+    {
+      SendPlay(command)
+    }
   }
 
   ;; Send the input command with or without a shift depending on the mode.
