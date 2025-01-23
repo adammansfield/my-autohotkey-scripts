@@ -16,10 +16,11 @@
 :*?b0cx:;crossmark;::  CtrlBackspaceThenSend("{U+274C}", 3)  ; ❌
 :*?b0cx:;ucm;::        CtrlBackspaceThenSend("{U+2B1C}", 3)  ; ⬜
 
-; Dashes
+; Em Dashes
 :*?b0cx:;em;::   BackspaceThenSend("{U+2014}", strlen(";em;"   )) ; —
 :*?b0cx:;mdash;::BackspaceThenSend("{U+2014}", strlen(";mdash;")) ; —
 
+; En Dashes
 :*?b0cx:;en;::   BackspaceThenSend("{U+2013}", strlen(";en;"   )) ; –
 :*?b0cx:;ndash;::BackspaceThenSend("{U+2013}", strlen(";ndash;")) ; –
 
@@ -34,6 +35,9 @@
 :*?b0cx:;sozial;::     CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
 
 ; Etc
+:*?b0cx:;cycle;::CtrlBackspaceThenSend("{U+1F501}", 3) ; 🔁
+:*?b0cx:;again;::CtrlBackspaceThenSend("{U+1F501}", 3) ; 🔁
+:*?b0cx:;weider;::CtrlBackspaceThenSend("{U+1F501}", 3) ; 🔁
 :*?b0cx:;neu;::CtrlBackspaceThenSend("{U+1F195}", 3) ; 🆕
 :*?b0cx:;new;::CtrlBackspaceThenSend("{U+1F195}", 3) ; 🆕
 
