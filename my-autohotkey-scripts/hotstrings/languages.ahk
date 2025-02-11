@@ -47,6 +47,15 @@
 :*?b0cx:hkeinproblem;:: CtrlBackspaceThenSend("{U+05D0}{U+05D9}{U+05DF} {U+05D1}{U+05E2}{U+05D9}{U+05D4}", 2) ; אין בעיה
 :*?b0cx:hnein;::        CtrlBackspaceThenSend("{U+05DC}{U+05D0}"                                         , 2) ; לא (loh: loh)
 
+; Portugiesisch
+:*?b0cx:pdanke;::        CtrlBackspaceThenSend("obrigado"                          , 2) ; obrigado
+:*?b0cx:pgerne;::        CtrlBackspaceThenSend("n{U+00E3}o h{U+00E1} de qu{U+00EA}", 2) ; não há de quê
+:*?b0cx:pgerngeschehen;::CtrlBackspaceThenSend("de nada"                           , 2) ; de nada
+:*?b0cx:phallo;::        CtrlBackspaceThenSend("ol{U+00E1}"                        , 2) ; olá
+:*?b0cx:pja;::           CtrlBackspaceThenSend("sim"                               , 2) ; sim
+:*?b0cx:pkeinproblem;::  CtrlBackspaceThenSend("por nada"                          , 2) ; por nada (for nothing)
+:*?b0cx:pnein;::         CtrlBackspaceThenSend("n{U+00E3}o"                        , 2) ; não
+
 ; Russisch
 :*?b0cx:rgerne;::      CtrlBackspaceThenSend("{U+0441} {U+0443}{U+0434}{U+043E}{U+0432}{U+043E}{U+043B}{U+044C}{U+0441}{U+0442}{U+0432}{U+0438}{U+0435}{U+043C}", 2) ; с удовольствием
 :*?b0cx:rhallo;::      CtrlBackspaceThenSend("{U+043F}{U+0440}{U+0438}{U+0432}{U+0435}{U+0442}"                                                                 , 2) ; привет
