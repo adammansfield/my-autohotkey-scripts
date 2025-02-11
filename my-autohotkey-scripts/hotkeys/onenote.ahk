@@ -11,6 +11,7 @@
   ^+t::OneNoteSetTimestampColor()
   ^+u::OneNoteUnderlineLine()
   ^+x::OneNoteCompleteMarkdownTask("x")
+  F5::Send("+{F9}") ; Refresh
 }
 #if
 
