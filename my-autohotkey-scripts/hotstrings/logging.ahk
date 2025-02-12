@@ -510,9 +510,11 @@ OneNotePaste(html, preserveClipboard = true)
   WinClip.Paste()
   Sleep(2) ; Wait for paste
 
-  if (WinActive("OneNote for Windows 10"))
+  if (WinActive("- OneNote"))
   {
-    WinWait, PopupHost ahk_exe onenoteim.exe,, 2 ; Wait for paste pop-up
+    Sleep(1) ; Wait for paste pop-up
+    Send("{Esc}") ; Clear paste pop-up
+    Sleep(1) ; Wait for clearing paste pop-up
   }
 
   if (preserveClipboard)
