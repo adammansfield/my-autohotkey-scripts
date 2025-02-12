@@ -74,12 +74,7 @@
   Sleep(10) ; Wait for set
   Vim.SendThenResetMode("^v")
 
-  if (WinActive("- OneNote"))
-  {
-    Sleep(1) ; Wait for paste pop-up
-    Send("{Esc}") ; Clear paste pop-up
-    Sleep(1) ; Wait for clearing paste pop-up
-  }
+  OneNoteClearPastePopup()
 
   return
 }
