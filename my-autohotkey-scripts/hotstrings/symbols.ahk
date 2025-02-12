@@ -14,6 +14,7 @@
 :*?b0cx:;cm;::         CtrlBackspaceThenSend("{U+2705}", 3)  ; ✅
 :*?b0cx:;cross;::      CtrlBackspaceThenSend("{U+274C}", 3)  ; ❌
 :*?b0cx:;crossmark;::  CtrlBackspaceThenSend("{U+274C}", 3)  ; ❌
+:*?b0cx:;x;::          CtrlBackspaceThenSend("{U+274C}", 3)  ; ❌
 :*?b0cx:;ucm;::        CtrlBackspaceThenSend("{U+2B1C}", 3)  ; ⬜
 
 ; Em Dashes
