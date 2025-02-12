@@ -11,6 +11,7 @@
   ^+t::OneNoteSetTimestampColor()
   ^+u::OneNoteUnderlineLine()
   ^+x::OneNoteCompleteMarkdownTask("x")
+  ^v::OneNotePasteAndClearPopup()
   F5::Send("+{F9}") ; Refresh
 }
 #if
@@ -25,6 +26,22 @@ SelectLineThenSend(keys)
 OneNoteBoldLine()
 {
   SelectLineThenSend("^b")
+}
+
+OneNotePasteAndClearPopup()
+{
+  SendPlay("^v") ; Send("+{Insert}") requires 2x Esc to clear paste popup
+  OneNoteClearPastePopup()
+}
+
+OneNoteClearPastePopup()
+{
+  if (WinActive("- OneNote"))
+  {
+    Sleep(1) ; Wait for paste pop-up
+    Send("{Esc}") ; Clear paste pop-up
+    Sleep(1) ; Wait for clearing paste pop-up
+  }
 }
 
 OneNoteCompleteMarkdownTask(charInBrackets)
