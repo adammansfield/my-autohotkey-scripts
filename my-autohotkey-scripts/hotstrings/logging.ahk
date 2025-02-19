@@ -3,7 +3,7 @@
   ; Logeinträge
   :*?b0cx:;d;::OneNoteLogDebugWithReference()
   :*?b0cx:;debug;::OneNoteConvertToDebug()
-  :*?b0cx:;l;::OneNoteLog("", "", "HHmm", true, true, "#3cb1cd", 5)
+  :*?b0cx:;l;::OneNoteLog("", "", "_HHmm_", true, true, "#3cb1cd", 5)
   :*?b0cx:;log;::OneNoteLog()
   :*?b0cx:;logdebug;::OneNoteLogDebug()
   :*?b0cx:;logmonat;::OneNoteLogMonat()
@@ -32,10 +32,10 @@
 }
 #if
 
-OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, clearLine = true, timecolor = "#3C87CD", roundToMin = 10)
+OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, clearLine = true, timecolor = "default", roundToMin = 10)
 {
-  ; Prepend a non-breaking space to retain `message` styling
-  message := "&nbsp;" message
+  ; Original log timestamp blue: "#3c87cd" [2025-02-19]
+  ; Original sublog timestamp blue: "#3cb1cd" [2025-02-19]
 
   if (timestamp = "")
   {
@@ -52,7 +52,18 @@ OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, 
     SendClearLine()
   }
 
-  OneNotePaste("<span style='color:" timecolor "'>" timestamp "</span>" message)
+  if (timecolor = "default")
+  {
+    ; Add an extra non-breaking space to better delineate between timestamp and message (since they will be the same color)
+    htmlTimestamp := timestamp "&nbsp;"
+  }
+  else
+  {
+    htmlTimestamp := "<span style='color:" timecolor "'>" timestamp "</span>"
+  }
+
+  ; Prepend a non-breaking space before message to retain `message` styling
+  OneNotePaste(htmlTimestamp "&nbsp;" message)
 
   ; Clear paste pop-up and remove the pre-pended non-breaking space (that was used to retain `message` styling)
   DelayedSend("{Backspace}") ;
@@ -190,7 +201,7 @@ OneNoteLogMonat()
       DelayedSend("{Enter}", whitespaceDelay)
 
       yyyymm := FormatTime(date, "yyyyMM")
-      OneNoteLog(" ", "# " yyyymm, "", false, false)
+      OneNoteLog(" ", "# " yyyymm, "", false, false, "#3c87cd")
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
@@ -209,7 +220,7 @@ OneNoteLogMonat()
 
       yyyyw := FormatTime(date, "YWeek")
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
-      OneNoteLog(" ", "# " yyyyw, "", false, false)
+      OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd")
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
@@ -224,7 +235,7 @@ OneNoteLogMonat()
     DelayedSend(markdownBar, markdownBarDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "## " date, "", false, false)
+    OneNoteLog(ToDeutschDay(longDay), "## " date, "", false, false, "#3c87cd")
     DelayedSend(" " moods, textDelay)
     DelayedSend(" TAGEBUCHE", textDelay)
     DelayedSend(" " dankbar, textDelay)
@@ -381,7 +392,7 @@ OneNoteLogStandups()
     DelayedSend(markdownBar, markdownBarDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "## " date "T1120")
+    OneNoteLog(ToDeutschDay(longDay), "## " date "T1120", "", false, false, "#3c87cd")
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
