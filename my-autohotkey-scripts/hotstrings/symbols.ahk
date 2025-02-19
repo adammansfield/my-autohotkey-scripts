@@ -42,6 +42,9 @@
 :*?b0cx:;neu;::CtrlBackspaceThenSend("{U+1F195}", 3) ; 🆕
 :*?b0cx:;new;::CtrlBackspaceThenSend("{U+1F195}", 3) ; 🆕
 
+:*?b0cx:;halfspace;::BackspaceThenSend("{U+2009}", strlen(";halfspace;")) ; Thin Space (for padding)
+:*?b0cx:;thinspace;::BackspaceThenSend("{U+2009}", strlen(";halfspace;")) ; Thin Space (for padding)
+
 ; Fractions
 :*?b0cx:;fiveeighths;::  CtrlBackspaceThenSend("{U+215D}", 3)
 :*?b0cx:;oneeighth;::    CtrlBackspaceThenSend("{U+215B}", 3)
