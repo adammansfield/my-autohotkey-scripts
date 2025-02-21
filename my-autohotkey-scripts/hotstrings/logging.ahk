@@ -1,14 +1,17 @@
 #if WinActive("- OneNote")
 {
   ; Logeinträge
-  :*?b0cx:;d;::OneNoteLogDebugWithReference()
-  :*?b0cx:;debug;::OneNoteConvertToDebug()
-  :*?b0cx:;l;::OneNoteLog("", "", "_HHmm_", true, true, "#3cb1cd", 5)
   :*?b0cx:;log;::OneNoteLog()
-  :*?b0cx:;logdebug;::OneNoteLogDebug()
   :*?b0cx:;logmonat;::OneNoteLogMonat()
   :*?b0cx:;logstandups;::OneNoteLogStandups()
   :*?b0cx:;logteoten;::OneNoteLogTeoten()
+
+  ; Debug Logeinträge
+  :*?b0cx:;l;::OneNoteLog("", "", "_HHmm_", true, true, "#3cb1cd", 5) ; Debug subentry
+  :*?b0cx:;logdebug;::OneNoteLogDebug()
+  :*?b0cx:;logdebugref;::OneNoteLogDebugWithReference()
+  :*?b0cx:;logref;::OneNoteLogDebugWithReference()
+  :*?b0cx:;todebug;::OneNoteConvertToDebug()
 
   ; Bullet Points
   :*?b0cx:;b;::CtrlBackspaceThenSend(" - ", 3) ; Markdown bullet point
@@ -54,8 +57,11 @@ OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, 
 
   if (timecolor = "default")
   {
+    htmlTimestamp := timestamp
+
+    ; CONSIDER: Uncomment below if two spaces between timestamp and message is desired for better separation
     ; Add an extra non-breaking space to better delineate between timestamp and message (since they will be the same color)
-    htmlTimestamp := timestamp "&nbsp;"
+    ;htmlTimestamp := timestamp "&nbsp;"
   }
   else
   {
@@ -80,7 +86,7 @@ OneNoteConvertToDebug()
   Send("^{Backspace}")
   Sleep(1)
 
-  Send("[debug]")
+  Send("[[[[" A_YYYY "-Q" GetQuarterNumber() "]]]]") ; Quadruple brackets because OneNote automatically converts [[{link}]] to a hyperlink, but we still want raw text to be [[{link}]] so that it is Markdown compatible
   Sleep(1)
   Send("{Home}")
   Sleep(1)
@@ -92,19 +98,24 @@ OneNoteConvertToDebug()
 
 OneNoteLogDebug()
 {
-  OneNoteLog(" [debug]", "", "yyyyMMddTHHmm")
+  OneNoteLog(" [[[[" A_YYYY "-Q" GetQuarterNumber() "]]]]", "", "## yyyyMMddTHHmm")
   DelayedSend("{Enter}", 1, 200)
-  OneNoteLog("", "", "HHmm", true, true, "#3cb1cd", 5)
+  OneNoteLog("", "", "_HHmm_", true, false, "#3cb1cd", 5)
   DelayedSend("{Up}")
   DelayedSend("{End}")
-  DelayedSend("^{Left 3}")
+  DelayedSend("^{Left 5}")
   DelayedSend("{Left}")
 }
 
 OneNoteLogDebugWithReference()
 {
-  OneNoteLog(" [debug@]")
-  DelayedSend("{Left}", 1, 200)
+  OneNoteLog(" ")
+  DelayedSend("[[[[" A_YYYY "-Q" GetQuarterNumber() "]]]]") ; Quadruple brackets because OneNote automatically converts [[{link}]] to a hyperlink, but we still want raw text to be [[{link}]] so that it is Markdown compatible
+  DelayedSend("{Left 2}")
+  DelayedSend("{#}" A_YYYY A_MM A_DD "T")
+  Tooltip("Enter timestamp (e.g. [[2025-Q1#20250101T1200]])")
+  Sleep(2000)
+  Tooltip()
 }
 
 OneNoteLogMonat()
@@ -500,7 +511,13 @@ DelayedSend(keys, before = 1, after = "")
     after := before
 
   Sleep, %before%
-  Send, %keys%
+
+  if (keys = "{Up}" || keys = "{Down}") {
+    SendPlay, %keys%
+  } else {
+    Send, %keys%
+  }
+
   Sleep, %after%
 }
 

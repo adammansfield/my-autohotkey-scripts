@@ -40,6 +40,11 @@
 
 :*?cx:;s;::SendStopWatch()
 
+GetQuarterNumber()
+{
+  return floor(A_MM / 3) + 1
+}
+
 GetWeekNumber()
 {
   return StringRight(A_YWeek, 2)
