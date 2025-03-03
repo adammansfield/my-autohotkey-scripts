@@ -303,8 +303,9 @@ OneNoteLogMonat()
       DelayedSend("{Enter}", whitespaceDelay)
     }
 
-    OneNoteLog("", "10", "", false, false)
-    DelayedSend("{Enter}", whitespaceDelay)
+    ; CONSIDER: Uncomment if need copyable log entry (for example if the timestamp is colored)
+    ;OneNoteLog("", "10", "", false, false)
+    ;DelayedSend("{Enter}", whitespaceDelay)
   }
 
   WinClip.Restore(clip)
@@ -384,7 +385,7 @@ OneNoteLogStandups()
 
       yyyyw := FormatTime(date, "YWeek")
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
-      OneNoteLog(" ", "# " yyyyw, "", false, false)
+      OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd")
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend("_Last Week Summaries (max 3):_", textDelay)

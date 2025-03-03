@@ -42,7 +42,7 @@
 
 GetQuarterNumber()
 {
-  return floor(A_MM / 3) + 1
+  return floor((A_MM - 1) / 3) + 1
 }
 
 GetWeekNumber()
