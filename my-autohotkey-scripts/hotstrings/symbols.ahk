@@ -36,11 +36,13 @@
 :*?b0cx:;sozial;::     CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
 
 ; Etc
+:*?b0cx:;blocker;::CtrlBackspaceThenSend("{U+1F6A7}", 3) ; 🚧 Construction Sign
 :*?b0cx:;cycle;::CtrlBackspaceThenSend("{U+1F501}", 3) ; 🔁
 :*?b0cx:;again;::CtrlBackspaceThenSend("{U+1F501}", 3) ; 🔁
 :*?b0cx:;weider;::CtrlBackspaceThenSend("{U+1F501}", 3) ; 🔁
 :*?b0cx:;neu;::CtrlBackspaceThenSend("{U+1F195}", 3) ; 🆕
 :*?b0cx:;new;::CtrlBackspaceThenSend("{U+1F195}", 3) ; 🆕
+:*?b0cx:;v;::CtrlBackspaceThenSend("{U+1F474}{U+1F3FB}", 3) ; 👴
 
 :*?b0cx:;halfspace;::BackspaceThenSend("{U+2009}", strlen(";halfspace;")) ; Thin Space (for padding)
 :*?b0cx:;thinspace;::BackspaceThenSend("{U+2009}", strlen(";halfspace;")) ; Thin Space (for padding)

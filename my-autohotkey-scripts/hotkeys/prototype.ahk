@@ -6,6 +6,7 @@ AlertedReload()
 {
   Tooltip("reloading my-autohotkey-scripts.ahk")
   Speak("re loading")
+  Sleep(250)
   Reload()
 }
 
