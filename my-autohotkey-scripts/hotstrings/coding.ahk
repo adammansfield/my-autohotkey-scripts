@@ -5,7 +5,7 @@
 
 :*c?:;copyright;::{#}region --[Copyright]---------------------------------------------------------
 :*c?:;constructors;::{#}region --[Constructors]----------------------------------------------
-:*c?:;namespaces;::{#}region --[Namespaces]--------------------------------------------------------
+:*c?:;namespaces;::{#}region --[Namespaces]----------------------------------------------------
 :*c?:;privateclasses;::{#}region --[Classes: Private]------------------------------------------
 :*c?:;privateconstants;::{#}region --[Constants: Private]----------------------------------------
 :*c?:;privatefields;::{#}region --[Fields: Private]-------------------------------------------
