@@ -69,12 +69,22 @@
   if (InStr(text, "stackTraceLines")) {
     result := StringUnescapeNewLine(result)
   }
+
   WinClip.Clear()
-  WinClip.SetText(result)
+  if (WinActive("- OneNote")) {
+    ; Inject empty paragraph to reset font style to the default
+    WinClip.SetHTML("<p/>" result)
+  } else {
+    WinClip.SetText(result)
+  }
   Sleep(10) ; Wait for set
   Vim.SendThenResetMode("^v")
 
-  OneNoteClearPastePopup()
+  if (WinActive("- OneNote")) {
+    OneNoteClearPastePopup()
+    DelayedSend("{Backspace}") ; Erase newline caused by empty <p/> that was used to reset font style
+    WinClip.SetText(result)
+  }
 
   return
 }
