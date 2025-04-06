@@ -68,10 +68,18 @@ OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, 
     htmlTimestamp := "<span style='color:" timecolor "'>" timestamp "</span>"
   }
 
-  ; Prepend a non-breaking space before message to retain `message` styling
-  OneNotePaste(htmlTimestamp "&nbsp;" message)
+  ; Prepend an empty paragraph before timestamp to reset formatting
+  htmlTimestamp := "<p/>" htmlTimestamp
 
-  ; Clear paste pop-up and remove the pre-pended non-breaking space (that was used to retain `message` styling)
+  ; Prepend a non-breaking space before message to retain `message` styling
+  message := "&nbsp;" message
+
+  OneNotePaste(htmlTimestamp message)
+
+  ; Send two spaces to clear the paste pop-up window, and to remove:
+  ; - newline caused by <p/> (which was used to reset font to default)
+  ; - pre-pended non-breaking space (that was used to retain `message` styling)
+  DelayedSend("{Backspace}") ;
   DelayedSend("{Backspace}") ;
   WinWaitClose, PopupHost ahk_exe onenoteim.exe,, 1 ; Wait for paste pop-up to clear
 }
