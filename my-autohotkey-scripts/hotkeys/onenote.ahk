@@ -3,6 +3,7 @@
   ^+-::OneNoteStrikeLine()
   ^+b::OneNoteBoldLine()
   ^+c::OneNoteCompleteMarkdownTask("x")
+  ^+f::OneNoteClearFormattingLine()
   ^+h::OneNoteHighlightLine()
   ^+i::OneNoteIncompleteMarkdownTask()
   ^+o::OneNoteCompleteMarkdownTask("o")
@@ -32,6 +33,17 @@ OneNotePasteAndClearPopup()
 {
   SendPlay("^v") ; Send("+{Insert}") requires 2x Esc to clear paste popup
   OneNoteClearPastePopup()
+}
+
+OneNoteClearFormattingLine()
+{
+  Sleep(10) ; Wait for hotkey up to not interfere with ribbon navigation
+  Send("{Home}+{End}")
+  DelayedSend("{Alt}", 128, 256) ; Ribbon bar
+  DelayedSend("h", 1) ; Home
+  DelayedSend("l", 1) ; Styles
+  DelayedSend("c", 1) ; Clear formatting
+  DelayedSend("{End}", 1)
 }
 
 OneNoteClearPastePopup()

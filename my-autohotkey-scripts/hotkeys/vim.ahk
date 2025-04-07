@@ -70,20 +70,20 @@
     result := StringUnescapeNewLine(result)
   }
 
+  ;if (WinActive("- OneNote")) {
+  ;  DelayedSend("{Alt}", 128) ; Ribbon bar
+  ;  DelayedSend("h", 1) ; Home
+  ;  DelayedSend("l", 1) ; Styles
+  ;  DelayedSend("c", 1) ; Clear formatting
+  ;}
+
   WinClip.Clear()
-  if (WinActive("- OneNote")) {
-    ; Inject empty paragraph to reset font style to the default
-    WinClip.SetHTML("<p/>" result)
-  } else {
-    WinClip.SetText(result)
-  }
+  WinClip.SetText(result)
   Sleep(10) ; Wait for set
   Vim.SendThenResetMode("^v")
 
   if (WinActive("- OneNote")) {
     OneNoteClearPastePopup()
-    DelayedSend("{Backspace}") ; Erase newline caused by empty <p/> that was used to reset font style
-    WinClip.SetText(result)
   }
 
   return
