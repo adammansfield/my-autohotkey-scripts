@@ -263,6 +263,7 @@ OneNoteLogMonat()
       DelayedSend(gear " ", whitespaceDelay)
     }
     DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
 
     OneNoteLog("", "00", "", false, false)
     DelayedSend("^^u"         , formatDelay) ; Underline words separately for an easy check-off by removing underline
