@@ -28,6 +28,9 @@
   :*?b0cx:;tk;::CtrlBackspaceThenSend(" - [ ] {U+1F49E} ", 3) ; Kellnermann (Shared) Task
   :*?b0cx:;tki;::CtrlBackspaceThenSend(" - [ ] {!} {U+1F49E} ", 3) ; Priority Kellnermann (Shared) Task
   :*?b0cx:;tkii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} {U+1F49E} ", 3) ; Urgent Priority Kellnermann (Shared) Task
+  :*?b0cx:;tv;::CtrlBackspaceThenSend(" - [ ] {U+1F474}{U+1F3FB} ", 3) ; Vater Task
+  :*?b0cx:;tvi;::CtrlBackspaceThenSend(" - [ ] {!} {U+1F474}{U+1F3FB} ", 3) ; Priority Vater Task
+  :*?b0cx:;tvii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} {U+1F474}{U+1F3FB} ", 3) ; Urgent Priority Vater Task
 
   ; Subtasks
   :*?b0cx:;tt;::CtrlBackspaceThenSend("    - [ ] ", 3) ; Markdown indented task (subtask)

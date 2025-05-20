@@ -79,7 +79,7 @@
 
   WinClip.Clear()
   WinClip.SetText(result)
-  Sleep(10) ; Wait for set
+  Sleep(20) ; Wait for set
   Vim.SendThenResetMode("^v")
 
   if (WinActive("- OneNote")) {
