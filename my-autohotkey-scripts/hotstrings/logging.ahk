@@ -23,8 +23,8 @@
   :*?b0cx:;ti;::CtrlBackspaceThenSend(" - [ ] {!} ", 3) ; Markdown task with ! prefix to denote priority
   :*?b0cx:;tii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} ", 3) ; Markdown task !!! prefix to denote priority and urgency 
   :*?b0cx:;ta;::CtrlBackspaceThenSend(" - [ ] {U+2699} ", 3) ; Arbeitsaufgabe
-  :*?b0cx:;tai;::CtrlBackspaceThenSend(" - [ ] {U+2699} {!} ", 3) ; Priority Arbeitsaufgabe
-  :*?b0cx:;taii;::CtrlBackspaceThenSend(" - [ ] {U+2699} {!}{!}{!} ", 3) ; Urgent Priority Arbeitsaufgabe
+  :*?b0cx:;tai;::CtrlBackspaceThenSend(" - [ ] {!} {U+2699} ", 3) ; Priority Arbeitsaufgabe
+  :*?b0cx:;taii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} {U+2699} ", 3) ; Urgent Priority Arbeitsaufgabe
   :*?b0cx:;tk;::CtrlBackspaceThenSend(" - [ ] {U+1F49E} ", 3) ; Kellnermann (Shared) Task
   :*?b0cx:;tki;::CtrlBackspaceThenSend(" - [ ] {!} {U+1F49E} ", 3) ; Priority Kellnermann (Shared) Task
   :*?b0cx:;tkii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} {U+1F49E} ", 3) ; Urgent Priority Kellnermann (Shared) Task
