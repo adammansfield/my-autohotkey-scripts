@@ -4686,7 +4686,7 @@
   ::warrriors::warriors
   ::wass::was
   ::weas::was
-  ::ws::was
+ ;::ws::was
   ::wa snot::was not
   ::wasnt::wasn't
   ::wya::way

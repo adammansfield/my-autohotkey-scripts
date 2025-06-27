@@ -46,13 +46,16 @@
 
 ;; Navigate/Highlight up or down depending on mode (vim key j and k).
 #if WinActive("ahk_exe ONENOTE.EXE")
-; WORKAROUND: Send("{Up}") and Send("{Down}") does not work in OneNote [2025-01-23](https://stackoverflow.com/questions/44170454/up-down-key-not-working-in-onenote-2016-for-autohotkey)
-; 1. C:\Program Files\AutoHotkey\UX\install.ahk
-; 2. Launch settings
-; 3. Enable UI Access
-; 4. SendPlay("{Up}") and SendPlay("{Down}") should now work in OneNote with AHK UI Access enabled
->!j::Vim.ModeDependentSendPlay("{Down}")
->!k::Vim.ModeDependentSendPlay("{Up}")
+; WORKAROUND: Send("{Up}") and Send("{Down}") do not work in OneNote [2025-06-27](https://gist.github.com/BlueDrink9/35fcf9e18bf52111fce20488e6484efb)
+; A previous workaround was SendPlay("{Up}") and SendPlay("{Down}") with UI Access enabled through `%ProgramFiles%\AutoHotkey\UX\install.ahk`.
+; Another workaround is calling AutoIT compiled scripts containing Send("{UP}") and Send("{DOWN}"), but this does not work with these hotkeys as we 
+; are holding down RightAlt which causes odd behaviour.
+;>!j::Vim.ModeDependentSend("{Down}") ; Ideal hotkey if there were no OneNote issues
+;>!j::Vim.ModeDependentSendPlay("{Down}") ; No longer works as of 2025-06-27
+>!j::Vim.ModeDependentSend("^{Down}") ; Not ideal as it is equivalent to {Home}{Down}
+;>!k::Vim.ModeDependentSend("{Up}") ; Ideal hotkey if there were no OneNote issues
+;>!k::Vim.ModeDependentSendPlay("{Up}") ; No longer works as of 2025-06-27
+>!k::Vim.ModeDependentSend("^{Up}") ; Not ideal as it is equivalent to {Home}{Up}
 #if
 >!j::Vim.ModeDependentSend("{Down}")
 >!k::Vim.ModeDependentSend("{Up}")
