@@ -55,7 +55,12 @@
 >!j::Vim.ModeDependentSend("^{Down}") ; Not ideal as it is equivalent to {Home}{Down}
 ;>!k::Vim.ModeDependentSend("{Up}") ; Ideal hotkey if there were no OneNote issues
 ;>!k::Vim.ModeDependentSendPlay("{Up}") ; No longer works as of 2025-06-27
->!k::Vim.ModeDependentSend("^{Up}") ; Not ideal as it is equivalent to {Home}{Up}
+>!k::
+{
+  Vim.ModeDependentSend("{Home}") ; Send {Home} before ^{Up} so that it is more consistent, otherwise, if cursor is not at home, then pressing Ctrl-Up first goes to home
+  Vim.ModeDependentSend("^{Up}") ; Not ideal as ^{Up} is equivalent to {Home}{Up}
+  return
+}
 #if
 >!j::Vim.ModeDependentSend("{Down}")
 >!k::Vim.ModeDependentSend("{Up}")
@@ -236,13 +241,13 @@
 ;;Space (vim key space).
 >!Space::Vim.SendThenResetMode("{Space}")
 
-;; Remap Ctrl-Shift-z to Ctrl-z for same as QWERTY undo.
+;; Remap Ctrl-Shift-; (DVORAK) to Ctrl-z for same as QWERTY undo.
 ^+;::Send("^z")
 
-;; Remap Ctrl-Shift-x to Ctrl-z for same as QWERTY cut.
+;; Remap Ctrl-Shift-q (DVORAK) to Ctrl-x for same as QWERTY cut.
 ^+q::Send("^x")
 
-;; Remap Ctrl-Shift-z to Ctrl-c for same as QWERTY copy.
+;; Remap Ctrl-Shift-j (DVORAK) to Ctrl-c for same as QWERTY copy.
 ^+j::
 {
   if (WinActive("Problems - Google Chrome") or WinActive("LeetCode - Google Chrome"))
@@ -256,7 +261,7 @@
   return
 }
 
-;; Remap Ctrl-Shift-z to Ctrl-v for same as QWERTY paste.
+;; Remap Ctrl-Shift-k (DVORAK) to Ctrl-v for same as QWERTY paste.
 ^+k::Send("^v")
 
 ;; The modes of the vim everywhere keyboard.

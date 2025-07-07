@@ -74,6 +74,7 @@
 :*?b0cx:sgerngeschehen;::     CtrlBackspaceThenSend("{U+041D}{U+0435}{U+043C}{U+0430} {U+043D}{U+0430} {U+0447}{U+0435}{U+043C}{U+0443}"                       , 2) ; нема на чему
 :*?b0cx:sgut;::               CtrlBackspaceThenSend("{U+0434}{U+043E}{U+0431}{U+0440}{U+043E}"                                                                 , 2) ; добро
 :*?b0cx:sgutenmorgen;::       CtrlBackspaceThenSend("{U+0434}{U+043E}{U+0431}{U+0440}{U+043E} {U+0458}{U+0443}{U+0442}{U+0440}{U+043E}"                        , 2) ; добро јутро
+:*?b0cx:sgutentag;::          CtrlBackspaceThenSend("{U+0434}{U+043E}{U+0431}{U+0440}{U+043E} {U+0434}{U+0430}{U+043D}"                                        , 2) ; добро дан
 :*?b0cx:shallo;::             CtrlBackspaceThenSend("{U+0417}{U+0434}{U+0440}{U+0430}{U+0432}{U+043E}"                                                         , 2) ; Здраво
 :*?b0cx:sjederzeit;::         CtrlBackspaceThenSend("{U+0423} {U+0441}{U+0432}{U+0430}{U+043A}{U+043E} {U+0434}{U+043E}{U+0431}{U+0430}"                       , 2) ; У свако доба
 :*?b0cx:sichweissesnicht;::   CtrlBackspaceThenSend("{U+043D}{U+0435} {U+0437}{U+043D}{U+0430}{U+043C}"                                                        , 2) ; не знам
