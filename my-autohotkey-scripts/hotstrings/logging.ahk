@@ -146,6 +146,7 @@ OneNoteLogMonat()
   textDelay        := 10  ; Delay for sending text
   whitespaceDelay  := 275 ; Delay for sending new lines or tabs
 
+  OneNoteClearFormattingLine()
   SendClearLine()
 
   ; TODO: add configurable scheduled Tasks [2023-08-03]
@@ -344,6 +345,7 @@ OneNoteLogStandups()
   textDelay        := 10  ; Delay for sending text
   whitespaceDelay  := 275 ; Delay for sending new lines or tabs
 
+  OneNoteClearFormattingLine()
   SendClearLine()
 
   yyyymmdd  := InputBox("Enter start date in format of yyyy-mm-dd",,, 200, 100,,,,, A_YYYY "-" A_MM "-" A_DD)
