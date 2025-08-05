@@ -32,8 +32,10 @@
 :*?b0cx:;gear;::       CtrlBackspaceThenSend("{U+2699} " , 3) ; ⚙  
 :*?b0cx:;k;::          CtrlBackspaceThenSend("{U+1F49E} ", 3) ; 💞
 :*?b0cx:;kellnermann;::CtrlBackspaceThenSend("{U+1F49E} ", 3) ; 💞
+:*?b0cx:;star;::       CtrlBackspaceThenSend("{U+2B50} " , 3) ; ⭐
 :*?b0cx:;social;::     CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
 :*?b0cx:;sozial;::     CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
+:*?b0cx:;z;::          CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
 
 ; Etc
 :*?b0cx:;blocker;::CtrlBackspaceThenSend("{U+1F6A7}", 3) ; 🚧 Construction Sign
