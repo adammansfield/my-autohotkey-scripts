@@ -28,9 +28,12 @@
   :*?b0cx:;tk;::CtrlBackspaceThenSend(" - [ ] {U+1F49E} ", 3) ; Kellnermann (Shared) Task
   :*?b0cx:;tki;::CtrlBackspaceThenSend(" - [ ] {!} {U+1F49E} ", 3) ; Priority Kellnermann (Shared) Task
   :*?b0cx:;tkii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} {U+1F49E} ", 3) ; Urgent Priority Kellnermann (Shared) Task
-  :*?b0cx:;tv;::CtrlBackspaceThenSend(" - [ ] {U+1F474}{U+1F3FB} ", 3) ; Vater Task
-  :*?b0cx:;tvi;::CtrlBackspaceThenSend(" - [ ] {!} {U+1F474}{U+1F3FB} ", 3) ; Priority Vater Task
-  :*?b0cx:;tvii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} {U+1F474}{U+1F3FB} ", 3) ; Urgent Priority Vater Task
+  :*?b0cx:;tp;::CtrlBackspaceThenSend(" - [ ] {U+1F968} ", 3) ; Persönliche Aufgabe
+  :*?b0cx:;tpi;::CtrlBackspaceThenSend(" - [ ] {!} {U+1F968} ", 3) ; Priority Persönliche Aufgabe
+  :*?b0cx:;tpii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} {U+1F968} ", 3) ; Urgent Priority Persönliche Aufgabe
+  :*?b0cx:;tz;::CtrlBackspaceThenSend(" - [ ] {U+1F4AC} ", 3) ; Sozial Aufgabe
+  :*?b0cx:;tzi;::CtrlBackspaceThenSend(" - [ ] {!} {U+1F4AC} ", 3) ; Priority Sozial Aufgabe
+  :*?b0cx:;tzii;::CtrlBackspaceThenSend(" - [ ] {!}{!}{!} {U+1F4AC} ", 3) ; Urgent Priority Sozial Aufgabe
 
   ; Subtasks
   :*?b0cx:;tt;::CtrlBackspaceThenSend("    - [ ] ", 3) ; Markdown indented task (subtask)
@@ -135,8 +138,10 @@ OneNoteLogMonat()
   crying  := "{U+1F622}" ; 😢
   moods   := grin " " smile " " neutral " " sad " " crying
 
+  brezel  := "{U+1F968}" ; 🥨 Brezel
   dankbar := "{U+1F64F}" ; 🙏 Person with Folded Hands
   gear    := "{U+2699}"  ; ⚙  Gear
+  star    := "{U+2B50}"  ; ⭐ Star
 
   markdownBar  := "---------------------------------------------------------------" ; Requires preceding new line
   markdownTask := " - [ ] " ; Space before '-' so that OneNote does not automatically format it as a list
@@ -144,7 +149,7 @@ OneNoteLogMonat()
   markdownBarDelay := 50  ; Delay before and after sending `markdownBar`
   formatDelay      := 20  ; Delay for formatting
   textDelay        := 10  ; Delay for sending text
-  whitespaceDelay  := 275 ; Delay for sending new lines or tabs
+  whitespaceDelay  := 300 ; Delay for sending new lines or tabs
 
   OneNoteClearFormattingLine()
   SendClearLine()
@@ -217,6 +222,10 @@ OneNoteLogMonat()
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend(markdownTask, textDelay) ; Still highlighted from above
+      DelayedSend(star " ", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      DelayedSend(markdownTask, textDelay) ; Still highlighted from above
       DelayedSend("{!} ", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
     }
@@ -233,6 +242,10 @@ OneNoteLogMonat()
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
       OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd")
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      DelayedSend(markdownTask, textDelay) ; Still highlighted from above
+      DelayedSend(star " ", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend(markdownTask, textDelay) ; Still highlighted from above
@@ -255,15 +268,16 @@ OneNoteLogMonat()
     DelayedSend("{Enter}", whitespaceDelay)
 
     DelayedSend(markdownTask, textDelay) ; Still highlighted from above
-    DelayedSend("{!} ", textDelay)
+    DelayedSend("{!} " brezel " ", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend(markdownTask, textDelay)
     if (longDay = "Monday" || longDay = "Tuesday" || longDay = "Wednesday" || longDay = "Thursday" || longDay = "Friday")
     {
-      DelayedSend(gear " ", whitespaceDelay)
+      DelayedSend(markdownTask, textDelay)
+      DelayedSend("{!} " gear " ", whitespaceDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
     }
-    DelayedSend("{Enter}", whitespaceDelay)
+
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
 
     OneNoteLog("", "00", "", false, false)
@@ -276,19 +290,11 @@ OneNoteLogMonat()
     DelayedSend("^^u"         , formatDelay)
     DelayedSend(", "          , textDelay  )
     DelayedSend("^^u"         , formatDelay)
-    DelayedSend("Gesicht"     , textDelay)
-    DelayedSend("^^u"         , formatDelay)
-    DelayedSend(", "          , textDelay  )
-    DelayedSend("^^u"         , formatDelay)
     DelayedSend("K{U+00FC}che", textDelay)
     DelayedSend("^^u"         , formatDelay)
     DelayedSend(", "          , textDelay  )
     DelayedSend("^^u"         , formatDelay)
     DelayedSend("Katzenstreu" , textDelay)
-    DelayedSend("^^u"         , formatDelay)
-    DelayedSend(", "          , textDelay  )
-    DelayedSend("^^u"         , formatDelay)
-    DelayedSend("Seedlang"    , textDelay)
     DelayedSend("^^u"         , formatDelay)
     DelayedSend(", "          , textDelay  )
     DelayedSend("^^u"         , formatDelay)
