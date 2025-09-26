@@ -404,6 +404,39 @@ OneNoteLogStandups()
       DelayedSend("{Enter}", whitespaceDelay)
       DelayedSend(" 3. ``features`` summary *(wid,wid)*", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
+
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend("_Priorities:_", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend(" 1.  ", textDelay)
+      OneNotePaste("<span style='color:#538135'>_//_</span>", false)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      ; Clear formating
+      WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
+      Sleep(2) ; Wait for clear
+      WinClip.SetText(" 2. ") ; Set text to clear green color formatting
+      Sleep(2) ; Wait for copy
+      WinClip.Paste()
+      Sleep(2) ; Wait for paste
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      DelayedSend(" 3. ", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      OneNotePaste("<span style='color:#7F7F7F'> 4.  </span>", false)
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend(" 5. ", whitespaceDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+
+      ; Clear formating
+      WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
+      Sleep(2) ; Wait for clear
+      WinClip.SetText(" ") ; Set text to clear green color formatting
+      Sleep(2) ; Wait for copy
+      WinClip.Paste()
+      Sleep(2) ; Wait for paste
+      DelayedSend("{Enter}", whitespaceDelay)
     }
 
     DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
@@ -444,42 +477,6 @@ OneNoteLogStandups()
     ;DelayedSend(working " *wid* ``feature`` item", textDelay)
     ;DelayedSend("{Enter}", whitespaceDelay)
     ;DelayedSend("{Enter}", whitespaceDelay)
-
-    ; Monday specific entry
-    if (i = 1 || longDay = "Monday")
-    {
-      DelayedSend("_Priorities:_", textDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 1.  ", textDelay)
-      OneNotePaste("<span style='color:#538135'>_//_</span>", false)
-      DelayedSend("{Enter}", whitespaceDelay)
-
-      ; Clear formating
-      WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
-      Sleep(2) ; Wait for clear
-      WinClip.SetText(" 2. ") ; Set text to clear green color formatting
-      Sleep(2) ; Wait for copy
-      WinClip.Paste()
-      Sleep(2) ; Wait for paste
-      DelayedSend("{Enter}", whitespaceDelay)
-
-      DelayedSend(" 3. ", textDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-
-      OneNotePaste("<span style='color:#7F7F7F'> 4.  </span>", false)
-      DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 5. ", whitespaceDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-
-      ; Clear formating
-      WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
-      Sleep(2) ; Wait for clear
-      WinClip.SetText(" ") ; Set text to clear green color formatting
-      Sleep(2) ; Wait for copy
-      WinClip.Paste()
-      Sleep(2) ; Wait for paste
-      DelayedSend("{Enter}", whitespaceDelay)
-    }
 
     DelayedSend("_Stretch:_", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
