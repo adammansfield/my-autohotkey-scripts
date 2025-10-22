@@ -119,16 +119,9 @@ ToggleAlwaysOnTop()
   {
     ; Assume that mouse is hovering over a thread
     Send("{RButton}") ; Right click for right-click menu
-
     Sleep(128) ; Wait for pop-up menu
-    Send("{Down}") ; Highlight `Pin`
 
-    Sleep(32) ; Wait to highlight `Pin`
-    Send("{Down}") ; Highlight `Rename`
-    Sleep(32) ; Wait to highlight `Rename`
-    Send("{Down}") ; Highlight `Regenerate Title`
-    Sleep(32) ; Wait to highlight `Regenerate Title`
-    Send("{Down}") ; Highlight `Delete`
+    Send("{Up}") ; Highlight `Delete`
     Sleep(32) ; Wait to highlight `Delete`
     Send("{Enter}") ; Select `Delete`
 
