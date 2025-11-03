@@ -147,7 +147,6 @@ OneNoteLogMonat()
   markdownBar  := "---------------------------------------------------------------" ; Requires preceding new line
   markdownTask := " - [ ] " ; Space before '-' so that OneNote does not automatically format it as a list
 
-  markdownBarDelay := 50  ; Delay before and after sending `markdownBar`
   formatDelay      := 20  ; Delay for formatting
   textDelay        := 10  ; Delay for sending text
   whitespaceDelay  := 300 ; Delay for sending new lines or tabs
@@ -212,10 +211,8 @@ OneNoteLogMonat()
     if (i = 1)
     {
       DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
-      OneNotePaste("<span style='color:#538135' />", false)
-      DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-      DelayedSend(markdownBar, markdownBarDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
+      OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
+      DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
       yyyymm := FormatTime(date, "yyyyMM")
       OneNoteLog(" ", "# " yyyymm, "", false, false, "#3c87cd")
@@ -234,10 +231,8 @@ OneNoteLogMonat()
     if (i = 1 || longDay = "Monday")
     {
       DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
-      OneNotePaste("<span style='color:#538135' />", false)
-      DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-      DelayedSend(markdownBar, markdownBarDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
+      OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
+      DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
       yyyyw := FormatTime(date, "YWeek")
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
@@ -255,13 +250,11 @@ OneNoteLogMonat()
     }
 
     DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
-    OneNotePaste("<span style='color:#538135' />", false)
-    DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-    DelayedSend(markdownBar, markdownBarDelay)
-    DelayedSend("{Enter}", whitespaceDelay)
+    OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
+    DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
     OneNoteLog(ToDeutschDay(longDay), "## " date, "", false, false, "#3c87cd")
-    DelayedSend(" " moods, textDelay)
+    DelayedSend(" " moods, 2 * textDelay, textDelay)
     DelayedSend(" TAGEBUCHE", textDelay)
     DelayedSend(" " dankbar, textDelay)
     DelayedSend(" DANKBAR", textDelay)
@@ -347,7 +340,6 @@ OneNoteLogStandups()
 
   markdownBar := "---------------------------------------------------------------"
 
-  markdownBarDelay := 100 ; Delay before and after sending `markdownBar`
   formatDelay      := 20  ; Delay for formatting
   textDelay        := 10  ; Delay for sending text
   whitespaceDelay  := 275 ; Delay for sending new lines or tabs
@@ -387,10 +379,8 @@ OneNoteLogStandups()
     if (i = 1 || longDay = "Monday")
     {
       DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
-      OneNotePaste("<span style='color:#538135' />", false)
-      DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-      DelayedSend(markdownBar, markdownBarDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
+      OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
+      DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
       yyyyw := FormatTime(date, "YWeek")
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
@@ -441,10 +431,8 @@ OneNoteLogStandups()
     }
 
     DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
-    OneNotePaste("<span style='color:#538135' />", false)
-    DelayedSend("{Backspace}") ; Remove extra space from HTML formatting
-    DelayedSend(markdownBar, markdownBarDelay)
-    DelayedSend("{Enter}", whitespaceDelay)
+    OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
+    DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
     OneNoteLog(ToDeutschDay(longDay), "## " date "T1120", "", false, false, "#3c87cd")
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
