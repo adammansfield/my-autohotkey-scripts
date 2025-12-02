@@ -52,7 +52,8 @@ OneNoteClearPastePopup()
   {
     Sleep(1) ; Wait for paste pop-up
     Send("{Esc}") ; Clear paste pop-up
-    Sleep(1) ; Wait for clearing paste pop-up
+    WinWaitClose, PopupHost ahk_exe onenoteim.exe,, 1 ; Wait for paste pop-up to clear
+    Sleep(1) ; Wait for after clearing paste pop-up
   }
 }
 

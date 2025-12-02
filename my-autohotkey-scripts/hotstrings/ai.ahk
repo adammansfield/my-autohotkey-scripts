@@ -73,5 +73,15 @@ SendRolePrompt(role)
   . "`n"
   . "``````"
   . "`n"
-  WinClip.Paste(prompt)
+
+  WinClip.Snap(clip)
+  Sleep(2) ; Wait for snap
+  WinClip.Clear()
+  Sleep(4) ; Wait for clear
+  WinClip.SetText(prompt)
+  Sleep(32) ; Wait for copy
+  WinClip.Paste()
+  Sleep(2) ; Wait for paste
+  WinClip.Restore(clip)
+  Sleep(2) ; Wait for restore of snap
 }

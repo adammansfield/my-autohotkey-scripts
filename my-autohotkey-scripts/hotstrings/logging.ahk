@@ -41,13 +41,18 @@
 }
 #if
 
-OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, clearLine = true, timecolor = "default", roundToMin = 10)
+OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, clearLine = true, timecolor = "", roundToMin = 10, preserveClipboard = true)
 {
   ; Original log timestamp blue: "#3c87cd" [2025-02-19]
   ; Original sublog timestamp blue: "#3cb1cd" [2025-02-19]
 
   if (timestamp = "")
   {
+    if (roundToMin = "" || roundToMin = 0)
+    {
+      roundToMin := 10
+    }
+
     timestamp := RoundMin(A_Now, roundToMin, timeformat) ; Round to the nearest given minutes
   }
 
@@ -61,7 +66,7 @@ OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, 
     SendClearLine()
   }
 
-  if (timecolor = "default")
+  if (timecolor = "")
   {
     Send(timestamp " " message)
   }
@@ -70,11 +75,10 @@ OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, 
     htmlTimestamp := "<span style='color:" timecolor "'>" timestamp "</span>"
 
     ; Prepend a non-breaking space before message to retain `message` styling
-    OneNotePaste(htmlTimestamp "&nbsp;" message)
+    OneNotePaste(htmlTimestamp "&nbsp;" message, preserveClipboard)
 
-    ; Clear paste pop-up and remove the pre-pended non-breaking space (that was used to retain `message` styling)
-    DelayedSend("{Backspace}") ;
-    WinWaitClose, PopupHost ahk_exe onenoteim.exe,, 1 ; Wait for paste pop-up to clear
+    ; Remove unexplained extra space after the message when pasting HTML
+    DelayedSend("{Backspace}", 2, 1) ;
   }
 }
 
@@ -215,7 +219,7 @@ OneNoteLogMonat()
       DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
       yyyymm := FormatTime(date, "yyyyMM")
-      OneNoteLog(" ", "# " yyyymm, "", false, false, "#3c87cd")
+      OneNoteLog(" ", "# " yyyymm, "", false, false, "#3c87cd", 0, false)
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
@@ -236,7 +240,7 @@ OneNoteLogMonat()
 
       yyyyw := FormatTime(date, "YWeek")
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
-      OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd")
+      OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd", 0, false)
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
@@ -253,7 +257,7 @@ OneNoteLogMonat()
     OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
     DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "## " date, "", false, false, "#3c87cd")
+    OneNoteLog(ToDeutschDay(longDay), "## " date, "", false, false, "#3c87cd", 0, false)
     DelayedSend(" " moods, 2 * textDelay, textDelay)
     DelayedSend(" TAGEBUCHE", textDelay)
     DelayedSend(" " dankbar, textDelay)
@@ -274,7 +278,7 @@ OneNoteLogMonat()
 
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
 
-    OneNoteLog("", "00", "", false, false)
+    OneNoteLog("", "00", "", false, false, "", 0, false)
     DelayedSend("^^u"         , formatDelay) ; Underline words separately for an easy check-off by removing underline
     DelayedSend("Pillen"      , textDelay  )
     DelayedSend("^^u"         , formatDelay)
@@ -292,6 +296,10 @@ OneNoteLogMonat()
     DelayedSend("^^u"         , formatDelay)
     DelayedSend(", "          , textDelay  )
     DelayedSend("^^u"         , formatDelay)
+    DelayedSend("B{U+00FC}ro" , textDelay)
+    DelayedSend("^^u"         , formatDelay)
+    DelayedSend(", "          , textDelay  )
+    DelayedSend("^^u"         , formatDelay)
     DelayedSend("plane"       , textDelay)
     DelayedSend("^^u"         , formatDelay)
     DelayedSend(", "          , textDelay  )
@@ -299,14 +307,10 @@ OneNoteLogMonat()
 
     if (longDay = "Monday" && longDay = "Thursday")
     {
-      OneNoteLog("", "T0", "", false, false)
+      OneNoteLog("", "T0", "", false, false, "", 0, false)
       DelayedSend("^^uPimsleur^^u"  , textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
     }
-
-    ; CONSIDER: Uncomment if need copyable log entry (for example if the timestamp is colored)
-    ;OneNoteLog("", "10", "", false, false)
-    ;DelayedSend("{Enter}", whitespaceDelay)
   }
 
   WinClip.Restore(clip)
@@ -380,11 +384,11 @@ OneNoteLogStandups()
     {
       DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
       OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
-      DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
+      DelayedSend("{Enter}", whitespaceDelay, 2 * whitespaceDelay)
 
       yyyyw := FormatTime(date, "YWeek")
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
-      OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd")
+      OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd", 0, false)
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend("_Last Week Summaries (max 3):_", textDelay)
@@ -405,11 +409,12 @@ OneNoteLogStandups()
 
       ; Clear formating
       WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
-      Sleep(2) ; Wait for clear
+      Sleep(4) ; Wait for clear
       WinClip.SetText(" 2. ") ; Set text to clear green color formatting
-      Sleep(2) ; Wait for copy
+      Sleep(64) ; Wait for copy
       WinClip.Paste()
-      Sleep(2) ; Wait for paste
+      Sleep(4) ; Wait for paste
+      OneNoteClearPastePopup()
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend(" 3. ", textDelay)
@@ -422,21 +427,21 @@ OneNoteLogStandups()
 
       ; Clear formating
       WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
-      Sleep(2) ; Wait for clear
+      Sleep(4) ; Wait for clear
       WinClip.SetText(" ") ; Set text to clear green color formatting
-      Sleep(2) ; Wait for copy
+      Sleep(64) ; Wait for copy
       WinClip.Paste()
-      Sleep(2) ; Wait for paste
-      DelayedSend("{Enter}", whitespaceDelay)
+      Sleep(4) ; Wait for paste
+      OneNoteClearPastePopup()
     }
 
-    DelayedSend("{Enter}", whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
+    DelayedSend("{Enter}", 2 * whitespaceDelay, whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
     OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
     DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "## " date "T1120", "", false, false, "#3c87cd")
+    OneNoteLog(ToDeutschDay(longDay), "## " date "T1120", "", false, false, "#3c87cd", 0, false)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
-    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("{Enter}", 2 * whitespaceDelay)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
 
     ;DelayedSend("{Enter}", whitespaceDelay)
@@ -457,7 +462,14 @@ OneNoteLogStandups()
     ;}
 
     ;DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend(neu working done removed again defer " [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", textDelay) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+    DelayedSend(neu, textDelay)
+    DelayedSend(working, textDelay)
+    DelayedSend(done, textDelay)
+    DelayedSend(removed, textDelay)
+    DelayedSend(again, textDelay)
+    DelayedSend(defer, textDelay, 4 * textDelay)
+    OneNotePaste(" [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
@@ -528,10 +540,10 @@ OneNotePaste(html, preserveClipboard = true)
   Sleep(4) ; Wait for clear
 
   WinClip.SetHTML(html)
-  Sleep(32) ; Wait for copy
+  Sleep(64) ; Wait for copy
 
   WinClip.Paste()
-  Sleep(2) ; Wait for paste
+  Sleep(4) ; Wait for paste
 
   OneNoteClearPastePopup()
 
