@@ -224,7 +224,7 @@ OneNoteLogMonat()
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend(markdownTask, textDelay) ; Still highlighted from above
-      DelayedSend(star " ", textDelay)
+      DelayedSend(star " _", textDelay) ; Append an underscore to retain normal font, otherwise, the star followed by just a space becomes `Segoe UI Emoji` font
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend(markdownTask, textDelay) ; Still highlighted from above
@@ -245,7 +245,7 @@ OneNoteLogMonat()
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend(markdownTask, textDelay) ; Still highlighted from above
-      DelayedSend(star " ", textDelay)
+      DelayedSend(star " _", textDelay) ; Append an underscore to retain normal font, otherwise, the star followed by just a space becomes `Segoe UI Emoji` font
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend(markdownTask, textDelay) ; Still highlighted from above
