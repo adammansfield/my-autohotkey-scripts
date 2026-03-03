@@ -3,6 +3,7 @@
 #include my-autohotkey-scripts/hotkeys/display.ahk
 #include my-autohotkey-scripts/hotkeys/etc.ahk
 #include my-autohotkey-scripts/hotkeys/gnucash.ahk
+#include my-autohotkey-scripts/hotkeys/obsidian.ahk
 #include my-autohotkey-scripts/hotkeys/onenote.ahk
 #include my-autohotkey-scripts/hotkeys/prototype.ahk
 #include my-autohotkey-scripts/hotkeys/vim.ahk
