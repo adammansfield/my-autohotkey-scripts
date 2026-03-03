@@ -138,7 +138,7 @@ OneNoteLogMonat()
   grin    := "{U+1F601}" ; 😁
   smile   := "{U+1F642}" ; 🙂
   neutral := "{U+1F610}" ; 😐
-  sad     := "{U+2639}"  ; ☹️
+  sad     := "{U+1F641}" ; 🙁
   crying  := "{U+1F622}" ; 😢
   moods   := grin " " smile " " neutral " " sad " " crying
 
@@ -148,7 +148,7 @@ OneNoteLogMonat()
   star    := "{U+2B50}"  ; ⭐ Star
   nbSpace := "{U+00A0}"  ; Non-Breaking Space
 
-  markdownBar  := "---------------------------------------------------------------" ; Requires preceding new line
+  markdownBar  := "--------------------------------------------" ; Requires preceding new line
   markdownTask := " - [ ] " ; Space before '-' so that OneNote does not automatically format it as a list
 
   formatDelay      := 20  ; Delay for formatting
@@ -240,7 +240,7 @@ OneNoteLogMonat()
 
       yyyyw := FormatTime(date, "YWeek")
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
-      OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd", 0, false)
+      OneNoteLog(" ", "# ==" yyyyw, "", false, false, "#3c87cd", 0, false)
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
@@ -257,11 +257,7 @@ OneNoteLogMonat()
     OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
     DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "## " date, "", false, false, "#3c87cd", 0, false)
-    DelayedSend(" " moods, 2 * textDelay, textDelay)
-    DelayedSend(" TAGEBUCHE", textDelay)
-    DelayedSend(" " dankbar, textDelay)
-    DelayedSend(" DANKBAR", textDelay)
+    OneNoteLog(ToDeutschDay(longDay), "## ==" date, "", false, false, "#3c87cd", 0, false)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
     DelayedSend("{Enter}", whitespaceDelay)
 
@@ -305,12 +301,13 @@ OneNoteLogMonat()
     DelayedSend(", "          , textDelay  )
     DelayedSend("{Enter}", whitespaceDelay)
 
-    if (longDay = "Monday" && longDay = "Thursday")
-    {
-      OneNoteLog("", "T0", "", false, false, "", 0, false)
-      DelayedSend("^^uPimsleur^^u"  , textDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-    }
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend(moods, 2 * textDelay, textDelay)
+    DelayedSend(" {{}tagebuche{}}", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend(dankbar, textDelay)
+    DelayedSend(" {{}dankbar{}}", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
   }
 
   WinClip.Restore(clip)

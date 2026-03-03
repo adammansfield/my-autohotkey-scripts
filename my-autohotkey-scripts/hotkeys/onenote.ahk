@@ -1,17 +1,17 @@
 #if WinActive("- OneNote")
 {
+  ^a::OneNoteToggleMarkdownTask()
   ^+-::OneNoteStrikeLine()
   ^+b::OneNoteBoldLine()
-  ^+c::OneNoteCompleteMarkdownTask("x")
-  ^+f::OneNoteClearFormattingLine()
   ^+h::OneNoteHighlightLine()
-  ^+i::OneNoteIncompleteMarkdownTask()
-  ^+o::OneNoteCompleteMarkdownTask("o")
-  ^+p::OneNotePostponeTask()
+  ^+c::MsgBox("OBSOLETE: Use Ctrl-A for cross-compatibility with Obsidian")
+  ^+i::MsgBox("OBSOLETE: Use Ctrl-A for cross-compatibility with Obsidian")
+  ^+o::MsgBox("OBSOLETE: Use Ctrl-A for cross-compatibility with Obsidian")
+
+  ^+f::OneNoteClearFormattingLine()
   ^+r::Send("11000 - " clipboard " = ")
   ^+t::OneNoteSetTimestampColor()
   ^+u::OneNoteUnderlineLine()
-  ^+x::OneNoteCompleteMarkdownTask("x")
   $^v::OneNotePasteAndClearPopup()
   F5::Send("+{F9}") ; Refresh
 }
@@ -57,48 +57,55 @@ OneNoteClearPastePopup()
   }
 }
 
-OneNoteCompleteMarkdownTask(charInBrackets)
+OneNoteToggleMarkdownTask()
 {
-  ; Completes a Markdown task (assuming the line starts with a Markdown task)
-  ; Equivalent Vim Substitute Command: s/^ - [.]/ - [x]/
-
+  ; Toggles a Markdown task (assumes that the line starts with a Markdown task)
   ; ^{Right 2}{Right} works for incomplete/complete and indented tasks
   ; ` - [ ] `
   ; ` - [x] `
+  ; ` - [/] `
+  ; ` - [-] `
   ; `    - [ ] `
   ; `    - [x] `
+  ; `    - [/] `
+  ; `    - [-] `
   ; `        - [ ] `
   ; `        - [x] `
-  DelayedSend("{Home}^{Right 2}{Right}", 1) ; Slight delay for movement
-  DelayedSend("{Delete}", 2) ; Extra delay for editting as OneNote has custom input for syncing changes
-  DelayedSend(charInBrackets, 2)
+  ; `        - [/] `
+  ; `        - [-] `
+  WinClip.Snap(clip)
+  Sleep(1) ; Wait for snap
+  WinClip.Clear()
+  Sleep(1) ; Wait for clear
 
-  SelectLineThenSend("^-^!h") ; Strikethrough and unhighlight
-}
+  DelayedSend("{Home}^{Right 2}{Right}") ; Move cursor to after `- [`
+  DelayedSend("+{Right}") ; Select character in between [ ]
+  DelayedSend("^x") ; Cut character in between [ ] into clipboard
+  ClipWait, 3, 0 ; Waits until the clipboard contains text.
 
-OneNoteIncompleteMarkdownTask()
-{
-  ; Incompletes a Markdown task (assuming the line starts with a Markdown task)
-  ; Equivalent Vim Substitute Command: s/^ - [.]/ - [ ]/
+  currentStatus := clipboard
+  WinClip.Restore(clip)
+  Sleep(1) ; Wait for restore of snap
 
-  ; ^{Right 2}{Right} works for incomplete/complete and indented tasks
-  ; ` - [ ] `
-  ; ` - [x] `
-  ; `    - [ ] `
-  ; `    - [x] `
-  ; `        - [ ] `
-  ; `        - [x] `
-  DelayedSend("{Home}^{Right 2}{Right}", 1) ; Slight delay for movement
-  DelayedSend("{Delete}", 2) ; Extra delay for editting as OneNote has custom input for syncing changes
-  DelayedSend(" ", 2)
+  if (currentStatus == " ") {
+    nextStatus := "x"
+  } else if (currentStatus == "x") {
+    nextStatus := "/"
+  } else if (currentStatus == "/") {
+    nextStatus := "-"
+  } else if (currentStatus == "-") {
+    nextStatus := " "
+  } else {
+    throw Exception("Unkown task status: ``" currentStatus "`` (Expected: ' ', 'x', '/', '-')")
+  }
 
-  SelectLineThenSend("^-^!h") ; Unstrikethrough and highlight
-}
-
-; Strikethrough and unhighlight line
-OneNotePostponeTask()
-{
-  SelectLineThenSend("^-^!h")
+  Send(nextStatus)
+  if (nextStatus == "x" || nextStatus == " ") {
+    DelayedSend("{Home}+{End}")
+    DelayedSend("^-")  ; Toggle strikethrough
+    DelayedSend("^!h") ; Toggle highlight
+  }
+  DelayedSend("{End}")
 }
 
 OneNoteHighlightLine()
