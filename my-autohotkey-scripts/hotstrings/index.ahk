@@ -7,4 +7,5 @@
 #include my-autohotkey-scripts/hotstrings/etc.ahk
 #include my-autohotkey-scripts/hotstrings/languages.ahk
 #include my-autohotkey-scripts/hotstrings/logging.ahk
+#include my-autohotkey-scripts/hotstrings/markdown.ahk
 #include my-autohotkey-scripts/hotstrings/symbols.ahk

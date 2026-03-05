@@ -1,12 +1,14 @@
 #if WinActive("- OneNote")
 {
-  ^a::OneNoteToggleMarkdownTask()
+  ^+a::OneNoteToggleMarkdownTask()
   ^+-::OneNoteStrikeLine()
   ^+b::OneNoteBoldLine()
   ^+h::OneNoteHighlightLine()
-  ^+c::MsgBox("OBSOLETE: Use Ctrl-A for cross-compatibility with Obsidian")
-  ^+i::MsgBox("OBSOLETE: Use Ctrl-A for cross-compatibility with Obsidian")
-  ^+o::MsgBox("OBSOLETE: Use Ctrl-A for cross-compatibility with Obsidian")
+
+  ^a::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
+  ^+c::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
+  ^+i::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
+  ^+o::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
 
   ^+f::OneNoteClearFormattingLine()
   ^+r::Send("11000 - " clipboard " = ")
