@@ -4,10 +4,12 @@
   ^+-::OneNoteStrikeLine()
   ^+b::OneNoteBoldLine()
   ^+h::OneNoteHighlightLine()
+  ^+i::OneNoteItalicsLine()
+
+  ^h::Send("^!h")
 
   ^a::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
   ^+c::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
-  ^+i::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
   ^+o::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
 
   ^+f::OneNoteClearFormattingLine()
@@ -40,11 +42,11 @@ OneNotePasteAndClearPopup()
 OneNoteClearFormattingLine()
 {
   Sleep(10) ; Wait for hotkey up to not interfere with ribbon navigation
-  Send("{Home}+{End}")
+  DelayedSend("{Home}+{End}", 1)
   DelayedSend("{Alt}", 128, 256) ; Ribbon bar
-  DelayedSend("h", 1) ; Home
-  DelayedSend("l", 1) ; Styles
-  DelayedSend("c", 1) ; Clear formatting
+  DelayedSend("h", 1)            ; Home
+  DelayedSend("l", 1)            ; Styles
+  DelayedSend("c", 1)            ; Clear formatting
   DelayedSend("{End}", 1)
 }
 
@@ -113,6 +115,11 @@ OneNoteToggleMarkdownTask()
 OneNoteHighlightLine()
 {
   SelectLineThenSend("^!h")
+}
+
+OneNoteItalicsLine()
+{
+  SelectLineThenSend("^i")
 }
 
 ;; Format the OneNote timestamp color of the lines in the clipboard
