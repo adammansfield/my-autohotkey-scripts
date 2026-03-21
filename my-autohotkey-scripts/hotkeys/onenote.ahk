@@ -8,7 +8,7 @@
 
   ^h::Send("^!h")
 
-  ^a::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
+  ;^a::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
   ^+c::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
   ^+o::MsgBox("OBSOLETE: Use Ctrl-Shift-A for cross-compatibility with Obsidian")
 

@@ -1,44 +1,44 @@
 :*cx?:;pd;::PromptDeutschenlektor()
 :*cx?:;pdk;::PromptDeutscheKonversation()
-:*cx?:;pcs;::PromptCSharpEngineer()
-:*cx?:;pps;::PromptPowershellEngineer()
-:*cx?:;pbash;::PromptLinuxEngineer()
-:*cx?:;plinux;::PromptLinuxEngineer()
-
-PromptCSharpEngineer()
+#if WinActive("T3 Code")
 {
-  SendRolePrompt(""
-  . "You are a Senior Software Engineer that can analyze and write code. "
-  . "You NEVER reply with natural language. "
-  . "You ONLY provides code blocks in response to user queries. "
-  . "You are excellent at analyzing code in most common programming languages. "
-  . "You primarily generates code in C#, but will switch to other languages if asked. "
-  . "You generate valid, human readable code when possible, and adds concise comments where neccessary. "
-  . "You NEVER explains the code after generating it. If the code has been generated, end the output.")
+  :*cx?:;sidebar;::T3CodeShowCollaspeSideBarButton()
+  ^b::T3CodeShowCollaspeSideBarButton()
 }
+#if
 
-PromptPowershellEngineer()
+T3CodeShowCollaspeSideBarButton()
 {
-  SendRolePrompt(""
-  . "You are a Senior Software Engineer that can analyze and write code. "
-  . "You NEVER reply with natural language. "
-  . "You ONLY provides code blocks in response to user queries. "
-  . "You are excellent at analyzing code in most common programming languages. "
-  . "You primarily generates code in PowerShell, but will switch to other languages if asked. "
-  . "You generate valid, human readable code when possible, and adds concise comments where neccessary. "
-  . "You NEVER explains the code after generating it. If the code has been generated, end the output.")
-}
+  WinClip.Snap(clip)
 
-PromptLinuxEngineer()
-{
-  SendRolePrompt(""
-  . "You are a Senior Software Engineer that can analyze and write code. "
-  . "You NEVER reply with natural language. "
-  . "You ONLY provides code blocks in response to user queries. "
-  . "You are excellent at analyzing code in most common programming languages. "
-  . "You primarily generates code in Linux Bash, but will switch to other languages if asked. "
-  . "You generate valid, human readable code when possible, and adds concise comments where neccessary. "
-  . "You NEVER explains the code after generating it. If the code has been generated, end the output.")
+  Tooltip("Opening developer tools...")
+  Send("^+i")
+  Sleep(500) ; Wait for dev tools
+
+  WinClip.Clear()
+
+  Tooltip("Opening command bar...")
+  Send("^+p")
+  Sleep(100) ; Wait command bar
+
+  WinClip.SetText("var s=document.getElementById(""sidebar-trigger-force-visible""); if(s) s.remove(); s=document.createElement(""style""); s.id=""sidebar-trigger-force-visible""; s.textContent='[data-slot=""sidebar-trigger""]{display:inline-flex!important}'; document.head.appendChild(s);")
+
+  Tooltip("Opening console...")
+  Send("Console")
+  Sleep(100) ; Wait for show console command
+  Send("{Enter}")
+  Sleep(500) ; Wait for console
+
+  Tooltip("Showing sidebar button...")
+  Send("^v")
+  Send("{Enter}")
+  Sleep(100) ; Wait to run console command
+
+  Tooltip("Closing developer tools...")
+  Send("^+i")
+  WinClip.Restore(clip)
+  Sleep(500) ; Wait to close developer tools
+  Tooltip()
 }
 
 PromptDeutschenlektor()

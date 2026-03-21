@@ -234,19 +234,7 @@ OneNoteLogMonat()
     OneNoteLog(ToDeutschDay(longDay), "## ==" date, "", false, false, "#3c87cd", 0, false)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
     DelayedSend("{Enter}", whitespaceDelay)
-
-    DelayedSend(markdownTask, textDelay) ; Still highlighted from above
-    DelayedSend("{!}" brezel nbSpace, textDelay)
-    DelayedSend("{Enter}", whitespaceDelay)
-
-    if (longDay = "Monday" || longDay = "Tuesday" || longDay = "Wednesday" || longDay = "Thursday" || longDay = "Friday")
-    {
-      DelayedSend(markdownTask, textDelay)
-      DelayedSend("{!}" gear nbSpace, whitespaceDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-    }
-
-    DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
+    DelayedSend("^!h", formatDelay) ; OneNote unhighlight
 
     OneNoteLog("", "00", "", false, false, "", 0, false)
     DelayedSend("^^u"         , formatDelay) ; Underline words separately for an easy check-off by removing underline
@@ -276,11 +264,29 @@ OneNoteLogMonat()
     DelayedSend("{Enter}", whitespaceDelay)
 
     DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("^!h", formatDelay) ; OneNote highlight
+    if (longDay = "Monday" || longDay = "Tuesday" || longDay = "Wednesday" || longDay = "Thursday" || longDay = "Friday")
+    {
+      DelayedSend(markdownTask, textDelay)
+      DelayedSend("{!}" gear nbSpace, whitespaceDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+    }
+    DelayedSend(markdownTask, textDelay)
+    DelayedSend("{!}" brezel nbSpace, textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+
+
+    DelayedSend("^!h", formatDelay) ; OneNote unhighlight
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("^!h", formatDelay) ; OneNote highlight
+    DelayedSend("==", textDelay)
     DelayedSend(moods, 2 * textDelay, textDelay)
     DelayedSend(" {{}tagebuche{}}", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("==", textDelay)
     DelayedSend(dankbar, textDelay)
     DelayedSend(" {{}dankbar{}}", textDelay)
+    DelayedSend("^!h", formatDelay) ; OneNote unhighlight
     DelayedSend("{Enter}", whitespaceDelay)
   }
 
@@ -302,16 +308,11 @@ OneNoteLogStandups()
   ; _Stretch_:
   ; 🆕⚙ [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
 
-  again    := "{U+1F501}"        ; 🔁 Clockwise Rightwards and Leftwards Open Circle Arrows
-  blocker  := "{U+1F6A7}"        ; 🚧 Construction Sign
-  defer    := "{U+1F554}"        ; 🕔 Clock Face Five Oclock
-  done     := "{U+2705}"         ; ✅ White heavy check mark
-  down     := "{U+25BC}"         ; ▼  Black down-pointing triangle
-  neu      := "{U+1F195}"        ; 🆕 New Button
-  pad      := "{U+2009}"         ;    Thin Space (for padding)
-  removed  := "{U+23CF}{U+FE0F}" ; ⏏️  Eject Button
-  up       := "{U+25B2}"         ; ▲  Black up-pointing triangle
-  working  := "{U+2699}"         ; ⚙  Gear
+  cancelled  := "{U+274C}"  ; ❌ 
+  done       := "{U+2705}"  ; ✅
+  inprogress := "{U+1F7E6}" ; 🟦
+  todo       := "{U+2B1C}"  ; ⬜
+  onHold     := "{U+1F7E8}" ; 🟨 
 
   markdownBar := "---------------------------------------------------------------"
 
@@ -362,98 +363,80 @@ OneNoteLogStandups()
       OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd", 0, false)
       DelayedSend("{Enter}", whitespaceDelay)
 
-      DelayedSend("_Last Week Summaries (max 3):_", textDelay)
+      DelayedSend("_Last Week Summary:_", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 1. ``features`` summary *(wid,wid)*", textDelay)
+      DelayedSend(" 1. wid ``[feature]`` summary", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 2. ``features`` summary *(wid,wid)*", textDelay)
+      DelayedSend(" 2. wid ``[feature]`` summary", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 3. ``features`` summary *(wid,wid)*", textDelay)
+      DelayedSend(" 3. wid ``[feature]`` summary", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend("{Enter}", whitespaceDelay)
       DelayedSend("_Priorities:_", textDelay)
+      DelayedSend("{Enter}", 3 * whitespaceDelay)
+      OneNotePaste("Follow README comment at bottom of:", false)
+      DelayedSend("{Enter}", 2 * whitespaceDelay)
+      OneNotePaste("https://dev.azure.com/oneiq/OneIQ/_wiki/wikis/OneIQ.wiki/823/Priorities-for-Adam", false)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 1.  ", textDelay)
-      OneNotePaste("<span style='color:#538135'>_//_</span>", false)
-      DelayedSend("{Enter}", whitespaceDelay)
-
-      ; Clear formating
-      WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
-      Sleep(4) ; Wait for clear
-      WinClip.SetText(" 2. ") ; Set text to clear green color formatting
-      Sleep(64) ; Wait for copy
-      WinClip.Paste()
-      Sleep(4) ; Wait for paste
-      OneNoteClearPastePopup()
-      DelayedSend("{Enter}", whitespaceDelay)
-
-      DelayedSend(" 3. ", textDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-
-      OneNotePaste("<span style='color:#7F7F7F'> 4.  </span>", false)
-      DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 5. ", whitespaceDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-
-      ; Clear formating
-      WinClip.Clear() ; May help prevent OneNote error 'Sorry, we couldn't paste the content from your clipboard. Please try copying and pasting it again'
-      Sleep(4) ; Wait for clear
-      WinClip.SetText(" ") ; Set text to clear green color formatting
-      Sleep(64) ; Wait for copy
-      WinClip.Paste()
-      Sleep(4) ; Wait for paste
-      OneNoteClearPastePopup()
     }
 
     DelayedSend("{Enter}", 2 * whitespaceDelay, whitespaceDelay) ; New line before markdownBar so that Markdown treats --- as a horizontal bar
     OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
     DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "## " date "T1120", "", false, false, "#3c87cd", 0, false)
+    OneNoteLog(ToDeutschDay(longDay), "## " date "T1115", "", false, false, "#3c87cd", 0, false)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
     DelayedSend("{Enter}", 2 * whitespaceDelay)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
 
-    ;DelayedSend("{Enter}", whitespaceDelay)
-    ;DelayedSend("//_Blockers:_    " pad "none", textDelay)
-    ;DelayedSend("{Enter}", whitespaceDelay)
-    ;DelayedSend("//" blocker " *wid* ``feature`` item", textDelay)
-    ;DelayedSend("{Enter}", whitespaceDelay)
-    ;DelayedSend("//_Estimate:_    " infiniry "00 days   00 items   MMMDD-DD({+}20{%})", textDelay)
-    ;DelayedSend("{Enter}", whitespaceDelay)
-    ;DelayedSend("//_Velocity:_     " up down " 0.0      " pad neu " 0.0     " pad done " 0.0", textDelay)
-    ;DelayedSend("{Enter}", whitespaceDelay)
-    ;DelayedSend("{Enter}", whitespaceDelay)
-
-    ;if (longDay = "Monday") {
-    ;  DelayedSend("_Friday:_", textDelay)
-    ;} else {
-    ;  DelayedSend("_Yesterday:_", textDelay)
-    ;}
-
-    ;DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend(neu, textDelay)
-    DelayedSend(working, textDelay)
+    DelayedSend("*Yesterday:*  _(since last standup)_", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend(todo, textDelay)
+    DelayedSend(inprogress, textDelay)
     DelayedSend(done, textDelay)
-    DelayedSend(removed, textDelay)
-    DelayedSend(again, textDelay)
-    DelayedSend(defer, textDelay, 4 * textDelay)
-    OneNotePaste(" [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
-
+    DelayedSend(onHold, textDelay, textDelay)
+    DelayedSend(cancelled, textDelay, 4 * textDelay)
+    DelayedSend(" ", textDelay)
+    OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``[feature]`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    ;DelayedSend("_Today:_", textDelay)
-    ;DelayedSend("{Enter}", whitespaceDelay)
-    ;DelayedSend(working " *wid* ``feature`` item", textDelay)
-    ;DelayedSend("{Enter}", whitespaceDelay)
-    ;DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("*Today:*  _(until next standup)_", textDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend(todo, textDelay)
+    DelayedSend(inprogress, textDelay)
+    DelayedSend(onHold, textDelay, 4 * textDelay)
+    DelayedSend(" ", textDelay)
+    OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``[feature]`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
+
+    DelayedSend("*Up Next:*  ")
+    OneNotePaste("[(see full list)](https://dev.azure.com/oneiq/OneIQ/_wiki/wikis/OneIQ.wiki/823/Priorities-for-Adam)", false)
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend(todo, textDelay)
+    DelayedSend(inprogress, textDelay)
+    DelayedSend(" ", textDelay)
+    OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``[feature]`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+    DelayedSend("{Enter}", whitespaceDelay)
+    DelayedSend("{Enter}", whitespaceDelay)
 
     DelayedSend("_Stretch:_", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
-    DelayedSend(neu working " [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", textDelay) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+    DelayedSend(todo inprogress " ")
+    OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
     DelayedSend("{Enter}", whitespaceDelay)
+
+    if (longDay = "Monday")
+    {
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend("_Monday-Guesstimate for week:_}", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend(" - [ ] }", textDelay)
+      OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+      DelayedSend("{Enter}", whitespaceDelay)
+    }
   }
 
   WinClip.Restore(clip)
