@@ -10,6 +10,10 @@
   :*?b0cx:;bb;::CtrlBackspaceThenSend("    - ", 3) ; Markdown indented bullet point
   :*?b0cx:;bbb;::CtrlBackspaceThenSend("        - ", 3) ; Markdown double-indented bullet point
 
+  ; Chain-of-thought (<div class="CoT">)
+  ; Can be used to "in-line" a blockquote as `>` treats following lines as part of the quote until a blank newline.
+  :*?b0cx:;cot;::OneNoteSendChainOfThought()
+
   ; Tasks
   ; - Add extra preceding space for top level tasks so that line does not automatically format as list
   :*?b0cx:;t;::CtrlBackspaceThenSend(" - [ ] ", 3) ; Markdown task
@@ -31,43 +35,33 @@
   ; Subtasks
   :*?b0cx:;tt;::CtrlBackspaceThenSend("    - [ ] ", 3) ; Markdown indented task (subtask)
   :*?b0cx:;ttt;::CtrlBackspaceThenSend("        - [ ] ", 3) ; Markdown double-indented task (subsubtask)
-
-  ; Blockquote
-  ; Can be used to "in-line" a blockquote as `>` treats following lines as part of the quote until a blank newline.
-  :*?b0cx:;q;::OneNoteSendMarkdownBlockQuote()
-  :*?b0cx:;qz;::OneNoteSendMarkdownBlockQuote(true)
 }
 #if
 
-OneNoteSendMarkdownBlockQuote(includeNextStep = false)
+OneNoteSendChainOfThought()
 {
-  ; Send 3 Ctrl-Backspace assuming that hotstring is `;q;`
+  ; Send 3 Ctrl-Backspace assuming that hotstring is `;cot;`
   loop 3 {
     Sleep(2)
     Send("^{Backspace}")
     Sleep(2)
   }
 
-  DelayedSend("{Alt}", 1)    ; Ribbon bar
-  DelayedSend("h", 1)        ; Home
-  DelayedSend("f", 1)        ; Font
-  DelayedSend("c", 1)        ; Font Color
+  timestamp := FormatTime(A_Now, "HHmm")
+
+  DelayedSend("{Alt}", 128, 256) ; Ribbon bar
+  DelayedSend("h", 1) ; Home
+  DelayedSend("f", 1) ; Font
+  DelayedSend("c", 1) ; Font Color
   DelayedSend("{Down 6}", 1) ; Focus Gray
-  DelayedSend("{Enter}", 1)  ; Select Gray
+  DelayedSend("{Enter}", 1) ; Select Gray
 
   DelayedSend("^i")
-  DelayedSend("<blockquote>", 10)
-  if (includeNextStep) {
-    DelayedSend(" ZUERST: ", 10)
-  }
-  DelayedSend("</blockquote>", 10)
-  DelayedSend("^i")
-
-  ; Add newline before </blockquote>
-  DelayedSend("^{Left 2}{Left 2}")
+  DelayedSend("<div class=""CoT"">", 10)
+  DelayedSend(timestamp "  ZUERST: ", 10)
   DelayedSend("{Enter}", 300)
+  DelayedSend("</div>", 10)
 
-  ; Move cursor to after <blockquote> (Use Ctrl-Up as Up does not work)
-  DelayedSend("^{Up}")
-  DelayedSend("^{Right 2}{Right}")
+  DelayedSend("^{Up 2}") ; Use Ctrl-Up as Up does not work
+  DelayedSend("{End}^{Left 2}{Left}")
 }
