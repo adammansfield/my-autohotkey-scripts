@@ -313,6 +313,7 @@ OneNoteLogStandups()
   inprogress := "{U+1F7E6}" ; 🟦
   todo       := "{U+2B1C}"  ; ⬜
   onHold     := "{U+1F7E8}" ; 🟨 
+  paused     := "{U+23F8}"  ; ⏸  
 
   markdownBar := "---------------------------------------------------------------"
 
@@ -390,12 +391,25 @@ OneNoteLogStandups()
     DelayedSend("{Enter}", 2 * whitespaceDelay)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
 
+    if (longDay = "Monday")
+    {
+      DelayedSend(">{U+00A0}Legend:", textDelay) ; Send non-breaking space {U+00A0} so that OneNote does not auto-format as a quote
+      DelayedSend("  " todo " todo", textDelay)
+      DelayedSend("  " inprogress " in-progress", textDelay)
+      DelayedSend("  " done " done", textDelay)
+      DelayedSend("  " onHold " on-hold", textDelay)
+      DelayedSend("  " paused " paused", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+    }
+
     DelayedSend("*Yesterday:*  _(since last standup)_", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend(todo, textDelay)
     DelayedSend(inprogress, textDelay)
     DelayedSend(done, textDelay)
     DelayedSend(onHold, textDelay, textDelay)
+    DelayedSend(paused, textDelay, textDelay)
     DelayedSend(cancelled, textDelay, 4 * textDelay)
     DelayedSend(" ", textDelay)
     OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``[feature]`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
