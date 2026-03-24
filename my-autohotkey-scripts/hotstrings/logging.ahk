@@ -301,14 +301,23 @@ OneNoteLogMonat()
 OneNoteLogStandups()
 {
   ; Example output:
-  ; ---------------------------------------------------------------
-  ; ## 20230401T1030 Montag
-  ; 🆕⚙✅⏏️🕔 [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
-  ;
-  ; _Stretch_:
-  ; 🆕⚙ [wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) `feature` item
+  ; --------------------------------------------------------------- 
+  ; ## 20260330T1115 Montag
+  ; > Legend:  ⬜ todo  🟦 in-progress  ✅ done  🟨 on-hold  ⏸ paused
+  ; 
+  ; *Yesterday:*
+  ; ⬜🟦✅🟨⏸ [WID](dev.azure.com/oneiq/OneIQ/_workitems/edit/WID) `[CATEGORY]` TITLE 
+  ; 
+  ; *Today:*
+  ; ⬜🟦🟨 [WID](dev.azure.com/oneiq/OneIQ/_workitems/edit/WID) `[CATEGORY]` TITLE
+  ; 
+  ; *Up Next:*  [(see full list)](https://dev.azure.com/oneiq/OneIQ/_wiki/wikis/OneIQ.wiki/823/Priorities-for-Adam) 
+  ; ⬜🟦 [WID](dev.azure.com/oneiq/OneIQ/_workitems/edit/WID) `[CATEGORY]` TITLE
+  ; 
+  ; _Stretch:_
+  ; ⬜🟦 [WID](dev.azure.com/oneiq/OneIQ/_workitems/edit/WID) `[CATEGORY]` TITLE
 
-  cancelled  := "{U+274C}"  ; ❌ 
+ ;cancelled  := "{U+274C}"  ; ❌ 
   done       := "{U+2705}"  ; ✅
   inprogress := "{U+1F7E6}" ; 🟦
   todo       := "{U+2B1C}"  ; ⬜
@@ -366,11 +375,11 @@ OneNoteLogStandups()
 
       DelayedSend("_Last Week Summary:_", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 1. wid ``[feature]`` summary", textDelay)
+      DelayedSend(" 1. WID ``[CATEGORY]`` SUMMARY", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 2. wid ``[feature]`` summary", textDelay)
+      DelayedSend(" 2. WID ``[CATEGORY]`` SUMMARY", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 3. wid ``[feature]`` summary", textDelay)
+      DelayedSend(" 3. WID ``[CATEGORY]`` SUMMARY", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
 
       DelayedSend("{Enter}", whitespaceDelay)
@@ -403,26 +412,43 @@ OneNoteLogStandups()
       DelayedSend("{Enter}", whitespaceDelay)
     }
 
-    DelayedSend("*Yesterday:*  _(since last standup)_", textDelay)
+    DelayedSend("*Yesterday:*", textDelay) ; Yesterday meaning since last standup
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend(todo, textDelay)
     DelayedSend(inprogress, textDelay)
     DelayedSend(done, textDelay)
     DelayedSend(onHold, textDelay, textDelay)
     DelayedSend(paused, textDelay, textDelay)
-    DelayedSend(cancelled, textDelay, 4 * textDelay)
+   ;DelayedSend(cancelled, textDelay, 4 * textDelay)
     DelayedSend(" ", textDelay)
-    OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``[feature]`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+    OneNotePaste("[WID](dev.azure.com/oneiq/OneIQ/_workitems/edit/WID) ``[CATEGORY]`` TITLE", false)
+    if (longDay = "Monday")
+    {
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend("    ", textDelay)
+      DelayedSend(todo, textDelay)
+      DelayedSend(inprogress, textDelay)
+      DelayedSend(done, textDelay)
+      DelayedSend(" SUBTASK", textDelay)
+    }
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
-    DelayedSend("*Today:*  _(until next standup)_", textDelay)
+    DelayedSend("*Today:*", textDelay) ; Today meaning until next standup
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend(todo, textDelay)
     DelayedSend(inprogress, textDelay)
     DelayedSend(onHold, textDelay, 4 * textDelay)
     DelayedSend(" ", textDelay)
-    OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``[feature]`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+    OneNotePaste("[WID](dev.azure.com/oneiq/OneIQ/_workitems/edit/WID) ``[CATEGORY]`` TITLE", false)
+    if (longDay = "Monday")
+    {
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend("    ", textDelay)
+      DelayedSend(todo, textDelay)
+      DelayedSend(inprogress, textDelay)
+      DelayedSend(" SUBTASK", textDelay)
+    }
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
@@ -432,14 +458,14 @@ OneNoteLogStandups()
     DelayedSend(todo, textDelay)
     DelayedSend(inprogress, textDelay)
     DelayedSend(" ", textDelay)
-    OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``[feature]`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+    OneNotePaste("[WID](dev.azure.com/oneiq/OneIQ/_workitems/edit/WID) ``[CATEGORY]`` TITLE", false)
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("{Enter}", whitespaceDelay)
 
     DelayedSend("_Stretch:_", textDelay)
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend(todo inprogress " ")
-    OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+    OneNotePaste("[WID](dev.azure.com/oneiq/OneIQ/_workitems/edit/WID) ``[CATEGORY]`` TITLE", false)
     DelayedSend("{Enter}", whitespaceDelay)
 
     if (longDay = "Monday")
@@ -448,7 +474,7 @@ OneNoteLogStandups()
       DelayedSend("_Monday-Guesstimate for week:_}", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
       DelayedSend(" - [ ] }", textDelay)
-      OneNotePaste("[wid](dev.azure.com/oneiq/OneIQ/_workitems/edit/wid) ``feature`` item", false) ; wid: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{wid]
+      OneNotePaste("[WID](dev.azure.com/oneiq/OneIQ/_workitems/edit/WID) ``[CATEGORY]`` TITLE", false) ; WID: Work Item ID e.g. dev.azure.com/{company}/{project}/_workitems/edit/{WID]
       DelayedSend("{Enter}", whitespaceDelay)
     }
   }
