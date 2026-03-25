@@ -23,6 +23,9 @@
 :*?cx:;tzi;::Send("- [ ] {!}{U+1F4AC} ") ; Priority Sozial Aufgabe
 :*?cx:;tzii;::Send("- [ ] {!}{!}{!}{U+1F4AC} ") ; Urgent Priority Sozial Aufgabe
 
+; Task Category
+:*?cx:;tc;::Send("``[]``{Left 2}") ; Markdown task category rendered as `[CATEGORY]`
+
 ; Task Diff
 :*?cR:;dadded;::<span style="background-color:#b83230">+NEW</span>
 :*?cR:;dnew;::<span style="background-color:#b83230">+NEW</span>
