@@ -9,35 +9,47 @@
 
 T3CodeShowCollaspeSideBarButton()
 {
-  WinClip.Snap(clip)
+  ;WinClip.Snap(clip)
 
   Tooltip("Opening developer tools...")
   Send("^+i")
-  Sleep(500) ; Wait for dev tools
+  Sleep(800) ; Wait for dev tools
 
-  WinClip.Clear()
+  ;WinClip.Clear()
 
   Tooltip("Opening command bar...")
   Send("^+p")
-  Sleep(100) ; Wait command bar
+  Sleep(200) ; Wait command bar
 
-  WinClip.SetText("var s=document.getElementById(""sidebar-trigger-force-visible""); if(s) s.remove(); s=document.createElement(""style""); s.id=""sidebar-trigger-force-visible""; s.textContent='[data-slot=""sidebar-trigger""]{display:inline-flex!important}'; document.head.appendChild(s);")
+  ;WinClip.SetText("var s=document.getElementById(""sidebar-trigger-force-visible""); if(s) s.remove(); s=document.createElement(""style""); s.id=""sidebar-trigger-force-visible""; s.textContent='[data-slot=""sidebar-trigger""]{display:inline-flex!important}'; document.head.appendChild(s);")
 
   Tooltip("Opening console...")
   Send("Console")
-  Sleep(100) ; Wait for show console command
+  Sleep(400) ; Wait for show console command
   Send("{Enter}")
-  Sleep(500) ; Wait for console
+  Sleep(800) ; Wait for console
 
-  Tooltip("Showing sidebar button...")
-  Send("^v")
+  ;Tooltip("Allowing pasting...")
+  ;Send("^v")
+  ;Sleep(500)
+  ;Send("allow pasting{Enter}")
+  ;Sleep(500) ; Wait to allow pasting
+
+  ;Tooltip("Showing sidebar button...")
+  ;Send("^v")
+  ;Send("{Enter}")
+  ;Sleep(500) ; Wait to run console command
+
+  Tooltip("Entering command to show sidebar button...")
+  SendRaw("var s=document.getElementById(""sidebar-trigger-force-visible""); if(s) s.remove(); s=document.createElement(""style""); s.id=""sidebar-trigger-force-visible""; s.textContent='[data-slot=""sidebar-trigger""]{display:inline-flex!important}'; document.head.appendChild(s);")
+  Sleep(1600) ; Wait for SendRaw to complete
   Send("{Enter}")
-  Sleep(100) ; Wait to run console command
+  Sleep(400) ; Wait to run console command
 
   Tooltip("Closing developer tools...")
   Send("^+i")
-  WinClip.Restore(clip)
-  Sleep(500) ; Wait to close developer tools
+  ;WinClip.Restore(clip)
+  Sleep(200) ; Wait to close developer tools
   Tooltip()
 }
 
