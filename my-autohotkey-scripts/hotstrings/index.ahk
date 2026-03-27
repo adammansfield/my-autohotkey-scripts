@@ -7,7 +7,8 @@
 #include my-autohotkey-scripts/hotstrings/etc.ahk
 #include my-autohotkey-scripts/hotstrings/languages.ahk
 #include my-autohotkey-scripts/hotstrings/logging.ahk
-; markdown.onenote.ahk must be included before markdown.ahk, otherwise the OneNote-specific hostrings will be overridden
+; markdown.obsidian.ahk and markdown.onenote.ahk must be included before markdown.ahk, otherwise the application-specific hostrings will be overridden
+#include my-autohotkey-scripts/hotstrings/markdown.obsidian.ahk
 #include my-autohotkey-scripts/hotstrings/markdown.onenote.ahk
 #include my-autohotkey-scripts/hotstrings/markdown.ahk
 #include my-autohotkey-scripts/hotstrings/symbols.ahk

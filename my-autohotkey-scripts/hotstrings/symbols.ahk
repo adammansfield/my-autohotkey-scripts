@@ -65,6 +65,10 @@
 :*?b0cx:;threeeighths;:: CtrlBackspaceThenSend("{U+215C}", 3)
 :*?b0cx:;twothirds;::    CtrlBackspaceThenSend("{U+2154}", 3)
 
+; Tree Branches
+:*?cx:;tb;::Send("{U+251C}{U+2500}{U+003E}") ; ├─> (t)ree (b)ranch
+:*?cx:;te;::Send("{U+2514}{U+2500}{U+003E}") ; └─> (t)ree (e)nd
+
 ;TODO: use {U+xxxx} instead of {AltDown}
 ; Greek characters
 ; First character determines case e.g. phi=lowercase, Phi=UPPERCASE

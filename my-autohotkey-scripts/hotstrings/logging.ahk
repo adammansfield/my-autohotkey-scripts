@@ -1,17 +1,17 @@
 #if WinActive("- OneNote")
 {
-  ; Logeinträge
+  ; Daily Log Entries
   :*?b0cx:;log;::OneNoteLog()
   :*?b0cx:;logmonat;::OneNoteLogMonat()
   :*?b0cx:;logstandups;::OneNoteLogStandups()
-  :*?b0cx:;logteoten;::OneNoteLogTeoten()
+  :*?b0cx:;logref;::OneNoteLogWithOverflowLink()
 
-  ; Debug Logeinträge
-  :*?b0cx:;l;::OneNoteLog("", "", "_HHmm_", true, true, "#3cb1cd", 5) ; Debug subentry
-  :*?b0cx:;logdebug;::OneNoteLogDebug()
-  :*?b0cx:;logdebugref;::OneNoteLogDebugWithReference()
-  :*?b0cx:;logref;::OneNoteLogDebugWithReference()
-  :*?b0cx:;todebug;::OneNoteConvertToDebug()
+  ; Overflow Log Entries
+  :*?b0cx:;logoverflow;::OneNoteLogOverflow()
+  :*?b0cx:;overflow;::OneNoteLogOverflow()
+  :*?b0cx:;tooverflow;::OneNoteConvertToOverflow(true)
+  :*?cx:;logdebug;::MsgBox("OBSOLETE: Use `;overflow`; or `;logoverflow`; instead of `;todebug`;")
+  :*?cx:;todebug;::MsgBox("OBSOLETE: Use `;overflow`; or `;tooverflow`; instead of `;todebug`;")
 }
 #if
 
@@ -56,24 +56,70 @@ OneNoteLog(message = "", timestamp = "", timeformat = "HHmm", isBullet = false, 
   }
 }
 
-OneNoteConvertToDebug()
+OneNoteLogOverflow()
 {
-  ; Backspace hotstring (;debug;) as no backspacing (B0) is used because it is unreliable in OneNote
+  ; Ctrl-Backspace hotstring (;logoverflow;) as no backspacing (B0) is used because it is unreliable in OneNote
   Send("^{Backspace}")
   Sleep(1)
   Send("^{Backspace}")
   Sleep(1)
   Send("^{Backspace}")
   Sleep(1)
+  OneNoteLog(" ", "", "HHmm", false, false)
+  OneNoteConvertToOverflow(false)
+  Send("{Home}^{Right 2}{Left}")
+}
 
-  Send("[[[[" A_YYYY "-Q" GetQuarterNumber() "]]]]") ; Quadruple brackets because OneNote automatically converts [[{link}]] to a hyperlink, but we still want raw text to be [[{link}]] so that it is Markdown compatible
-  Sleep(1)
+OneNoteConvertToOverflow(backspace)
+{
+  ; Copy clipboard so we do not overwrite the clipboard (restored at end of method)
+  WinClip.Snap(clip)
+  Sleep(1) ; Wait for snap
+  WinClip.Clear()
+  Sleep(1) ; Wait for clear
+
+  if (backspace)
+  {
+    ; Ctrl-Backspace hotstring (;tooverflow;) as no backspacing (B0) is used because it is unreliable in OneNote
+    Send("^{Backspace}")
+    Sleep(1)
+    Send("^{Backspace}")
+    Sleep(1)
+    Send("^{Backspace}")
+    Sleep(1)
+  }
+
+  ; Ensure prefix is `## yyyyMMddTHHmm`
   Send("{Home}")
   Sleep(1)
   Send("{#}{#} " A_YYYY A_MM A_DD "T")
   Sleep(1)
+
+  ; Copy timestamp so we can reference this header directly in the markdown link
+  Send("^{Left}")
+  Sleep(1)
+  Send("^+{Right}")
+  Sleep(1)
+  DelayedSend("^c") ; Copy timestamp yyyyMMddTHHmm
+  ClipWait, 3, 0 ; Waits until the clipboard contains text
+  Sleep(1)
+  timestamp := Trim(clipboard)
+  Sleep(1)
+
+  ; Ensure suffix is `[[yyyy-QQ#yyyyMMddTHHmm]]`
   Send("{End}")
   Sleep(1)
+  Send("[[[[" A_YYYY "-Q" GetQuarterNumber() "]]]]") ; Quadruple brackets because OneNote automatically converts [[{link}]] to a hyperlink, but we still want raw text to be [[{link}]] so that it is Markdown compatible
+  Sleep(1) ; Wait for OneNote to format as link from [[[[yyyy-QQ]]]] to [[yyyy-QQ]]
+  Send("{End}")
+  Sleep(1)
+  Send("{Left 2}")
+  Sleep(1)
+  Send("{#}" timestamp)
+  Sleep(1)
+
+  WinClip.Restore(clip)
+  Sleep(1) ; Wait for restore of snap
 }
 
 OneNoteLogDebug()
@@ -87,7 +133,7 @@ OneNoteLogDebug()
   DelayedSend("{Left}")
 }
 
-OneNoteLogDebugWithReference()
+OneNoteLogWithOverflowLink()
 {
   OneNoteLog(" ")
   DelayedSend("[[[[" A_YYYY "-Q" GetQuarterNumber() "]]]]") ; Quadruple brackets because OneNote automatically converts [[{link}]] to a hyperlink, but we still want raw text to be [[{link}]] so that it is Markdown compatible
@@ -373,20 +419,22 @@ OneNoteLogStandups()
       OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd", 0, false)
       DelayedSend("{Enter}", whitespaceDelay)
 
-      DelayedSend("_Last Week Summary:_", textDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 1. WID ``[CATEGORY]`` SUMMARY", textDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 2. WID ``[CATEGORY]`` SUMMARY", textDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend(" 3. WID ``[CATEGORY]`` SUMMARY", textDelay)
-      DelayedSend("{Enter}", whitespaceDelay)
+      OneNotePaste("_Last Week Summary:_", false)
+      DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
+      DelayedSend("{Enter}", 2 * whitespaceDelay, whitespaceDelay)
+      OneNotePaste(" 1. WID ``[CATEGORY]`` SUMMARY", false)
+      DelayedSend("{Enter}", 2 * whitespaceDelay, whitespaceDelay)
+      OneNotePaste(" 2. WID ``[CATEGORY]`` SUMMARY", false)
+      DelayedSend("{Enter}", 2 * whitespaceDelay, whitespaceDelay)
+      OneNotePaste(" 3. WID ``[CATEGORY]`` SUMMARY", false)
+      DelayedSend("{Enter}", 2 * whitespaceDelay, whitespaceDelay)
+      DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
 
-      DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend("_Priorities:_", textDelay)
-      DelayedSend("{Enter}", 3 * whitespaceDelay)
+      DelayedSend("{Enter}", 2 * whitespaceDelay, whitespaceDelay)
+      OneNotePaste("_Priorities:_", false)
+      DelayedSend("{Enter}", 2 * whitespaceDelay, whitespaceDelay)
       OneNotePaste("Follow README comment at bottom of:", false)
-      DelayedSend("{Enter}", 2 * whitespaceDelay)
+      DelayedSend("{Enter}", 2 * whitespaceDelay, whitespaceDelay)
       OneNotePaste("https://dev.azure.com/oneiq/OneIQ/_wiki/wikis/OneIQ.wiki/823/Priorities-for-Adam", false)
       DelayedSend("{Enter}", whitespaceDelay)
     }
@@ -425,8 +473,7 @@ OneNoteLogStandups()
     if (longDay = "Monday")
     {
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend("    ", textDelay)
-      DelayedSend(todo, textDelay)
+      DelayedSend("{U+2514}{U+2500}{U+003E}") ; └─> (t)ree (e)nd
       DelayedSend(inprogress, textDelay)
       DelayedSend(done, textDelay)
       DelayedSend(" SUBTASK", textDelay)
@@ -444,8 +491,11 @@ OneNoteLogStandups()
     if (longDay = "Monday")
     {
       DelayedSend("{Enter}", whitespaceDelay)
-      DelayedSend("    ", textDelay)
+      DelayedSend("{U+251C}{U+2500}{U+003E}") ; ├─> (t)ree (b)ranch
       DelayedSend(todo, textDelay)
+      DelayedSend(" SUBTASK", textDelay)
+      DelayedSend("{Enter}", whitespaceDelay)
+      DelayedSend("{U+2514}{U+2500}{U+003E}") ; └─> (t)ree (e)nd
       DelayedSend(inprogress, textDelay)
       DelayedSend(" SUBTASK", textDelay)
     }
@@ -485,23 +535,6 @@ OneNoteLogStandups()
   Tooltip("fertig geschrieben")
   Sleep(2000)
   Tooltip()
-}
-
-OneNoteLogTeoten()
-{
-  bis := InputBox("Gib die Endzeit an (e.g. 1830)",,, 240, 100,,,,, (A_Hour + 2) "00")
-  WinWaitActive("- OneNote")
-  Sleep(100)
-
-  OneNoteLog("TEOTEN beggint bis " bis " Uhr (tu es oder tu es nicht)")
-  DelayedSend("{Enter}", 100)
-  DelayedSend("{Enter}", 100)
-
-  OneNoteLog("TEOTEN endet um " bis " Uhr (tu es oder tu es nicht)", A_YYYY A_MM A_DD "T" bis,,, false)
-  DelayedSend("{Enter}", 100)
-
-  DelayedSend("{Up}", 10)
-  DelayedSend("{Up}", 10)
 }
 
 ; Delay before and after sending
