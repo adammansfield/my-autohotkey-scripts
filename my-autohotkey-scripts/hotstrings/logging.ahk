@@ -239,7 +239,7 @@ OneNoteLogMonat()
       DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
       yyyymm := FormatTime(date, "yyyyMM")
-      OneNoteLog(" ", "# " yyyymm, "", false, false, "#3c87cd", 0, false)
+      OneNoteLog(" ", "# ==" yyyymm, "==", false, false, "#3c87cd", 0, false)
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
@@ -260,7 +260,7 @@ OneNoteLogMonat()
 
       yyyyw := FormatTime(date, "YWeek")
       yyyyw := SubStr(yyyyw, 1, 4) "W" SubStr(yyyyw, 5, 2)
-      OneNoteLog(" ", "# ==" yyyyw, "", false, false, "#3c87cd", 0, false)
+      OneNoteLog(" ", "# ==" yyyyw "==", "", false, false, "#3c87cd", 0, false)
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", whitespaceDelay)
 
@@ -277,7 +277,7 @@ OneNoteLogMonat()
     OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
     DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "## ==" date, "", false, false, "#3c87cd", 0, false)
+    OneNoteLog(ToDeutschDay(longDay) "==", "## ==" date, "", false, false, "#3c87cd", 0, false)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
     DelayedSend("{Enter}", whitespaceDelay)
     DelayedSend("^!h", formatDelay) ; OneNote unhighlight
@@ -419,7 +419,7 @@ OneNoteLogStandups()
       OneNoteLog(" ", "# " yyyyw, "", false, false, "#3c87cd", 0, false)
       DelayedSend("{Enter}", whitespaceDelay)
 
-      OneNotePaste("_Last Week Summary:_", false)
+      OneNotePaste("==_Last Week Summary:_", false)
       DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
       DelayedSend("{Enter}", 2 * whitespaceDelay, whitespaceDelay)
       OneNotePaste(" 1. WID ``[CATEGORY]`` SUMMARY", false)
@@ -443,7 +443,7 @@ OneNoteLogStandups()
     OneNotePaste("<span style='color:#538135'>" markdownBar "</span>", false)
     DelayedSend("{Enter}", whitespaceDelay, 1.5 * whitespaceDelay)
 
-    OneNoteLog(ToDeutschDay(longDay), "## " date "T1115", "", false, false, "#3c87cd", 0, false)
+    OneNoteLog(ToDeutschDay(longDay) "==", "## ==" date "T1115", "", false, false, "#3c87cd", 0, false)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote highlight line
     DelayedSend("{Enter}", 2 * whitespaceDelay)
     DelayedSend("{Home}+{End}^!h{End}", formatDelay) ; OneNote unhighlight line
