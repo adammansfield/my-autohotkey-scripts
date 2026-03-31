@@ -8,18 +8,18 @@
 :*?b0cx:;bp;::CtrlBackspaceThenSend("{U+2022}", 3)
 
 ; Check marks
-:*?b0cx:;ucm;::        CtrlBackspaceThenSend("{U+2B1C}" , 3)  ; ⬜
-:*?b0cx:;icm;::        CtrlBackspaceThenSend("{U+1F7E6}", 3)  ; 🟦
-:*?b0cx:;cmi;::        CtrlBackspaceThenSend("{U+1F7E6}", 3)  ; 🟦
-:*?b0cx:;hcm;::        CtrlBackspaceThenSend("{U+1F7E8}", 3)  ; 🟨
-:*?b0cx:;cmh;::        CtrlBackspaceThenSend("{U+1F7E8}", 3)  ; 🟨
-:*?b0cx:;bcm;::        CtrlBackspaceThenSend("{U+2611}" , 3)  ; ☑
-:*?b0cx:;check;::      CtrlBackspaceThenSend("{U+2714}" , 3)  ; ✔️
-:*?b0cx:;checkmark;::  CtrlBackspaceThenSend("{U+2714}" , 3)  ; ✔️
-:*?b0cx:;cm;::         CtrlBackspaceThenSend("{U+2705}" , 3)  ; ✅
-:*?b0cx:;cross;::      CtrlBackspaceThenSend("{U+274C}" , 3)  ; ❌
-:*?b0cx:;crossmark;::  CtrlBackspaceThenSend("{U+274C}" , 3)  ; ❌
-:*?b0cx:;x;::          CtrlBackspaceThenSend("{U+274C}" , 3)  ; ❌
+:*?b0cx:;ucm;::        BackspaceThenSend("{U+2B1C}" , strlen(";ucm;"))       ; ⬜
+:*?b0cx:;icm;::        BackspaceThenSend("{U+1F7E6}", strlen(";icm;"))       ; 🟦
+:*?b0cx:;cmi;::        BackspaceThenSend("{U+1F7E6}", strlen(";cmi;"))       ; 🟦
+:*?b0cx:;hcm;::        BackspaceThenSend("{U+1F7E8}", strlen(";hcm;"))       ; 🟨
+:*?b0cx:;cmh;::        BackspaceThenSend("{U+1F7E8}", strlen(";cmh;"))       ; 🟨
+:*?b0cx:;bcm;::        BackspaceThenSend("{U+2611}" , strlen(";bcm;"))       ; ☑
+:*?b0cx:;check;::      BackspaceThenSend("{U+2714}" , strlen(";check;"))     ; ✔️
+:*?b0cx:;checkmark;::  BackspaceThenSend("{U+2714}" , strlen(";checkmark;")) ; ✔️
+:*?b0cx:;cm;::         BackspaceThenSend("{U+2705}" , strlen(";cm;"))        ; ✅
+:*?b0cx:;cross;::      BackspaceThenSend("{U+274C}" , strlen(";cross;"))     ; ❌
+:*?b0cx:;crossmark;::  BackspaceThenSend("{U+274C}" , strlen(";crossmark;")) ; ❌
+:*?b0cx:;x;::          BackspaceThenSend("{U+274C}" , strlen(";x;"))         ; ❌
 
 ; Em Dashes
 :*?b0cx:;em;::   BackspaceThenSend("{U+2014}", strlen(";em;"   )) ; —
