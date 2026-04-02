@@ -24,6 +24,20 @@ This is my personal collection of AutoHotkey scripts.
 * [AutoHotkey v1.1.21.00+](http://ahkscript.org/)
 * [AutoHotkey functions](https://github.com/adammansfield/autohotkey-functions)
 
+## Formatting
+AutoHotkey v2 files can be formatted from the command line with:
+
+```powershell
+pwsh ./Format-Ahk.ps1
+```
+
+Notes:
+* The default target is the v2 entry script plus the `my-autohotkey-scripts/` tree.
+* Pass `-Path` to format a specific file or folder.
+* Pass `-Check` to fail if any file would be reformatted.
+* The first run bootstraps the upstream formatter into `temp/vscode-autohotkey2-lsp/`.
+* Requires `git`, `node`, and `npm` in `PATH`.
+
 ## Third-Party Sources
 * Autocorrect
   - Author: Jim Biancolo

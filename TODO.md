@@ -14,23 +14,26 @@
 
 ### Migration Completion Pattern
 
+All `Verify` checklist items below are manual verification steps to be performed by the user after the code change is made.
+
 For each v1 script below:
 
 - [ ] Create the v2 destination file in the canonical tree
 - [ ] Port syntax and replace v1-only helpers with v2/shared equivalents
 - [ ] Wire the file into the correct v2 `index.ahk`
 - [ ] Validate with `pwsh -ExecutionPolicy Bypass -File .\Test-Ahk.ps1`
-- [ ] Remove the migrated file from the v1 `index.ahk` only after the v2 version is verified
+- [ ] Ask the user to manually verify the change after the code update is made
+- [ ] Remove the migrated file from the v1 `index.ahk` only after the user manually verifies the v2 version
 
 ### Wave 1: Easiest and Lowest-Risk Files
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/text/abbreviations.ahk`
-  - [ ] Port the two direct text expansions with no helper dependencies
-  - [ ] Verify `btw` and `brb`
+- [x] `my-autohotkeyv1-scripts/hotstrings/text/abbreviations.ahk`
+  - [x] Port the two direct text expansions with no helper dependencies
+  - [x] Verify `btw` and `brb`
 
-- [ ] `my-autohotkeyv1-scripts/hotkeys/capslock.ahk`
-  - [ ] Port `CapsLock::Esc` and `ToggleCapsLock()`
-  - [ ] Verify normal CapsLock and `Shift+CapsLock`
+- [x] `my-autohotkeyv1-scripts/hotkeys/capslock.ahk`
+  - [x] Port `CapsLock::Esc` and `ToggleCapsLock()`
+  - [x] Verify normal CapsLock and `Shift+CapsLock`
 
 - [ ] `my-autohotkeyv1-scripts/hotkeys/audio.ahk`
   - [ ] Port volume hotkeys and microphone mute toggle
