@@ -43,8 +43,12 @@ function Invoke-AhkValidation {
     Write-Host "    ${Executable} " @Arguments " ${ScriptPath}" -ForegroundColor DarkGray
     Write-Host "    ``````" -ForegroundColor DarkGray
 
-    & $Executable @Arguments $ScriptPath 2>&1 | ForEach-Object { Write-Output $_ }
+    $commandOutput = & $Executable @Arguments $ScriptPath 2>&1
     $exitCode = $LASTEXITCODE
+
+    foreach ($line in $commandOutput) {
+        Write-Host "    $line"
+    }
 
     if ($exitCode -ne 0) {
       Write-Host "    FAIL: ${Label} (exit code ${exitCode})`n" -ForegroundColor Red
