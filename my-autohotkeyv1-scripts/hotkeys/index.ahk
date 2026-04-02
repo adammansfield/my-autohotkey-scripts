@@ -1,0 +1,9 @@
+#include audio.ahk
+#include capslock.ahk
+#include display.ahk
+#include etc.ahk
+#include gnucash.ahk
+#include obsidian.ahk
+#include onenote.ahk
+#include prototype.ahk
+#include vim.ahk
