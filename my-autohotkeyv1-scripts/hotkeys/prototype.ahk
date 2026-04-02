@@ -1,12 +1,11 @@
-<!r::AlertedReload()
+<!+r::AlertedReload()
 <!'::PrototypeFunction()
 
 ;; Reload script with alert.
 AlertedReload()
 {
-  Tooltip("reloading my-autohotkey-scripts.ahk")
-  Speak("re loading")
-  Sleep(250)
+  Tooltip("Reloading: [DEPRECATED] my-autohotkeyv1-scripts.ahk [AHKv1]")
+  Sleep(2000)
   Reload()
 }
 

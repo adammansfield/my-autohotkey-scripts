@@ -1,3 +1,5 @@
+#Requires -RunAsAdministrator
+
 $principal = New-ScheduledTaskPrincipal -UserId $env:UserName -RunLevel Highest
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User $env:UserName
 
@@ -22,3 +24,7 @@ Register-ScheduledTask `
     -Principal $principal `
     -TaskName $v1TaskName `
     -Trigger $trigger
+
+Write-Host "Registered scheduled tasks:"
+Write-Host "- $v2TaskName"
+Write-Host "- $v1TaskName"
