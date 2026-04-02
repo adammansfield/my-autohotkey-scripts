@@ -16,9 +16,12 @@ T3CodeHandleCtrlShiftSpaceForWhispering()
     KeyWait("Shift")
     KeyWait("Space")
 
-    ToolTip("Listening... (Ctrl+Shift+Shift to stop) [whispering.ahk]")
+    ToolTip("Preparing... [whispering.ahk]")
     A_Clipboard := "" ; Clear clipboard so we can use ClipWait to wait for data to appear.
+    Sleep(300) ; Whispering is ready faster than the sound it plays so use SoundBeep since it's quicker.
+    SoundBeep(320, 70) ; Use SoundBeep because it's much faster than playing audio files.
 
+    ToolTip("Listening... (Ctrl+Shift+Shift to stop) [whispering.ahk]")
     KeyWait("Ctrl", "D")
     KeyWait("Shift", "D")
     KeyWait("Space", "D")
@@ -33,6 +36,7 @@ T3CodeHandleCtrlShiftSpaceForWhispering()
 
     ToolTip("Transcribed [whispering.ahk] ")
     Send("^v") ; Whispering `Paste transcript at cursor` does not work in T3 Code.
+    SoundBeep(430, 85)
     Send("{Enter}") ; Send enter for toggle to talk (use toggle as a full prompt)
     Sleep(1000)
     ToolTip()
@@ -43,20 +47,31 @@ T3CodeHandleCtrlShiftSpaceForWhispering()
 ; Whispering also cannot paste the transcription into T3 Code.
 T3CodeHandleCtrlSpacePasteForWhispering()
 {
+    ; Cannot Send Ctrl-Up Space-Up to T3Code (or to Whispering by ControlSend) so must activate Whispering to send it. 
+    ; In case the Whispering window is on top of T3 Code, make it transparent.
     ; Skip checking if whispering.exe is running to increase performance.
-    WinActivate(WhisperingWinTitle)
+    WinSetTransparent(20, WhisperingWinTitle)
+    try {
+      WinActivate(WhisperingWinTitle)
+      Send("{Ctrl Down}{Space Down}") ; Send Ctrl-Space down to the Whispering window
 
-    ToolTip("Listening... (Release Ctrl+Shift to stop) [whispering.ahk]")
-    A_Clipboard := "" ; Clear clipboard so we can use ClipWait to wait for data to appear.
+      ToolTip("Preparing... [whispering.ahk]")
+      A_Clipboard := "" ; Clear clipboard so we can use ClipWait to wait for data to appear.
+      Sleep(300) ; Whispering is ready faster than the sound it plays.
+      SoundBeep(320, 70) ; Use SoundBeep because it's much faster than playing audio files.
 
-    Send("{Ctrl Down}{Space Down}")
-    KeyWait("Ctrl")
-    KeyWait("Space")
+      ToolTip("Listening... (Release Ctrl+Shift to stop) [whispering.ahk]")
+      KeyWait("Ctrl")
+      KeyWait("Space")
 
-    ToolTip("Transcribing... [whispering.ahk]")
-    WinActivate(T3CodeWinTitle)
+      ToolTip("Transcribing... [whispering.ahk]")
+      WinActivate(T3CodeWinTitle)
+    } finally {
+      WinSetTransparent(255, WhisperingWinTitle)
+      WinMoveBottom(WhisperingWinTitle)
+    }
 
-    if (!ClipWait(3, 0)) {
+    if (!ClipWait(5, 0)) {
         ToolTip("ERROR: Timed out waiting for transcript... [whispering.ahk]")
         Sleep(2000)
         ToolTip()
@@ -65,6 +80,7 @@ T3CodeHandleCtrlSpacePasteForWhispering()
 
     ToolTip("Transcribed [whispering.ahk] ")
     Send("^v") ; Whispering `Paste transcript at cursor` does not work in T3 Code.
+    SoundBeep(430, 85)
     ;Send("{Enter}") ; Do not send enter for push-to-talk (use push-to-talk as an in-line editor)
     Sleep(1000)
     ToolTip()
