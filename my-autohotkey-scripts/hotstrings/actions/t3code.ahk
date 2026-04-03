@@ -1,9 +1,8 @@
 #HotIf WinActive("T3 Code")
-:*cx?:;sidebar;::T3CodeShowCollaspeSideBarButton()
+:*cx?:;sidebar;:: T3CodeShowCollaspeSideBarButton()
 #HotIf
 
-T3CodeShowCollaspeSideBarButton()
-{
+T3CodeShowCollaspeSideBarButton() {
     ToolTip("Opening developer tools...")
     Send("^+i")
     Sleep(800) ; Wait for dev tools.

@@ -2,15 +2,14 @@ global T3CodeWinTitle := "ahk_exe T3 Code \(Alpha\).exe"
 global WhisperingWinTitle := "ahk_exe whispering.exe"
 
 #HotIf WinActive(T3CodeWinTitle)
-~^+Space::T3CodeHandleCtrlShiftSpaceForWhispering() ; Allow hotkey passthrough (~) as Whispering toggle hotkey works, but cannot paste the transcription.
-^Space::T3CodeHandleCtrlSpacePasteForWhispering() ; Do not allow hotkey passthrough as releasing Ctrl-Space in T3Code does nothing so Whispering cannot know when push-to-talk stops.
+~^+Space:: T3CodeHandleCtrlShiftSpaceForWhispering() ; Allow hotkey passthrough (~) as Whispering toggle hotkey works, but cannot paste the transcription.
+^Space:: T3CodeHandleCtrlSpacePasteForWhispering() ; Do not allow hotkey passthrough as releasing Ctrl-Space in T3Code does nothing so Whispering cannot know when push-to-talk stops.
 #HotIf
 
 ; Handle the pasting of the transcription into T3 Code for Whispering.
 ; Whispering can properly detect Ctrl+Shift+Space press and release in T3 Code, but it does not
 ; paste the transcription into T3 Code.
-T3CodeHandleCtrlShiftSpaceForWhispering()
-{
+T3CodeHandleCtrlShiftSpaceForWhispering() {
     ; Wait for Ctrl-Shift-Space to release to detect when it in pressed again.
     KeyWait("Ctrl")
     KeyWait("Shift")
@@ -45,30 +44,29 @@ T3CodeHandleCtrlShiftSpaceForWhispering()
 ; Handle the entire push-to-talk start, stop, and pasting of the transcription into T3 Code for Whispering.
 ; Whispering cannot properly detect Ctrl+Space release in T3 Code, so it cannot know when push-to-talk stops.
 ; Whispering also cannot paste the transcription into T3 Code.
-T3CodeHandleCtrlSpacePasteForWhispering()
-{
-    ; Cannot Send Ctrl-Up Space-Up to T3Code (or to Whispering by ControlSend) so must activate Whispering to send it. 
+T3CodeHandleCtrlSpacePasteForWhispering() {
+    ; Cannot Send Ctrl-Up Space-Up to T3Code (or to Whispering by ControlSend) so must activate Whispering to send it.
     ; In case the Whispering window is on top of T3 Code, make it transparent.
     ; Skip checking if whispering.exe is running to increase performance.
     WinSetTransparent(20, WhisperingWinTitle)
     try {
-      WinActivate(WhisperingWinTitle)
-      Send("{Ctrl Down}{Space Down}") ; Send Ctrl-Space down to the Whispering window
+        WinActivate(WhisperingWinTitle)
+        Send("{Ctrl Down}{Space Down}") ; Send Ctrl-Space down to the Whispering window
 
-      ToolTip("Preparing... [whispering.ahk]")
-      A_Clipboard := "" ; Clear clipboard so we can use ClipWait to wait for data to appear.
-      Sleep(300) ; Whispering is ready faster than the sound it plays.
-      SoundBeep(320, 70) ; Use SoundBeep because it's much faster than playing audio files.
+        ToolTip("Preparing... [whispering.ahk]")
+        A_Clipboard := "" ; Clear clipboard so we can use ClipWait to wait for data to appear.
+        Sleep(300) ; Whispering is ready faster than the sound it plays.
+        SoundBeep(320, 70) ; Use SoundBeep because it's much faster than playing audio files.
 
-      ToolTip("Listening... (Release Ctrl+Shift to stop) [whispering.ahk]")
-      KeyWait("Ctrl")
-      KeyWait("Space")
+        ToolTip("Listening... (Release Ctrl+Shift to stop) [whispering.ahk]")
+        KeyWait("Ctrl")
+        KeyWait("Space")
 
-      ToolTip("Transcribing... [whispering.ahk]")
-      WinActivate(T3CodeWinTitle)
+        ToolTip("Transcribing... [whispering.ahk]")
+        WinActivate(T3CodeWinTitle)
     } finally {
-      WinSetTransparent(255, WhisperingWinTitle)
-      WinMoveBottom(WhisperingWinTitle)
+        WinSetTransparent(255, WhisperingWinTitle)
+        WinMoveBottom(WhisperingWinTitle)
     }
 
     if (!ClipWait(5, 0)) {

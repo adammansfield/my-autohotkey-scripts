@@ -35,8 +35,15 @@ Notes:
 * The default target is the v2 entry script plus the `my-autohotkey-scripts/` tree.
 * Pass `-Path` to format a specific file or folder.
 * Pass `-Check` to fail if any file would be reformatted.
-* The first run bootstraps the upstream formatter into `temp/vscode-autohotkey2-lsp/`.
-* Requires `git`, `node`, and `npm` in `PATH`.
+* Optional formatter parameters:
+  * `-IndentStyle Spaces|Tabs`
+  * `-IndentSize 2|4` (or another value from 1 to 8 when using spaces)
+  * `-BraceStyle "One True Brace"|"Allman"|"One True Brace Variant"`
+  * `-ArrayStyle none|collapse|expand`
+  * `-ObjectStyle none|collapse|expand`
+* The first run bootstraps the upstream formatter into `.tools/vscode-autohotkey2-lsp/`.
+* The formatter cache auto-refreshes every 30 days and records the last refresh in `.tools/vscode-autohotkey2-lsp-updated-at.txt`.
+* Requires `git` and `bun` in `PATH`.
 
 ## Third-Party Sources
 * Autocorrect

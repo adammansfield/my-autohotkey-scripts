@@ -4,6 +4,7 @@
 
 The following command must pass before considering tasks completed:
 ```
+pwsh -ExecutionPolicy Bypass -File .\Format-Ahk.ps1
 pwsh -ExecutionPolicy Bypass -File .\Test-Ahk.ps1
 ```
 
