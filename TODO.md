@@ -1,5 +1,9 @@
 # TODO
 
+## hotkeys/whispering.ahk
+
+- [ ] Save and restore the clipboard so Whispering does not overwrite it
+
 ## Migrate AHKv1 to AHKv2
 
 ### Completed Foundation
