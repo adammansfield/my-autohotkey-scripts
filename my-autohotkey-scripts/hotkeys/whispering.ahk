@@ -46,7 +46,7 @@ global WhisperingWinTitle := "ahk_exe whispering.exe"
 WhisperingHandleCtrlShiftSpaceToggleTalk() {
     if (!WinExist(WhisperingWinTitle)) {
         Tooltip("ERROR: Whispering is not running so start it and try again.")
-	Sleep(2000)
+        Sleep(2000)
         return
     }
 
@@ -90,7 +90,7 @@ WhisperingHandleCtrlShiftSpaceToggleTalk() {
 WhisperingHandleCtrlSpacePushToTalk() {
     if (!WinExist(WhisperingWinTitle)) {
         Tooltip("ERROR: Whispering is not running so start it and try again.")
-	Sleep(2000)
+        Sleep(2000)
         KeyWait("Ctrl")
         KeyWait("Space")
         Tooltip()
@@ -130,7 +130,7 @@ WhisperingHandleCtrlSpacePushToTalk() {
 WhisperingHandleCtrlSpacePushToTalkForT3Code() {
     if (!WinExist(WhisperingWinTitle)) {
         Tooltip("ERROR: Whispering is not running so start it and try again.")
-	Sleep(2000)
+        Sleep(2000)
         KeyWait("Ctrl")
         KeyWait("Space")
         Tooltip()

@@ -6,4 +6,3 @@
 #include hotstrings/text/markdown.obsidian.ahk
 #include hotstrings/text/markdown.onenote.ahk
 #include hotstrings/text/markdown.ahk
-#include hotstrings/text/symbols.ahk
