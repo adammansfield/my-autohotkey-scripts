@@ -89,8 +89,9 @@ For each v1 script below:
   - [ ] Verify OneNote task and chain-of-thought hotstrings
 
 - [ ] `my-autohotkeyv1-scripts/hotstrings/text/markdown.ahk`
-  - [ ] Port the generic markdown/task/code hotstrings
-  - [ ] Port `SendChainOfThought()`
+  - [x] Port the generic markdown/task/code hotstrings
+  - [x] Port `SendChainOfThought()`
+  - [x] Remove the migrated file from the v1 text index and delete the legacy file
   - [ ] Verify that generic markdown still yields to the Obsidian and OneNote overrides
 
 - [ ] `my-autohotkeyv1-scripts/hotstrings/text/coding.ahk`

@@ -12,7 +12,7 @@
 :*?b0cx:;bcm;:: BackspaceThenSend("{U+2611}", StrLen(";bcm;")) ; ☑
 :*?b0cx:;hcm;:: BackspaceThenSend("{U+1F7E8}", StrLen(";hcm;")) ; 🟨
 :*?b0cx:;icm;:: BackspaceThenSend("{U+1F7E6}", StrLen(";icm;")) ; 🟦
-:*?b0cx:;pcm;:: BackspaceThenSend("{U+23F8}", StrLen(";pcm;")) ; ⏸  
+:*?b0cx:;pcm;:: BackspaceThenSend("{U+23F8}", StrLen(";pcm;")) ; ⏸
 :*?b0cx:;ucm;:: BackspaceThenSend("{U+2B1C}", StrLen(";ucm;")) ; ⬜
 :*?b0cx:;check;:: BackspaceThenSend("{U+2714}", StrLen(";check;")) ; ✔️
 :*?b0cx:;checkmark;:: BackspaceThenSend("{U+2714}", StrLen(";checkmark;")) ; ✔️
@@ -93,7 +93,7 @@
 :*cx?:;16nbsp;:: SendNoBreakSpaces(16)
 
 ; Tree branches
-:*?b0cx:;br;::  BackspaceThenSend("{U+251C}{U+2500}{U+003E}", StrLen(";br;"))  ; ├─> tree (br)anch
+:*?b0cx:;br;:: BackspaceThenSend("{U+251C}{U+2500}{U+003E}", StrLen(";br;"))  ; ├─> tree (br)anch
 :*?b0cx:;bre;:: BackspaceThenSend("{U+2514}{U+2500}{U+003E}", StrLen(";bre;")) ; └─> tree (br)anch (e)nd
 
 SendNoBreakSpaces(count) {
