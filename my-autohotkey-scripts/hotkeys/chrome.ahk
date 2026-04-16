@@ -1,6 +1,7 @@
 #HotIf WinActive("ahk_exe chrome.exe")
 ^':: ChromeToggleSidebar()
 XButton2:: ChromeToggleSidebar()
+XButton1:: Send("^w")
 #HotIf
 
 ChromeToggleSidebar() {
