@@ -1,5 +1,4 @@
 <!+r::AlertedReload()
-<!'::PrototypeFunction()
 
 ;; Reload script with alert.
 AlertedReload()
@@ -47,9 +46,4 @@ SplitSideMonitorWindows()
 	;SysGet, VirtualScreenHeight, 79
 	;Msgbox("VirtualScreenWidth: " VirtualScreenWidth " VirtualScreenHeight: " VirtualScreenHeight)
 	;Msgbox("XVirtualScreenLeft: " XVirtualScreenLeft " YVirtualScreenTop: " YVirtualScreenTop)
-}
-
-;; Function used for prototyping.
-PrototypeFunction()
-{
 }
