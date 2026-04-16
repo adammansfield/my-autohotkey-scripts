@@ -10,6 +10,18 @@ CtrlBackspaceThenSend(keys, ctrlBackspaces) {
     Send(keys)
 }
 
+CtrlBackspaceThenSendText(text, ctrlBackspaces) {
+    ; Keep text-mode sending paired with the same paced deletion behavior.
+    Loop ctrlBackspaces {
+        Sleep(2)
+        Send("^{Backspace}")
+        Sleep(2)
+    }
+
+    Sleep(4)
+    SendText(text)
+}
+
 BackspaceThenSend(keys, backspaces) {
     ; Plain backspaces need the same pacing for reliable replacement in some apps.
     Loop backspaces {
@@ -19,4 +31,15 @@ BackspaceThenSend(keys, backspaces) {
     }
 
     Send(keys)
+}
+
+BackspaceThenSendText(text, backspaces) {
+    ; Plain backspaces need the same pacing for reliable replacement in some apps.
+    Loop backspaces {
+        Sleep(1)
+        Send("{Backspace}")
+        Sleep(1)
+    }
+
+    SendText(text)
 }
