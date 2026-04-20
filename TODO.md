@@ -78,21 +78,21 @@ For each v1 script below:
 
 ### Wave 3: Markdown and Generic Text Expansion
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/text/markdown.obsidian.ahk`
-  - [ ] Port the Obsidian-specific markdown overrides first
-  - [ ] Preserve include order so Obsidian overrides still win over generic markdown hotstrings
-  - [ ] Verify code-fence expansions in Obsidian
+- [x] `my-autohotkeyv1-scripts/hotstrings/text/markdown.obsidian.ahk`
+  - [x] Port the Obsidian-specific markdown overrides first
+  - [x] Preserve include order so Obsidian overrides still win over generic markdown hotstrings
+  - [x] Verify code-fence expansions in Obsidian
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/text/markdown.onenote.ahk`
-  - [ ] Port the OneNote-specific markdown overrides after shared OneNote helpers are available
-  - [ ] Port `OneNoteSendChainOfThought()`
-  - [ ] Verify OneNote task and chain-of-thought hotstrings
+- [x] `my-autohotkeyv1-scripts/hotstrings/text/markdown.onenote.ahk`
+  - [x] Port the OneNote-specific markdown overrides after shared OneNote helpers are available
+  - [x] Port `OneNoteSendChainOfThought()`
+  - [x] Verify OneNote task and chain-of-thought hotstrings
 
 - [ ] `my-autohotkeyv1-scripts/hotstrings/text/markdown.ahk`
   - [x] Port the generic markdown/task/code hotstrings
   - [x] Port `SendChainOfThought()`
   - [x] Remove the migrated file from the v1 text index and delete the legacy file
-  - [ ] Verify that generic markdown still yields to the Obsidian and OneNote overrides
+  - [x] Verify that generic markdown still yields to the Obsidian and OneNote overrides
 
 - [ ] `my-autohotkeyv1-scripts/hotstrings/text/coding.ahk`
   - [ ] Port the mixed text-expansion and clipboard-based snippets
