@@ -35,7 +35,8 @@ function Invoke-AhkValidation {
         [string] $Label,
         [string] $Executable,
         [string] $ScriptPath,
-        [string[]] $Arguments
+        [string[]] $Arguments,
+        [string] $WorkingDirectory = (Split-Path -Path $ScriptPath -Parent)
     )
 
     Write-Host "- Validating ${Label}:" -ForegroundColor Cyan
@@ -43,8 +44,14 @@ function Invoke-AhkValidation {
     Write-Host "    ${Executable} " @Arguments " ${ScriptPath}" -ForegroundColor DarkGray
     Write-Host "    ``````" -ForegroundColor DarkGray
 
-    $commandOutput = & $Executable @Arguments $ScriptPath 2>&1
-    $exitCode = $LASTEXITCODE
+    Push-Location $WorkingDirectory
+    try {
+        $global:LASTEXITCODE = 0
+        $commandOutput = & $Executable @Arguments $ScriptPath 2>&1
+        $exitCode = $LASTEXITCODE
+    } finally {
+        Pop-Location
+    }
 
     foreach ($line in $commandOutput) {
         Write-Host "    $line"
