@@ -43,3 +43,7 @@ BackspaceThenSendText(text, backspaces) {
 
     SendText(text)
 }
+
+BackspaceTextThenSendText(text, trigger) {
+    BackspaceThenSendText(text, StrLen(trigger))
+}

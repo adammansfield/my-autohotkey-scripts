@@ -1,7 +1,7 @@
-; Bullet points
-:*?b0cx:;b;:: MarkdownReplace(";b;", "- ")
-:*?b0cx:;bb;:: MarkdownReplace(";bb;", "    - ")
-:*?b0cx:;bbb;:: MarkdownReplace(";bbb;", "        - ")
+; Bullet point
+:*?b0cx:;b;:: BackspaceTextThenSendText("- ", ";b;")
+:*?b0cx:;bb;:: BackspaceTextThenSendText("    - ", ";bb;")
+:*?b0cx:;bbb;:: BackspaceTextThenSendText("        - ", ";bbb;")
 
 ; Code
 :*?b0cx:;c;:: MarkdownInsertInlineCode()
@@ -52,7 +52,7 @@
 ; Chain-of-thought (<div class="CoT">)
 :*?b0cx:;cot;:: MarkdownSendChainOfThought()
 
-; Tasks
+; Task
 :*?b0cx:;t;:: MarkdownTask(";t;")
 :*?b0cx:;ti;:: MarkdownTask(";ti;", "!")
 :*?b0cx:;tii;:: MarkdownTask(";tii;", "!!!")
@@ -70,9 +70,21 @@
 :*?b0cx:;tzii;:: MarkdownTask(";tzii;", "!!!", Chr(0x1F4AC))
 
 ; Task category
-:*?b0cx:;tc;:: MarkdownInsertTaskCategory()
+:*?b0cx:;tc;:: MarkdownInsertTaskCategory(";tc;")
+:*?b0cx:;tcc;:: MarkdownInsertTaskCommitTypeAndScope(";tcc;")
 
-; Task diff
+; Subtasks
+:*?b0cx:;tt;:: BackspaceTextThenSendText("    - [ ] ", ";tt;")
+:*?b0cx:;ttt;:: BackspaceTextThenSendText("        - [ ] ", ";ttt;")
+
+; Slack tasks and subtasks
+:*?b0cx:;st;:: BackspaceTextThenSendText(Chr(0x2B1C) " ", ";st;")
+:*?b0cx:;std;:: BackspaceTextThenSendText(Chr(0x2705) " ", ";std;")
+:*?b0cx:;stt;:: BackspaceTextThenSendText(Chr(0x2514) Chr(0x2500) Chr(0x003E) Chr(0x2B1C) " ", ";stt;")
+:*?b0cx:;sttd;:: BackspaceTextThenSendText(Chr(0x2514) Chr(0x2500) Chr(0x003E) Chr(0x2705) " ", ";sttd;")
+:*?b0cx:;stti;:: BackspaceTextThenSendText(Chr(0x2514) Chr(0x2500) Chr(0x003E) Chr(0x1F7E6) " ", ";stti;")
+
+; Task list diff
 :*?b0cx:;dadded;:: MarkdownDiff(";dadded;", "+NEW", "#b83230")
 :*?b0cx:;dnew;:: MarkdownDiff(";dnew;", "+NEW", "#b83230")
 :*?b0cx:;dreopen;:: MarkdownDiff(";dreopen;", "+REOPENED", "#b83230")
@@ -91,28 +103,13 @@
 :*?b0cx:;dreprioritized;:: MarkdownDiff(";dreprioritized;", "~REPRIORITIZED", "#c88b2b")
 :*?b0cx:;drepriority;:: MarkdownDiff(";drepriority;", "~REPRIORITIZED", "#c88b2b")
 
-; Subtasks
-:*?b0cx:;tt;:: MarkdownReplace(";tt;", "    - [ ] ")
-:*?b0cx:;ttt;:: MarkdownReplace(";ttt;", "        - [ ] ")
-
-; Slack tasks and subtasks
-:*?b0cx:;st;:: MarkdownReplace(";st;", Chr(0x2B1C) " ")
-:*?b0cx:;std;:: MarkdownReplace(";std;", Chr(0x2705) " ")
-:*?b0cx:;stt;:: MarkdownReplace(";stt;", Chr(0x2514) Chr(0x2500) Chr(0x003E) Chr(0x2B1C) " ")
-:*?b0cx:;sttd;:: MarkdownReplace(";sttd;", Chr(0x2514) Chr(0x2500) Chr(0x003E) Chr(0x2705) " ")
-:*?b0cx:;stti;:: MarkdownReplace(";stti;", Chr(0x2514) Chr(0x2500) Chr(0x003E) Chr(0x1F7E6) " ")
-
-MarkdownReplace(trigger, text) {
-    BackspaceThenSendText(text, StrLen(trigger))
-}
-
 MarkdownInsertInlineCode() {
-    MarkdownReplace(";c;", MarkdownBackticks(2))
+    BackspaceTextThenSendText(MarkdownBackticks(2), ";c;")
     Send("{Left}")
 }
 
 MarkdownInsertCodeBlock(trigger, language := "") {
-    MarkdownReplace(trigger, MarkdownBackticks(3) . language)
+    BackspaceTextThenSendText(MarkdownBackticks(3) . language, trigger)
     Send("+{Enter}+{Enter}")
     SendText(MarkdownBackticks(3))
     Send("{Up}")
@@ -130,18 +127,23 @@ MarkdownTask(trigger, priority := "", icon := "") {
     }
 
     text .= " "
-    MarkdownReplace(trigger, text)
+    BackspaceTextThenSendText(text, trigger)
 }
 
-MarkdownInsertTaskCategory() {
-    MarkdownReplace(";tc;", MarkdownBackticks(1) . "[]" . MarkdownBackticks(1))
+MarkdownInsertTaskCategory(textToBackspace) {
+    BackspaceTextThenSendText(MarkdownBackticks(1) . "()" . MarkdownBackticks(1), textToBackspace)
     Send("{Left 2}")
+}
+
+MarkdownInsertTaskCommitTypeAndScope(textToBackspace) {
+    BackspaceTextThenSendText(MarkdownBackticks(1) . "()" . MarkdownBackticks(1), textToBackspace)
+    Send("{Left 3}")
 }
 
 MarkdownDiff(trigger, label, color) {
     quote := Chr(34)
     text := "<span style=" . quote . "background-color:" . color . quote . ">" . label . "</span>"
-    MarkdownReplace(trigger, text)
+    BackspaceTextThenSendText(text, trigger)
 }
 
 MarkdownBackticks(count) {
@@ -155,7 +157,7 @@ MarkdownBackticks(count) {
 }
 
 MarkdownSendChainOfThought() {
-    MarkdownReplace(";cot;", "")
+    BackspaceTextThenSendText("", ";cot;")
     timestamp := FormatTime(A_Now, "HHmm")
     quote := Chr(34)
     SendText("<div class=" . quote . "CoT" . quote . ">" . timestamp . "  ZUERST: ")
