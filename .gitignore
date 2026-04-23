@@ -1,2 +1,9 @@
+# Generated tools (AHKv2 LSP, compiled Typescript, etc.)
 .tools/
-my-autohotkey-scripts.ini
+
+# Installed dependencies.
+node_modules/
+
+# OS-generated junk files.
+.DS_Store
+Thumbs.db
