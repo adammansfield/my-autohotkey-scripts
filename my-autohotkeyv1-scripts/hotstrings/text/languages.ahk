@@ -57,11 +57,13 @@
 :*?b0cx:pnein;::         CtrlBackspaceThenSend("n{U+00E3}o"                        , 2) ; não
 
 ; Russisch
-:*?b0cx:rgerne;::      CtrlBackspaceThenSend("{U+0441} {U+0443}{U+0434}{U+043E}{U+0432}{U+043E}{U+043B}{U+044C}{U+0441}{U+0442}{U+0432}{U+0438}{U+0435}{U+043C}", 2) ; с удовольствием
-:*?b0cx:rhallo;::      CtrlBackspaceThenSend("{U+043F}{U+0440}{U+0438}{U+0432}{U+0435}{U+0442}"                                                                 , 2) ; привет
-:*?b0cx:rja;::         CtrlBackspaceThenSend("{U+0434}{U+0430}"                                                                                                 , 2) ; да
-:*?b0cx:rkeinproblem;::CtrlBackspaceThenSend("{U+043D}{U+0435}{U+0442} {U+043F}{U+0440}{U+043E}{U+0431}{U+043B}{U+0435}{U+043C}"                                , 2) ; нет проблем
-:*?b0cx:rnein;::       CtrlBackspaceThenSend("{U+043D}{U+0435}{U+0442}"                                                                                         , 2) ; нет
+:*?b0cx:rdanke;::        CtrlBackspaceThenSend("{U+0421}{U+043F}{U+0430}{U+0441}{U+0438}{U+0431}{U+043E}"                                                         , 2) ; Спасибо
+:*?b0cx:rgerngeschehen;::CtrlBackspaceThenSend("{U+0441} {U+0443}{U+0434}{U+043E}{U+0432}{U+043E}{U+043B}{U+044C}{U+0441}{U+0442}{U+0432}{U+0438}{U+0435}{U+043C}", 2) ; с удовольствием
+:*?b0cx:rgerne;::        CtrlBackspaceThenSend("{U+043D}{U+0435}{U+0020}{U+0437}{U+0430}{U+0020}{U+0447}{U+0442}{U+043E}"                                         , 2) ; не за что
+:*?b0cx:rhallo;::        CtrlBackspaceThenSend("{U+043F}{U+0440}{U+0438}{U+0432}{U+0435}{U+0442}"                                                                 , 2) ; привет
+:*?b0cx:rja;::           CtrlBackspaceThenSend("{U+0434}{U+0430}"                                                                                                 , 2) ; да
+:*?b0cx:rkeinproblem;::  CtrlBackspaceThenSend("{U+043D}{U+0435}{U+0442} {U+043F}{U+0440}{U+043E}{U+0431}{U+043B}{U+0435}{U+043C}"                                , 2) ; нет проблем
+:*?b0cx:rnein;::         CtrlBackspaceThenSend("{U+043D}{U+0435}{U+0442}"                                                                                         , 2) ; нет
 
 ; Serbisch
 :*?b0cx:sbitte;::             CtrlBackspaceThenSend("{U+041C}{U+043E}{U+043B}{U+0438}{U+043C}"                                                                 , 2) ; Молим
