@@ -13,7 +13,6 @@ type ParsedTaskLine = {
 
 function convertMarkdownTasksToSlack(markdown: string): string {
   const newline = markdown.includes("\r\n") ? "\r\n" : "\n";
-  const hasTrailingNewline = markdown.endsWith("\r\n") || markdown.endsWith("\n");
   const lines = markdown.split(/\r?\n/);
   const convertedLines: string[] = [];
 
@@ -51,7 +50,11 @@ function convertMarkdownTasksToSlack(markdown: string): string {
     i = childIndex - 1;
   }
 
-  return convertedLines.join(newline) + (hasTrailingNewline ? newline : "");
+  while (convertedLines.length > 0 && convertedLines[convertedLines.length - 1]!.trim() === "") {
+    convertedLines.pop();
+  }
+
+  return convertedLines.join(newline);
 }
 
 function parseTaskLine(line: string): ParsedTaskLine | null {
