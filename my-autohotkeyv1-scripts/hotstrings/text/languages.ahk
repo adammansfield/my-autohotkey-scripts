@@ -89,9 +89,10 @@
 :*?b0cx:sokay;::              CtrlBackspaceThenSend("{U+041E}{U+043A}{U+0435}{U+0458}"                                                                         , 2) ; Океј
 :*?b0cx:srichtig;::           CtrlBackspaceThenSend("{U+0423} {U+043F}{U+0440}{U+0430}{U+0432}{U+0443} {U+0441}{U+0438}"                                       , 2) ; У праву си
 :*?b0cx:sstimmt;::            CtrlBackspaceThenSend("{U+0442}{U+0430}{U+0447}{U+043D}{U+043E}"                                                                 , 2) ; тачно
+:*?b0cx:stoll;::              CtrlBackspaceThenSend("{U+043E}{U+0434}{U+043B}{U+0438}{U+0447}{U+043D}{U+043E}"                                                 , 2) ; одлично
 :*?b0cx:svielendank;::        CtrlBackspaceThenSend("{U+0425}{U+0432}{U+0430}{U+043B}{U+0430} {U+043D}{U+0430}{U+0458}{U+043B}{U+0435}{U+043F}{U+0448}{U+0435}", 2) ; Хвала најлепше
 :*?b0cx:swiegehts?::          CtrlBackspaceThenSend("{U+041A}{U+0430}{U+043A} {U+0441}{U+0438}?"                                                               , 2) ; Как си?
-:*?b0cx:swunderbar;::         CtrlBackspaceThenSend("{U+043F}{U+0440}{U+0435}{U+0434}{U+0438}{U+0432}{U+043D}{U+0430}"                                         , 2) ; предивна
+:*?b0cx:swunderbar;::         CtrlBackspaceThenSend("{U+0441}{U+0443}{U+043F}{U+0435}{U+0440}"                                         , 2) ; супер
 
 ; Ukrainisch
 :*?b0cx:udanke;::      CtrlBackspaceThenSend("{U+0434}{U+044F}{U+043A}{U+0443}{U+044E}"                                                                 , 2) ; дякую
