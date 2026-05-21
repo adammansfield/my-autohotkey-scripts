@@ -27,7 +27,7 @@
 ; **Windows Settings / Notifications / Whispering:**
 ;   - [ ] On (disabled)
 
-global T3CodeWinTitle := "ahk_exe T3 Code \(Alpha\).exe"
+global T3CodeWinTitle := "T3 Code \("
 global WhisperingWinTitle := "ahk_exe whispering.exe"
 
 ; In AHK, ^Space and ~^Space are technically different hotkeys, so the passthrough
