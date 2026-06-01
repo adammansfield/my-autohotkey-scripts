@@ -48,9 +48,14 @@
 :*?b0cx:hnein;:: CtrlBackspaceThenSend("{U+05DC}{U+05D0}", 2) ; לא (loh: loh)
 
 ; Portugiesisch
+:*?b0cx:pbitte;:: CtrlBackspaceThenSend("por favor", 2) ; por favor
 :*?b0cx:pdanke;:: CtrlBackspaceThenSend("obrigado", 2) ; obrigado
 :*?b0cx:pgerne;:: CtrlBackspaceThenSend("n{U+00E3}o h{U+00E1} de qu{U+00EA}", 2) ; não há de quê
 :*?b0cx:pgerngeschehen;:: CtrlBackspaceThenSend("de nada", 2) ; de nada
+:*?b0cx:pgut;:: CtrlBackspaceThenSend("bom", 2) ; bom
+:*?b0cx:pgutenabend;:: CtrlBackspaceThenSend("boa noite", 2) ; boa noite
+:*?b0cx:pgutenmorgen;:: CtrlBackspaceThenSend("bom dia", 2) ; bom dia
+:*?b0cx:pgutentag;:: CtrlBackspaceThenSend("boa tarde", 2) ; boa tarde
 :*?b0cx:phallo;:: CtrlBackspaceThenSend("ol{U+00E1}", 2) ; olá
 :*?b0cx:pja;:: CtrlBackspaceThenSend("sim", 2) ; sim
 :*?b0cx:pkeinproblem;:: CtrlBackspaceThenSend("por nada", 2) ; por nada (for nothing)
