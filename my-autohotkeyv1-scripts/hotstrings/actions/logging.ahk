@@ -364,15 +364,15 @@ OneNoteLogStandups()
   ; - [o] -> ⬜todo (unhighligted)
   ; - [/] -> 🟦 in-progress
   ; - [x] -> ✅ done
-  ; - [!] -> 🟨 on-hold / attention
-  ; - [<] -> 📅 rescheduled
+  ; - [!] -> 🟨 blocked / on-hold / attention
+  ; - [<] -> 📅 postponed / rescheduled
 
  ;cancelled  := "{U+274C}"  ; ❌ 
   done       := "{U+2705}"  ; ✅
   inprogress := "{U+1F7E6}" ; 🟦
   todo       := "{U+2B1C}"  ; ⬜
-  onHold     := "{U+1F7E8}" ; 🟨 
-  paused     := "{U+23F8}"  ; ⏸  
+  blocked    := "{U+1F7E8}" ; 🟨 
+  postponed  := "{U+1F4C5}" ; 📅
 
   markdownBar := "---------------------------------------------------------------"
 
@@ -458,8 +458,8 @@ OneNoteLogStandups()
       DelayedSend("  " todo " todo", textDelay)
       DelayedSend("  " inprogress " in-progress", textDelay)
       DelayedSend("  " done " done", textDelay)
-      DelayedSend("  " onHold " on-hold", textDelay)
-      DelayedSend("  " paused " paused", textDelay)
+      DelayedSend("  " blocked " blocked", textDelay)
+      DelayedSend("  " postponed " postponed", textDelay)
       DelayedSend("{Enter}", whitespaceDelay)
       DelayedSend("{Enter}", whitespaceDelay)
     }
