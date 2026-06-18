@@ -1,4 +1,3 @@
-#Include abbreviations.ahk
 #Include autocorrect.ahk
 #Include coding.ahk
 #Include languages.ahk
