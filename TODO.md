@@ -71,10 +71,10 @@ For each v1 script below:
   - [ ] Keep the console/devenv/Windows Terminal exclusions intact
   - [ ] Verify representative German, Bulgarian, Hebrew, and Serbian hotstrings
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/actions/date.ahk`
-  - [ ] Port timestamp hotstrings and helper functions `GetQuarterNumber()`, `GetWeekNumber()`, and `ToDeutschDay()`
-  - [ ] Rework `SendStopWatch()` with v2 clipboard handling
-  - [ ] Verify both pure text expansions and the spreadsheet stopwatch flow
+- [x] `my-autohotkeyv1-scripts/hotstrings/actions/date.ahk`
+  - [x] Port timestamp hotstrings and helper functions `GetQuarterNumber()`, `GetWeekNumber()`, and `ToDeutschDay()`
+  - [x] Rework `SendStopWatch()` with v2 clipboard handling
+  - [x] Verify both pure text expansions and the spreadsheet stopwatch flow
 
 ### Wave 3: Markdown and Generic Text Expansion
 

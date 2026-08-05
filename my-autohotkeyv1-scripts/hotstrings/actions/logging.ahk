@@ -568,3 +568,23 @@ SendClearLine(delay = 1)
   DelayedSend("+{End}", delay) ; Highlight to end of the line (wait for highlight)
   DelayedSend("{Del}", delay)  ; Delete line (wait for deletion)
 }
+
+; Keep these helpers local to the legacy logging feature until it is migrated.
+GetQuarterNumber()
+{
+  return floor((A_MM - 1) / 3) + 1
+}
+
+ToDeutschDay(day)
+{
+  switch day
+  {
+    case "Monday":    return "Montag"
+    case "Tuesday":   return "Dienstag"
+    case "Wednesday": return "Mittwoch"
+    case "Thursday":  return "Donnerstag"
+    case "Friday":    return "Freitag"
+    case "Saturday":  return "Samstag"
+    case "Sunday":    return "Sonntag"
+  }
+}

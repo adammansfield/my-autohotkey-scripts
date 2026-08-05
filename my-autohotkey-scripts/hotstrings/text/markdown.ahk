@@ -126,7 +126,10 @@ MarkdownTask(trigger, priority := "", icon := "") {
         text .= icon
     }
 
-    text .= " "
+    if (priority != "" || icon != "") {
+        text .= " "
+    }
+
     BackspaceTextThenSendText(text, trigger)
 }
 
