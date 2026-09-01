@@ -49,6 +49,7 @@ For each v1 script below:
 - [x] `my-autohotkeyv1-scripts/hotkeys/display.ahk`
   - [x] Port the registry toggle and tooltip behavior
   - [x] Verify theme state tracking still matches the actual Windows theme after reload
+  - [x] remove display.ahk as it is no longer used
 
 - [x] `my-autohotkeyv1-scripts/hotkeys/gnucash.ahk`
   - [x] Port the `#if WinActive("GnuCash")` block to `#HotIf`
@@ -56,20 +57,20 @@ For each v1 script below:
 
 ### Wave 2: Shared Hotstring Helpers and Helper-Driven Text Files
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/actions/etc.ahk`
-  - [ ] Port `CtrlBackspaceThenSend`, `BackspaceThenSend`, and `SendNumberMinUntilHour`
-  - [ ] Move these helpers into v2 locations that other text/action files can reuse
-  - [ ] Verify OneNote/Slack backspacing timing still works
+- [x] `my-autohotkeyv1-scripts/hotstrings/actions/etc.ahk`
+  - [x] Port `CtrlBackspaceThenSend`, `BackspaceThenSend`, and `SendNumberMinUntilHour`
+  - [x] Move these helpers into v2 locations that other text/action files can reuse
+  - [x] Verify OneNote/Slack backspacing timing still works
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/text/symbols.ahk`
-  - [ ] Port Unicode symbol hotstrings after the helper functions exist in v2
-  - [ ] Replace legacy `strlen` calls with `StrLen`
-  - [ ] Verify representative checkmark, tree-branch, Greek, and non-breaking-space cases
+- [x] `my-autohotkeyv1-scripts/hotstrings/text/symbols.ahk`
+  - [x] Port Unicode symbol hotstrings after the helper functions exist in v2
+  - [x] Replace legacy `strlen` calls with `StrLen`
+  - [x] Verify representative checkmark, tree-branch, Greek, and non-breaking-space cases
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/text/languages.ahk`
-  - [ ] Port the window-scoped language hotstrings after the helper functions exist in v2
-  - [ ] Keep the console/devenv/Windows Terminal exclusions intact
-  - [ ] Verify representative German, Bulgarian, Hebrew, and Serbian hotstrings
+- [x] `my-autohotkeyv1-scripts/hotstrings/text/languages.ahk`
+  - [x] Port the window-scoped language hotstrings after the helper functions exist in v2
+  - [x] Keep the console/devenv/Windows Terminal exclusions intact
+  - [x] Verify representative German, Bulgarian, Hebrew, and Serbian hotstrings
 
 - [x] `my-autohotkeyv1-scripts/hotstrings/actions/date.ahk`
   - [x] Port timestamp hotstrings and helper functions `GetQuarterNumber()`, `GetWeekNumber()`, and `ToDeutschDay()`
