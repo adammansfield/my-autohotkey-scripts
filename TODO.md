@@ -42,17 +42,17 @@ For each v1 script below:
   - [x] Port `CapsLock::Esc` and `ToggleCapsLock()`
   - [x] Verify normal CapsLock and `Shift+CapsLock`
 
-- [ ] `my-autohotkeyv1-scripts/hotkeys/audio.ahk`
-  - [ ] Port volume hotkeys and microphone mute toggle
-  - [ ] Verify the hardcoded microphone device name still works in v2
+- [x] `my-autohotkeyv1-scripts/hotkeys/audio.ahk`
+  - [x] Port volume hotkeys and microphone mute toggle
+  - [x] Verify the hardcoded microphone device name still works in v2
 
-- [ ] `my-autohotkeyv1-scripts/hotkeys/display.ahk`
-  - [ ] Port the registry toggle and tooltip behavior
-  - [ ] Verify theme state tracking still matches the actual Windows theme after reload
+- [x] `my-autohotkeyv1-scripts/hotkeys/display.ahk`
+  - [x] Port the registry toggle and tooltip behavior
+  - [x] Verify theme state tracking still matches the actual Windows theme after reload
 
-- [ ] `my-autohotkeyv1-scripts/hotkeys/gnucash.ahk`
-  - [ ] Port the `#if WinActive("GnuCash")` block to `#HotIf`
-  - [ ] Verify the transaction hotkey still matches the assumed split-count workflow
+- [x] `my-autohotkeyv1-scripts/hotkeys/gnucash.ahk`
+  - [x] Port the `#if WinActive("GnuCash")` block to `#HotIf`
+  - [x] Verify the transaction hotkey still matches the assumed split-count workflow
 
 ### Wave 2: Shared Hotstring Helpers and Helper-Driven Text Files
 

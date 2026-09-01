@@ -1,6 +1,8 @@
+#Include audio.ahk
 #Include capslock.ahk
 #Include chatgpt.ahk
 #Include chrome.ahk
+#Include gnucash.ahk
 #Include prototype.ahk
 #Include reload-ahk.ahk
 #Include slack.ahk
