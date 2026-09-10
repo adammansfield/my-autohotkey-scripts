@@ -166,8 +166,6 @@ MarkdownSendChainOfThought() {
     BackspaceTextThenSendText("", ";cot;")
     timestamp := FormatTime(A_Now, "HHmm")
     quote := Chr(34)
-    SendText("<div class=" . quote . "CoT" . quote . ">" . timestamp . "  ZUERST: ")
-    Send("{Enter}")
-    SendText("</div>")
-    Send("{Up}{End}^{Left 2}{Left}")
+    SendText("<div class=" . quote . "CoT" . quote . ">" . timestamp . "  ZUERST:</div>")
+    Send("^{Left 3}{Right}")
 }
