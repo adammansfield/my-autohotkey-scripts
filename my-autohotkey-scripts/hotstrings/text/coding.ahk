@@ -54,7 +54,7 @@
     ( LTrim
         System.IO.File.AppendAllText($"[DONTMERGE]-{System.Diagnostics.Process.GetCurrentProcess().StartTime:yyyyMMddTHHmmss}.log", $"{DateTime.Now:yyyyMMddTHHmmss} {System.Reflection.MethodBase.GetCurrentMethod ().DeclaringType}) " +
     )"
-    SendText(text)
+    PasteTextPreservingClipboard(text)
 
     text := "
     ( LTrim
