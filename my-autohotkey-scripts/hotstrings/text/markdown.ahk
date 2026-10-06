@@ -54,23 +54,25 @@
 
 ; Task
 :*?b0cx:;t;:: MarkdownTask(";t;")
-:*?b0cx:;ti;:: MarkdownTask(";ti;", "!")
-:*?b0cx:;tii;:: MarkdownTask(";tii;", "!!!")
+:*?b0cx:;ti;:: MarkdownTask(";ti;", Chr(0x1F511)) ; 🔑
+:*?b0cx:;tii;:: MarkdownTask(";tii;", Chr(0x2B50)) ; ⭐
+:*?b0cx:;tiii;:: MarkdownTask(";tiii;", Chr(0x1F6A8)) ; 🚨
 :*?b0cx:;ta;:: MarkdownTask(";ta;", "", Chr(0x2699))
-:*?b0cx:;tai;:: MarkdownTask(";tai;", "!", Chr(0x2699))
-:*?b0cx:;taii;:: MarkdownTask(";taii;", "!!!", Chr(0x2699))
-:*?b0cx:;td;:: MarkdownTask(";td;", "", Chr(0x1F5A5))
-:*?b0cx:;tdi;:: MarkdownTask(";tdi;", "!", Chr(0x1F5A5))
-:*?b0cx:;tdii;:: MarkdownTask(";tdii;", "!!!", Chr(0x1F5A5))
+:*?b0cx:;tai;:: MarkdownTask(";tai;", Chr(0x1F511), Chr(0x2699))
+:*?b0cx:;taii;:: MarkdownTask(";taii;", Chr(0x2B50), Chr(0x2699))
+:*?b0cx:;taiii;:: MarkdownTask(";taiii;", Chr(0x1F6A8), Chr(0x2699))
 :*?b0cx:;tk;:: MarkdownTask(";tk;", "", Chr(0x1F49E))
-:*?b0cx:;tki;:: MarkdownTask(";tki;", "!", Chr(0x1F49E))
-:*?b0cx:;tkii;:: MarkdownTask(";tkii;", "!!!", Chr(0x1F49E))
+:*?b0cx:;tki;:: MarkdownTask(";tki;", Chr(0x1F511), Chr(0x1F49E))
+:*?b0cx:;tkii;:: MarkdownTask(";tkii;", Chr(0x2B50), Chr(0x1F49E))
+:*?b0cx:;tkiii;:: MarkdownTask(";tkiii;", Chr(0x1F6A8), Chr(0x1F49E))
 :*?b0cx:;tp;:: MarkdownTask(";tp;", "", Chr(0x1F968))
-:*?b0cx:;tpi;:: MarkdownTask(";tpi;", "!", Chr(0x1F968))
-:*?b0cx:;tpii;:: MarkdownTask(";tpii;", "!!!", Chr(0x1F968))
+:*?b0cx:;tpi;:: MarkdownTask(";tpi;", Chr(0x1F511), Chr(0x1F968))
+:*?b0cx:;tpii;:: MarkdownTask(";tpii;", Chr(0x2B50), Chr(0x1F968))
+:*?b0cx:;tpiii;:: MarkdownTask(";tpiii;", Chr(0x1F6A8), Chr(0x1F968))
 :*?b0cx:;tz;:: MarkdownTask(";tz;", "", Chr(0x1F4AC))
-:*?b0cx:;tzi;:: MarkdownTask(";tzi;", "!", Chr(0x1F4AC))
-:*?b0cx:;tzii;:: MarkdownTask(";tzii;", "!!!", Chr(0x1F4AC))
+:*?b0cx:;tzi;:: MarkdownTask(";tzi;", Chr(0x1F511), Chr(0x1F4AC))
+:*?b0cx:;tzii;:: MarkdownTask(";tzii;", Chr(0x2B50), Chr(0x1F4AC))
+:*?b0cx:;tziii;:: MarkdownTask(";tziii;", Chr(0x1F6A8), Chr(0x1F4AC))
 
 ; Task category
 :*?b0cx:;tc;:: MarkdownInsertTaskCategory(";tc;")
