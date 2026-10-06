@@ -32,13 +32,13 @@
 :*?b0cx:;degree;:: CtrlBackspaceThenSend("{U+00B0}", 3) ; °
 
 ; Emoji
-:*?b0cx:;gear;:: CtrlBackspaceThenSend("{U+2699} ", 3) ; ⚙
-:*?b0cx:;k;:: CtrlBackspaceThenSend("{U+1F49E} ", 3) ; 💞
-:*?b0cx:;kellnermann;:: CtrlBackspaceThenSend("{U+1F49E} ", 3) ; 💞
-:*?b0cx:;star;:: CtrlBackspaceThenSend("{U+2B50} ", 3) ; ⭐
-:*?b0cx:;social;:: CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
-:*?b0cx:;sozial;:: CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
-:*?b0cx:;z;:: CtrlBackspaceThenSend("{U+1F4AC} ", 3) ; 💬
+:*?b0cx:;gear;:: BackspaceThenSend("{U+2699} ", StrLen(";gear;")) ; ⚙
+:*?b0cx:;k;:: BackspaceThenSend("{U+1F49E} ", StrLen(";k;")) ; 💞
+:*?b0cx:;kellerman;:: BackspaceThenSend("{U+1F49E} ", StrLen(";kellerman;")) ; 💞
+:*?b0cx:;star;:: BackspaceThenSend("{U+2B50} ", StrLen(";star;")) ; ⭐
+:*?b0cx:;social;:: BackspaceThenSend("{U+1F4AC} ", StrLen(";social;")) ; 💬
+:*?b0cx:;sozial;:: BackspaceThenSend("{U+1F4AC} ", StrLen(";sozial;")) ; 💬
+:*?b0cx:;z;:: BackspaceThenSend("{U+1F4AC} ", StrLen(";z;")) ; 💬
 
 ; Etc.
 :*?b0cx:;blocker;:: CtrlBackspaceThenSend("{U+1F6A7}", 3) ; 🚧 Construction sign
@@ -91,6 +91,11 @@
 :*cx?:;4nbsp;:: SendNoBreakSpaces(4)
 :*cx?:;8nbsp;:: SendNoBreakSpaces(8)
 :*cx?:;16nbsp;:: SendNoBreakSpaces(16)
+
+; Task Priority (importance)
+:*?b0cx:;i;:: BackspaceThenSend("{U+1F511}", StrLen(";i;")) ; 🔑
+:*?b0cx:;ii;:: BackspaceThenSend("{U+2B50}", StrLen(";ii;")) ; ⭐
+:*?b0cx:;iii;:: BackspaceThenSend("{U+1F6A8}", StrLen(";iii;")) ; 🚨
 
 ; Tree branches
 :*?b0cx:;br;:: BackspaceThenSend("{U+251C}{U+2500}{U+003E}", StrLen(";br;"))  ; ├─> tree (br)anch

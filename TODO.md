@@ -89,21 +89,21 @@ For each v1 script below:
   - [x] Port `OneNoteSendChainOfThought()`
   - [x] Verify OneNote task and chain-of-thought hotstrings
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/text/markdown.ahk`
+- [x] `my-autohotkeyv1-scripts/hotstrings/text/markdown.ahk`
   - [x] Port the generic markdown/task/code hotstrings
   - [x] Port `SendChainOfThought()`
   - [x] Remove the migrated file from the v1 text index and delete the legacy file
   - [x] Verify that generic markdown still yields to the Obsidian and OneNote overrides
 
 - [ ] `my-autohotkeyv1-scripts/hotstrings/text/coding.ahk`
-  - [ ] Port the mixed text-expansion and clipboard-based snippets
-  - [ ] Replace `WinClip` paste flows with v2 clipboard helpers
+  - [x] Port the mixed text-expansion and clipboard-based snippets
+  - [x] Replace `WinClip` paste flows with v2 clipboard helpers
   - [ ] Verify region/snippet insertion in editors that auto-complete aggressively
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/text/autocorrect.ahk`
-  - [ ] Prefer replacing this file with a known v2-compatible autocorrect source instead of hand-porting it
-  - [ ] Diff the replacement against the current file and preserve any repo-specific edits
-  - [ ] Enable only after the replacement passes validation in the v2 tree
+- [x] `my-autohotkeyv1-scripts/hotstrings/text/autocorrect.ahk`
+  - [x] Retain the validated v2-compatible port of the legacy autocorrect source
+  - [x] Preserve the repo-specific entries from the legacy file
+  - [x] Enable only after the replacement passes validation in the v2 tree
 
 ### Wave 4: Mid-Complexity Hotkeys and Clipboard Utilities
 
