@@ -114,10 +114,10 @@ For each v1 script below:
   - [x] Verify `<!h`, `<!p`, `<!t` (now a true toggle), and `^+!k` image paste
   - [x] Move the v1 string helpers into v1 `vim.ahk` (their only remaining v1 caller) before deleting the legacy file
 
-- [ ] `my-autohotkeyv1-scripts/hotkeys/obsidian.ahk`
-  - [ ] Port line-formatting hotkeys and the clipboard-preserving line capture flow
-  - [ ] Re-test the workaround for untoggling formatted tasks in Obsidian
-  - [ ] Verify interaction with Obsidian Vim mode and clipboard settings
+- [x] `my-autohotkeyv1-scripts/hotkeys/obsidian.ahk`
+  - [x] Port line-formatting hotkeys and the clipboard-preserving line capture flow
+  - [x] Re-test the workaround for untoggling formatted tasks in Obsidian
+  - [x] Verify interaction with Obsidian Vim mode and clipboard settings
 
 - [ ] `my-autohotkeyv1-scripts/hotstrings/actions/ai.ahk`
   - [ ] Keep the existing v2 `t3code.ahk` subset and port only the remaining role-prompt hotstrings/functions

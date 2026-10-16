@@ -2,7 +2,6 @@
 #include hotkeys/capslock.ahk
 #include hotkeys/display.ahk
 #include hotkeys/gnucash.ahk
-#include hotkeys/obsidian.ahk
 #include hotkeys/onenote.ahk
 #include hotkeys/prototype.ahk
 #include hotkeys/vim.ahk
