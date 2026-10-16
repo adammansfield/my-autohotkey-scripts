@@ -95,10 +95,10 @@ For each v1 script below:
   - [x] Remove the migrated file from the v1 text index and delete the legacy file
   - [x] Verify that generic markdown still yields to the Obsidian and OneNote overrides
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/text/coding.ahk`
+- [x] `my-autohotkeyv1-scripts/hotstrings/text/coding.ahk`
   - [x] Port the mixed text-expansion and clipboard-based snippets
   - [x] Replace `WinClip` paste flows with v2 clipboard helpers
-  - [ ] Verify region/snippet insertion in editors that auto-complete aggressively
+  - [x] Verify region/snippet insertion in editors that auto-complete aggressively
 
 - [x] `my-autohotkeyv1-scripts/hotstrings/text/autocorrect.ahk`
   - [x] Retain the validated v2-compatible port of the legacy autocorrect source
