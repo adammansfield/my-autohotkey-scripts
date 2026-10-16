@@ -119,10 +119,10 @@ For each v1 script below:
   - [x] Re-test the workaround for untoggling formatted tasks in Obsidian
   - [x] Verify interaction with Obsidian Vim mode and clipboard settings
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/actions/ai.ahk`
-  - [ ] Keep the existing v2 `t3code.ahk` subset and port only the remaining role-prompt hotstrings/functions
-  - [ ] Replace `WinClip` prompt-paste logic with v2 clipboard helpers
-  - [ ] Verify the remaining prompt helpers still paste correctly
+- [x] `my-autohotkeyv1-scripts/hotstrings/actions/ai.ahk`
+  - [x] Keep the existing v2 `t3code.ahk` subset and port only the remaining role-prompt hotstrings/functions
+  - [x] Replace `WinClip` prompt-paste logic with v2 clipboard helpers
+  - [x] Verify the remaining prompt helpers still paste correctly
 
 - [ ] `my-autohotkeyv1-scripts/hotstrings/actions/codetags.ahk`
   - [ ] Port the mnemonic class and codetag emitters
