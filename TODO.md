@@ -124,10 +124,11 @@ For each v1 script below:
   - [x] Replace `WinClip` prompt-paste logic with v2 clipboard helpers
   - [x] Verify the remaining prompt helpers still paste correctly
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/actions/codetags.ahk`
-  - [ ] Port the mnemonic class and codetag emitters
-  - [ ] Replace the clipboard-based paste path with v2 clipboard helpers
-  - [ ] Preserve the `#if !WinActive("Remote Desktop Connection")` behavior
+- [x] `my-autohotkeyv1-scripts/hotstrings/actions/codetags.ahk`
+  - [x] Port the mnemonic class and codetag emitters
+  - [x] Replace the clipboard-based paste path with v2 clipboard helpers
+  - [x] Preserve the `#if !WinActive("Remote Desktop Connection")` behavior
+  - [x] Verify representative `#todo`, `//bdm`, `//csdebugger`, and `;dm;` expansions
 
 ### Wave 5: OneNote-Heavy Shared Logic
 
