@@ -1,7 +1,6 @@
 #include hotkeys/audio.ahk
 #include hotkeys/capslock.ahk
 #include hotkeys/display.ahk
-#include hotkeys/etc.ahk
 #include hotkeys/gnucash.ahk
 #include hotkeys/obsidian.ahk
 #include hotkeys/onenote.ahk

@@ -2,6 +2,7 @@
 #Include capslock.ahk
 #Include chatgpt.ahk
 #Include chrome.ahk
+#Include etc.ahk
 #Include gnucash.ahk
 #Include prototype.ahk
 #Include reload-ahk.ahk

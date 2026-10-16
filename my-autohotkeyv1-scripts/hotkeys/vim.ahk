@@ -327,3 +327,60 @@ class Vim
     Vim.mode_ := Vim.kVisualMode_
   }
 }
+
+CountMinIndent(Byref string)
+{
+  min_indent := 99999
+  Loop, parse, string, `n, `r
+  {
+    indent := 0
+    Loop, parse, A_LoopField
+    {
+      ; NOTE: Cannot handle mixture of space and tab indentation [2020-01-06]
+      if (A_LoopField != A_Space && A_LoopField != A_Tab)
+      {
+        break
+      }
+      indent++
+    }
+
+    if (A_LoopField != "" && indent < min_indent)
+    {
+      min_indent := indent
+    }
+  }
+  return min_indent
+}
+
+;; Dedent string so no extra whitespace indentation.
+StringDedent(Byref string)
+{
+  min_indent := CountMinIndent(string)
+
+  dedented := ""
+  Loop, parse, string, `n, `r
+  {
+    if (A_Index > 1)
+    {
+      dedented := dedented "`n"
+    }
+    dedented := dedented SubStr(A_LoopField, min_indent + 1)
+  }
+
+  return dedented
+}
+
+;; Replace escaped new-lines "\n" with a real new-line "`n".
+StringUnescapeNewLine(Byref string)
+{
+  result := ""
+  Loop, parse, string, `n, `r
+  {
+    if (A_Index > 1)
+    {
+      result := result "`n"
+    }
+    result := result StrReplace(A_LoopField, "\n", "`n")
+  }
+  return result
+}

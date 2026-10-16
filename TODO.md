@@ -107,10 +107,12 @@ For each v1 script below:
 
 ### Wave 4: Mid-Complexity Hotkeys and Clipboard Utilities
 
-- [ ] `my-autohotkeyv1-scripts/hotkeys/etc.ahk`
-  - [ ] Port durable helpers such as `StringDedent()` and `StringUnescapeNewLine()`
-  - [ ] Replace image clipboard operations with v2 equivalents
-  - [ ] Decide whether one-off helpers like `ArchiveSwarmReview()` should be kept, moved, or dropped
+- [x] `my-autohotkeyv1-scripts/hotkeys/etc.ahk`
+  - [x] Port durable helpers such as `StringDedent()` and `StringUnescapeNewLine()`
+  - [x] Replace image clipboard operations with v2 equivalents
+  - [x] Decide whether one-off helpers like `ArchiveSwarmReview()` should be kept, moved, or dropped (dropped: no hotkey called it)
+  - [x] Verify `<!h`, `<!p`, `<!t` (now a true toggle), and `^+!k` image paste
+  - [x] Move the v1 string helpers into v1 `vim.ahk` (their only remaining v1 caller) before deleting the legacy file
 
 - [ ] `my-autohotkeyv1-scripts/hotkeys/obsidian.ahk`
   - [ ] Port line-formatting hotkeys and the clipboard-preserving line capture flow
