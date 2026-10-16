@@ -6,4 +6,5 @@
 #Include prototype.ahk
 #Include reload-ahk.ahk
 #Include slack.ahk
+#Include tasks.ahk
 #Include whispering.ahk
