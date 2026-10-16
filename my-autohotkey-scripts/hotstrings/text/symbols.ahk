@@ -86,8 +86,8 @@
 :*cx?:;16nbsp;:: SendNoBreakSpaces(16)
 
 ; Task Categories
-:*?b0cx:;a;:: BackspaceThenSend("{U+2699} ", StrLen(";a;")) ; ⚙  (arbeit)
-:*?b0cx:;gear;:: BackspaceThenSend("{U+2699} ", StrLen(";gear;")) ; ⚙  (arbeit)
+:*?b0cx:;a;:: BackspaceThenSend("{U+2699}{U+FE0F} ", StrLen(";a;")) ; ⚙️ (arbeit)
+:*?b0cx:;gear;:: BackspaceThenSend("{U+2699}{U+FE0F} ", StrLen(";gear;")) ; ⚙️ (arbeit)
 :*?b0cx:;k;:: BackspaceThenSend("{U+1F49E} ", StrLen(";k;")) ; 💞 (shared)
 :*?b0cx:;p;:: BackspaceThenSend("{U+1F968} ", StrLen(";p;")) ; 🥨 (persönlich)
 :*?b0cx:;z;:: BackspaceThenSend("{U+1F4AC} ", StrLen(";z;")) ; 💬 (sozial)
