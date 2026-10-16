@@ -3,6 +3,7 @@
 :*b0cx?:;sb;:: BackspaceThenSend("[]{Left}", StrLen(";sb;"))
 :*b0cx?:;wip;:: BackspaceThenSend("[WIP]{Space}", StrLen(";wip;"))
 
+:*cx?:;ar;:: Send("Accept the recommendations in this round.") ; /grill-me skill
 :*cx?:;aor;:: Send("+{Enter}Accept the other recommendations in this round.") ; /grill-me skill
 
 :*c?:;copyright;::{#}region --[Copyright]---------------------------------------------------------
