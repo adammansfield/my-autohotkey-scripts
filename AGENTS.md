@@ -10,11 +10,9 @@ pwsh -ExecutionPolicy Bypass -File .\Test-Ahk.ps1
 
 ## Project Overview
 
-This project is split between AutoHotkey v1 and AutoHotkey v2 during an active migration.
+This project is a set of AutoHotkey v2 scripts.
 
-- `my-autohotkey-scripts.ahk` is the canonical AutoHotkey v2 entrypoint.
-- `my-autohotkeyv1-scripts/my-autohotkeyv1-scripts.ahk` is the deprecated AutoHotkey v1 entrypoint.
-- The v1 tree is legacy code being migrated into v2 over time.
+- `my-autohotkey-scripts.ahk` is the AutoHotkey v2 entrypoint.
 
 ## V2 Layout
 
@@ -22,13 +20,6 @@ This project is split between AutoHotkey v1 and AutoHotkey v2 during an active m
 - `my-autohotkey-scripts/hotkeys/` is for hotkey-driven behavior.
 - `my-autohotkey-scripts/hotstrings/text/` is for text expansion hotstrings.
 - `my-autohotkey-scripts/hotstrings/actions/` is for hotstrings that perform actions instead of emitting raw text.
-
-## Migration Rules
-
-- Prefer implementing new behavior in the v2 tree.
-- Do not migrate v1 code unless the task explicitly calls for migration.
-- If copying logic from v1, keep the v1 source intact unless the task explicitly calls for migration.
-- Avoid adding new shared code to the v1 tree.
 
 ## Shared Helpers
 
