@@ -1,13 +1,6 @@
 $root = $PSScriptRoot
 
-$v1ScriptPath = Join-Path $root "my-autohotkeyv1-scripts\my-autohotkeyv1-scripts.ahk"
 $v2ScriptPath = Join-Path $root "my-autohotkey-scripts.ahk"
-
-$v1ExeCandidates = @(
-    "C:\Program Files\AutoHotkey\v1.1.37.01\AutoHotkeyU64.exe",
-    "C:\Program Files\AutoHotkey\v1.1.37.01\AutoHotkeyU32.exe",
-    "C:\Program Files\AutoHotkey\v1.1.37.01\AutoHotkeyA32.exe"
-)
 
 $v2ExeCandidates = @(
     "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe",
@@ -66,14 +59,7 @@ function Invoke-AhkValidation {
     return $true
 }
 
-$v1ExePath = Resolve-Executable -Candidates $v1ExeCandidates -Label "v1"
 $v2ExePath = Resolve-Executable -Candidates $v2ExeCandidates -Label "v2"
-
-$v1Succeeded = Invoke-AhkValidation `
-    -Label "AHKv1 legacy script" `
-    -Executable $v1ExePath `
-    -ScriptPath $v1ScriptPath `
-    -Arguments @("/ErrorStdOut", "/iLib", "NUL")
 
 $v2Succeeded = Invoke-AhkValidation `
     -Label "AHKv2 canonical script" `
@@ -81,15 +67,10 @@ $v2Succeeded = Invoke-AhkValidation `
     -ScriptPath $v2ScriptPath `
     -Arguments @("/validate", "/ErrorStdOut")
 
-#Write-Host 'v1Succeeded:'
-#Write-Host $v1Succeeded
 #Write-Host 'v2Succeeded:'
 #Write-Host $v2Succeeded
 
-if (!$v1Succeeded) {
-  Write-Host "ERROR: AHK v1 validation failed" -ForegroundColor Red
-  exit 1
-} elseif (!$v2Succeeded) {
+if (!$v2Succeeded) {
   Write-Host "ERROR: AHK v2 validation failed" -ForegroundColor Red
   exit 1
 }
