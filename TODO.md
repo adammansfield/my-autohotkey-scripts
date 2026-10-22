@@ -139,10 +139,12 @@ For each v1 script below:
   - [x] Verify `^+a` task cycling, the `^+b`/`^+h`/`^+i`/`^+u`/`^+-` line formats, `^+f`, and `^+t` (retypes without color, as in v1, because `OneNoteLog` has no default color)
   - [x] Move `OneNoteClearPastePopup()` into v1 `vim.ahk` (its only remaining v1 caller) before deleting the legacy file
 
-- [ ] `my-autohotkeyv1-scripts/hotstrings/actions/logging.ahk`
-  - [ ] Extract reusable helpers first: `DelayedSend()`, `SendClearLine()`, `OneNotePaste()`, and `RoundMin()`
-  - [ ] Port the simple log flows before the monthly-template and standup generators
-  - [ ] Validate HTML paste, timestamp coloring, and clipboard preservation in OneNote before removing the v1 version
+- [x] `my-autohotkeyv1-scripts/hotstrings/actions/logging.ahk`
+  - [x] Extract reusable helpers first: `DelayedSend()`, `SendClearLine()`, `OneNotePaste()`, and `RoundMin()`
+  - [x] Port the simple log flows before the monthly-template and standup generators
+  - [x] Validate HTML paste, timestamp coloring, and clipboard preservation in OneNote before removing the v1 version
+  - [x] Verify `;log;`, `;logref;`, `;logoverflow;`, `;tooverflow;`, `;logmonat;`, and `;logstandups;`
+  - [x] Decide whether to keep the unused `OneNoteLogDebug()` (dropped: no hotstring called it)
 
 ### Wave 6: Hardest and Most Stateful Files
 
@@ -171,5 +173,5 @@ For each v1 script below:
 
 - [ ] Empty the v1 `hotkeys/index.ahk`
 - [ ] Empty the v1 `hotstrings/text/index.ahk`
-- [ ] Empty the v1 `hotstrings/actions/index.ahk`
+- [x] Empty the v1 `hotstrings/actions/index.ahk`
 - [ ] Remove the legacy `my-autohotkeyv1-scripts/` subtree after all migrated files are verified in v2
