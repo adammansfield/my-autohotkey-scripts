@@ -107,6 +107,7 @@
 :*?b0cx:;dreordered;:: MarkdownDiff(";dreordered;", "~REPRIORITIZED", "#c88b2b")
 :*?b0cx:;dreprioritized;:: MarkdownDiff(";dreprioritized;", "~REPRIORITIZED", "#c88b2b")
 :*?b0cx:;drepriority;:: MarkdownDiff(";drepriority;", "~REPRIORITIZED", "#c88b2b")
+:*?b0cx:;dactive;:: MarkdownDiff(";dactive;", "~ACTIVE", "#007acc")
 
 MarkdownInsertInlineCode() {
     BackspaceTextThenSendText(MarkdownBackticks(2), ";c;")
