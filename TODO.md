@@ -149,8 +149,8 @@ For each v1 script below:
 ### Wave 6: Hardest and Most Stateful Files
 
 - [ ] `my-autohotkeyv1-scripts/hotkeys/vim.ahk`
-  - [ ] Port the `Vim` mode class and all mode-dependent hotkeys to v2 syntax
-  - [ ] Rebuild the clipboard and HTML paste logic on top of migrated v2 helpers
+  - [x] Port the `Vim` mode class and all mode-dependent hotkeys to v2 syntax (dropped the `>!<!p` paste-as-code hotkey and the empty `>!+p` stub; moved the Dvorak `^+;`/`^+q`/`^+j`/`^+k` remaps to `dvorak.ahk`)
+  - [x] Rebuild the clipboard and HTML paste logic on top of migrated v2 helpers (visual-mode `u`/`U` now preserve the clipboard)
   - [ ] Re-test the OneNote navigation workaround and visual-mode resets after every major step
 
 - [x] `my-autohotkeyv1-scripts/hotkeys/prototype.ahk`

@@ -11,4 +11,5 @@
 #Include reload-ahk.ahk
 #Include slack.ahk
 #Include tasks.ahk
+#Include vim.ahk
 #Include whispering.ahk
