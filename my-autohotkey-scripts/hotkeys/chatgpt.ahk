@@ -15,12 +15,14 @@ DeleteChatGPTThread() {
         Click("Left") ; Click '...'
         Sleep(128) ; Wait for popup
 
-        Send("{Up}") ; Select `Delete`
+        Send("{Up 2}") ; Select `Delete` (above `Move to project`)
         Sleep(32) ; Wait for `Delete` selection
         Send("{Enter}") ; Submit `Delete`
         Sleep(128) ; Wait for `Delete chat?` popup
 
-        Send("{Enter}") ; Submit `Delete` in popup
+        Send("{Tab}") ; Move focus from `Cancel` to `Delete chat`
+        Sleep(32) ; Wait for `Delete chat` focus
+        Send("{Enter}") ; Submit `Delete chat` in popup
 
         ToolTip("Deleted ChatGPT thread")
         Sleep(500)
