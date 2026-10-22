@@ -2,6 +2,7 @@
 #Include capslock.ahk
 #Include chatgpt.ahk
 #Include chrome.ahk
+#Include dvorak.ahk
 #Include etc.ahk
 #Include gnucash.ahk
 #Include obsidian.ahk
