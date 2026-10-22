@@ -1,2 +1,2 @@
-#include hotkeys/prototype.ahk
+#include hotkeys/reload-ahk.ahk
 #include hotkeys/vim.ahk

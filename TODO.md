@@ -153,10 +153,10 @@ For each v1 script below:
   - [ ] Rebuild the clipboard and HTML paste logic on top of migrated v2 helpers
   - [ ] Re-test the OneNote navigation workaround and visual-mode resets after every major step
 
-- [ ] `my-autohotkeyv1-scripts/hotkeys/prototype.ahk`
-  - [ ] Leave `AlertedReload()` as already copied into v2 and migrate only the remaining prototype utilities that are still useful
-  - [ ] Decide whether `SplitSideMonitorWindows()`, `DumpBytesToFile()`, and the empty `PrototypeFunction()` still belong in the project
-  - [ ] Remove dead prototype code instead of porting it if it no longer serves a real workflow
+- [x] `my-autohotkeyv1-scripts/hotkeys/prototype.ahk`
+  - [x] Leave `AlertedReload()` as already copied into v2 and migrate only the remaining prototype utilities that are still useful (v1 `<!+r` now lives in v1 `reload-ahk.ahk`)
+  - [x] Decide whether `SplitSideMonitorWindows()`, `DumpBytesToFile()`, and the empty `PrototypeFunction()` still belong in the project (dropped `SplitSideMonitorWindows()` and `DumpBytesToFile()`; kept the empty v2 `PrototypeFunction()` scratch hotkey)
+  - [x] Remove dead prototype code instead of porting it if it no longer serves a real workflow
 
 ### Library Ports to Defer Until Needed
 
