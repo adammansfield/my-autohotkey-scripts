@@ -132,10 +132,12 @@ For each v1 script below:
 
 ### Wave 5: OneNote-Heavy Shared Logic
 
-- [ ] `my-autohotkeyv1-scripts/hotkeys/onenote.ahk`
-  - [ ] Port line formatting hotkeys, markdown task toggling, paste-popup clearing, and timestamp recoloring
-  - [ ] Reuse shared v2 helpers for delayed sends, clipboard restore, and OneNote HTML paste
-  - [ ] Verify OneNote paste-popup handling still works after v2 migration
+- [x] `my-autohotkeyv1-scripts/hotkeys/onenote.ahk`
+  - [x] Port line formatting hotkeys, markdown task toggling, paste-popup clearing, and timestamp recoloring
+  - [x] Reuse shared v2 helpers for delayed sends, clipboard restore, and OneNote HTML paste
+  - [x] Verify OneNote paste-popup handling still works after v2 migration
+  - [x] Verify `^+a` task cycling, the `^+b`/`^+h`/`^+i`/`^+u`/`^+-` line formats, `^+f`, and `^+t` (retypes without color, as in v1, because `OneNoteLog` has no default color)
+  - [x] Move `OneNoteClearPastePopup()` into v1 `vim.ahk` (its only remaining v1 caller) before deleting the legacy file
 
 - [ ] `my-autohotkeyv1-scripts/hotstrings/actions/logging.ahk`
   - [ ] Extract reusable helpers first: `DelayedSend()`, `SendClearLine()`, `OneNotePaste()`, and `RoundMin()`

@@ -384,3 +384,14 @@ StringUnescapeNewLine(Byref string)
   }
   return result
 }
+
+OneNoteClearPastePopup()
+{
+  if (WinActive("- OneNote"))
+  {
+    Sleep(1) ; Wait for paste pop-up
+    Send("{Esc}") ; Clear paste pop-up
+    WinWaitClose, PopupHost ahk_exe onenoteim.exe,, 1 ; Wait for paste pop-up to clear
+    Sleep(1) ; Wait for after clearing paste pop-up
+  }
+}

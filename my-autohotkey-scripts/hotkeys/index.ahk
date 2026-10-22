@@ -5,6 +5,7 @@
 #Include etc.ahk
 #Include gnucash.ahk
 #Include obsidian.ahk
+#Include onenote.ahk
 #Include prototype.ahk
 #Include reload-ahk.ahk
 #Include slack.ahk
