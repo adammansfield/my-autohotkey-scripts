@@ -58,6 +58,8 @@ function Invoke-Process {
     $startInfo.WorkingDirectory = $WorkingDirectory
     $startInfo.RedirectStandardOutput = $true
     $startInfo.RedirectStandardError = $true
+    $startInfo.StandardOutputEncoding = [System.Text.Encoding]::UTF8 # The formatter writes UTF-8 regardless of the console code page.
+    $startInfo.StandardErrorEncoding = [System.Text.Encoding]::UTF8
     $startInfo.UseShellExecute = $false
 
     foreach ($argument in $ArgumentList) {
