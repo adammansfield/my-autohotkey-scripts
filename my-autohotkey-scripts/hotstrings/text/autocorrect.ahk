@@ -2,7 +2,7 @@
     !WinActive("ahk_class VirtualConsoleClass") &&
     !WinActive("ahk_exe devenv.exe") &&
     !WinActive("ahk_exe WindowsTerminal.exe") &&
-    !WinActive("ahk_exe T3 Code (Beta).exe")
+    !WinActive("ahk_exe T3 Code \(Beta\)\.exe")
 
 ; Fix for -ign instead of -ing.
 { ; Word Beginnings
