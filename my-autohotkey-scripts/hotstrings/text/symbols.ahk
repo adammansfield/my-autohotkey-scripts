@@ -59,20 +59,20 @@
 
 ; Greek characters
 ; First character determines case, for example phi=lowercase and Phi=UPPERCASE.
-:*c?:;alpha;:: Send("{U+03B1}")
-:*c?:;beta;:: Send("{U+03B2}")
+:*cx?:;alpha;:: Send("{U+03B1}")
+:*cx?:;beta;:: Send("{U+03B2}")
 :*?b0cx:;delta;:: BackspaceThenSend("{U+03B4}", StrLen(";delta;"))
 :*?b0cx:;Delta;:: BackspaceThenSend("{U+0394}", StrLen(";Delta;"))
-:*c?:;epsilon;:: Send("{U+03B5}")
-:*c?:;gamma;:: Send("{U+03B3}")
-:*c?:;omega;:: Send("{U+03C9}")
-:*c?:;phi;:: Send("{U+03C6}")
-:*c?:;Phi;:: Send("{U+03A6}")
-:*c?:;pi;:: Send("{U+03C0}")
-:*c?:;sigma;:: Send("{U+03C3}")
-:*c?:;Sigma;:: Send("{U+03A3}")
-:*c?:;tau;:: Send("{U+03C4}")
-:*c?:;theta;:: Send("{U+03B8}")
+:*cx?:;epsilon;:: Send("{U+03B5}")
+:*cx?:;gamma;:: Send("{U+03B3}")
+:*cx?:;omega;:: Send("{U+03C9}")
+:*cx?:;phi;:: Send("{U+03C6}")
+:*cx?:;Phi;:: Send("{U+03A6}")
+:*cx?:;pi;:: Send("{U+03C0}")
+:*cx?:;sigma;:: Send("{U+03C3}")
+:*cx?:;Sigma;:: Send("{U+03A3}")
+:*cx?:;tau;:: Send("{U+03C4}")
+:*cx?:;theta;:: Send("{U+03B8}")
 
 ; Infinity
 :*?b0cx:;inf;:: CtrlBackspaceThenSend("{U+221E}", 3)
