@@ -18,8 +18,6 @@
 ;  TODO:
 ;   The code below has a TODO.
 
-#HotIf !WinActive("Remote Desktop Connection")
-
 :*?cx:#bdm:: SendDontMergeBlockCodeTag("#")
 :*?cx:#comment:: SendCommentCodeTag("#")
 :*?cx:#consider:: SendConsiderCodeTag("#")
@@ -81,8 +79,6 @@
 :*?cx:;notect;:: SendText(Mnemonics.Note)
 :*?cx:;refactorct;:: SendText(Mnemonics.Refactor)
 :*?cx:;todoct;:: SendText(Mnemonics.Todo)
-
-#HotIf
 
 SendCodeTag(commentChar, mnemonic, subject := "", timestamp := "") {
     if (timestamp = "") {

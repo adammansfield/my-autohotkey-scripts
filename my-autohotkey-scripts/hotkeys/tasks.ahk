@@ -1,8 +1,4 @@
-; Let Remote Desktop forward alt-g to the remote script, because a paste sent through Remote Desktop
-; arrives as a plain "v" when its Ctrl release overtakes the v key.
-#HotIf !WinActive("Remote Desktop Connection")
 <!g:: PasteTextPreservingClipboard(ConvertToTasks(A_Clipboard, GetClipboardHtml()))
-#HotIf
 
 ConvertToTasks(text, html := "") {
     if RegExMatch(text, "^\s*- \[") {

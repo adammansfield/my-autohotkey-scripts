@@ -1,3 +1,5 @@
+; Keep these during a Remote Desktop suspend, otherwise this computer toggles Caps Lock as well.
+#SuspendExempt
 *CapsLock::
 {
     Send("{Esc}")
@@ -13,3 +15,4 @@
     }
     KeyWait("CapsLock")
 }
+#SuspendExempt False
