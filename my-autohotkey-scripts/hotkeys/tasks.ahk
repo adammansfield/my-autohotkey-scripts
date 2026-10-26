@@ -19,10 +19,10 @@ ResetTasksAsWorkTasks(text) {
     return RegExReplace(text, "m)^([ \t]*[-*+] )\[[^\]]\] (?:\x{2699}\x{FE0F}? )?", "$1[ ] " gear " ")
 }
 
-; Converts each work item link line into an unchecked Markdown task, dropping the #size/... tag and
-; any work item state copied after the link.
+; Converts each work item link line into an unchecked Markdown task, dropping the trailing tags such as
+; #size/M and #P1, and any work item state copied after the link.
 ConvertWorkItemLinksToTasks(text) {
-    return RegExReplace(text, "m)^[ \t]*\[([^\]\r\n]*?)(?:[ \t]*#size/[^\s\]]*)?\]\(([^)\r\n]*)\)[^\r\n]*", "- [ ] [$1]($2)")
+    return RegExReplace(text, "m)^[ \t]*\[([^\]\r\n]*?)(?:[ \t]*#[^\s\]]+)*\]\(([^)\r\n]*)\)[^\r\n]*", "- [ ] [$1]($2)")
 }
 
 ; Returns a Markdown link line for each Azure DevOps work item link in the HTML.
