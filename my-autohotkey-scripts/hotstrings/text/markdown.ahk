@@ -90,6 +90,8 @@
 :*?b0cx:;stti;:: BackspaceTextThenSendText(Chr(0x2514) Chr(0x2500) Chr(0x003E) Chr(0x1F7E6) " ", ";stti;")
 
 ; Task list diff
+; Let the remote script replace these, otherwise both scripts backspace and send the diff label.
+#HotIf !WinActive("Remote Desktop Connection")
 :*?b0cx:;dadded;:: MarkdownDiff(";dadded;", "+NEW", "#b83230")
 :*?b0cx:;dnew;:: MarkdownDiff(";dnew;", "+NEW", "#b83230")
 :*?b0cx:;dreopen;:: MarkdownDiff(";dreopen;", "+REOPENED", "#b83230")
@@ -108,6 +110,7 @@
 :*?b0cx:;dreprioritized;:: MarkdownDiff(";dreprioritized;", "~REPRIORITIZED", "#c88b2b")
 :*?b0cx:;drepriority;:: MarkdownDiff(";drepriority;", "~REPRIORITIZED", "#c88b2b")
 :*?b0cx:;dactive;:: MarkdownDiff(";dactive;", "~ACTIVE", "#007acc")
+#HotIf
 
 MarkdownInsertInlineCode() {
     BackspaceTextThenSendText(MarkdownBackticks(2), ";c;")
