@@ -116,6 +116,13 @@ MarkdownInsertInlineCode() {
 
 MarkdownInsertCodeBlock(trigger, language := "") {
     BackspaceTextThenSendText(MarkdownBackticks(3) . language, trigger)
+
+    ; T3 Code turns the fence line into a code block and adds the closing fence on Shift+Enter.
+    if WinActive("ahk_exe T3 Code \(Beta\)\.exe") {
+        Send("+{Enter}")
+        return
+    }
+
     Send("+{Enter}+{Enter}")
     SendText(MarkdownBackticks(3))
     Send("{Up}")
