@@ -22,6 +22,10 @@ UpdateRemoteDesktopSuspend() {
     static suspendedForRemoteDesktop := false
 
     if WinActive(RemoteDesktopWinTitle) {
+        ; The Remote Desktop client's keyboard hook can run ahead of ours, and it replays the physical
+        ; keys it takes as injected ones, which #SuspendExempt hotkeys that check the physical state
+        ; miss. Shortly after it activates, reinstall our hook so ours sees the physical keys first.
+        SetTimer(() => InstallKeybdHook(true, true), -250)
         if !A_IsSuspended {
             Suspend(true)
             suspendedForRemoteDesktop := true
