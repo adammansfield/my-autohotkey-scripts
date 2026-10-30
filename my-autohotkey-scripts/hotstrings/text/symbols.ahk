@@ -41,6 +41,8 @@
 :*?b0cx:;neu;:: CtrlBackspaceThenSend("{U+1F195}", 3) ; 🆕
 :*?b0cx:;new;:: CtrlBackspaceThenSend("{U+1F195}", 3) ; 🆕
 :*?b0cx:;v;:: CtrlBackspaceThenSend("{U+1F474}{U+1F3FB}", 3) ; 👴
+:*?b0cx:;stretch;:: CtrlBackspaceThenSend("{U+1F3F9}", 3) ; 🏹
+:*?b0cx:;bow;:: CtrlBackspaceThenSend("{U+1F3F9}", 3) ; 🏹
 
 :*?b0cx:;halfspace;:: BackspaceThenSend("{U+2009}", StrLen(";halfspace;")) ; Thin space
 :*?b0cx:;thinspace;:: BackspaceThenSend("{U+2009}", StrLen(";thinspace;")) ; Thin space
